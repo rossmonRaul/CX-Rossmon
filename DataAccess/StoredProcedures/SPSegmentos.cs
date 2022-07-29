@@ -4,15 +4,16 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BussinesLogic.Models;
 using Dapper;
 using DataAccess.Conexion;
+using Dominio.Dto;
 using Microsoft.Data.SqlClient;
 
-namespace BussinesLogic.ServicesSp
+namespace DataAccess.StoredProcedures
 {
-    public class ProcedimientosAlmacenados
+    public class SPSegmentos
     {
+        /*
         //Procedimiento Almacenado
         #region
         public string sp = "sp_Segmentos";
@@ -20,7 +21,7 @@ namespace BussinesLogic.ServicesSp
         //Objetos 
         #region
         BdConexion obj = new BdConexion();
-        ProcedimientosAlmacenados obj1 = new ProcedimientosAlmacenados();
+        SPSegmentos obj1 = new SPSegmentos();
         #endregion
         
         //Metodos
@@ -31,7 +32,7 @@ namespace BussinesLogic.ServicesSp
             //LLAMADO PARA REALIZAR EL CONSUMO DEL PROCEDIMIENTO ALMACENADO
             using (var connection = new SqlConnection(obj.connectionString))
             {
-                var segmentos = connection.Query<Segmentos>(obj1.sp, commandType: CommandType.StoredProcedure);
+                var segmentos = connection.Query<DtoSegmentos>(obj1.sp, commandType: CommandType.StoredProcedure);
                 foreach (var element in segmentos)
                 {
 
@@ -40,5 +41,6 @@ namespace BussinesLogic.ServicesSp
             }
         }
         #endregion
+        */
     }
 }
