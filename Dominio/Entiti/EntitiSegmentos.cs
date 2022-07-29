@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BussinesLogic.Models
+namespace Dominio.Entiti
 {
     //MODELO DE SEGMENTOS
-    public class Segmentos
+    public class EntitiSegmentos
     {
         public int IdSegmento { get; set; }
         public string Tipo { get; set; }

@@ -1,6 +1,7 @@
 ﻿import React, { Component, useEffect, useState } from 'react';
 import { Container, Form, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
-import {Grid } from '../grid.js'
+import { Grid } from '../grid.js';
+import { ObtenerLineaNegocio } from '../../servicios/ServicioLineaNegocio';
 
 
 export class MantenimientoLineasServicio extends Component {
@@ -9,25 +10,20 @@ export class MantenimientoLineasServicio extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            listaServicios: [
-                { idLinea: '2', nombrePlanta: 'Servicio 1'},
-                { idLinea: 'nombrePlanta', nombrePlanta: 'Servicio 2'}],
-            encabezado : [
-                { id: 'idLinea', name: 'Ubicación', selector: row => row.idLinea, head: "Ubicación" },
-                { id: 'nombrePlanta', name: 'Planta', selector: row => row.nombrePlanta, head: "Planta" },
+            listaNegocios: [],
+            encabezado: [
+                { id: 'idLinea', name: 'Id', selector: row => row.idLinea, head: "Id Línea" },
+                { id: 'lineaNegocio', name: 'Línea Negocio', selector: row => row.lineaNegocio, head: "Línea Negocio" },
             ],
             pendiente: false,
             filaSeleccionada: {},
             data: {},
             bloquearBoton: true,
-            textoBotonInactivar : "Inactivar"
+            textoBotonInactivar: "Inactivar"
         };
 
         this.onClickSeleccionarFila = this.onClickSeleccionarFila.bind(this)
     }
-    /*   
-    */
-
     onClickSeleccionarFila(fila) {
         
         const filaValida = Object.entries(fila).length === 0 ? false : true;
@@ -41,13 +37,21 @@ export class MantenimientoLineasServicio extends Component {
          Object.entries(fila).length === 0 ? false : true;
     }*/
 
+    componentDidMount() {
+        this.ObtenerListadoLineaNegocio();
+    }
+
+    async ObtenerListadoLineaNegocio() {
+        this.setState({ pendiente: true });
+        const respuesta = await ObtenerLineaNegocio();
+        this.setState({ listaNegocios: respuesta });
+        this.setState({ pendiente: false });
+    }
+
 
 
 
     render() {
-
-       
-       
         return (
             <main>
                 <div className="row-full">Mantenimiento de Lineas de Servicio </div>
@@ -67,13 +71,13 @@ export class MantenimientoLineasServicio extends Component {
                         </Col>
 
                         <Col md={4}>
-                           
+
                         </Col>
-                     </Row>
+                    </Row>
 
                     <Row>
                         <Col md={4}>
-                           
+
                         </Col>
                     </Row>
 
@@ -83,7 +87,7 @@ export class MantenimientoLineasServicio extends Component {
                             <tr >
                                 <th>Código línea servicio</th>
                                 <th>Descripción</th>
-                               
+
 
 
                             </tr>
@@ -93,32 +97,32 @@ export class MantenimientoLineasServicio extends Component {
                         </tbody>
                     </table>
 
-                
 
-                <Row>
-                    <Col md={4}>
-                        <div className="item1">
-                            <h6 className="heading3"> Adicionado por</h6>
-                            <input type="text" className="etiqueta" name="fecha_adicion" />
-                            <input type="text" placeholder="" name="usuario_adicion_taller" />
 
-                        </div>
+                    <Row>
+                        <Col md={4}>
+                            <div className="item1">
+                                <h6 className="heading3"> Adicionado por</h6>
+                                <input type="text" className="etiqueta" name="fecha_adicion" />
+                                <input type="text" placeholder="" name="usuario_adicion_taller" />
 
-                    </Col>
+                            </div>
 
-                    <Col md={4}>
-                        <div className="item1">
-                            <h6 className="heading3">Modificado por</h6>
-                            <input type="text" className="etiqueta" name="fecha_modificacion" />
-                            <input type="text" placeholder="" name="usuario_modificacion_taller" />
-                        </div>
+                        </Col>
 
-                    </Col>
+                        <Col md={4}>
+                            <div className="item1">
+                                <h6 className="heading3">Modificado por</h6>
+                                <input type="text" className="etiqueta" name="fecha_modificacion" />
+                                <input type="text" placeholder="" name="usuario_modificacion_taller" />
+                            </div>
+
+                        </Col>
                     </Row>
 
                     <Row>
                         <Col md={3}>
-                         
+
                         </Col>
                         <Col md={3}>
                             <button id="btnGuardar" type="button" className="btn  btn-block botones" >Guardar</button>
@@ -129,7 +133,7 @@ export class MantenimientoLineasServicio extends Component {
                         </Col>
 
                         <Col md={3}>
-                           
+
                         </Col>
                     </Row>
                     { /*TABLA Y BOTONES*/}
@@ -141,18 +145,13 @@ export class MantenimientoLineasServicio extends Component {
                     <Button variant="danger" type="submit" size="sm" disabled={this.state.bloquearBoton}>{this.state.textoBotonInactivar}</Button>
                     <br /><br />
 
-                    <Grid gridHeading={this.state.encabezado} gridData={this.state.listaServicios} selectableRows={true} pending={this.state.pendiente}
+
+                    <Grid gridHeading={this.state.encabezado} gridData={this.state.listaNegocios} selectableRows={true} pending={this.state.pendiente}
                         setFilaSeleccionada={this.onClickSeleccionarFila} idBuscar="idLinea" />
                     <br /><br />
-                    {/************/}
 
                 </Container>
-               
-
-               
-              
-
-                </main>
-            );
+            </main>
+        );
     }
 }
