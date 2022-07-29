@@ -1,10 +1,24 @@
 ﻿import React, { Component } from 'react';
 import { Container, Form, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
-
+//Bootstrap and jQuery libraries
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'jquery/dist/jquery.min.js';
+//Datatable Modules
+import "datatables.net-dt/js/dataTables.dataTables"
+import "datatables.net-dt/css/jquery.dataTables.min.css"
+import $ from 'jquery';
 
 export class MantenimientoCategoria extends Component {
     static displayName = MantenimientoCategoria.name;
+    //Inicializar la datatable de jquery
+    componentDidMount() {
+        //initialize datatable
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    }
 
+    
 
     render() {
         return (
@@ -37,20 +51,117 @@ export class MantenimientoCategoria extends Component {
                     </Row>
 
 
-                    <table className="table table-bordered table" name="table_categoria">
-                        <thead className="titulo2">
+                    <table id="example"
+                        class="display" >
+                        <thead >
                             <tr >
-                                <th>Código categoria</th>
-                                <th>Descripción categoria</th>
-                               
-
-
-                            </tr>
+                                <th > Name </th>
+                                <th > Position </th>
+                                <th > Office </th>
+                                <th > Age </th>
+                                <th > Start date </th>
+                                <th > Salary </th>
+                            </tr >
                         </thead>
-                        <tbody>
-
+                        <tbody >
+                            <tr >
+                                <td > Tiger Nixon </td>
+                                <td > System Architect </td>
+                                <td > Edinburgh </td>
+                                <td > 61 </td>
+                                <td > 2011 / 04 / 25 </td>
+                                <td > $320, 800 </td>
+                            </tr >
+                            <tr >
+                                <td > Tiger Nixon </td>
+                                <td > System Architect </td>
+                                <td > Edinburgh </td>
+                                <td > 61 </td>
+                                <td > 2011 / 04 / 25 </td>
+                                <td > $320, 800 </td>
+                            </tr >
+                            <tr >
+                                <td > Tiger Nixon </td>
+                                <td > System Architect </td>
+                                <td > Edinburgh </td>
+                                <td > 61 </td>
+                                <td > 2011 / 04 / 25 </td>
+                                <td > $320, 800 </td>
+                            </tr >
+                            <tr >
+                                <td > Tiger Nixon </td>
+                                <td > System Architect </td>
+                                <td > Edinburgh </td>
+                                <td > 61 </td>
+                                <td > 2011 / 04 / 25 </td>
+                                <td > $320, 800 </td>
+                            </tr >
+                            <tr >
+                                <td > Tiger Nixon </td>
+                                <td > System Architect </td>
+                                <td > Edinburgh </td>
+                                <td > 61 </td>
+                                <td > 2011 / 04 / 25 </td>
+                                <td > $320, 800 </td>
+                            </tr >
+                            <tr >
+                                <td > Tiger Nixon </td>
+                                <td > System Architect </td>
+                                <td > Edinburgh </td>
+                                <td > 61 </td>
+                                <td > 2011 / 04 / 25 </td>
+                                <td > $320, 800 </td>
+                            </tr >
+                            <tr >
+                                <td > Tiger Nixon </td>
+                                <td > System Architect </td>
+                                <td > Edinburgh </td>
+                                <td > 61 </td>
+                                <td > 2011 / 04 / 25 </td>
+                                <td > $320, 800 </td>
+                            </tr >
+                            <tr >
+                                <td > Tiger Nixon </td>
+                                <td > System Architect </td>
+                                <td > Edinburgh </td>
+                                <td > 61 </td>
+                                <td > 2011 / 04 / 25 </td>
+                                <td > $320, 800 </td>
+                            </tr >
+                            <tr >
+                                <td > Tiger Nixon </td>
+                                <td > System Architect </td>
+                                <td > Edinburgh </td>
+                                <td > 61 </td>
+                                <td > 2011 / 04 / 25 </td>
+                                <td > $320, 800 </td>
+                            </tr >
+                            <tr >
+                                <td > Tiger Nixon </td>
+                                <td > System Architect </td>
+                                <td > Edinburgh </td>
+                                <td > 61 </td>
+                                <td > 2011 / 04 / 25 </td>
+                                <td > $320, 800 </td>
+                            </tr >
+                            <tr >
+                                <td > Tiger Nixon </td>
+                                <td > System Architect </td>
+                                <td > Edinburgh </td>
+                                <td > 61 </td>
+                                <td > 2011 / 04 / 25 </td>
+                                <td > $320, 800 </td>
+                            </tr >
+                            <tr >
+                                <td > Tiger Nixon </td>
+                                <td > System Architect </td>
+                                <td > Edinburgh </td>
+                                <td > 61 </td>
+                                <td > 2011 / 04 / 25 </td>
+                                <td > $320, 800 </td>
+                            </tr >
                         </tbody>
-                    </table>
+                    </table >
 
                 
 
