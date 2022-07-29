@@ -1,4 +1,4 @@
-﻿import React, { Component } from 'react';
+﻿import React, { Component, useEffect, useState } from 'react';
 import { Container, Form, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
 import { Grid } from '../grid.js';
 import { ObtenerLineaNegocio } from '../../servicios/ServicioLineaNegocio';
@@ -24,11 +24,11 @@ export class MantenimientoLineasServicio extends Component {
 
         this.onClickSeleccionarFila = this.onClickSeleccionarFila.bind(this)
     }
-
-
     onClickSeleccionarFila(fila) {
+        
         const filaValida = Object.entries(fila).length === 0 ? false : true;
-        this.setState({ bloquearBoton: !filaValida });
+        console.log(filaValida)
+       this.setState({ bloquearBoton: !filaValida });
         this.setState({ textoBotonInactivar: !filaValida ? "Inactivar" : (fila.estado == "Activo" ? "Inactivar" : "Activar") });
         this.setState({ filaSeleccionada: fila });
     }
@@ -52,9 +52,6 @@ export class MantenimientoLineasServicio extends Component {
 
 
     render() {
-
-
-
         return (
             <main>
                 <div className="row-full">Mantenimiento de Lineas de Servicio </div>
@@ -148,17 +145,12 @@ export class MantenimientoLineasServicio extends Component {
                     <Button variant="danger" type="submit" size="sm" disabled={this.state.bloquearBoton}>{this.state.textoBotonInactivar}</Button>
                     <br /><br />
 
+
                     <Grid gridHeading={this.state.encabezado} gridData={this.state.listaNegocios} selectableRows={true} pending={this.state.pendiente}
                         setFilaSeleccionada={this.onClickSeleccionarFila} idBuscar="idLinea" />
                     <br /><br />
-                    {/************/}
 
                 </Container>
-
-
-
-
-
             </main>
         );
     }
