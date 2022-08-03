@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dominio.Dto
 {
-    public class DtoLineaNegocio
+    public class DtoLineaNegocio : DatosAuditoria
     {
         public int idLinea { get; set; }
 
