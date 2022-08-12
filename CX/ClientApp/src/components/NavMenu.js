@@ -179,12 +179,12 @@ export class NavMenu extends Component {
                                 <DropdownMenu right>
                                     <DropdownItem>
                                         <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoDireccion">Mantenimiento Direccion</NavLink>
+                                            <NavLink tag={Link} className="text-black" to="/MantenimientoDireccion">Mantenimiento Direcciones</NavLink>
                                         </NavItem>
                                     </DropdownItem>
 
-                                </DropdownMenu>
-                                <DropdownMenu right>
+                            
+                                
                                     <DropdownItem>
                                         <NavItem>
                                             <NavLink tag={Link} className="text-black" to="/MantenimientoJefaturaDireccion">Mantenimiento Jefatura Direccion</NavLink>
