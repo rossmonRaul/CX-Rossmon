@@ -1,4 +1,4 @@
-﻿import React, { Component, useEffect, useState } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { Container, Form, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
 import { ObtenerLineaNegocio, ActualizarLineaNegocio, AgregarLineaNegocio, ObtenerLineaNegocioPorId, InactivarLineaNegocio } from '../../servicios/ServicioLineaNegocio';
 import 'jquery/dist/jquery.min.js';
@@ -140,7 +140,7 @@ export class MantenimientoLineasServicio extends Component {
                     <table id="example"
                         class="display"  >
                         <thead >
-                            <tr >
+                            <tr style={{ backgroundColor: "#126677", color: "white" }}>
                                 <th>Id Línea</th>
                                 <th>Línea de Negocio</th>
                                 <th>Estado</th>

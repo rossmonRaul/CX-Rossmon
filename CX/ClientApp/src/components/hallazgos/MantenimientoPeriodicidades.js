@@ -1,9 +1,122 @@
 ﻿import React, { Component } from 'react';
 import { Container, Form, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
+import { ObtenerPeriodicidad, ActualizarPeriodicidad, AgregarPeriodicidad, ObtenerPeriodicidadPorId, InactivarPeriodicidad } from '../../servicios/ServicioPeriodicidad';
+import 'jquery/dist/jquery.min.js';
+import { Alert } from 'react-bootstrap'
+import '../../custom.css'
 
+//Datatable Modules
+import "datatables.net-dt/js/dataTables.dataTables"
+import "datatables.net-dt/css/jquery.dataTables.min.css"
+import $ from 'jquery';
+//modal
+import { FormularioModal } from '../components_forms/ventanaModal';
+import Formulario from '../mantenimientos_forms/formPeriodicidades';
+import { ActualizarMetodologiaCX } from '../../servicios/ServicioMetodologiaCX';
 
 export class MantenimientoPeriodicidades extends Component {
     static displayName = MantenimientoPeriodicidades.name;
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            listaPeriodicidades: [],
+            pendiente: false,
+            data: {},
+            modal: false,
+            proceso: 1,
+            modalTitulo: "Registrar Periodicidad",
+            labelButton: "Registrar",
+            mensajeFormulario: "",
+            mensajeRespuesta: {},
+            show: false,
+            alerta: true
+        };
+
+    }
+
+    async componentDidMount() {
+        await this.ObtenerListadoPeriodicidad();
+
+        setTimeout(() => {
+            $('#example').DataTable(
+                {
+                    "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
+                });
+        }, 100);
+    }
+
+
+    async ObtenerListadoPeriodicidad() {
+        const respuesta = await ObtenerPeriodicidad();
+        this.setState({ listaPeriodicidades: respuesta });
+    }
+
+    onClickNuevaPeriodicidad = async () => {
+        this.setState({ proceso: 1 });
+        this.setState({ modal: !this.state.modal });
+        this.setState({ labelButton: "Registrar" });
+        this.setState({ modalTitulo: "Registrar Periodicidad" });
+    }
+
+    onClickInactivarPeriodicidad = async (id) => {
+        const respuesta = await InactivarPeriodicidad(id)
+        if (respuesta.indicador === 0) {
+            this.setState({ listaPeriodicidades: await ObtenerPeriodicidad() });
+            this.setState({ alerta: true });
+        } else {
+            this.setState({ alerta: false });
+        }
+        this.setState({ mensajeRespuesta: respuesta });
+        this.setState({ show: true });
+
+    }
+
+    onClickActualizarPeriodicidad = async (id) => {
+        this.setState({ data: await ObtenerPeriodicidadPorId(id) })
+        this.setState({ proceso: 2 });
+        this.setState({ modal: !this.state.modal });
+        this.setState({ labelButton: "Actualizar" });
+        this.setState({ modalTitulo: "Actualizar Periodicidad" });
+    }
+
+    onClickProcesarPeriodicidad = async (data) => {
+        let respuesta = {};
+
+        if (this.state.proceso === 1)
+            respuesta = await AgregarPeriodicidad(data);
+        else {
+
+            respuesta = await ActualizarPeriodicidad(data);
+        }
+
+        if (respuesta.indicador == 0) {
+            this.setState({ modal: false });
+            this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
+            this.setState({ alerta: true });
+
+            $('#example').DataTable().destroy();
+
+            await this.ObtenerListadoPeriodicidad();
+
+            setTimeout(() => {
+                $('#example').DataTable(
+                    {
+                        "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
+                    });
+            }, 100);
+        } else {
+            this.setState({ mensajeFormulario: respuesta.mensaje });
+            this.setState({ alerta: false });
+        }
+
+        this.setState({ show: true });
+    }
+
+    onClickCerrarModal = () => {
+        this.setState({ modal: false });
+        this.setState({ mensajeFormulario: "" });
+    }
 
 
     render() {
@@ -11,91 +124,65 @@ export class MantenimientoPeriodicidades extends Component {
             <main>
                 <div className="row-full">Mantenimiento de Periodicidades</div>
                 <Container>
-                    <Row>
-                        <Col md={4}>
+                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevaPeriodicidad()}>Insertar Periodicidad</Button>
+                    <hr />
 
-                            <div className="item1">
-                                <h6 className="heading3">Periodicidad </h6>
-                                <input type="text" name="codigo_periodo" />
-                                <input type="text" name="descripcion_periodo" />
-                            </div>
-                        </Col>
+                    {/*ALERTA*/}
 
-                        <Col md={4}>
-                           
-                        </Col>
+                    {this.state.show ?
+                        <Alert variant={this.state.alerta === true ? "success" : "danger"} onClose={() => this.setState({ show: false })} dismissible>
+                            {this.state.mensajeRespuesta.mensaje}
+                        </Alert>
+                        : ""}
 
-                        <Col md={4}>
-                           
-                        </Col>
-                     </Row>
-
-                    <Row>
-                        <Col md={4}>
-                           
-                        </Col>
-                    </Row>
-
-
-                    <table className="table table-bordered table" name="table_periodo">
-                        <thead className="titulo2">
-                            <tr >
-                                <th>Código periodo </th>
-                                <th>Descripcion</th>
-                           
-
-
-                            </tr>
+                    <br />
+                    <table id="example"
+                        class="display" >
+                        <thead>
+                            <tr style={{ backgroundColor: "#126677", color: "white"}}>
+                                <th>Id</th>
+                                <th>Código</th>
+                                <th>Periodicidad</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr >
                         </thead>
-                        <tbody>
+                        <tbody >
+                            {
+                                this.state.listaPeriodicidades.map((item, index) => (
+                                    <tr key={index}>
+                                        <td>{item.idPeriodicidad}</td>
+                                        <td>{item.codigo}</td>
+                                        <td>{item.periodicidad}</td>
 
+                                        {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
+                                        <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
+                                            {item.estado === true ? "Activo" : "Inactivo"}</td>
+                                        <td style={{ display: "flex", padding: "0.5vw" }}>
+
+                                            <Button color="primary" onClick={() => this.onClickActualizarPeriodicidad(item.idPeriodicidad)} style={{ marginRight: "1vw" }}>Editar
+                                            </Button>
+
+                                            <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarPeriodicidad(item.idPeriodicidad)}> {item.estado === true ? "Inactivar" : "Activar"}
+                                            </Button>
+                                        </td>
+                                    </tr>
+                                ))
+                            }
                         </tbody>
-                    </table>
+                    </table >
 
-                
 
-                <Row>
-                    <Col md={4}>
-                        <div className="item1">
-                            <h6 className="heading3"> Adicionado por</h6>
-                            <input type="text" className="etiqueta" name="fecha_adicion" />
-                            <input type="text" placeholder="" name="usuario_adicion_taller" />
+                    <FormularioModal show={this.state.modal} handleClose={this.onClickCerrarModal} titulo={this.state.modalTitulo} className=''>
+                        <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarPeriodicidad={this.onClickProcesarPeriodicidad} mensaje={this.state.mensajeFormulario} />
+                    </FormularioModal>
 
-                        </div>
-
-                    </Col>
-
-                    <Col md={4}>
-                        <div className="item1">
-                            <h6 className="heading3">Modificado por</h6>
-                            <input type="text" className="etiqueta" name="fecha_modificacion" />
-                            <input type="text" placeholder="" name="usuario_modificacion_taller" />
-                        </div>
-
-                    </Col>
-                    </Row>
-
-                    <Row>
-                        <Col md={3}>
-                         
-                        </Col>
-                        <Col md={3}>
-                            <button id="btnGuardar" type="button" className="btn  btn-block botones" >Guardar</button>
-                        </Col>
-
-                        <Col md={3}>
-                            <button id="btnGuardar" type="button" className="btn  btn-block botones ">Salir</button>
-                        </Col>
-
-                        <Col md={3}>
-                           
-                        </Col>
-                    </Row>
                 </Container>
-               
-          
 
-                </main>
-            );
+                <br />
+                <br />
+                <br />
+            </main>
+        );
     }
 }

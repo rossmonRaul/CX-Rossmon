@@ -31,7 +31,7 @@ html {
     margin-right: 50px;
     position: absolute;
     bottom: 0;
-    width: 100%;
+    width: 100vw;
     white-space: nowrap;
     line-height: 60px; /* Vertically center the text there */
     text-align: center;
@@ -43,7 +43,8 @@ html {
 
 
 .titulo {
-    color: white
+    color: white;
+    padding-left: 1vw;
 }
 
 
@@ -70,16 +71,58 @@ main {
     text-align: center;
 }
 
-.table {
-    background-color: #17A797;
+table {
+    border-color: white;
+    padding-top: 2vh !important;
+    margin-bottom: 1vh !important;
 }
+
+     table.dataTable thead th {
+        color: white !important;
+        background-color: #126677 !important;
+    }
+
+
+/*PAGINATION*/
+
+span .paginate_button {
+    border-radius: 50% !important;
+}
+
+.paginate_button{
+    border-radius: 10px !important;
+}
+
+span .paginate_button:hover {
+    background: #126677 !important;
+    border-color: #126677 !important;
+    color: #fff !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    color: #fff !important;
+    background: #126677 !important;
+    border-color: #126677 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    color: #fff !important;
+    background: #126677 !important;
+    border-color: #126677 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover {
+    background: white !important;
+    border-color: #fff !important;
+}
+
+
+/*FIN PAGINATION*/
 
 /*.botones:hover{
     background-color: red
 }
 */
-
-
 /*.etiquetas{
 
    
@@ -87,7 +130,6 @@ main {
     min-height: 40px;
     cursor: pointer;
 }*/
-
 .texto {
     width: 100%;
     padding: 10px;
