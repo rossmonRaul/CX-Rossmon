@@ -128,9 +128,23 @@ export class MantenimientoLineasServicio extends Component {
                             <button id="btnGuardar" type="button" className="btn  btn-block botones" >Guardar</button>
                         </Col>
 
-                        <Col md={3}>
-                            <button id="btnGuardar" type="button" className="btn  btn-block botones ">Salir</button>
-                        </Col>
+                    <br/>
+                    <table id="example"
+                        class="display"  >
+                        <thead >
+                            <tr style={{ backgroundColor: "#126677", color: "white" }}>
+                                <th>Id Línea</th>
+                                <th>Línea de Negocio</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr >
+                        </thead>
+                        <tbody >
+                            {
+                                this.state.listaNegocios.map((item, index) => (
+                                    <tr key={index}>
+                                        <td>{item.idLinea}</td>
+                                        <td>{item.lineaNegocio}</td>
 
                         <Col md={3}>
 
