@@ -8,12 +8,10 @@ namespace Dominio.Entiti
     public class EntitiSegmentos
     {
         public int IdSegmento { get; set; }
-        public string Tipo { get; set; }
-        public string Descripcion { get; set; }
-        public string Ingresado_por { get; set; }
-        public string Fecha_ingreso { get; set; }
-        public string Modificado_por { get; set; }
-        public string Fecha_Modificacion { get; set; }
+        public string Segmento { get; set; }
+
+        public int IdSector { get; set; }
+
 
     }
 }
