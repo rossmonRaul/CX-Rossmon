@@ -4,14 +4,11 @@ using System.Text;
 
 namespace Dominio.Entiti
 {
-    //MODELO DE SEGMENTOS
-    public class EntitiSegmentos
+    
+    public class EntitiSectores
     {
-        public int IdSegmento { get; set; }
-        public string Segmento { get; set; }
-
         public int IdSector { get; set; }
-
+        public string Sector { get; set; }
 
     }
 }
