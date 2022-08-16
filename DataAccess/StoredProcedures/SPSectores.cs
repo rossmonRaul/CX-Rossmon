@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,28 +13,26 @@ using Microsoft.Data.SqlClient;
 
 namespace DataAccess.StoredProcedures
 {
-    public class SPSegmentos
+    public class SPSectores
     {
         BdConexion bdConexion = new BdConexion();
-        private SqlConnection sqlConnection;
-
-        private readonly string obtenerSegmentosQuery = "SPObtenerSegmentos";
-        private readonly string insertarSegmentosQuery = "SPInsertarSegmentos";
-        private readonly string actualizarSegmentoQuery = "SPActualizarSegmento";
-        private readonly string obtenerSegmentoPorIDQuery = "SPObtenerSegmentoPorID";
-        private readonly string eliminarSegmentoQuery = "SPEliminarSegmento";
-
         private SqlCommand sqlCommand;
-
-        public async Task<List<DtoSegmentos>> ObtenerSegmentos()
+        private SqlConnection sqlConnection;
+        private readonly string obtenerSectoresQuery = "SPObtenerSectores";
+        private readonly string insertarSectoresQuery = "SPInsertarSectores";
+        private readonly string actualizarSectoresQuery = "SPActualizarSector";
+        private readonly string obtenerSectoresPorIDQuery = "SPObtenerSectorPorID";
+        private readonly string eliminarSectorQuery = "SPEliminarSector";
+        private readonly string obtenerSectoresActivosQuery = "SPObtenerSectoresActivos";
+        public async Task<List<DtoSectores>> ObtenerSectores()
         {
-            List<DtoSegmentos> lista = new List<DtoSegmentos>();
+            List<DtoSectores> lista = new List<DtoSectores>();
             try
             {
 
                 using (var connection = new SqlConnection(bdConexion.connectionString))
                 {
-                    var result = await connection.QueryAsync<DtoSegmentos>(obtenerSegmentosQuery, commandType: System.Data.CommandType.StoredProcedure);
+                    var result = await connection.QueryAsync<DtoSectores>(obtenerSectoresQuery, commandType: System.Data.CommandType.StoredProcedure);
                     lista = result.ToList();
                 }
 
@@ -46,7 +45,28 @@ namespace DataAccess.StoredProcedures
             return lista;
         }
 
-        public async Task<DtoRespuestaSP> InsertarSegmentos(EntitiSegmentos entitiSegmentos)
+        public async Task<List<DtoSectores>> ObtenerSectoresActivos()
+        {
+            List<DtoSectores> lista = new List<DtoSectores>();
+            try
+            {
+
+                using (var connection = new SqlConnection(bdConexion.connectionString))
+                {
+                    var result = await connection.QueryAsync<DtoSectores>(obtenerSectoresActivosQuery, commandType: System.Data.CommandType.StoredProcedure);
+                    lista = result.ToList();
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return lista;
+        }
+
+        public async Task<DtoRespuestaSP> InsertarSectores(EntitiSectores entitiSectores)
         {
             DtoRespuestaSP rest = new DtoRespuestaSP();
             try
@@ -55,11 +75,10 @@ namespace DataAccess.StoredProcedures
                 using (var connection = new SqlConnection(bdConexion.connectionString))
                 {
                     connection.Open();
-                    sqlCommand = new SqlCommand(insertarSegmentosQuery, connection);
+                    sqlCommand = new SqlCommand(insertarSectoresQuery, connection);
                     sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    sqlCommand.Parameters.AddWithValue("@Segmento", entitiSegmentos.Segmento);
-                    sqlCommand.Parameters.AddWithValue("@IdSector", entitiSegmentos.IdSector);
+                    sqlCommand.Parameters.AddWithValue("@Sector", entitiSectores.Sector);
                     sqlCommand.Parameters.Add("@INDICADOR", SqlDbType.Int);
                     sqlCommand.Parameters.Add("@MENSAJE", SqlDbType.VarChar, 50);
 
@@ -87,7 +106,8 @@ namespace DataAccess.StoredProcedures
             return rest;
         }
 
-        public async Task<DtoRespuestaSP> ActualizarSegmentos(EntitiSegmentos entitiSegmento)
+
+        public async Task<DtoRespuestaSP> ActualizarSectores(EntitiSectores entitiSectores)
         {
             DtoRespuestaSP rest = new DtoRespuestaSP();
             try
@@ -96,12 +116,11 @@ namespace DataAccess.StoredProcedures
                 using (var connection = new SqlConnection(bdConexion.connectionString))
                 {
                     connection.Open();
-                    sqlCommand = new SqlCommand(actualizarSegmentoQuery, connection);
+                    sqlCommand = new SqlCommand(actualizarSectoresQuery, connection);
                     sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    sqlCommand.Parameters.AddWithValue("@IdSegmento", entitiSegmento.IdSegmento);
-                    sqlCommand.Parameters.AddWithValue("@Segmento", entitiSegmento.Segmento);
-                    sqlCommand.Parameters.AddWithValue("@IdSector", entitiSegmento.IdSector);
+                    sqlCommand.Parameters.AddWithValue("@Sector", entitiSectores.Sector);
+                    sqlCommand.Parameters.AddWithValue("@IdSector", entitiSectores.IdSector);
                     sqlCommand.Parameters.Add("@INDICADOR", SqlDbType.Int);
                     sqlCommand.Parameters.Add("@MENSAJE", SqlDbType.VarChar, 50);
 
@@ -128,7 +147,7 @@ namespace DataAccess.StoredProcedures
         }
 
 
-        public async Task<DtoSegmentos> ObtenerSegmentosPorID(int idSegmento)
+        public async Task<DtoSectores> ObtenerSectoresPorID(int idSector)
         {
             object value = new object();
             try
@@ -138,9 +157,9 @@ namespace DataAccess.StoredProcedures
                 sqlConnection.Open();
 
                 DynamicParameters queryParameters = new DynamicParameters();
-                queryParameters.Add("@IdSegmento", idSegmento);
+                queryParameters.Add("@IdSector", idSector);
 
-                var result = await sqlConnection.QueryAsync<DtoSegmentos>(obtenerSegmentoPorIDQuery, queryParameters, commandType: System.Data.CommandType.StoredProcedure);
+                var result = await sqlConnection.QueryAsync<DtoSectores>(obtenerSectoresPorIDQuery, queryParameters, commandType: System.Data.CommandType.StoredProcedure);
                 value = result.FirstOrDefault();
 
             }
@@ -152,20 +171,20 @@ namespace DataAccess.StoredProcedures
             {
                 this.sqlConnection.Close();
             }
-            return (DtoSegmentos)Convert.ChangeType(value, typeof(DtoSegmentos));
+            return (DtoSectores)Convert.ChangeType(value, typeof(DtoSectores));
         }
 
-        public async Task<DtoRespuestaSP> EliminarSegmento(int idSegmento)
+        public async Task<DtoRespuestaSP> EliminarSector(int idSector)
         {
             DtoRespuestaSP dtoRespuestaSP = new DtoRespuestaSP();
             try
             {
                 sqlConnection = new SqlConnection(bdConexion.connectionString);
                 sqlConnection.Open();
-                sqlCommand = new SqlCommand(eliminarSegmentoQuery, sqlConnection);
+                sqlCommand = new SqlCommand(eliminarSectorQuery, sqlConnection);
                 sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
-                sqlCommand.Parameters.AddWithValue("@IdSegmento", idSegmento);
+                sqlCommand.Parameters.AddWithValue("@IdSector", idSector);
 
                 sqlCommand.Parameters.Add("@INDICADOR", SqlDbType.Int);
                 sqlCommand.Parameters.Add("@MENSAJE", SqlDbType.VarChar, 50);
