@@ -36,7 +36,6 @@ namespace DataAccess.StoredProcedures
                 sqlCommand = new SqlCommand(insertarTipoTallerQuery, sqlConnection); //cambiar SP 
                 sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
-                sqlCommand.Parameters.AddWithValue("@Codigo", entitiTipoTaller.codigo); //colocar parametros correspondientes
                 sqlCommand.Parameters.AddWithValue("@TipoTaller", entitiTipoTaller.tipoTaller);
 
 
@@ -76,7 +75,6 @@ namespace DataAccess.StoredProcedures
                 sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
                 sqlCommand.Parameters.AddWithValue("@IdTipoTaller", entitiTipoTaller.idTipoTaller);
-                sqlCommand.Parameters.AddWithValue("@Codigo", entitiTipoTaller.codigo);
                 sqlCommand.Parameters.AddWithValue("@TipoTaller", entitiTipoTaller.tipoTaller);
 
 

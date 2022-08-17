@@ -3,6 +3,7 @@ import { Container, Form, Row, Col, Label, Input, Button, FormGroup } from 'reac
 import { ObtenerTipoTaller, ActualizarTipoTaller, AgregarTipoTaller, ObtenerTipoTallerPorId, InactivarTipoTaller } from '../../servicios/ServicioTipoTaller';
 import 'jquery/dist/jquery.min.js';
 import { Alert } from 'react-bootstrap'
+import { Table } from '../Table';
 
 //Datatable Modules
 import "datatables.net-dt/js/dataTables.dataTables"
@@ -28,7 +29,13 @@ export class MantenimientoTipoTaller extends Component {
             mensajeFormulario: "",
             mensajeRespuesta: {},
             show: false,
-            alerta: true
+            alerta: true,
+             cabeceras: [
+                "Id",
+                "Tipo de Taller",
+                "Estado",
+                "Acciones"
+            ],
         };
 
     }
@@ -116,6 +123,26 @@ export class MantenimientoTipoTaller extends Component {
         this.setState({ mensajeFormulario: "" });
     }
 
+    body = () => {
+        return this.state.listaTalleres.map((item, index) => (
+            <tr key={index}>
+                <td>{item.idTipoTaller}</td>
+                <td>{item.tipoTaller}</td>
+
+                {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
+                <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
+                    {item.estado === true ? "Activo" : "Inactivo"}</td>
+                <td style={{ display: "flex", padding: "0.5vw" }}>
+
+                    <Button color="primary" onClick={() => this.onClickActualizarTipoTaller(item.idTipoTaller)} style={{ marginRight: "1vw" }}>Editar
+                    </Button>
+
+                    <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarTipoTaller(item.idTipoTaller)}> {item.estado === true ? "Inactivar" : "Activar"}
+                    </Button>
+                </td>
+            </tr>
+        ))
+    }
 
     render() {
         return (
@@ -135,41 +162,9 @@ export class MantenimientoTipoTaller extends Component {
                         : ""}
 
                     <br />
-                    <table id="example"
-                        class="display"  >
-                        <thead >
-                            <tr style={{ backgroundColor: "#126677", color: "white" }}>
-                                <th>Id</th>
-                                <th>Código</th>
-                                <th>Tipo Taller</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
-                            </tr >
-                        </thead>
-                        <tbody >
-                            {
-                                this.state.listaTalleres.map((item, index) => (
-                                    <tr key={index}>
-                                        <td>{item.idTipoTaller}</td>
-                                        <td>{item.codigo}</td>
-                                        <td>{item.tipoTaller}</td>
 
-                                        {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
-                                        <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
-                                            {item.estado === true ? "Activo" : "Inactivo"}</td>
-                                        <td style={{ display: "flex", padding: "0.5vw" }}>
 
-                                            <Button color="primary" onClick={() => this.onClickActualizarTipoTaller(item.idTipoTaller)} style={{ marginRight: "1vw" }}>Editar
-                                            </Button>
-
-                                            <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarTipoTaller(item.idTipoTaller)}> {item.estado === true ? "Inactivar" : "Activar"}
-                                            </Button>
-                                        </td>
-                                    </tr>
-                                ))
-                            }
-                        </tbody>
-                    </table >
+                    <Table tableHeading={this.state.cabeceras} body={this.body()} />
 
 
                     <FormularioModal show={this.state.modal} handleClose={this.onClickCerrarModal} titulo={this.state.modalTitulo} className=''>

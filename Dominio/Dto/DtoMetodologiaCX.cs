@@ -8,8 +8,6 @@ namespace Dominio.Dto
     {
         public int idMetodologia { get; set; }
 
-        public string codigo { get; set; }
-
         public string metodologia { get; set; }
     }
 }

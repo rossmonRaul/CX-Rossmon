@@ -36,7 +36,6 @@ namespace DataAccess.StoredProcedures
                 sqlCommand = new SqlCommand(insertarMetodologiaCXQuery, sqlConnection); //cambiar SP 
                 sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
-                sqlCommand.Parameters.AddWithValue("@Codigo", entitiMetodologiaCX.codigo); //colocar parametros correspondientes
                 sqlCommand.Parameters.AddWithValue("@Metodologia", entitiMetodologiaCX.metodologia);
 
 
@@ -76,7 +75,6 @@ namespace DataAccess.StoredProcedures
                 sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
                 sqlCommand.Parameters.AddWithValue("@IdMetodologia", entitiMetodologiaCX.idMetodologia);
-                sqlCommand.Parameters.AddWithValue("@Codigo", entitiMetodologiaCX.codigo);
                 sqlCommand.Parameters.AddWithValue("@Metodologia", entitiMetodologiaCX.metodologia);
 
 
