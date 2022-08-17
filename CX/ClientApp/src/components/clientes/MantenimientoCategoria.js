@@ -21,6 +21,7 @@ export class MantenimientoCategoria extends Component {
         this.state = {
             listacategorias: [],
             cabeceras: [
+                "Código",
                 "Categoría",
                 "Rango",
                 "Estado",
@@ -126,6 +127,7 @@ export class MantenimientoCategoria extends Component {
     body = () => {
         return this.state.listacategorias.map((item, index) => {
             return <tr key={index}>
+                <td>{item.idCategoria }</td>
                 <td> {item.categoria}</td>
                 <td> {item.rango}</td>
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>

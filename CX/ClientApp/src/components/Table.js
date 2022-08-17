@@ -11,40 +11,10 @@ import "datatables.net-dt/css/jquery.dataTables.min.css"
 
 export const Table = ({ tableHeading, body }) => {
 
-
-
-    //const body = () => {
-    //    return tableData.map((item, index) => {
-    //        return <tr key={index}>
-    //            <td> {item.categoria}</td>
-    //            <td> {item.rango}</td>
-    //            <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
-    //                {item.estado === true ? "Activo" : "Inactivo"}</td>
-    //            <td style={{ display: "flex", padding: "0.5vw" }}>
-
-
-
-    //                <Button color="primary" onClick={() => onclickactualizar(item.idCategoria)} style={{ marginRight: "1vw" }}>Editar
-    //                </Button>
-
-
-
-    //                <Button color={item.estado === true ? "danger" : "success"} onClick={() => onclickinactivar(item.idCategoria)}> {item.estado === true ? "Inactivar" : "Activar"}
-    //                </Button>
-    //            </td>
-
-
-
-    //        </tr>
-    //    })
-    //}
-
-
-
     return (
         <>
             <table id="tbl_table"
-                class="display" >
+                className="table" >
                 <thead >
                     <tr >
                         {
