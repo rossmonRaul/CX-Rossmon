@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react';
 
 import {
-    Container, Form, Row, Col, Label, Input, Button, FormGroup, Table,
+    Container, Form, Row, Col, Label, Input, Button, FormGroup,
 
     Modal,
     ModalHeader,
@@ -11,6 +11,7 @@ import {
 
 import { ObtenerGradosEsfuerzo, AgregarGradosEsfuerzo, ActualizarGradoEsfuerzo, ObtenerGradoEsfuerzoPorID, InactivarGradoEsfuerzo } from '../../servicios/ServicioGradosEsfuerzo';
 import { Alert } from 'react-bootstrap'
+import { Table } from '../Table';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'jquery/dist/jquery.min.js';
@@ -29,6 +30,7 @@ export class MantenimientoEsfuerzo extends Component {
         super(props);
         this.state = {
             gradosEsfuerzo: [],
+            cabeceras: [ "Código", "Grado de esfuerzo", "Estado", "Acciones"],
             pendiente: false,
             data: {},
             modal: false,
@@ -84,7 +86,7 @@ export class MantenimientoEsfuerzo extends Component {
             respuesta = await AgregarGradosEsfuerzo(data);
         else {
 
-            /*respuesta = await ActualizarGradoEsfuerzo(data);*/
+            respuesta = await ActualizarGradoEsfuerzo(data);
         }
 
         if (respuesta.indicador == 0) {
@@ -111,7 +113,47 @@ export class MantenimientoEsfuerzo extends Component {
         this.setState({ show: true });
     }
 
-    
+    onClickInactivarGradoEsfuerzo = async (id) => {
+        const respuesta = await InactivarGradoEsfuerzo(id)
+        if (respuesta.indicador === 0) {
+            this.setState({ direccion: await this.ObtenerGradosEsfuerzo() });
+            this.setState({ alerta: true });
+        } else {
+            this.setState({ alerta: false });
+        }
+        this.setState({ mensajeRespuesta: respuesta });
+        this.setState({ show: true });
+
+    }
+    onClickActualizarGradoEsfuerzo = async (id) => {
+        this.setState({ data: await ObtenerGradoEsfuerzoPorID(id) })
+        this.setState({ proceso: 2 });
+        this.setState({ modal: !this.state.modal });
+        this.setState({ labelButton: "Actualizar" });
+        this.setState({ modalTitulo: "Actualizar grado esfuerzo" });
+    }
+
+    body = () => {
+        return this.state.gradosEsfuerzo.map((item, index) => (
+            <tr key={index}>
+                <td>{item.idGradoEsfuerzo}</td>
+                
+                <td>{item.gradoEsfuerzo}</td>
+
+                {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
+                <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
+                    {item.estado === true ? "Activo" : "Inactivo"}</td>
+                <td style={{ display: "flex", padding: "0.5vw" }}>
+
+                    <Button color="primary" onClick={() => this.onClickActualizarGradoEsfuerzo(item.idGradoEsfuerzo)} style={{ marginRight: "1vw" }}>Editar
+                                            </Button>
+
+                    <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarGradoEsfuerzo(item.idGradoEsfuerzo)} > {item.estado === true ? "Inactivar" : "Activar"}
+                    </Button>
+                </td>
+            </tr>
+        ))
+    }
 
     render() {
         return (
@@ -131,41 +173,8 @@ export class MantenimientoEsfuerzo extends Component {
                         : ""}
 
                     <br />
-                    <table id="example"
-                        class="display">
-                        <thead >
-                            <tr >
-                                <th>Id Grado Esfuerzo</th>
-                                <th>Código</th>
-                                <th>Grado Esfuerzo</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
-                            </tr >
-                        </thead>
-                        <tbody >
-                            {
-                                this.state.gradosEsfuerzo.map((item, index) => (
-                                    <tr key={index}>
-                                        <td>{item.idGradoEsfuerzo}</td>
-                                        <td>{item.codigo}</td>
-                                        <td>{item.gradoEsfuerzo}</td>
 
-                                        {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
-                                        <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
-                                            {item.estado === true ? "Activo" : "Inactivo"}</td>
-                                        <td style={{ display: "flex", padding: "0.5vw" }}>
-
-                                            <Button color="primary" style={{ marginRight: "1vw" }}>Editar
-                                            </Button>
-
-                                            <Button color={item.estado === true ? "danger" : "success"} > {item.estado === true ? "Inactivar" : "Activar"}
-                                            </Button>
-                                        </td>
-                                    </tr>
-                                ))
-                            }
-                        </tbody>
-                    </table >
+                    <Table tableHeading={this.state.cabeceras} body={this.body()} />
 
                     <FormularioModal show={this.state.modal} handleClose={this.onClickCerrarModal} titulo={this.state.modalTitulo} className=''>
                         <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarGradosEsfuerzo={this.onClickProcesarGradosEsfuerzo} mensaje={this.state.mensajeFormulario} />

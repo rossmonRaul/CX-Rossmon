@@ -31,7 +31,7 @@ export class MantenimientoDireccion extends Component {
         super(props);
         this.state = {
             direcciones: [],
-            cabeceras: ["Id Direccin", "Código", "Direccion", "Estado", "Acciones"],
+            cabeceras: [ "Código", "Dirección", "Estado", "Acciones"],
             pendiente: false,
             data: {},
             modal: false,
@@ -138,7 +138,6 @@ export class MantenimientoDireccion extends Component {
         return this.state.direcciones.map((item, index) => {
             return <tr key={index}>
                 <td>{item.idDireccion}</td>
-                <td>{item.codigo}</td>
                 <td>{item.direccion}</td>
 
                 {/* COLUMNAS DE ESTADO Y BOTONES CON ESTILO*/}

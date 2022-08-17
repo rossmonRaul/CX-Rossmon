@@ -27,6 +27,25 @@ namespace CX.Controllers
             return Json(await this.servicioGradosEsfuerzo.InsertarGradosEsfuerzo(entitiGradosEsfuerzo));
         }
 
-        
+        [HttpPut("[action]")]
+        public async Task<JsonResult> ActualizarGradoEsfuerzo(EntitiGradosEsfuerzo entitiGradosEsfuerzo)
+        {
+            return Json(await this.servicioGradosEsfuerzo.ActualizarGradoEsfuerzo(entitiGradosEsfuerzo));
+        }
+
+
+        [HttpGet("[action]/{idGradoEsfuerzo}")]
+        public async Task<JsonResult> ObtenerGradoEsfuerzoPorID(int idGradoEsfuerzo)
+        {
+            return Json(await this.servicioGradosEsfuerzo.ObtenerGradoEsfuerzoPorID(idGradoEsfuerzo));
+        }
+
+        [HttpDelete("[action]")]
+        public async Task<JsonResult> EliminarGradoEsfuerzo(int idGradoEsfuerzo)
+        {
+            return Json(await this.servicioGradosEsfuerzo.EliminarGradoEsfuerzo(idGradoEsfuerzo));
+        }
+
+
     }
 }
