@@ -5,7 +5,7 @@ import { InputText } from '../components_forms/inputs'
 const Formulario = ({ labelButton, data, proceso, onClickProcesarPeriodicidad, mensaje }) => {
 
     //variables
-    const [codigo, setCodigo] = useState(proceso == 2 ? data.codigo : '');
+    //const [codigo, setCodigo] = useState(proceso == 2 ? data.codigo : '');
     const [periodicidad, setPeriodicidad] = useState(proceso == 2 ? data.periodicidad : ''); //si el proceso es 1 es insertar, si es 2 es actualizar
 
     //validación
@@ -18,7 +18,6 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarPeriodicidad, m
             event.stopPropagation();
         } else { //si está correcto arma la variable datos
             const datos = {
-                codigo: codigo,
                 periodicidad: periodicidad,
             };
             if (proceso === 2) { datos.idPeriodicidad = data.idPeriodicidad; };
@@ -29,15 +28,13 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarPeriodicidad, m
         event.preventDefault();
     }
 
-    const onChangeCodigo = (e) => setCodigo(e.target.value);
+    //const onChangeCodigo = (e) => setCodigo(e.target.value);
     const onChangePeriodicidad = (e) => setPeriodicidad(e.target.value);
 
 
     return (
         <>
-            <Form noValidate validated={validated} onSubmit={onClickAceptar}>
-                <InputText id='txt-nombre' label='Código:' type='text' placeholder='Ingrese el código de la periodicidad' value={codigo}
-                    onChange={onChangeCodigo} mensajeValidacion="El código es requerido" />
+            <Form noValidate validated={validated} onSubmit={onClickAceptar}> 
 
                 <InputText id='txt-nombre' label='Periodicidad:' type='text' placeholder='Ingrese el nombre de la periodicidad' value={periodicidad}
                     onChange={onChangePeriodicidad} mensajeValidacion="La periodicidad es requerida" />

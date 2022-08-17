@@ -36,7 +36,6 @@ namespace DataAccess.StoredProcedures
                 sqlCommand = new SqlCommand(insertarPeriodicidadQuery, sqlConnection); //cambiar SP 
                 sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
-                sqlCommand.Parameters.AddWithValue("@Codigo", entitiPeriodicidad.codigo); //colocar parametros correspondientes
                 sqlCommand.Parameters.AddWithValue("@Periodicidad", entitiPeriodicidad.periodicidad);
 
 
@@ -76,7 +75,6 @@ namespace DataAccess.StoredProcedures
                 sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
                 sqlCommand.Parameters.AddWithValue("@IdPeriodicidad", entitiPeriodicidad.idPeriodicidad);
-                sqlCommand.Parameters.AddWithValue("@Codigo", entitiPeriodicidad.codigo);
                 sqlCommand.Parameters.AddWithValue("@Periodicidad", entitiPeriodicidad.periodicidad);
 
 

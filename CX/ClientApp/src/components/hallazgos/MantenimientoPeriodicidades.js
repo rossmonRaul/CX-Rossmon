@@ -4,6 +4,7 @@ import { ObtenerPeriodicidad, ActualizarPeriodicidad, AgregarPeriodicidad, Obten
 import 'jquery/dist/jquery.min.js';
 import { Alert } from 'react-bootstrap'
 import '../../custom.css'
+import { Table } from '../Table';
 
 //Datatable Modules
 import "datatables.net-dt/js/dataTables.dataTables"
@@ -30,7 +31,13 @@ export class MantenimientoPeriodicidades extends Component {
             mensajeFormulario: "",
             mensajeRespuesta: {},
             show: false,
-            alerta: true
+            alerta: true,
+            cabeceras: [
+                "Id",
+                "Periodicidad",
+                "Estado",
+                "Acciones"
+            ],
         };
 
     }
@@ -118,6 +125,27 @@ export class MantenimientoPeriodicidades extends Component {
         this.setState({ mensajeFormulario: "" });
     }
 
+    body = () => {
+        return this.state.listaPeriodicidades.map((item, index) => (
+            <tr key={index}>
+                <td>{item.idPeriodicidad}</td>
+                <td>{item.periodicidad}</td>
+
+                {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
+                <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
+                    {item.estado === true ? "Activo" : "Inactivo"}</td>
+                <td style={{ display: "flex", padding: "0.5vw" }}>
+
+                    <Button color="primary" onClick={() => this.onClickActualizarPeriodicidad(item.idPeriodicidad)} style={{ marginRight: "1vw" }}>Editar
+                    </Button>
+
+                    <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarPeriodicidad(item.idPeriodicidad)}> {item.estado === true ? "Inactivar" : "Activar"}
+                    </Button>
+                </td>
+            </tr>
+        ))
+    }
+
 
     render() {
         return (
@@ -133,45 +161,12 @@ export class MantenimientoPeriodicidades extends Component {
                         <Alert variant={this.state.alerta === true ? "success" : "danger"} onClose={() => this.setState({ show: false })} dismissible>
                             {this.state.mensajeRespuesta.mensaje}
                         </Alert>
-                        : ""}
+                        : ""
+                    }
 
                     <br />
-                    <table id="example"
-                        class="display" >
-                        <thead>
-                            <tr style={{ backgroundColor: "#126677", color: "white"}}>
-                                <th>Id</th>
-                                <th>Código</th>
-                                <th>Periodicidad</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
-                            </tr >
-                        </thead>
-                        <tbody >
-                            {
-                                this.state.listaPeriodicidades.map((item, index) => (
-                                    <tr key={index}>
-                                        <td>{item.idPeriodicidad}</td>
-                                        <td>{item.codigo}</td>
-                                        <td>{item.periodicidad}</td>
-
-                                        {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
-                                        <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
-                                            {item.estado === true ? "Activo" : "Inactivo"}</td>
-                                        <td style={{ display: "flex", padding: "0.5vw" }}>
-
-                                            <Button color="primary" onClick={() => this.onClickActualizarPeriodicidad(item.idPeriodicidad)} style={{ marginRight: "1vw" }}>Editar
-                                            </Button>
-
-                                            <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarPeriodicidad(item.idPeriodicidad)}> {item.estado === true ? "Inactivar" : "Activar"}
-                                            </Button>
-                                        </td>
-                                    </tr>
-                                ))
-                            }
-                        </tbody>
-                    </table >
-
+                 
+                    <Table tableHeading={this.state.cabeceras} body={this.body()} />
 
                     <FormularioModal show={this.state.modal} handleClose={this.onClickCerrarModal} titulo={this.state.modalTitulo} className=''>
                         <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarPeriodicidad={this.onClickProcesarPeriodicidad} mensaje={this.state.mensajeFormulario} />

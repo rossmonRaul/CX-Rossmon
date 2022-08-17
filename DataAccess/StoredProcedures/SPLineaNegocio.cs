@@ -143,7 +143,6 @@ namespace DataAccess.StoredProcedures
             object value = new object();
             try
             {
-
                     sqlConnection = new SqlConnection(bdConexion.connectionString);
                     sqlConnection.Open();
 

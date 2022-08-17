@@ -36,7 +36,6 @@ namespace DataAccess.StoredProcedures
                 sqlCommand = new SqlCommand(insertarMacroActividadQuery, sqlConnection); //cambiar SP 
                 sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
-                sqlCommand.Parameters.AddWithValue("@Codigo", entitiMacroActividad.codigo); //colocar parametros correspondientes
                 sqlCommand.Parameters.AddWithValue("@MacroActividad", entitiMacroActividad.macroActividad); 
 
 
@@ -76,7 +75,6 @@ namespace DataAccess.StoredProcedures
                 sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
                 sqlCommand.Parameters.AddWithValue("@IdMacro", entitiMacroActividad.idMacro);
-                sqlCommand.Parameters.AddWithValue("@Codigo", entitiMacroActividad.codigo);
                 sqlCommand.Parameters.AddWithValue("@MacroActividad", entitiMacroActividad.macroActividad);
 
 

@@ -2,7 +2,8 @@ import React, { Component, useEffect, useState } from 'react';
 import { Container, Form, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
 import { ObtenerLineaNegocio, ActualizarLineaNegocio, AgregarLineaNegocio, ObtenerLineaNegocioPorId, InactivarLineaNegocio } from '../../servicios/ServicioLineaNegocio';
 import 'jquery/dist/jquery.min.js';
-import {  Alert } from 'react-bootstrap'
+import { Alert } from 'react-bootstrap'
+import { Table } from '../Table';
 
 //Datatable Modules
 import "datatables.net-dt/js/dataTables.dataTables"
@@ -29,7 +30,13 @@ export class MantenimientoLineasServicio extends Component {
             mensajeFormulario: "",
             mensajeRespuesta: {},
             show: false,
-            alerta : true
+            alerta: true,
+            cabeceras: [
+                "Id Línea",
+                "Línea Negocio",
+                "Estado",
+                "Acciones"
+            ],
         };
 
     }
@@ -119,6 +126,28 @@ export class MantenimientoLineasServicio extends Component {
     }
 
 
+    body = () => {
+        return this.state.listaNegocios.map((item, index) => (
+            <tr key={index}>
+                <td>{item.idLinea}</td>
+                <td>{item.lineaNegocio}</td>
+
+                {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
+                <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
+                    {item.estado === true ? "Activo" : "Inactivo"}</td>
+                <td style={{ display: "flex", padding: "0.5vw" }}>
+
+                    <Button color="primary" onClick={() => this.onClickActualizarLineaNegocio(item.idLinea)} style={{ marginRight: "1vw" }}>Editar
+                    </Button>
+
+                    <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarLineaNegocio(item.idLinea)}> {item.estado === true ? "Inactivar" : "Activar"}
+                    </Button>
+                </td>
+            </tr>
+        ))
+    }
+
+
     render() {
         return (
             <main>
@@ -132,12 +161,13 @@ export class MantenimientoLineasServicio extends Component {
 
                     {this.state.show ?
                         <Alert variant={this.state.alerta === true ? "success" : "danger"} onClose={() => this.setState({ show: false })} dismissible>
-                                {this.state.mensajeRespuesta.mensaje}                        
+                            {this.state.mensajeRespuesta.mensaje}
                         </Alert>
                         : ""}
 
-                    <br/>
-                    <table id="example"
+                    <br />
+                    {/*
+                     * <table id="example"
                         class="display"  >
                         <thead >
                             <tr style={{ backgroundColor: "#126677", color: "white" }}>
@@ -154,22 +184,25 @@ export class MantenimientoLineasServicio extends Component {
                                         <td>{item.idLinea}</td>
                                         <td>{item.lineaNegocio}</td>
 
-                                        {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
-                                        <td style={item.estado === false ? { color: "#dc3545",  fontWeight: 700 } : { color: "#198754", fontWeight: 700  }}>
-                                    {item.estado === true ? "Activo" : "Inactivo"}</td>
-                                        <td style={{ display: "flex", padding: "0.5vw" }}>
+                    {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
+                    {/* <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
+                        {item.estado === true ? "Activo" : "Inactivo"}</td>
+                    <td style={{ display: "flex", padding: "0.5vw" }}>
 
-                                            <Button color="primary" onClick={() => this.onClickActualizarLineaNegocio(item.idLinea)} style={{ marginRight: "1vw" }}>Editar
-                                            </Button>
+                        <Button color="primary" onClick={() => this.onClickActualizarLineaNegocio(item.idLinea)} style={{ marginRight: "1vw" }}>Editar
+                        </Button>
 
-                                            <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarLineaNegocio(item.idLinea)}> {item.estado === true ? "Inactivar" : "Activar"}
-                                            </Button>
-                                        </td>
+                        <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarLineaNegocio(item.idLinea)}> {item.estado === true ? "Inactivar" : "Activar"}
+                        </Button>
+                    </td>
                                     </tr>
-                                ))
+                ))
                             }
                         </tbody>
-                    </table >
+                    </table >*/}
+
+
+                    <Table tableHeading={this.state.cabeceras} body={this.body()} />
 
                     <FormularioModal show={this.state.modal} handleClose={this.onClickCerrarModal} titulo={this.state.modalTitulo} className=''>
                         <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarLineaNegocio={this.onClickProcesarLineaNegocio} mensaje={this.state.mensajeFormulario} />
