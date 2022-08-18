@@ -5,7 +5,6 @@ import { InputText } from '../components_forms/inputs'
 const Formulario = ({ labelButton, data, proceso, onClickProcesarMetodologiaCX, mensaje }) => {
 
     //variables
-    const [codigo, setCodigo] = useState(proceso == 2 ? data.codigo : '');
     const [metodologia, setMetodologia] = useState(proceso == 2 ? data.metodologia : ''); //si el proceso es 1 es insertar, si es 2 es actualizar
 
     //validación
@@ -18,7 +17,6 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarMetodologiaCX, 
             event.stopPropagation();
         } else { //si está correcto arma la variable datos
             const datos = {
-                codigo: codigo,
                 metodologia: metodologia,
             };
             if (proceso === 2) { datos.idMetodologia = data.idMetodologia; };
@@ -29,15 +27,14 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarMetodologiaCX, 
         event.preventDefault();
     }
 
-    const onChangeCodigo = (e) => setCodigo(e.target.value);
+    
     const onChangeMetodologia = (e) => setMetodologia(e.target.value);
 
 
     return (
         <>
             <Form noValidate validated={validated} onSubmit={onClickAceptar}>
-                <InputText id='txt-nombre' label='Código:' type='text' placeholder='Ingrese el código de la metodología' value={codigo}
-                    onChange={onChangeCodigo} mensajeValidacion="El código es requerido" />
+              
 
                 <InputText id='txt-nombre' label='Metodología:' type='text' placeholder='Ingrese el nombre de la metodología' value={metodologia}
                     onChange={onChangeMetodologia} mensajeValidacion="La metodología es requerida" />

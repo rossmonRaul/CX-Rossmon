@@ -7,9 +7,6 @@ namespace Dominio.Entiti
     public class EntitiMacroActividad
     {
         public int idMacro { get; set; }
-
-        public string codigo { get; set; }
-
         public string macroActividad { get; set; }
     }
 }

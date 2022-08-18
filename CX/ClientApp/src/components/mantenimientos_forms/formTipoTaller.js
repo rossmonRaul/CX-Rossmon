@@ -5,7 +5,7 @@ import { InputText } from '../components_forms/inputs'
 const Formulario = ({ labelButton, data, proceso, onClickProcesarTipoTaller, mensaje }) => {
 
     //variables
-    const [codigo, setCodigo] = useState(proceso == 2 ? data.codigo : '');
+    //const [codigo, setCodigo] = useState(proceso == 2 ? data.codigo : '');
     const [tipoTaller, setTipoTaller] = useState(proceso == 2 ? data.tipoTaller : ''); //si el proceso es 1 es insertar, si es 2 es actualizar
 
     //validación
@@ -18,7 +18,6 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarTipoTaller, men
             event.stopPropagation();
         } else { //si está correcto arma la variable datos
             const datos = {
-                codigo: codigo,
                 tipoTaller: tipoTaller,
             };
             if (proceso === 2) { datos.idTipoTaller = data.idTipoTaller; };
@@ -29,15 +28,13 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarTipoTaller, men
         event.preventDefault();
     }
 
-    const onChangeCodigo = (e) => setCodigo(e.target.value);
+    //const onChangeCodigo = (e) => setCodigo(e.target.value);
     const onChangeTipoTaller = (e) => setTipoTaller(e.target.value);
 
 
     return (
         <>
             <Form noValidate validated={validated} onSubmit={onClickAceptar}>
-                <InputText id='txt-nombre' label='Código:' type='text' placeholder='Ingrese el código de la macro actividad' value={codigo}
-                    onChange={onChangeCodigo} mensajeValidacion="El código es requerido" />
 
                 <InputText id='txt-nombre' label='Tipo Taller:' type='text' placeholder='Ingrese el nombre del tipo de taller' value={tipoTaller}
                     onChange={onChangeTipoTaller} mensajeValidacion="El tipo de taller es requerido" />

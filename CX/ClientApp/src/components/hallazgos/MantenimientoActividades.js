@@ -3,6 +3,8 @@ import { Container, Form, Row, Col, Label, Input, Button, FormGroup } from 'reac
 import { ObtenerMacroActividad, ActualizarMacroActividad, AgregarMacroActividad, ObtenerMacroActividadPorId, InactivarMacroActividad } from '../../servicios/ServicioMacroActividad';
 import 'jquery/dist/jquery.min.js';
 import { Alert } from 'react-bootstrap'
+import { Table } from '../Table';
+
 
 //Datatable Modules
 import "datatables.net-dt/js/dataTables.dataTables"
@@ -29,7 +31,13 @@ export class MantenimientoActividades extends Component {
             mensajeFormulario: "",
             mensajeRespuesta: {},
             show: false,
-            alerta: true
+            alerta: true,
+            cabeceras: [
+                "Id",
+                "Macro Actividad",
+                "Estado",
+                "Acciones"
+            ],
         };
 
     }
@@ -118,6 +126,27 @@ export class MantenimientoActividades extends Component {
     }
 
 
+    body = () => {
+        return this.state.listaActividades.map((item, index) => (
+            <tr key={index}>
+                <td>{item.idMacro}</td>
+                <td>{item.macroActividad}</td>
+
+                {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
+                <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
+                    {item.estado === true ? "Activo" : "Inactivo"}</td>
+                <td style={{ display: "flex", padding: "0.5vw" }}>
+
+                    <Button color="primary" onClick={() => this.onClickActualizarMacroActividad(item.idMacro)} style={{ marginRight: "1vw" }}>Editar
+                    </Button>
+
+                    <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarMacroActividad(item.idMacro)}> {item.estado === true ? "Inactivar" : "Activar"}
+                    </Button>
+                </td>
+            </tr>
+        ))
+    }
+
     render() {
         return (
             <main>
@@ -136,42 +165,9 @@ export class MantenimientoActividades extends Component {
                         : ""}
 
                     <br />
-                    <table id="example"
-                        class="display"  >
-                        <thead >
-                            <tr style={{ backgroundColor: "#126677", color: "white" }}>
-                                <th>Id</th>
-                                <th>Código</th>
-                                <th>Macro Actividad</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
-                            </tr >
-                        </thead>
-                        <tbody >
-                            {
-                                this.state.listaActividades.map((item, index) => (
-                                    <tr key={index}>
-                                        <td>{item.idMacro}</td>
-                                        <td>{item.codigo}</td>
-                                        <td>{item.macroActividad}</td>
 
-                                        {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
-                                        <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
-                                            {item.estado === true ? "Activo" : "Inactivo"}</td>
-                                        <td style={{ display: "flex", padding: "0.5vw" }}>
-
-                                            <Button color="primary" onClick={() => this.onClickActualizarMacroActividad(item.idMacro)} style={{ marginRight: "1vw" }}>Editar
-                                            </Button>
-
-                                            <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarMacroActividad(item.idMacro)}> {item.estado === true ? "Inactivar" : "Activar"}
-                                            </Button>
-                                        </td>
-                                    </tr>
-                                ))
-                            }
-                        </tbody>
-                    </table >
-
+          
+                    <Table tableHeading={this.state.cabeceras} body={this.body()} />
                     
                     <FormularioModal show={this.state.modal} handleClose={this.onClickCerrarModal} titulo={this.state.modalTitulo} className=''>
                         <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarMacroActividad={this.onClickProcesarMacroActividad} mensaje={this.state.mensajeFormulario} />

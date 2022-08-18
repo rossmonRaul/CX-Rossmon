@@ -8,8 +8,6 @@ namespace Dominio.Dto
     {
         public int idTipoTaller { get; set; }
 
-        public string codigo { get; set; }
-
         public string tipoTaller { get; set; }
     }
 }

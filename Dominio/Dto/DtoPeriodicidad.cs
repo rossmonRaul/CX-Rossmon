@@ -9,8 +9,6 @@ namespace Dominio.Dto
 
         public int idPeriodicidad { get; set; }
 
-        public string codigo { get; set; }
-
         public string periodicidad { get; set; }
     }
 }
