@@ -13,10 +13,10 @@ export const Table = ({ tableHeading, body }) => {
 
     return (
         <>
-            <table id="tbl_table"
+            <table id="example"
                 className="table" >
                 <thead >
-                    <tr >
+                    <tr style={{ backgroundColor: "#126677", color: "white" }}>
                         {
                             tableHeading.map(header => {
                                 return <th>{header}</th>
