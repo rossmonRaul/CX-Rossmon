@@ -1,13 +1,14 @@
 ﻿import React, { Component } from 'react';
 
 import {
-    Container, Form, Row, Col, Label, Input, Button, FormGroup, Table,
+    Container, Form, Row, Col, Label, Input, Button, FormGroup, 
 
     Modal,
     ModalHeader,
     ModalBody,
     ModalFooter
 } from 'reactstrap';
+import { Table } from '../Table';
 
 import { ObtenerSegmentos, AgregarSegmentos, ActualizarSegmento, ObtenerSegmentoPorId, InactivarSegmento } from '../../servicios/ServicioSegmentos';
 import { Alert } from 'react-bootstrap'
@@ -31,6 +32,7 @@ export class MantenimientoSegmentos extends Component {
         super(props);
         this.state = {
             segmentos: [],
+            cabeceras: ["Id segmento", "Segmento", "Sector", "Estado", "Acciones"],
             pendiente: false,
             data: {},
             modal: false,
@@ -50,7 +52,7 @@ export class MantenimientoSegmentos extends Component {
         await this.ObtenerListaSegmentos();
         //initialize datatable
         setTimeout(() => {
-            $('#example').DataTable(
+            $('#tbl_table').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 }
@@ -122,12 +124,12 @@ export class MantenimientoSegmentos extends Component {
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta: true });
 
-            $('#example').DataTable().destroy();
+            $('#tbl_table').DataTable().destroy();
 
             await this.ObtenerListaSegmentos();
 
             setTimeout(() => {
-                $('#example').DataTable(
+                $('#tbl_table').DataTable(
                     {
                         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                     });
@@ -140,6 +142,30 @@ export class MantenimientoSegmentos extends Component {
         this.setState({ show: true });
     }
 
+    body = () => {
+
+        return this.state.segmentos.map((item, index) => (
+            <tr key={index}>
+                <td>{item.idSegmento}</td>
+                <td>{item.segmento}</td>
+                <td>{item.sector}</td>
+
+                {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
+                <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
+                    {item.estado === true ? "Activo" : "Inactivo"}</td>
+                <td style={{ display: "flex", padding: "0.5vw" }}>
+
+                    <Button color="primary" onClick={() => this.onClickActualizarSegmento(item.idSegmento)} style={{ marginRight: "1vw" }}>Editar
+                                            </Button>
+
+                    <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarSegmento(item.idSegmento)}> {item.estado === true ? "Inactivar" : "Activar"}
+                    </Button>
+                </td>
+            </tr>
+        ))
+
+
+    }
 
 
     render() {
@@ -161,39 +187,7 @@ export class MantenimientoSegmentos extends Component {
 
                     <br />
 
-                    <table id="example" className="display">
-                        <thead>
-                            <tr className="table1">
-                                <th>Id Segmento</th>
-                                <th>Segmento</th>
-                                <th>Sector</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            {this.state.segmentos.map((item, index) => (
-                                <tr key={index}>
-                                    <td>{item.idSegmento}</td>
-                                    <td>{item.segmento}</td>
-                                    <td>{item.sector}</td>
-
-                                    {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
-                                    <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
-                                        {item.estado === true ? "Activo" : "Inactivo"}</td>
-                                    <td style={{ display: "flex", padding: "0.5vw" }}>
-
-                                        <Button color="primary" onClick={() => this.onClickActualizarSegmento(item.idSegmento)} style={{ marginRight: "1vw" }}>Editar
-                                            </Button>
-
-                                        <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarSegmento(item.idSegmento)}> {item.estado === true ? "Inactivar" : "Activar"}
-                                        </Button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    <Table tableHeading={this.state.cabeceras} body={this.body()} />
                 </Container>
 
 

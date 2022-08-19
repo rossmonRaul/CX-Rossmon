@@ -28,7 +28,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarSegmento, mensa
         const sect = await ObtenerSectoresActivos();
         if (sect !== undefined) {
             setListaSectores(sect);
-
+           
         }
     }
 
@@ -75,9 +75,10 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarSegmento, mensa
                    classGroup="form-sectores"></InputSelect>
 
 
-              {/*  <ComboBox data={listaSectores} label="Sector" controlId="sel-idSector" onChange={onChangeIdSector} value={idSector} optionValue="idSector" optionLabel="sector" indicacion="Seleccione el sector" />*/}
+               {/* <ComboBox data={listaSectores} label="Sector" controlId="sel-idSector" onChange={onChangeIdSector} value={idSector} optionValue="idSector" optionLabel="sector" indicacion="Seleccione el sector" />*/}
 
                 {mensaje !== "" ? <p className="text-info text-center">{mensaje}</p> : ""}
+                <br />
                 <div className='text-right'>
                     <Button variant="primary" type="submit" size="sm">{labelButton}</Button>
                 </div>
