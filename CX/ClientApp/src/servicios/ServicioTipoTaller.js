@@ -25,3 +25,7 @@ export const ObtenerTipoTaller = async () => {
     const url = `${controlador}/Obtenertipotaller`;
     return await ProcesarDatosApi('GET', url);
 }
+export const ObtenerTipoTallerActivos = async () => {
+    const url = `${controlador}/Obtenertipotalleractivos`;
+    return await ProcesarDatosApi('GET', url);
+}

@@ -12,33 +12,32 @@ using System.Threading.Tasks;
 
 namespace DataAccess.StoredProcedures
 {
-    public class SPTipoTaller
+    public class SPEtapasTaller
     {
         BdConexion bdConexion = new BdConexion();
         private SqlCommand sqlCommand;
         private SqlConnection sqlConnection;
 
 
-        private readonly string obtenerTipoTallerQuery = "SPObtenerTiposTalleres";
-        private readonly string insertarTipoTallerQuery = "SPInsertarTipoTaller";
-        private readonly string actualizarTipoTallerQuery = "SPActualizarTipoTaller";
-        private readonly string eliminarTipoTallerQuery = "SPEliminarTipoTaller";
-        private readonly string obtenerTipoTallerPorIDQuery = "SPObtenerTipoTallerPorID";
-        private readonly string obtenerTipoTallerActivos = "SPObtenerTalleresActivos";
+        private readonly string obtenerEtapasTallerQuery = "SPObtenerEtapaTipoTaller";
+        private readonly string insertarEtapasTallerQuery = "SPInsertarEtapasTaller";
+        private readonly string actualizarEtapasTallerQuery = "SPActualizarEtapaTaller";
+        private readonly string eliminarEtapasTallerQuery = "SPEliminarEtapaTaller";
+        private readonly string obtenerEtapasTallerPorIDQuery = "SPObtenerEtapaTipoTallerPorID";
 
 
-
-        public async Task<DtoRespuestaSP> InsertarTipoTaller(EntitiTipoTaller entitiTipoTaller)
+        public async Task<DtoRespuestaSP> InsertarEtapasTaller(EntitiEtapasTaller entitiEtapasTaller)
         {
             DtoRespuestaSP dtoRespuestaSP = new DtoRespuestaSP();
             try
             {
                 sqlConnection = new SqlConnection(bdConexion.connectionString);
                 sqlConnection.Open();
-                sqlCommand = new SqlCommand(insertarTipoTallerQuery, sqlConnection); //cambiar SP 
+                sqlCommand = new SqlCommand(insertarEtapasTallerQuery, sqlConnection); //cambiar SP 
                 sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
-                sqlCommand.Parameters.AddWithValue("@TipoTaller", entitiTipoTaller.tipoTaller);
+                sqlCommand.Parameters.AddWithValue("@EtapaTaller", entitiEtapasTaller.etapaTaller);
+                sqlCommand.Parameters.AddWithValue("@IdTipoTaller", entitiEtapasTaller.idTipoTaller);
 
 
                 sqlCommand.Parameters.Add("@INDICADOR", SqlDbType.Int);
@@ -66,18 +65,19 @@ namespace DataAccess.StoredProcedures
         }
 
 
-        public async Task<DtoRespuestaSP> ActualizarTipoTaller(EntitiTipoTaller entitiTipoTaller)
+        public async Task<DtoRespuestaSP> ActualizarEtapasTaller(EntitiEtapasTaller entitiEtapasTaller)
         {
             DtoRespuestaSP dtoRespuestaSP = new DtoRespuestaSP();
             try
             {
                 sqlConnection = new SqlConnection(bdConexion.connectionString);
                 sqlConnection.Open();
-                sqlCommand = new SqlCommand(actualizarTipoTallerQuery, sqlConnection);
+                sqlCommand = new SqlCommand(actualizarEtapasTallerQuery, sqlConnection);
                 sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
-                sqlCommand.Parameters.AddWithValue("@IdTipoTaller", entitiTipoTaller.idTipoTaller);
-                sqlCommand.Parameters.AddWithValue("@TipoTaller", entitiTipoTaller.tipoTaller);
+                sqlCommand.Parameters.AddWithValue("@IdEtapaTaller", entitiEtapasTaller.idEtapaTaller);
+                sqlCommand.Parameters.AddWithValue("@EtapaTaller", entitiEtapasTaller.etapaTaller);
+                sqlCommand.Parameters.AddWithValue("@IdTipoTaller", entitiEtapasTaller.idTipoTaller);
 
 
                 sqlCommand.Parameters.Add("@INDICADOR", SqlDbType.Int);
@@ -104,17 +104,17 @@ namespace DataAccess.StoredProcedures
             return dtoRespuestaSP;
         }
 
-        public async Task<DtoRespuestaSP> EliminarTipoTaller(int idTipoTaller)
+        public async Task<DtoRespuestaSP> EliminarEtapasTaller(int idEtapaTaller)
         {
             DtoRespuestaSP dtoRespuestaSP = new DtoRespuestaSP();
             try
             {
                 sqlConnection = new SqlConnection(bdConexion.connectionString);
                 sqlConnection.Open();
-                sqlCommand = new SqlCommand(eliminarTipoTallerQuery, sqlConnection);
+                sqlCommand = new SqlCommand(eliminarEtapasTallerQuery, sqlConnection);
                 sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
-                sqlCommand.Parameters.AddWithValue("@IdTipoTaller", idTipoTaller);
+                sqlCommand.Parameters.AddWithValue("@IdEtapaTaller", idEtapaTaller);
 
                 sqlCommand.Parameters.Add("@INDICADOR", SqlDbType.Int);
                 sqlCommand.Parameters.Add("@MENSAJE", SqlDbType.VarChar, 50);
@@ -141,7 +141,7 @@ namespace DataAccess.StoredProcedures
 
         }
 
-        public async Task<DtoTipoTaller> ObtenerTipoTallerPorID(int idTipoTaller)
+        public async Task<DtoEtapasTaller> ObtenerEtapasTallerPorID(int idEtapaTaller)
         {
             object value = new object();
             try
@@ -151,9 +151,9 @@ namespace DataAccess.StoredProcedures
                 sqlConnection.Open();
 
                 DynamicParameters queryParameters = new DynamicParameters();
-                queryParameters.Add("@IdTipoTaller", idTipoTaller);
+                queryParameters.Add("@IdEtapaTaller", idEtapaTaller);
 
-                var result = await sqlConnection.QueryAsync<DtoTipoTaller>(obtenerTipoTallerPorIDQuery, queryParameters, commandType: System.Data.CommandType.StoredProcedure);
+                var result = await sqlConnection.QueryAsync<DtoEtapasTaller>(obtenerEtapasTallerPorIDQuery, queryParameters, commandType: System.Data.CommandType.StoredProcedure);
                 value = result.FirstOrDefault();
 
             }
@@ -165,40 +165,19 @@ namespace DataAccess.StoredProcedures
             {
                 this.sqlConnection.Close();
             }
-            return (DtoTipoTaller)Convert.ChangeType(value, typeof(DtoTipoTaller));
+            return (DtoEtapasTaller)Convert.ChangeType(value, typeof(DtoEtapasTaller));
         }
 
 
-        public async Task<List<DtoTipoTaller>> ObtenerTipoTaller()
+        public async Task<List<DtoEtapasTaller>> ObtenerEtapasTaller()
         {
-            List<DtoTipoTaller> lista = new List<DtoTipoTaller>();
+            List<DtoEtapasTaller> lista = new List<DtoEtapasTaller>();
             try
             {
 
                 using (var connection = new SqlConnection(bdConexion.connectionString))
                 {
-                    var result = await connection.QueryAsync<DtoTipoTaller>(obtenerTipoTallerQuery, commandType: System.Data.CommandType.StoredProcedure);
-                    lista = result.ToList();
-                }
-
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-
-            return lista;
-        }
-
-        public async Task<List<DtoTipoTaller>> ObtenerTipoTallerActivos()
-        {
-            List<DtoTipoTaller> lista = new List<DtoTipoTaller>();
-            try
-            {
-
-                using (var connection = new SqlConnection(bdConexion.connectionString))
-                {
-                    var result = await connection.QueryAsync<DtoTipoTaller>(obtenerTipoTallerActivos, commandType: System.Data.CommandType.StoredProcedure);
+                    var result = await connection.QueryAsync<DtoEtapasTaller>(obtenerEtapasTallerQuery, commandType: System.Data.CommandType.StoredProcedure);
                     lista = result.ToList();
                 }
 

@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react';
 
 import {
-    Container, Form, Row, Col, Label, Input, Button, FormGroup, Table,
+    Container, Form, Row, Col, Label, Input, Button, FormGroup,
 
     Modal,
     ModalHeader,
@@ -11,6 +11,8 @@ import {
 
 import { ObtenerSectores, AgregarSectores, ActualizarSector, ObtenerSectorPorId, InactivarSector } from '../../servicios/ServicioSectores';
 import { Alert } from 'react-bootstrap'
+
+import { Table } from '../Table';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'jquery/dist/jquery.min.js';
@@ -30,6 +32,7 @@ export class MantenimientoSectores extends Component {
         super(props);
         this.state = {
             sectores: [],
+            cabeceras: ["Id sector", "Sector", "Estado", "Acciones"],
             pendiente: false,
             data: {},
             modal: false,
@@ -52,7 +55,7 @@ export class MantenimientoSectores extends Component {
         await this.ObtenerListaSectores();
         //initialize datatable
         setTimeout(() => {
-            $('#example').DataTable(
+            $('#tbl_table').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 }
@@ -118,12 +121,12 @@ export class MantenimientoSectores extends Component {
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta: true });
 
-            $('#example').DataTable().destroy();
+            $('#tbl_table').DataTable().destroy();
 
             await this.ObtenerListaSectores();
 
             setTimeout(() => {
-                $('#example').DataTable(
+                $('#tbl_table').DataTable(
                     {
                         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                     });
@@ -134,6 +137,28 @@ export class MantenimientoSectores extends Component {
         }
 
         this.setState({ show: true });
+    }
+
+    body = () => {
+        return this.state.sectores.map((item, index) => (
+            <tr key={index}>
+                <td>{item.idSector}</td>
+                <td>{item.sector}</td>
+
+                {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
+                <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
+                    {item.estado === true ? "Activo" : "Inactivo"}</td>
+                <td style={{ display: "flex", padding: "0.5vw" }}>
+
+                    <Button color="primary" onClick={() => this.onClickActualizarSector(item.idSector)} style={{ marginRight: "1vw" }}>Editar
+                                            </Button>
+
+                    <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarSector(item.idSector)}> {item.estado === true ? "Inactivar" : "Activar"}
+                    </Button>
+                </td>
+            </tr>
+        ))
+
     }
 
     render() {
@@ -154,39 +179,7 @@ export class MantenimientoSectores extends Component {
                         : ""}
 
                     <br />
-                    <table id="example"
-                        class="display"  >
-                        <thead >
-                            <tr >
-                                <th>Id Sector</th>
-                                <th>Sector</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
-                            </tr >
-                        </thead>
-                        <tbody >
-                            {
-                                this.state.sectores.map((item, index) => (
-                                    <tr key={index}>
-                                        <td>{item.idSector}</td>
-                                        <td>{item.sector}</td>
-
-                                        {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
-                                        <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
-                                            {item.estado === true ? "Activo" : "Inactivo"}</td>
-                                        <td style={{ display: "flex", padding: "0.5vw" }}>
-
-                                            <Button color="primary" onClick={() => this.onClickActualizarSector(item.idSector)} style={{ marginRight: "1vw" }}>Editar
-                                            </Button>
-
-                                            <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarSector(item.idSector)}> {item.estado === true ? "Inactivar" : "Activar"}
-                                            </Button>
-                                        </td>
-                                    </tr>
-                                ))
-                            }
-                        </tbody>
-                    </table >
+                    <Table tableHeading={this.state.cabeceras} body={this.body()} />
 
                     <FormularioModal show={this.state.modal} handleClose={this.onClickCerrarModal} titulo={this.state.modalTitulo} className=''>
                         <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarSectores={this.onClickProcesarSector} mensaje={this.state.mensajeFormulario} />
