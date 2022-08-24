@@ -45,5 +45,8 @@ namespace CX.Controllers
             return Json(await this.servicioLineaNegocio.ObtenerLineaNegocio());
         }
 
+        
+
+
     }
 }

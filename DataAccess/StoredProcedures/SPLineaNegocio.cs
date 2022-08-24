@@ -26,7 +26,7 @@ namespace DataAccess.StoredProcedures
         private readonly string actualizarLineaNegocioQuery = "SPActualizarLineaNegocio";
         private readonly string eliminarLineaNegocioQuery = "SPEliminarLineaNegocio";
         private readonly string obtenerLineaNegocioPorIDQuery = "SPObtenerLineaNegocioPorID";
-
+       
 
         public async Task<DtoRespuestaSP> InsertarLineaNegocio(EntitiLineaNegocio entitiLineaNegocio)
         {
@@ -185,6 +185,9 @@ namespace DataAccess.StoredProcedures
             
             return lista;
         }
+
+
+        
 
 
     }
