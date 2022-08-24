@@ -34,5 +34,7 @@ namespace BussinesLogic.Servicios
         {
             return await this.spLineaNegocio.ObtenerLineaNegocio();
         }
+
+        
     }
 }
