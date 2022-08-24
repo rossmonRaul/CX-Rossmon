@@ -12,33 +12,31 @@ using System.Threading.Tasks;
 
 namespace DataAccess.StoredProcedures
 {
-    public class SPTipoTaller
+    public class SPGradoImpacto
     {
         BdConexion bdConexion = new BdConexion();
         private SqlCommand sqlCommand;
         private SqlConnection sqlConnection;
 
 
-        private readonly string obtenerTipoTallerQuery = "SPObtenerTiposTalleres";
-        private readonly string insertarTipoTallerQuery = "SPInsertarTipoTaller";
-        private readonly string actualizarTipoTallerQuery = "SPActualizarTipoTaller";
-        private readonly string eliminarTipoTallerQuery = "SPEliminarTipoTaller";
-        private readonly string obtenerTipoTallerPorIDQuery = "SPObtenerTipoTallerPorID";
-        private readonly string obtenerTipoTallerActivos = "SPObtenerTalleresActivos";
+        private readonly string obtenerGradoImpactoQuery = "SPObtenerGradoImpacto";
+        private readonly string insertarGradoImpactoQuery = "SPInsertarGradoImpacto";
+        private readonly string actualizarGradoImpactoQuery = "SPActualizarGradoImpacto";
+        private readonly string eliminarGradoImpactoQuery = "SPEliminarGradoImpacto";
+        private readonly string obtenerGradoImpactoPorIDQuery = "SPObtenerGradoImpactoPorID";
 
 
-
-        public async Task<DtoRespuestaSP> InsertarTipoTaller(EntitiTipoTaller entitiTipoTaller)
+        public async Task<DtoRespuestaSP> InsertarGradoImpacto(EntitiGradoImpacto entitiGradoImpacto)
         {
             DtoRespuestaSP dtoRespuestaSP = new DtoRespuestaSP();
             try
             {
                 sqlConnection = new SqlConnection(bdConexion.connectionString);
                 sqlConnection.Open();
-                sqlCommand = new SqlCommand(insertarTipoTallerQuery, sqlConnection); //cambiar SP 
+                sqlCommand = new SqlCommand(insertarGradoImpactoQuery, sqlConnection); //cambiar SP 
                 sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
-                sqlCommand.Parameters.AddWithValue("@TipoTaller", entitiTipoTaller.tipoTaller);
+                sqlCommand.Parameters.AddWithValue("@GradoImpacto", entitiGradoImpacto.gradoImpacto);
 
 
                 sqlCommand.Parameters.Add("@INDICADOR", SqlDbType.Int);
@@ -66,18 +64,18 @@ namespace DataAccess.StoredProcedures
         }
 
 
-        public async Task<DtoRespuestaSP> ActualizarTipoTaller(EntitiTipoTaller entitiTipoTaller)
+        public async Task<DtoRespuestaSP> ActualizarGradoImpacto(EntitiGradoImpacto entitiGradoImpacto)
         {
             DtoRespuestaSP dtoRespuestaSP = new DtoRespuestaSP();
             try
             {
                 sqlConnection = new SqlConnection(bdConexion.connectionString);
                 sqlConnection.Open();
-                sqlCommand = new SqlCommand(actualizarTipoTallerQuery, sqlConnection);
+                sqlCommand = new SqlCommand(actualizarGradoImpactoQuery, sqlConnection);
                 sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
-                sqlCommand.Parameters.AddWithValue("@IdTipoTaller", entitiTipoTaller.idTipoTaller);
-                sqlCommand.Parameters.AddWithValue("@TipoTaller", entitiTipoTaller.tipoTaller);
+                sqlCommand.Parameters.AddWithValue("@IdGradoImpacto", entitiGradoImpacto.idGradoImpacto);
+                sqlCommand.Parameters.AddWithValue("@GradoImpacto", entitiGradoImpacto.gradoImpacto);
 
 
                 sqlCommand.Parameters.Add("@INDICADOR", SqlDbType.Int);
@@ -104,17 +102,17 @@ namespace DataAccess.StoredProcedures
             return dtoRespuestaSP;
         }
 
-        public async Task<DtoRespuestaSP> EliminarTipoTaller(int idTipoTaller)
+        public async Task<DtoRespuestaSP> EliminarGradoImpacto(int idGradoImpacto)
         {
             DtoRespuestaSP dtoRespuestaSP = new DtoRespuestaSP();
             try
             {
                 sqlConnection = new SqlConnection(bdConexion.connectionString);
                 sqlConnection.Open();
-                sqlCommand = new SqlCommand(eliminarTipoTallerQuery, sqlConnection);
+                sqlCommand = new SqlCommand(eliminarGradoImpactoQuery, sqlConnection);
                 sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
-                sqlCommand.Parameters.AddWithValue("@IdTipoTaller", idTipoTaller);
+                sqlCommand.Parameters.AddWithValue("@IdGradoImpacto", idGradoImpacto);
 
                 sqlCommand.Parameters.Add("@INDICADOR", SqlDbType.Int);
                 sqlCommand.Parameters.Add("@MENSAJE", SqlDbType.VarChar, 50);
@@ -141,7 +139,7 @@ namespace DataAccess.StoredProcedures
 
         }
 
-        public async Task<DtoTipoTaller> ObtenerTipoTallerPorID(int idTipoTaller)
+        public async Task<DtoGradoImpacto> ObtenerGradoImpactoPorID(int idGradoImpacto)
         {
             object value = new object();
             try
@@ -151,9 +149,9 @@ namespace DataAccess.StoredProcedures
                 sqlConnection.Open();
 
                 DynamicParameters queryParameters = new DynamicParameters();
-                queryParameters.Add("@IdTipoTaller", idTipoTaller);
+                queryParameters.Add("@IdGradoImpacto", idGradoImpacto);
 
-                var result = await sqlConnection.QueryAsync<DtoTipoTaller>(obtenerTipoTallerPorIDQuery, queryParameters, commandType: System.Data.CommandType.StoredProcedure);
+                var result = await sqlConnection.QueryAsync<DtoGradoImpacto>(obtenerGradoImpactoPorIDQuery, queryParameters, commandType: System.Data.CommandType.StoredProcedure);
                 value = result.FirstOrDefault();
 
             }
@@ -165,40 +163,19 @@ namespace DataAccess.StoredProcedures
             {
                 this.sqlConnection.Close();
             }
-            return (DtoTipoTaller)Convert.ChangeType(value, typeof(DtoTipoTaller));
+            return (DtoGradoImpacto)Convert.ChangeType(value, typeof(DtoGradoImpacto));
         }
 
 
-        public async Task<List<DtoTipoTaller>> ObtenerTipoTaller()
+        public async Task<List<DtoGradoImpacto>> ObtenerGradoImpacto()
         {
-            List<DtoTipoTaller> lista = new List<DtoTipoTaller>();
+            List<DtoGradoImpacto> lista = new List<DtoGradoImpacto>();
             try
             {
 
                 using (var connection = new SqlConnection(bdConexion.connectionString))
                 {
-                    var result = await connection.QueryAsync<DtoTipoTaller>(obtenerTipoTallerQuery, commandType: System.Data.CommandType.StoredProcedure);
-                    lista = result.ToList();
-                }
-
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-
-            return lista;
-        }
-
-        public async Task<List<DtoTipoTaller>> ObtenerTipoTallerActivos()
-        {
-            List<DtoTipoTaller> lista = new List<DtoTipoTaller>();
-            try
-            {
-
-                using (var connection = new SqlConnection(bdConexion.connectionString))
-                {
-                    var result = await connection.QueryAsync<DtoTipoTaller>(obtenerTipoTallerActivos, commandType: System.Data.CommandType.StoredProcedure);
+                    var result = await connection.QueryAsync<DtoGradoImpacto>(obtenerGradoImpactoQuery, commandType: System.Data.CommandType.StoredProcedure);
                     lista = result.ToList();
                 }
 

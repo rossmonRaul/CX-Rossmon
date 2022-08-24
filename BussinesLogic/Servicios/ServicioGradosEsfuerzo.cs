@@ -21,7 +21,20 @@ namespace BussinesLogic.Servicios
         {
             return await this.spGradosEsfuerzo.InsertarGradosEsfuerzo(entitiGradosEsfuerzo);
         }
+        public async Task<DtoRespuestaSP> ActualizarGradoEsfuerzo(EntitiGradosEsfuerzo entitiGradosEsfuerzo)
+        {
+            return await this.spGradosEsfuerzo.ActualizarGradoEsfuerzo(entitiGradosEsfuerzo);
+        }
 
-       
+        public async Task<DtoGradosEsfuerzo> ObtenerGradoEsfuerzoPorID(int idGradoEsfuerzo)
+        {
+            return await this.spGradosEsfuerzo.ObtenerGradoEsfuerzoPorID(idGradoEsfuerzo);
+        }
+
+        public async Task<DtoRespuestaSP> EliminarGradoEsfuerzo(int idGradoEsfuerzo)
+        {
+            return await this.spGradosEsfuerzo.EliminarGradoEsfuerzo(idGradoEsfuerzo);
+        }
+
     }
 }

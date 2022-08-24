@@ -33,5 +33,10 @@ namespace BussinesLogic.Servicios
         {
             return await this.spTipoTaller.ObtenerTipoTaller();
         }
+
+        public async Task<List<DtoTipoTaller>> ObtenerTipoTallerActivos()
+        {
+            return await this.spTipoTaller.ObtenerTipoTallerActivos();
+        }
     }
 }

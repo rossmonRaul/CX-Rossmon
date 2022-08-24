@@ -45,5 +45,11 @@ namespace CX.Controllers
         {
             return Json(await this.servicioTipoTaller.ObtenerTipoTaller());
         }
+
+        [HttpGet("[action]")]
+        public async Task<JsonResult> ObtenerTipoTallerActivos()
+        {
+            return Json(await this.servicioTipoTaller.ObtenerTipoTallerActivos());
+        }
     }
 }
