@@ -17,7 +17,7 @@ import { MantenimientoSectores } from './components/clientes/MantenimientoSector
 import { MantenimientoSegmentos } from './components/clientes/MantenimientoSegmentos'
 import { MantenimientoServicioNegocio } from './components/clientes/MantenimientoServicioNegocio'
 import { MantenimientoServicioSocio } from './components/clientes/MantenimientoServicioSocio'
-import { MantenimientoSocioServicio } from './components/clientes/MantenimientoSocioServicio'
+import { MantenimientoSocio } from './components/clientes/MantenimientoSocio'
 import { Reporte } from './components/clientes/Reporte';
 
 
@@ -84,7 +84,7 @@ export default class App extends Component {
                     <Route path='/MantenimientoSegmentos' component={MantenimientoSegmentos} />
                     <Route path='/MantenimientoServicioNegocio' component={MantenimientoServicioNegocio} />
                     <Route path='/MantenimientoServicioSocio' component={MantenimientoServicioSocio} />
-                    <Route path='/MantenimientoSocioServicio' component={MantenimientoSocioServicio} />
+                    <Route path='/MantenimientoSocio' component={MantenimientoSocio} />
                     <Route path='/Reporte' component={Reporte} />
 
                     {/*Hallazgos*/}
