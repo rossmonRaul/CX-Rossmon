@@ -56,6 +56,9 @@ import { MantenimientoPregunta } from './components/contacto_encuestas/Mantenimi
 import { MantenimientoClientesSocios } from './components/contacto_encuestas/MantenimientoClientesSocios';
 import { MantenimientoInteracciones } from './components/contacto_encuestas/MantenimientoInteracciones';
 
+//RF Eduardo
+import { CatalogoServicioSocio } from './components/clientes/CatalogoServicioSocio';
+
 
 //import axios from 'axios';
 
@@ -87,6 +90,13 @@ export default class App extends Component {
                     <Route path='/MantenimientoSocioServicio' component={MantenimientoSocioServicio} />
                     <Route path='/Reporte' component={Reporte} />
 
+
+
+                    {/*Socios*/}
+                   
+                    <Route path='/CatalogoServicioSocio' component={CatalogoServicioSocio} />
+
+
                     {/*Hallazgos*/}
                     <Route path='/MantenimientoHallazgos' component={MantenimientoHallazgos} />
                     <Route path='/MantenimientoAnotaciones' component={MantenimientoAnotaciones} />
@@ -94,6 +104,7 @@ export default class App extends Component {
                     <Route path='/AdminHallazgosDireccion' component={AdminHallazgosDireccion} />
                     <Route path='/EvidenciaTalleres' component={EvidenciaTalleres} />
                     <Route path='/ReportesHallazgos' component={ReportesHallazgos} />
+
 
 
                     {/*Parametros hallazgos*/}
