@@ -11,7 +11,16 @@ export const InputText = ({ id, label, type, placeholder, value, text, onChange,
         </Form.Group>
     )
 }
-
+export const InputPhone = ({ id, label, type, placeholder, value, text, onChange, mensajeValidacion, readOnly, disabled, required = true }) => {
+    return (
+        <Form.Group className={"mb"} controlId={id}>
+            <Form.Label >{label}</Form.Label>
+            <Form.Control hidden type={type} placeholder={placeholder} size="sm" value={value} onChange={onChange} required={required} readOnly={readOnly} disabled={disabled} />
+            <Form.Text hidden className="text-muted">{text}</Form.Text>
+            <Form.Control.Feedback type="invalid">{mensajeValidacion}</Form.Control.Feedback>
+        </Form.Group>
+    )
+}
 export const InputSelect = ({ className, controlId, label, data, onChange, value, optionValue, optionLabel, classGroup }) => {
     const ObtenerOptions = () => {
         return data.map((option, index) => {
