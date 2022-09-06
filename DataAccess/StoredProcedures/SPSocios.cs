@@ -120,7 +120,7 @@ namespace DataAccess.StoredProcedures
                 sqlConnection.Open();
 
                 DynamicParameters queryParameters = new DynamicParameters();
-                queryParameters.Add("@Cedula", idSocio);
+                queryParameters.Add("@IdSocio", idSocio);
 
                 var result = await sqlConnection.QueryAsync<DtoSocio>(obtenerSociosPorIDQuery, queryParameters, commandType: System.Data.CommandType.StoredProcedure);
                 value = result.FirstOrDefault();

@@ -13,7 +13,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarSocio, mensaje 
     const [nombre, setNombre] = useState(proceso == 2 ? data.nombre : '');
     const [telefono, setTelefono] = useState(proceso == 2 ? data.telefono : '');
     const [correo, setCorreo] = useState(proceso == 2 ? data.correo : '');
-    const [idTipoPersona, setIdTipoPersona] = useState(proceso == 2 ? data.idTipoPersona : '');
+    const [idTipoPersona, setIdTipoPersona] = useState(proceso == 2 ? parseInt(data.idTipoPersona) : 1);
 
 
     const [listaTiposPersona, setlistaTiposPersona] = useState([]);
@@ -28,9 +28,16 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarSocio, mensaje 
     const ObtenerListaTiposPersona = async () => {
         const sect = await ObtenerTiposPersona();
         if (sect !== undefined) {
-            setlistaTiposPersona(sect);
+            if (proceso === 2) {
+                setlistaTiposPersona(sect.sort((x, y) => { return x.idTipoPersona === idTipoPersona ? -1 : y.idTipoPersona === idTipoPersona ? 1 : 0; }));
+            }
+            else {
+                setlistaTiposPersona(sect);
+            }
+            
             console.log(sect);
         }
+
     }
 
 
@@ -48,9 +55,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarSocio, mensaje 
                 Correo:correo,
                 IdTipoPersona: parseInt(idTipoPersona) 
             };
-
-            if (proceso === 2) { datos.IdTipoPersona = data.idTipoPersona; };
-
+            if (proceso === 2) { datos.IdSocio = parseInt(data.idSocio); };
             const result = onClickProcesarSocio(datos); //se ejecuta la función
             console.log(result);
         }
@@ -64,7 +69,10 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarSocio, mensaje 
     //}
 
 
-    const onChangeIdTipoPersona = (e) => setIdTipoPersona(e.target.value);
+    const onChangeIdTipoPersona = (e) => {
+        console.log(e.target.value);
+        setIdTipoPersona(e.target.value);
+    } 
     const onChangeCorreo = (e) => setCorreo(e.target.value);
     const onChangeCedula = (e) => setCedula(e.target.value);
     const onChangeTelefono = (e) => setTelefono(e.target.value);

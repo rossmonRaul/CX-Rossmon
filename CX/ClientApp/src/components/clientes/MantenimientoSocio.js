@@ -74,6 +74,7 @@ export class MantenimientoSocio extends Component {
 
     onClickActualizarSocio = async (id) => {
         this.setState({ data: await ObtenerSocioPorId(id) })
+        console.log(this.state.data.idTipoPersona);
         this.setState({ proceso: 2 });
         this.setState({ modal: !this.state.modal });
         this.setState({ labelButton: "Actualizar" });
@@ -81,6 +82,7 @@ export class MantenimientoSocio extends Component {
     }
 
     onClickProcesarSocio = async (data) => {
+        console.log(data)
         let respuesta = {};
 
         if (this.state.proceso === 1)
@@ -135,7 +137,7 @@ export class MantenimientoSocio extends Component {
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
                 <td style={{ display: "flex", padding: "0.5vw" }}>
 
-                    <Button color="primary" onClick={() => this.onClickActualizarSocio(item.cedula)} style={{ marginRight: "1vw" }}>Editar
+                    <Button color="primary" onClick={() => this.onClickActualizarSocio(item.idSocio)} style={{ marginRight: "1vw" }}>Editar
                     </Button>
 
                     <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarSocio(item.cedula)}> {item.estado === true ? "Inactivar" : "Activar"}
