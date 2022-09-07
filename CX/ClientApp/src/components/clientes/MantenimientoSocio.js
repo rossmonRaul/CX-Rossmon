@@ -140,7 +140,7 @@ export class MantenimientoSocio extends Component {
                     <Button color="primary" onClick={() => this.onClickActualizarSocio(item.idSocio)} style={{ marginRight: "1vw" }}>Editar
                     </Button>
 
-                    <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarSocio(item.cedula)}> {item.estado === true ? "Inactivar" : "Activar"}
+                    <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarSocio(item.idSocio)}> {item.estado === true ? "Inactivar" : "Activar"}
                     </Button>
                 </td>
             </tr>
