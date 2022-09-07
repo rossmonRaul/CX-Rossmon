@@ -100,17 +100,17 @@ export class NavMenu extends Component {
                                     </DropdownItem>
                                     <DropdownItem>
                                         <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoServicioSocio">Mantenimiento Servicio Socio</NavLink>
+                                            <NavLink tag={Link} className="text-black" to="/CatalogoServicioSocio">Catalogo de Servicios por Socios</NavLink>
                                         </NavItem>
                                     </DropdownItem>
                                     <DropdownItem>
                                         <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoSocioServicio">Mantenimiento Socio Servicio</NavLink>
+                                            <NavLink tag={Link} className="text-black" to="/MantenimientoSocio">Catálogo de Socios</NavLink>
                                         </NavItem>
                                     </DropdownItem>
+
                                 </DropdownMenu>
                             </UncontrolledDropdown>
-
 
 
                             <UncontrolledDropdown nav inNavbar>

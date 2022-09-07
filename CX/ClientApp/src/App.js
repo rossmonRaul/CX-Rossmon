@@ -17,7 +17,7 @@ import { MantenimientoSectores } from './components/clientes/MantenimientoSector
 import { MantenimientoSegmentos } from './components/clientes/MantenimientoSegmentos'
 import { MantenimientoServicioNegocio } from './components/clientes/MantenimientoServicioNegocio'
 import { MantenimientoServicioSocio } from './components/clientes/MantenimientoServicioSocio'
-import { MantenimientoSocioServicio } from './components/clientes/MantenimientoSocioServicio'
+import { MantenimientoSocio } from './components/clientes/MantenimientoSocio'
 import { Reporte } from './components/clientes/Reporte';
 
 
@@ -56,6 +56,9 @@ import { MantenimientoPregunta } from './components/contacto_encuestas/Mantenimi
 import { MantenimientoClientesSocios } from './components/contacto_encuestas/MantenimientoClientesSocios';
 import { MantenimientoInteracciones } from './components/contacto_encuestas/MantenimientoInteracciones';
 
+//RF Eduardo
+import { CatalogoServicioSocio } from './components/clientes/CatalogoServicioSocio';
+
 
 //import axios from 'axios';
 
@@ -84,8 +87,15 @@ export default class App extends Component {
                     <Route path='/MantenimientoSegmentos' component={MantenimientoSegmentos} />
                     <Route path='/MantenimientoServicioNegocio' component={MantenimientoServicioNegocio} />
                     <Route path='/MantenimientoServicioSocio' component={MantenimientoServicioSocio} />
-                    <Route path='/MantenimientoSocioServicio' component={MantenimientoSocioServicio} />
+                    <Route path='/MantenimientoSocio' component={MantenimientoSocio} />
                     <Route path='/Reporte' component={Reporte} />
+
+
+
+                    {/*Socios*/}
+                   
+                    <Route path='/CatalogoServicioSocio' component={CatalogoServicioSocio} />
+
 
                     {/*Hallazgos*/}
                     <Route path='/MantenimientoHallazgos' component={MantenimientoHallazgos} />
@@ -94,6 +104,7 @@ export default class App extends Component {
                     <Route path='/AdminHallazgosDireccion' component={AdminHallazgosDireccion} />
                     <Route path='/EvidenciaTalleres' component={EvidenciaTalleres} />
                     <Route path='/ReportesHallazgos' component={ReportesHallazgos} />
+
 
 
                     {/*Parametros hallazgos*/}
