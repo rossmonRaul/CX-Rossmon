@@ -96,11 +96,27 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarSocio, mensaje 
 
 
                 <InputPhone disabled='true' id='txt-tel' label='Teléfono:' type='tel' placeholder='Ingrese el teléfono del socio' value={telefono}
-                    onChange={onChangeTelefono} mensajeValidacion="El teléfono es requerido" />
+                    onChange={onChangeTelefono} mensajeValidacion="El teléfono es requerido"/>
                 <PhoneInput
                     country={'cr'}
                     value={telefono}
-                    onChange={phone => setTelefono(phone)}
+                    onChange={phone => setTelefono(phone)
+                    }
+                    inputProps={{
+                        name: 'phone',
+                        required: true,
+                        autoFocus: true,
+                        defaultErrorMessage: 'Número de teléfono inválido'
+                    }} 
+                    isValid={(value, country) => {
+                        if (value.length < 11) {
+                            return 'Número de teléfono inválido';
+                        } else if (value.length > 11) {
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    }}
                 />
                 {mensaje !== "" ? <p className="text-info text-center">{mensaje}</p> : ""}
                 <br />
