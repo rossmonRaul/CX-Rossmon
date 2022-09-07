@@ -29,13 +29,14 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarSocio, mensaje 
         const sect = await ObtenerTiposPersona();
         if (sect !== undefined) {
             if (proceso === 2) {
-                setlistaTiposPersona(sect.sort((x, y) => { return x.idTipoPersona === idTipoPersona ? -1 : y.idTipoPersona === idTipoPersona ? 1 : 0; }));
+                setlistaTiposPersona(sect.sort((x, y) => { return x.idTipoPersona === idTipoPersona ? -1 : y.idTipoPersona === idTipoPersona ? 1 : 0; }));//Ordena el array colocando de primero el tipo de persona del actual socio
             }
             else {
-                setlistaTiposPersona(sect);
+                let defecto = { idTipoPersona: '', tipoPersona: " --- Seleccione un tipo de persona  --- " };//Pone el valor por defecto en seleccionar el tipo de persona
+                sect.push(defecto);
+                setlistaTiposPersona(sect.reverse());
             }
-            
-            console.log(sect);
+
         }
 
     }
@@ -57,20 +58,15 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarSocio, mensaje 
             };
             if (proceso === 2) { datos.IdSocio = parseInt(data.idSocio); };
             const result = onClickProcesarSocio(datos); //se ejecuta la función
-            console.log(result);
         }
         setValidated(true);
         event.preventDefault();
     }
 
 
-    //const onChangeIdSector = (event) => {
-    //    setidSector(event.target.value);
-    //}
 
 
     const onChangeIdTipoPersona = (e) => {
-        console.log(e.target.value);
         setIdTipoPersona(e.target.value);
     } 
     const onChangeCorreo = (e) => setCorreo(e.target.value);
@@ -95,7 +91,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarSocio, mensaje 
                 {mensaje !== "" ? <p className="text-info text-center">{mensaje}</p> : ""}
 
 
-                <InputPhone disabled='true' id='txt-tel' label='Teléfono:' type='tel' placeholder='Ingrese el teléfono del socio' value={telefono}
+                <InputPhone id='txt-tel' label='Teléfono:' type='tel' placeholder='Ingrese el teléfono del socio' value={telefono}
                     onChange={onChangeTelefono} mensajeValidacion="El teléfono es requerido"/>
                 <PhoneInput
                     country={'cr'}
@@ -105,18 +101,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarSocio, mensaje 
                     inputProps={{
                         name: 'phone',
                         required: true,
-                        autoFocus: true,
-                        defaultErrorMessage: 'Número de teléfono inválido'
                     }} 
-                    isValid={(value, country) => {
-                        if (value.length < 11) {
-                            return 'Número de teléfono inválido';
-                        } else if (value.length > 11) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }}
                 />
                 {mensaje !== "" ? <p className="text-info text-center">{mensaje}</p> : ""}
                 <br />

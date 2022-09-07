@@ -23,14 +23,13 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarTipoEncuesta, m
             if (proceso === 2) { datos.idTipoEncuesta = data.idTipoEncuesta; };
 
             const result = onClickProcesarTipoEncuesta(datos); //se ejecuta la función
-            console.log(result);
         }
         setValidated(true);
         event.preventDefault();
     }
 
 
-    const onChangeTipoEncuesta = (e) => { console.log(e.target.value); setTipoEncuesta(e.target.value); } 
+    const onChangeTipoEncuesta = (e) => {setTipoEncuesta(e.target.value); } 
 
 
     return (

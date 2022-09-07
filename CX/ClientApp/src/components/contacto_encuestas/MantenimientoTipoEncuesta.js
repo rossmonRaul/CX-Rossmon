@@ -74,7 +74,6 @@ export class MantenimientoTipoEncuesta extends Component {
 
     onClickActualizarTipoEncuesta = async (id) => {
         this.setState({ data: await ObtenerTipoEncuestaPorId(id) })
-        console.log(this.state.data);
         this.setState({ proceso: 2 });
         this.setState({ modal: !this.state.modal });
         this.setState({ labelButton: "Actualizar" });
@@ -82,7 +81,6 @@ export class MantenimientoTipoEncuesta extends Component {
     }
 
     onClickProcesarTipoEncuesta = async (data) => {
-        console.log(data)
         let respuesta = {};
 
         if (this.state.proceso === 1)
