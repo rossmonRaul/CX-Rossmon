@@ -63,7 +63,7 @@ export class MantenimientoSocio extends Component {
     onClickInactivarSocio = async (id) => {
         const respuesta = await InactivarSocio(id)
         if (respuesta.indicador === 0) {
-            this.setState({ lineaNegocio: await this.ObtenerListadoSocios() });
+            await this.ObtenerListadoSocios();
             this.setState({ alerta: true });
         } else {
             this.setState({ alerta: false });
