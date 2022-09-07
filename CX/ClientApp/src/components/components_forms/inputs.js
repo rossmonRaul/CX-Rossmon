@@ -31,7 +31,7 @@ export const InputSelect = ({ className, controlId, label, data, onChange, value
     return (
         <Form.Group controlId={controlId} className={classGroup}>
             <Form.Label>{label}</Form.Label>
-            <Form.Select className={className} size="sm" onChange={onChange} defaultValue={value}>
+            <Form.Select required className={className} size="sm" onChange={onChange} defaultValue={value}>
                 {ObtenerOptions()}
             </Form.Select>
         </Form.Group>
