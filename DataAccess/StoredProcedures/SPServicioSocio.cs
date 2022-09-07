@@ -82,8 +82,11 @@ namespace DataAccess.StoredProcedures
                     sqlCommand = new SqlCommand(insertarServicioSocioQuery, connection);
                     sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
-                   // sqlCommand.Parameters.AddWithValue("@ServicioSocio", entitiServicioSocio.codigoUnicoSocio);
-                   
+                    sqlCommand.Parameters.AddWithValue("@IdSocio", entitiServicioSocio.Nombre); //colocar parametros correspondientes
+                    sqlCommand.Parameters.AddWithValue("@IdLinea", entitiServicioSocio.LineaNegocio);
+                    sqlCommand.Parameters.AddWithValue("@IdServicio", entitiServicioSocio.Servicio);
+                
+
                     sqlCommand.Parameters.Add("@INDICADOR", SqlDbType.Int);
                     sqlCommand.Parameters.Add("@MENSAJE", SqlDbType.VarChar, 50);
 
@@ -123,7 +126,10 @@ namespace DataAccess.StoredProcedures
                     sqlCommand = new SqlCommand(actualizarServicioSocioQuery, connection);
                     sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
-           
+                    sqlCommand.Parameters.AddWithValue("@IdServicioSocio", entitiServicioSocio.idServicioSocio);
+                    sqlCommand.Parameters.AddWithValue("@IdSocio", entitiServicioSocio.Nombre); //colocar parametros correspondientes
+                    sqlCommand.Parameters.AddWithValue("@IdLinea", entitiServicioSocio.LineaNegocio);
+                    sqlCommand.Parameters.AddWithValue("@IdServicio", entitiServicioSocio.Servicio);
 
                     sqlCommand.Parameters.Add("@INDICADOR", SqlDbType.Int);
                     sqlCommand.Parameters.Add("@MENSAJE", SqlDbType.VarChar, 50);

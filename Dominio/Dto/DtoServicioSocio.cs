@@ -13,8 +13,11 @@ namespace Dominio.Dto
         public string LineaNegocio { get; set; }
 
         //public string informacionServicio { get; set; }
-
         public string Servicio { get; set; }
+
+        public int idSocio { get; set; }
+        public int idServicio { get; set; }
+        public int idLinea { get; set; }
 
     }
 }

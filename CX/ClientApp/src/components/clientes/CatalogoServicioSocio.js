@@ -53,7 +53,7 @@ export class CatalogoServicioSocio extends Component {
 
     async ObtenerListadoServicioSocios() {
         const respuesta = await ObtenerServicioSocio();
-        console.log(respuesta);
+        //console.log(respuesta);
         this.setState({ listaServicioSocios: respuesta });
     }
 
@@ -86,6 +86,7 @@ export class CatalogoServicioSocio extends Component {
     }
 
     onClickProcesarServiciosSocios = async (data) => {
+        console.log(data);
         let respuesta = {};
 
         if (this.state.proceso === 1)
@@ -131,8 +132,9 @@ export class CatalogoServicioSocio extends Component {
                 <td>{item.idServicioSocio}</td>
                 <td>{item.cedula}</td>
                 <td>{item.nombre}</td>
-                <td>{item.lineaNegocio}</td>
                 <td>{item.servicio}</td>
+                <td>{item.lineaNegocio}</td>
+                
 
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
