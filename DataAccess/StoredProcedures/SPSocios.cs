@@ -120,7 +120,7 @@ namespace DataAccess.StoredProcedures
                 sqlConnection.Open();
 
                 DynamicParameters queryParameters = new DynamicParameters();
-                queryParameters.Add("@Cedula", idSocio);
+                queryParameters.Add("@IdSocio", idSocio);
 
                 var result = await sqlConnection.QueryAsync<DtoSocio>(obtenerSociosPorIDQuery, queryParameters, commandType: System.Data.CommandType.StoredProcedure);
                 value = result.FirstOrDefault();
@@ -147,7 +147,7 @@ namespace DataAccess.StoredProcedures
                 sqlCommand = new SqlCommand(eliminarSociosQuery, sqlConnection);
                 sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
-                sqlCommand.Parameters.AddWithValue("@Cedula", idSocio);
+                sqlCommand.Parameters.AddWithValue("@IdSocio", idSocio);
 
                 sqlCommand.Parameters.Add("@INDICADOR", SqlDbType.Int);
                 sqlCommand.Parameters.Add("@MENSAJE", SqlDbType.VarChar, 50);
