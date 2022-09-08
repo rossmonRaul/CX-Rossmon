@@ -53,7 +53,6 @@ export class CatalogoServicioSocio extends Component {
 
     async ObtenerListadoServicioSocios() {
         const respuesta = await ObtenerServicioSocio();
-        //console.log(respuesta);
         this.setState({ listaServicioSocios: respuesta });
     }
 
@@ -86,7 +85,7 @@ export class CatalogoServicioSocio extends Component {
     }
 
     onClickProcesarServiciosSocios = async (data) => {
-        console.log(data);
+       
         let respuesta = {};
 
         if (this.state.proceso === 1)
@@ -98,7 +97,6 @@ export class CatalogoServicioSocio extends Component {
 
         if (respuesta.indicador == 0) {
             this.setState({ modal: false });
-            //this.setState({ lineaNegocios : await this.ObtenerListadoLineaNegocio() });
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta: true });
 

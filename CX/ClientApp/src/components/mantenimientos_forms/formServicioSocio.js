@@ -14,7 +14,6 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarServiciosSocios
     const [idServicio, setServicio] = useState(proceso == 2 ? data.idServicio : ''); //si el proceso es 1 es insertar, si es 2 es actualizar
     const [idLinea, setidLinea] = useState(proceso == 2 ? data.idLinea : '');
     const [idSocio, setSocio] = useState(proceso == 2 ? data.idSocio : '');
-   // const [idServicioSocio, setIdServicioSocio] = useState(proceso == 2 ? data.idServicioSocio : '');
 
     const [listaServicioLineaNegocio, setListaServicioLineaNegocio] = useState([]);
     const [listaSocio, setListaSocio] = useState([]);
@@ -34,18 +33,17 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarServiciosSocios
         if (sect !== undefined) {
             
             if (proceso === 2) {
+                //acomoda la linea de negocio como por "defecto" del combo-box(aparece la linea a la cual este asociado el socio)
                 setListaServicioLineaNegocio(sect.sort((x, y) => { return x.idLinea === idLinea ? -1 : y.idLinea === idLinea ? 1 : 0; }));
             } else {
+                //Para evitar campos vacios y ayudarle de guia al usuario
                 let defecto = { idLinea: '', lineaNegocio: "-- Seleccione una linea de negocio --" };
                 sect.push(defecto);
                 setListaServicioLineaNegocio(sect.reverse());
-            }
-            
-           // setListaServicioLineaNegocio(listaServicioLineaNegocio => [...listaServicioLineaNegocio, ...sect]);
-            
-
+            }  
         }
     }
+
     const ObtenerListaServicio= async () => {
         const serv = await ObtenerServicioLineaNegocio();
         if (serv !== undefined) {
@@ -56,10 +54,6 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarServiciosSocios
                 serv.push(defecto);
                 setListaServicio(serv.reverse());
             }
-
-
-            
-
         }
     }
 
@@ -73,12 +67,8 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarServiciosSocios
                     soc.push(defecto);
                     setListaSocio(soc.reverse());
                 }
-                
-           
-
             }
     }
-
     
     const onClickAceptar = async (event) => {
         const form = event.currentTarget;
@@ -93,22 +83,15 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarServiciosSocios
                 idServicioSocio: data.idServicioSocio
             };
            
-            const result = onClickProcesarServiciosSocios(datos); //se ejecuta la función
-            //console.log(result);
+            const result = onClickProcesarServiciosSocios(datos); //se ejecuta la función      
         }
         setValidated(true);
         event.preventDefault();
     }
 
-    //const onChangeIdSector = (event) => {
-    //    setidSector(event.target.value);
-    //}
-    
-    //const onChangeIdServicioSocio = (e) => setIdServicioSocio(e.target.value);
     const onChangeServicio = (e) => setServicio(e.target.value);
     const onChangeIdLinea = (e) => setidLinea(e.target.value);
-    const onChangeSocio = (e) => setSocio(e.target.value);
-                                                //onSubmit={onClickAceptar}
+    const onChangeSocio = (e) => setSocio(e.target.value);                                           
 
     return (
         
@@ -129,9 +112,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarServiciosSocios
             <div className='text-right'>
                     <Button className="primary" variant="primary" type="submit" size="sm">{labelButton}</Button>
                 </div>
-            </Form>
-
-        
+            </Form>  
     )
 }
 
