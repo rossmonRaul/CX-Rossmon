@@ -1,49 +1,48 @@
 ﻿
 import React, { Component, useEffect, useState } from 'react';
 import { Container, Form, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
-import { ObtenerServicioSocio, ActualizarServicioSocio, AgregarServicioSocio, ObtenerServicioSocioPorId, InactivarServicioSocio } from '../../servicios/ServicioServicioSocio';
-
+import { ObtenerTipoContactoEncuesta, ActualizarTipoContactoEncuesta, AgregarTipoContactoEncuesta, ObtenerTipoContactoEncuestaPorId, InactivarTipoContactoEncuesta } from '../../servicios/ServicioTipoContactoEncuesta';
 import 'jquery/dist/jquery.min.js';
 import { Alert } from 'react-bootstrap'
-import { Table } from '../Table';
 
 //Datatable Modules
 import "datatables.net-dt/js/dataTables.dataTables"
 import "datatables.net-dt/css/jquery.dataTables.min.css"
 import $ from 'jquery';
+
+import { Table } from '../Table';
 //modal
 import { FormularioModal } from '../components_forms/ventanaModal';
-import Formulario from '../mantenimientos_forms/formServicioSocio';
+import Formulario from '../mantenimientos_forms/formTipoContactoEncuesta';
 
 
-export class CatalogoServicioSocio extends Component {
-    static displayName = CatalogoServicioSocio.name;
-
+export class CatalogoTipoContactoEncuesta extends Component {
+    static displayName = CatalogoTipoContactoEncuesta.name;
 
     constructor(props) {
         super(props);
         this.state = {
-            listaServicioSocios: [],
+            listaTipoContactoEncuesta: [],
+            cabeceras: ["Id", "Tipo Contacto Encuesta", "Estado", "Acciones"],
             pendiente: false,
             data: {},
             modal: false,
             proceso: 1,
-            modalTitulo: "Registrar Servicio por Socios",
+            modalTitulo: "Registrar tipo de contacto de encuesta",
             labelButton: "Registrar",
             mensajeFormulario: "",
             mensajeRespuesta: {},
             show: false,
-            alerta: true,
-            cabeceras: ["id", "Cédula", "Socio", "Servicio", "Linea de Negocio", "Estado", "Acciones"],
+            alerta: true
         };
 
     }
 
     async componentDidMount() {
-        await this.ObtenerListadoServicioSocios();
+        await this.ObtenerListadoTipoContactoEncuesta();
 
         setTimeout(() => {
-            $('#example').DataTable(
+            $('#tbl_table').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 });
@@ -51,22 +50,22 @@ export class CatalogoServicioSocio extends Component {
     }
 
 
-    async ObtenerListadoServicioSocios() {
-        const respuesta = await ObtenerServicioSocio();
-        this.setState({ listaServicioSocios: respuesta });
+    async ObtenerListadoTipoContactoEncuesta() {
+        const respuesta = await ObtenerTipoContactoEncuesta();
+        this.setState({ listaTipoContactoEncuesta: respuesta });
     }
 
-    onClickNuevoServicioSocios = async () => {
+    onClickNuevoTipoContactoEncuesta = async () => {
         this.setState({ proceso: 1 });
         this.setState({ modal: !this.state.modal });
         this.setState({ labelButton: "Registrar" });
-        this.setState({ modalTitulo: "Registrar Servicio por Socio" });
+        this.setState({ modalTitulo: "Registrar Tipo de Contacto de Encuesta" });
     }
 
-    onClickInactivarServicioSocios = async (id) => {
-        const respuesta = await InactivarServicioSocio(id)
+    onClickInactivarTipoContactoEncuesta = async (id) => {
+        const respuesta = await InactivarTipoContactoEncuesta(id)
         if (respuesta.indicador === 0) {
-            this.setState({ lineaServicioSocios: await this.ObtenerListadoServicioSocios() });
+            this.setState({ lineaTipoContactoEncuesta: await this.ObtenerListadoTipoContactoEncuesta() });
             this.setState({ alerta: true });
         } else {
             this.setState({ alerta: false });
@@ -76,23 +75,22 @@ export class CatalogoServicioSocio extends Component {
 
     }
 
-    onClickActualizarServiciosSocios = async (id) => {
-        this.setState({ data: await ObtenerServicioSocioPorId(id) })
+    onClickActualizarTipoContactoEncuesta = async (id) => {
+        this.setState({ data: await ObtenerTipoContactoEncuestaPorId(id) })
         this.setState({ proceso: 2 });
         this.setState({ modal: !this.state.modal });
         this.setState({ labelButton: "Actualizar" });
-        this.setState({ modalTitulo: "Actualizar Servicio por Socio" });
+        this.setState({ modalTitulo: "Actualizar Tipo de Contacto de Encuesta" });
     }
 
-    onClickProcesarServiciosSocios = async (data) => {
-       
+    onClickProcesarTipoContactoEncuesta = async (data) => {
         let respuesta = {};
 
         if (this.state.proceso === 1)
-            respuesta = await AgregarServicioSocio(data);
+            respuesta = await AgregarTipoContactoEncuesta(data);
         else {
 
-            respuesta = await ActualizarServicioSocio(data);
+            respuesta = await ActualizarTipoContactoEncuesta(data);
         }
 
         if (respuesta.indicador == 0) {
@@ -102,7 +100,7 @@ export class CatalogoServicioSocio extends Component {
 
             $('#example').DataTable().destroy();
 
-            await this.ObtenerListadoServicioSocios();
+            await this.ObtenerListadoTipoContactoEncuesta();
 
             setTimeout(() => {
                 $('#example').DataTable(
@@ -122,40 +120,33 @@ export class CatalogoServicioSocio extends Component {
         this.setState({ modal: false });
         this.setState({ mensajeFormulario: "" });
     }
-
-
     body = () => {
-        return this.state.listaServicioSocios.map((item, index) => (
+        return this.state.listaTipoContactoEncuesta.map((item, index) => (
             <tr key={index}>
-                <td>{item.idServicioSocio}</td>
-                <td>{item.cedula}</td>
-                <td>{item.nombre}</td>
-                <td>{item.servicio}</td>
-                <td>{item.lineaNegocio}</td>
-                
+                <td>{item.idTipoContactoEncuesta}</td>
+                <td>{item.tipoContactoEncuesta}</td>
 
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
                 <td style={{ display: "flex", padding: "0.5vw" }}>
 
-                    <Button color="primary" onClick={() => this.onClickActualizarServiciosSocios(item.idServicioSocio)} style={{ marginRight: "1vw" }}>Editar
+                    <Button color="primary" onClick={() => this.onClickActualizarTipoContactoEncuesta(item.idTipoContactoEncuesta)} style={{ marginRight: "1vw" }}>Editar
                     </Button>
 
-                    <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarServicioSocios(item.idServicioSocio)}> {item.estado === true ? "Inactivar" : "Activar"}
+                    <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarTipoContactoEncuesta(item.idTipoContactoEncuesta)}> {item.estado === true ? "Inactivar" : "Activar"}
                     </Button>
                 </td>
             </tr>
         ))
     }
 
-
     render() {
         return (
             <main>
-                <div className="row-full">Catalogo Servicio por Socio </div>
+                <div className="row-full">Catalogo de Tipo de Contacto de Encuesta </div>
                 <Container>
-                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoServicioSocios()}>Insertar Servicio Socio</Button>
+                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoTipoContactoEncuesta()}>Insertar Tipo de Contacto de Encuesta</Button>
                     <hr />
                     <br />
 
@@ -169,11 +160,9 @@ export class CatalogoServicioSocio extends Component {
 
                     <br />
 
-
                     <Table tableHeading={this.state.cabeceras} body={this.body()} />
-
                     <FormularioModal show={this.state.modal} handleClose={this.onClickCerrarModal} titulo={this.state.modalTitulo} className=''>
-                        <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarServiciosSocios={this.onClickProcesarServiciosSocios} mensaje={this.state.mensajeFormulario} />
+                        <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarTipoContactoEncuesta={this.onClickProcesarTipoContactoEncuesta} mensaje={this.state.mensajeFormulario} />
                     </FormularioModal>
 
                 </Container>
