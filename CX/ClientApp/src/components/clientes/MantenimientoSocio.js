@@ -74,7 +74,6 @@ export class MantenimientoSocio extends Component {
 
     onClickActualizarSocio = async (id) => {
         this.setState({ data: await ObtenerSocioPorId(id) })
-        console.log(this.state.data.idTipoPersona);
         this.setState({ proceso: 2 });
         this.setState({ modal: !this.state.modal });
         this.setState({ labelButton: "Actualizar" });
@@ -82,7 +81,6 @@ export class MantenimientoSocio extends Component {
     }
 
     onClickProcesarSocio = async (data) => {
-        console.log(data)
         let respuesta = {};
 
         if (this.state.proceso === 1)
@@ -94,7 +92,6 @@ export class MantenimientoSocio extends Component {
 
         if (respuesta.indicador == 0) {
             this.setState({ modal: false });
-            //this.setState({ lineaNegocios : await this.ObtenerListadoSocios() });
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta: true });
 
