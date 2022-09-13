@@ -1,16 +1,15 @@
-﻿
-import React, { Component, useEffect, useState } from 'react';
+﻿import React, { Component, useEffect, useState } from 'react';
 import { Container, Form, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
 import { ObtenerTipoInteraccion, ActualizarTipoInteraccion, AgregarTipoInteraccion, ObtenerTipoInteraccionPorId, InactivarTipoInteraccion } from '../../servicios/ServicioTipoInteraccion';
+
 import 'jquery/dist/jquery.min.js';
 import { Alert } from 'react-bootstrap'
+import { Table } from '../Table';
 
 //Datatable Modules
 import "datatables.net-dt/js/dataTables.dataTables"
 import "datatables.net-dt/css/jquery.dataTables.min.css"
 import $ from 'jquery';
-
-import { Table } from '../Table';
 //modal
 import { FormularioModal } from '../components_forms/ventanaModal';
 import Formulario from '../mantenimientos_forms/formTipoInteraccion';
@@ -19,11 +18,11 @@ import Formulario from '../mantenimientos_forms/formTipoInteraccion';
 export class CatalogoTipoInteraccion extends Component {
     static displayName = CatalogoTipoInteraccion.name;
 
+
     constructor(props) {
         super(props);
         this.state = {
             listaTipoInteraccion: [],
-            cabeceras: ["Id", "Tipo de Interaccion", "Estado", "Acciones"],
             pendiente: false,
             data: {},
             modal: false,
@@ -33,7 +32,8 @@ export class CatalogoTipoInteraccion extends Component {
             mensajeFormulario: "",
             mensajeRespuesta: {},
             show: false,
-            alerta: true
+            alerta: true,
+            cabeceras: ["Id", "Tipo de Interaccion", "Estado", "Acciones"],
         };
 
     }
@@ -42,7 +42,7 @@ export class CatalogoTipoInteraccion extends Component {
         await this.ObtenerListadoTipoInteraccion();
 
         setTimeout(() => {
-            $('#tbl_table').DataTable(
+            $('#example').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 });
@@ -84,6 +84,7 @@ export class CatalogoTipoInteraccion extends Component {
     }
 
     onClickProcesarTipoInteraccion = async (data) => {
+
         let respuesta = {};
 
         if (this.state.proceso === 1)
@@ -120,11 +121,14 @@ export class CatalogoTipoInteraccion extends Component {
         this.setState({ modal: false });
         this.setState({ mensajeFormulario: "" });
     }
+
+
     body = () => {
         return this.state.listaTipoInteraccion.map((item, index) => (
             <tr key={index}>
                 <td>{item.idTipoInteraccion}</td>
                 <td>{item.tipoInteraccion}</td>
+
 
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
@@ -141,12 +145,13 @@ export class CatalogoTipoInteraccion extends Component {
         ))
     }
 
+
     render() {
         return (
             <main>
                 <div className="row-full">Catalogo de Tipo de Interaccion </div>
                 <Container>
-                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoTipoInteraccion()}>Insertar Tipo de Interaccion </Button>
+                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoTipoInteraccion()}>Insertar Tipo de Interaccion</Button>
                     <hr />
                     <br />
 
@@ -160,7 +165,9 @@ export class CatalogoTipoInteraccion extends Component {
 
                     <br />
 
+
                     <Table tableHeading={this.state.cabeceras} body={this.body()} />
+
                     <FormularioModal show={this.state.modal} handleClose={this.onClickCerrarModal} titulo={this.state.modalTitulo} className=''>
                         <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarTipoInteraccion={this.onClickProcesarTipoInteraccion} mensaje={this.state.mensajeFormulario} />
                     </FormularioModal>
