@@ -36,4 +36,13 @@ export const InputSelect = ({ className, controlId, label, data, onChange, value
             </Form.Select>
         </Form.Group>
     )
+
+}
+export const InputTabla = ({ id, type, placeholder, value, text, onChange, mensajeValidacion, className, readOnly, disabled, required = true }) => {
+    return (
+        <Form.Group className={"mb-3 " + className} controlId={id}>
+            <Form.Control type={type} placeholder={placeholder} size="sm" value={value} onChange={onChange} required={required} readOnly={readOnly} disabled={disabled} />
+            <Form.Text className="text-muted">{text}</Form.Text>
+        </Form.Group>
+    )
 }
