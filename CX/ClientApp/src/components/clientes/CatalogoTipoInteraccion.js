@@ -1,7 +1,6 @@
-﻿
-import React, { Component, useEffect, useState } from 'react';
+﻿import React, { Component, useEffect, useState } from 'react';
 import { Container, Form, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
-import { ObtenerServicioSocio, ActualizarServicioSocio, AgregarServicioSocio, ObtenerServicioSocioPorId, InactivarServicioSocio } from '../../servicios/ServicioServicioSocio';
+import { ObtenerTipoInteraccion, ActualizarTipoInteraccion, AgregarTipoInteraccion, ObtenerTipoInteraccionPorId, InactivarTipoInteraccion } from '../../servicios/ServicioTipoInteraccion';
 
 import 'jquery/dist/jquery.min.js';
 import { Alert } from 'react-bootstrap'
@@ -13,34 +12,34 @@ import "datatables.net-dt/css/jquery.dataTables.min.css"
 import $ from 'jquery';
 //modal
 import { FormularioModal } from '../components_forms/ventanaModal';
-import Formulario from '../mantenimientos_forms/formServicioSocio';
+import Formulario from '../mantenimientos_forms/formTipoInteraccion';
 
 
-export class CatalogoServicioSocio extends Component {
-    static displayName = CatalogoServicioSocio.name;
+export class CatalogoTipoInteraccion extends Component {
+    static displayName = CatalogoTipoInteraccion.name;
 
 
     constructor(props) {
         super(props);
         this.state = {
-            listaServicioSocios: [],
+            listaTipoInteraccion: [],
             pendiente: false,
             data: {},
             modal: false,
             proceso: 1,
-            modalTitulo: "Registrar Servicio por Socios",
+            modalTitulo: "Registrar tipo de interaccion",
             labelButton: "Registrar",
             mensajeFormulario: "",
             mensajeRespuesta: {},
             show: false,
             alerta: true,
-            cabeceras: ["id", "Cédula", "Socio", "Servicio", "Linea de Negocio", "Estado", "Acciones"],
+            cabeceras: ["Id", "Tipo de Interaccion", "Estado", "Acciones"],
         };
 
     }
 
     async componentDidMount() {
-        await this.ObtenerListadoServicioSocios();
+        await this.ObtenerListadoTipoInteraccion();
 
         setTimeout(() => {
             $('#example').DataTable(
@@ -51,22 +50,22 @@ export class CatalogoServicioSocio extends Component {
     }
 
 
-    async ObtenerListadoServicioSocios() {
-        const respuesta = await ObtenerServicioSocio();
-        this.setState({ listaServicioSocios: respuesta });
+    async ObtenerListadoTipoInteraccion() {
+        const respuesta = await ObtenerTipoInteraccion();
+        this.setState({ listaTipoInteraccion: respuesta });
     }
 
-    onClickNuevoServicioSocios = async () => {
+    onClickNuevoTipoInteraccion = async () => {
         this.setState({ proceso: 1 });
         this.setState({ modal: !this.state.modal });
         this.setState({ labelButton: "Registrar" });
-        this.setState({ modalTitulo: "Registrar Servicio por Socio" });
+        this.setState({ modalTitulo: "Registrar Tipo de Interaccion" });
     }
 
-    onClickInactivarServicioSocios = async (id) => {
-        const respuesta = await InactivarServicioSocio(id)
+    onClickInactivarTipoInteraccion = async (id) => {
+        const respuesta = await InactivarTipoInteraccion(id)
         if (respuesta.indicador === 0) {
-            this.setState({ lineaServicioSocios: await this.ObtenerListadoServicioSocios() });
+            this.setState({ lineaTipoInteraccion: await this.ObtenerListadoTipoInteraccion() });
             this.setState({ alerta: true });
         } else {
             this.setState({ alerta: false });
@@ -76,23 +75,23 @@ export class CatalogoServicioSocio extends Component {
 
     }
 
-    onClickActualizarServiciosSocios = async (id) => {
-        this.setState({ data: await ObtenerServicioSocioPorId(id) })
+    onClickActualizarTipoInteraccion = async (id) => {
+        this.setState({ data: await ObtenerTipoInteraccionPorId(id) })
         this.setState({ proceso: 2 });
         this.setState({ modal: !this.state.modal });
         this.setState({ labelButton: "Actualizar" });
-        this.setState({ modalTitulo: "Actualizar Servicio por Socio" });
+        this.setState({ modalTitulo: "Actualizar Tipo de Interaccion" });
     }
 
-    onClickProcesarServiciosSocios = async (data) => {
-       
+    onClickProcesarTipoInteraccion = async (data) => {
+
         let respuesta = {};
 
         if (this.state.proceso === 1)
-            respuesta = await AgregarServicioSocio(data);
+            respuesta = await AgregarTipoInteraccion(data);
         else {
 
-            respuesta = await ActualizarServicioSocio(data);
+            respuesta = await ActualizarTipoInteraccion(data);
         }
 
         if (respuesta.indicador == 0) {
@@ -102,7 +101,7 @@ export class CatalogoServicioSocio extends Component {
 
             $('#example').DataTable().destroy();
 
-            await this.ObtenerListadoServicioSocios();
+            await this.ObtenerListadoTipoInteraccion();
 
             setTimeout(() => {
                 $('#example').DataTable(
@@ -125,24 +124,21 @@ export class CatalogoServicioSocio extends Component {
 
 
     body = () => {
-        return this.state.listaServicioSocios.map((item, index) => (
+        return this.state.listaTipoInteraccion.map((item, index) => (
             <tr key={index}>
-                <td>{item.idServicioSocio}</td>
-                <td>{item.cedula}</td>
-                <td>{item.nombre}</td>
-                <td>{item.servicio}</td>
-                <td>{item.lineaNegocio}</td>
-                
+                <td>{item.idTipoInteraccion}</td>
+                <td>{item.tipoInteraccion}</td>
+
 
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
                 <td style={{ display: "flex", padding: "0.5vw" }}>
 
-                    <Button color="primary" onClick={() => this.onClickActualizarServiciosSocios(item.idServicioSocio)} style={{ marginRight: "1vw" }}>Editar
+                    <Button color="primary" onClick={() => this.onClickActualizarTipoInteraccion(item.idTipoInteraccion)} style={{ marginRight: "1vw" }}>Editar
                     </Button>
 
-                    <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarServicioSocios(item.idServicioSocio)}> {item.estado === true ? "Inactivar" : "Activar"}
+                    <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarTipoInteraccion(item.idTipoInteraccion)}> {item.estado === true ? "Inactivar" : "Activar"}
                     </Button>
                 </td>
             </tr>
@@ -153,9 +149,9 @@ export class CatalogoServicioSocio extends Component {
     render() {
         return (
             <main>
-                <div className="row-full">Catalogo Servicio por Socio </div>
+                <div className="row-full">Catalogo de Tipo de Interaccion </div>
                 <Container>
-                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoServicioSocios()}>Insertar Servicio Socio</Button>
+                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoTipoInteraccion()}>Insertar Tipo de Interaccion</Button>
                     <hr />
                     <br />
 
@@ -173,7 +169,7 @@ export class CatalogoServicioSocio extends Component {
                     <Table tableHeading={this.state.cabeceras} body={this.body()} />
 
                     <FormularioModal show={this.state.modal} handleClose={this.onClickCerrarModal} titulo={this.state.modalTitulo} className=''>
-                        <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarServiciosSocios={this.onClickProcesarServiciosSocios} mensaje={this.state.mensajeFormulario} />
+                        <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarTipoInteraccion={this.onClickProcesarTipoInteraccion} mensaje={this.state.mensajeFormulario} />
                     </FormularioModal>
 
                 </Container>

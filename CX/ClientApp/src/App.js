@@ -57,6 +57,10 @@ import { MantenimientoInteracciones } from './components/contacto_encuestas/Mant
 
 //RF Eduardo
 import { CatalogoServicioSocio } from './components/clientes/CatalogoServicioSocio';
+import { CatalogoTipoContactoEncuesta } from './components/clientes/CatalogoTipoContactoEncuesta';
+import { CatalogoTipoInteraccion } from './components/clientes/CatalogoTipoInteraccion';
+import { CatalogoTipoPerspectivas } from './components/clientes/CatalogoTipoPerspectivas';
+
 
 
 //import axios from 'axios';
@@ -91,9 +95,13 @@ export default class App extends Component {
 
 
 
-                    {/*Socios*/}
-                   
+                    {/*Eduardo*/}
+                    
                     <Route path='/CatalogoServicioSocio' component={CatalogoServicioSocio} />
+                    <Route path='/CatalogoTipoContactoEncuesta' component={CatalogoTipoContactoEncuesta} />
+                    <Route path='/CatalogoTipoInteraccion' component={CatalogoTipoInteraccion} />
+                    <Route path='/CatalogoTipoPerspectivas' component={CatalogoTipoPerspectivas} />
+                    
 
 
                     {/*Hallazgos*/}
@@ -130,6 +138,8 @@ export default class App extends Component {
                     <Route path='/MantenimientoPregunta' component={MantenimientoPregunta} />
                     <Route path='/MantenimientoClientesSocios' component={MantenimientoClientesSocios} />
                     <Route path='/MantenimientoInteracciones' component={MantenimientoInteracciones} />
+                    
+                    
 
                 </Layout>
                 <Footer />
