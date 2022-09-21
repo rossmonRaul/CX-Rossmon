@@ -319,12 +319,6 @@ export class NavMenu extends Component {
                                     <DropdownItem divider />
                                     <DropdownItem>
                                         <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantIndicadorValor">Mantenimiento Valor Indicador</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        <NavItem>
                                             <NavLink tag={Link} className="text-black" to="/MantenimientoTipoPersona">Mantenimiento Tipo Persona</NavLink>
                                         </NavItem>
                                     </DropdownItem>

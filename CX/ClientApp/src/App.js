@@ -46,7 +46,6 @@ import { MantenimientoPeriodicidades } from './components/hallazgos/Mantenimient
 //Encuesta
 import { MantenimientoCampana } from './components/contacto_encuestas/MantenimientoCampana';
 import { MantenimientoIndicador } from './components/contacto_encuestas/MantenimientoIndicador';
-import { MantIndicadorValor } from './components/contacto_encuestas/MantIndicadorValor';
 import { MantenimientoTipoEncuesta } from './components/contacto_encuestas/MantenimientoTipoEncuesta';
 import { MantenimientoTipoPersona } from './components/contacto_encuestas/MantenimientoTipoPersona';
 import { MantenimientoEncuesta } from './components/contacto_encuestas/MantenimientoEncuesta';
@@ -132,7 +131,6 @@ export default class App extends Component {
                     {/*encuesta*/}
                     <Route path='/MantenimientoCampana' component={MantenimientoCampana} />
                     <Route path='/MantenimientoIndicador' component={MantenimientoIndicador} />
-                    <Route path='/MantIndicadorValor' component={MantIndicadorValor} />
                     <Route path='/MantenimientoTipoEncuesta' component={MantenimientoTipoEncuesta} />
                     <Route path='/MantenimientoTipoPersona' component={MantenimientoTipoPersona} />
                     <Route path='/MantenimientoEncuesta' component={MantenimientoEncuesta} />
