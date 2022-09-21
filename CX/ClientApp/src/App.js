@@ -60,7 +60,7 @@ import { CatalogoServicioSocio } from './components/clientes/CatalogoServicioSoc
 import { CatalogoTipoContactoEncuesta } from './components/clientes/CatalogoTipoContactoEncuesta';
 import { CatalogoTipoInteraccion } from './components/clientes/CatalogoTipoInteraccion';
 import { CatalogoTipoPerspectivas } from './components/clientes/CatalogoTipoPerspectivas';
-
+import { CatalogoTipoIdentificacion } from './components/clientes/CatalogoTipoIdentificacion';
 
 
 //import axios from 'axios';
@@ -101,6 +101,7 @@ export default class App extends Component {
                     <Route path='/CatalogoTipoContactoEncuesta' component={CatalogoTipoContactoEncuesta} />
                     <Route path='/CatalogoTipoInteraccion' component={CatalogoTipoInteraccion} />
                     <Route path='/CatalogoTipoPerspectivas' component={CatalogoTipoPerspectivas} />
+                    <Route path='/CatalogoTipoIdentificacion' component={CatalogoTipoIdentificacion} />
                     
 
 

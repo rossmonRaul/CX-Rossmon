@@ -121,7 +121,11 @@ export class NavMenu extends Component {
                                                         <NavLink tag={Link} className="text-black" to="/CatalogoTipoPerspectivas">Tipos de Perspectivas</NavLink>
                                                     </NavItem>
                                                 </DropdownItem>
-
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/CatalogoTipoIdentificacion">Catalogo de Tipo de Identificacion</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
                                                 <DropdownItem>
                                                     <NavItem>
                                                         <NavLink tag={Link} className="text-black" to="/MantenimientoSocio">{"Socios"}</NavLink>
@@ -159,7 +163,7 @@ export class NavMenu extends Component {
 
                                     <Accordion>
                                         <Accordion.Item eventKey="0">
-                                            <Accordion.Header>Reporterías</Accordion.Header>
+                                            <Accordion.Header>Reporter�as</Accordion.Header>
                                             <Accordion.Body>
                                                 <DropdownItem>
                                                     <NavItem>
@@ -174,7 +178,7 @@ export class NavMenu extends Component {
                                             </Accordion.Body>
                                         </Accordion.Item>
                                         <Accordion.Item eventKey="1">
-                                            <Accordion.Header>Catálogos y Mantenimientos</Accordion.Header>
+                                            <Accordion.Header>Cat�logos y Mantenimientos</Accordion.Header>
                                             <Accordion.Body>
                                                 <DropdownItem>
                                                     <NavItem>
@@ -194,7 +198,7 @@ export class NavMenu extends Component {
                                             </Accordion.Body>
                                         </Accordion.Item>
                                         <Accordion.Item eventKey="2">
-                                            <Accordion.Header>Parámetros Hallazgos</Accordion.Header>
+                                            <Accordion.Header>Par�metros Hallazgos</Accordion.Header>
                                             <Accordion.Body>
                                                 <DropdownItem>
                                                     <NavItem>
@@ -283,7 +287,7 @@ export class NavMenu extends Component {
                                 <DropdownMenu right>
                                                 <DropdownItem>
                                                     <NavItem>
-                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoCampana">Campañas</NavLink>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoCampana">Campa�as</NavLink>
                                                     </NavItem>
                                                 </DropdownItem>
                                                 <DropdownItem divider />
@@ -301,7 +305,7 @@ export class NavMenu extends Component {
                                                 <DropdownItem divider />
                                                 <DropdownItem>
                                                     <NavItem>
-                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoMetricas">Métricas</NavLink>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoMetricas">M�tricas</NavLink>
                                                     </NavItem>
                                                 </DropdownItem>
                                                 <DropdownItem divider />
