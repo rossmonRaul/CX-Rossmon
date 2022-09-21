@@ -118,6 +118,11 @@ export class NavMenu extends Component {
                                             <NavLink tag={Link} className="text-black" to="/CatalogoTipoPerspectivas">Catalogo de Tipo de Perspectivas</NavLink>
                                         </NavItem>
                                     </DropdownItem>
+                                    <DropdownItem>
+                                        <NavItem>
+                                            <NavLink tag={Link} className="text-black" to="/CatalogoTipoIdentificacion">Catalogo de Tipo de Identificacion</NavLink>
+                                        </NavItem>
+                                    </DropdownItem>
                                     
                                     <DropdownItem>
                                         <NavItem>
