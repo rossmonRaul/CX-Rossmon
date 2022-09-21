@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dominio.Dto
+namespace Dominio.Entiti
 {
-    public class DtoTipoPersona: DatosAuditoria
+    public class EntitiTipoPersona
     {
         public int IdTipoPersona { get; set; }
-
         public string TipoPersona { get; set; }
-
     }
 }

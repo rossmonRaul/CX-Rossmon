@@ -3,9 +3,15 @@
   text-align: center;
   word-break: break-all;
 }
-
+.navbar-expand-sm .navbar-nav .dropdown-menu {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+.navbar-expand-sm .navbar-collapse{
+    margin-left: 1vw;
+}
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 @media (min-width: 768px) {
   html {
