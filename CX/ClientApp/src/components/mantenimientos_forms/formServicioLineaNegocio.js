@@ -27,8 +27,16 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarServicioLineaNe
     const ObtenerListaServicioLineaNegocio = async () => {
         const sect = await ObtenerLineasNegociosActivos();
         if (sect !== undefined) {
-            setListaServicioLineaNegocio(sect);
 
+            if (proceso === 2) {
+                //acomoda la linea de negocio como por "defecto" del combo-box(aparece la linea a la cual este asociado el socio)
+                setListaServicioLineaNegocio(sect.sort((x, y) => { return x.idLinea === idLinea ? -1 : y.idLinea === idLinea ? 1 : 0; }));
+            } else {
+                //Para evitar campos vacios y ayudarle de guia al usuario
+                let defecto = { idLinea: '', lineaNegocio: "-- Seleccione una linea de negocio --" };
+                sect.push(defecto);
+                setListaServicioLineaNegocio(sect.reverse());
+            }
         }
     }
 
@@ -72,10 +80,10 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarServicioLineaNe
 
 
                 <InputSelect className="slct_lineas" controlId="slct_lineas" label="Linea" data={listaServicioLineaNegocio} value={idLinea} onChange={onChangeIdLinea} optionValue="idLinea" optionLabel="lineaNegocio"
-                   classGroup="form-lineas"></InputSelect>
+                    classGroup="form-lineas"></InputSelect>
 
 
-            {/*   */}{/*<ComboBox data={listaServicioLineaNegocio} label="Sector" controlId="sel-idSector" onChange={onChangeIdLinea} value={idLinea} optionValue="idLinea" optionLabel="linea" indicacion="Seleccione la linea" />*/}
+                {/*   */}{/*<ComboBox data={listaServicioLineaNegocio} label="Sector" controlId="sel-idSector" onChange={onChangeIdLinea} value={idLinea} optionValue="idLinea" optionLabel="linea" indicacion="Seleccione la linea" />*/}
 
                 {mensaje !== "" ? <p className="text-info text-center">{mensaje}</p> : ""}
                 <div className='text-right'>
@@ -87,6 +95,5 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarServicioLineaNe
 }
 
 export default Formulario
-
 
 

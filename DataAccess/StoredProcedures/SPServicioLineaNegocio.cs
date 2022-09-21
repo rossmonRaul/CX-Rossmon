@@ -18,7 +18,7 @@ namespace DataAccess.StoredProcedures
         private SqlConnection sqlConnection;
 
         private readonly string obtenerServicioLineaNegocioQuery = "SPObtenerServicioLineaNegocio";
-        private readonly string insertarServicioLineaNegocioQuery = "SPInsertarSServicioLineaNegocio";
+        private readonly string insertarServicioLineaNegocioQuery = "SPInsertarServicioLineaNegocio";
         private readonly string actualizarServicioLineaNegocioQuery = "SPActualizarServicioLineaNegocio";
         private readonly string obtenerServicioLineaNegocioPorIDQuery = "SPObtenerServicioLineaNegocioPorID";
         private readonly string eliminarServicioLineaNegocioQuery = "SPEliminarServicioLineaNegocio";

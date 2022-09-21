@@ -113,6 +113,16 @@ export class NavMenu extends Component {
                                             <NavLink tag={Link} className="text-black" to="/CatalogoTipoInteraccion">Catalogo de Tipo de Interaccion</NavLink>
                                         </NavItem>
                                     </DropdownItem>
+                                    <DropdownItem>
+                                        <NavItem>
+                                            <NavLink tag={Link} className="text-black" to="/CatalogoTipoPerspectivas">Catalogo de Tipo de Perspectivas</NavLink>
+                                        </NavItem>
+                                    </DropdownItem>
+                                    <DropdownItem>
+                                        <NavItem>
+                                            <NavLink tag={Link} className="text-black" to="/CatalogoTipoIdentificacion">Catalogo de Tipo de Identificacion</NavLink>
+                                        </NavItem>
+                                    </DropdownItem>
                                     
                                     <DropdownItem>
                                         <NavItem>
@@ -304,12 +314,6 @@ export class NavMenu extends Component {
                                     <DropdownItem>
                                         <NavItem>
                                             <NavLink tag={Link} className="text-black" to="/MantenimientoTipoEncuesta">Mantenimiento Tipo Encuesta</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantIndicadorValor">Mantenimiento Valor Indicador</NavLink>
                                         </NavItem>
                                     </DropdownItem>
                                     <DropdownItem divider />

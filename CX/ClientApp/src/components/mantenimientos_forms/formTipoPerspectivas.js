@@ -2,10 +2,10 @@
 import { Button, Form } from 'react-bootstrap'
 import { InputText } from '../components_forms/inputs'
 
-const Formulario = ({ labelButton, data, proceso, onClickProcesarTipoInteraccion, mensaje }) => {
+const Formulario = ({ labelButton, data, proceso, onClickProcesarTipoPerspectivas, mensaje }) => {
 
     //variables
-    const [tipoInteraccion, setTipoInteraccion] = useState(proceso == 2 ? data.tipoInteraccion : ''); //si el proceso es 1 es insertar, si es 2 es actualizar
+    const [tipoPerspectiva, setTipoPerspectiva] = useState(proceso == 2 ? data.tipoPerspectiva : ''); //si el proceso es 1 es insertar, si es 2 es actualizar
 
     //validación
     const [validated, setValidated] = useState(false);
@@ -17,11 +17,11 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarTipoInteraccion
             event.stopPropagation();
         } else { //si está correcto arma la variable datos
             const datos = {
-                TipoInteraccion: tipoInteraccion,
-                idTipoInteraccion: data.idTipoInteraccion
+                TipoPerspectiva: tipoPerspectiva,
+                idTipoPerspectiva: data.idTipoPerspectiva
             };
 
-            const result = onClickProcesarTipoInteraccion(datos); //se ejecuta la función
+            const result = onClickProcesarTipoPerspectivas(datos); //se ejecuta la función
         }
         setValidated(true);
         event.preventDefault();
@@ -29,15 +29,15 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarTipoInteraccion
 
 
 
-    const onChangeTipoInteraccion = (e) => setTipoInteraccion(e.target.value);
+    const onChangeTipoPerspectivas = (e) => setTipoPerspectiva(e.target.value);
 
 
     return (
-        
+        <>
             <Form noValidate validated={validated} onSubmit={onClickAceptar}>
 
-                <InputText id='txt-nombre' label='Tipo de interaccion:' type='text' placeholder='Ingrese el nombre del tipo de interaccion' value={tipoInteraccion}
-                    onChange={onChangeTipoInteraccion} mensajeValidacion="El tipo de interaccion es requerido" />
+                <InputText id='txt-nombre' label='Tipo de perspectiva:' type='text' placeholder='Ingrese el nombre del tipo de perspectiva' value={tipoPerspectiva}
+                    onChange={onChangeTipoPerspectivas} mensajeValidacion="El tipo de perspectiva es requerido" />
 
                 {mensaje !== "" ? <p className="text-info text-center">{mensaje}</p> : ""}
                 <div className='text-right'>
@@ -45,7 +45,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarTipoInteraccion
                 </div>
             </Form>
 
-       
+        </>
     )
 }
 

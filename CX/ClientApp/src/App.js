@@ -46,7 +46,6 @@ import { MantenimientoPeriodicidades } from './components/hallazgos/Mantenimient
 //Encuesta
 import { MantenimientoCampana } from './components/contacto_encuestas/MantenimientoCampana';
 import { MantenimientoIndicador } from './components/contacto_encuestas/MantenimientoIndicador';
-import { MantIndicadorValor } from './components/contacto_encuestas/MantIndicadorValor';
 import { MantenimientoTipoEncuesta } from './components/contacto_encuestas/MantenimientoTipoEncuesta';
 import { MantenimientoTipoPersona } from './components/contacto_encuestas/MantenimientoTipoPersona';
 import { MantenimientoEncuesta } from './components/contacto_encuestas/MantenimientoEncuesta';
@@ -60,6 +59,8 @@ import { MantenimientoInteracciones } from './components/contacto_encuestas/Mant
 import { CatalogoServicioSocio } from './components/clientes/CatalogoServicioSocio';
 import { CatalogoTipoContactoEncuesta } from './components/clientes/CatalogoTipoContactoEncuesta';
 import { CatalogoTipoInteraccion } from './components/clientes/CatalogoTipoInteraccion';
+import { CatalogoTipoPerspectivas } from './components/clientes/CatalogoTipoPerspectivas';
+import { CatalogoTipoIdentificacion } from './components/clientes/CatalogoTipoIdentificacion';
 
 
 //import axios from 'axios';
@@ -99,6 +100,8 @@ export default class App extends Component {
                     <Route path='/CatalogoServicioSocio' component={CatalogoServicioSocio} />
                     <Route path='/CatalogoTipoContactoEncuesta' component={CatalogoTipoContactoEncuesta} />
                     <Route path='/CatalogoTipoInteraccion' component={CatalogoTipoInteraccion} />
+                    <Route path='/CatalogoTipoPerspectivas' component={CatalogoTipoPerspectivas} />
+                    <Route path='/CatalogoTipoIdentificacion' component={CatalogoTipoIdentificacion} />
                     
 
 
@@ -128,7 +131,6 @@ export default class App extends Component {
                     {/*encuesta*/}
                     <Route path='/MantenimientoCampana' component={MantenimientoCampana} />
                     <Route path='/MantenimientoIndicador' component={MantenimientoIndicador} />
-                    <Route path='/MantIndicadorValor' component={MantIndicadorValor} />
                     <Route path='/MantenimientoTipoEncuesta' component={MantenimientoTipoEncuesta} />
                     <Route path='/MantenimientoTipoPersona' component={MantenimientoTipoPersona} />
                     <Route path='/MantenimientoEncuesta' component={MantenimientoEncuesta} />
@@ -137,6 +139,8 @@ export default class App extends Component {
                     <Route path='/MantenimientoPregunta' component={MantenimientoPregunta} />
                     <Route path='/MantenimientoClientesSocios' component={MantenimientoClientesSocios} />
                     <Route path='/MantenimientoInteracciones' component={MantenimientoInteracciones} />
+                    
+                    
 
                 </Layout>
                 <Footer />
