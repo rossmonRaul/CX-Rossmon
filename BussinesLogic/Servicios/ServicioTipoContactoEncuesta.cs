@@ -1,6 +1,8 @@
 ﻿using DataAccess.StoredProcedures;
 using Dominio.Dto;
 using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.TipoContactoEncuesta;
+using Dominio.Interfaces.Infraestructura.BaseDatos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,10 +10,14 @@ using System.Threading.Tasks;
 
 namespace BussinesLogic.Servicios
 {
-    public class ServicioTipoContactoEncuesta
+    public class ServicioTipoContactoEncuesta: IServicioTipoContactoEncuesta
     {
-        public SPTipoContactoEncuesta spTipoContactoEncuesta = new SPTipoContactoEncuesta();
+        public readonly IRepositorioTipoContactoEncuesta spTipoContactoEncuesta;
 
+        public ServicioTipoContactoEncuesta(IRepositorioTipoContactoEncuesta spTipoContactoEncuesta)
+        {
+            this.spTipoContactoEncuesta = spTipoContactoEncuesta;
+        }
         public async Task<DtoRespuestaSP> InsertarTipoContactoEncuesta(EntitiTipoContactoEncuesta entitiTipoContactoEncuesta)
         {
             return await this.spTipoContactoEncuesta.InsertarTipoContactoEncuesta(entitiTipoContactoEncuesta);

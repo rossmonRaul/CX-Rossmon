@@ -1,5 +1,5 @@
-﻿using BussinesLogic.Servicios;
-using Dominio.Entiti;
+﻿using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.EtapasTaller;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,10 +13,13 @@ namespace CX.Controllers
     [ApiController]
     public class EtapasTallerController : Controller
     {
-        private readonly ServicioEtapasTaller servicioEtapasTaller = new ServicioEtapasTaller();
+        private readonly IServicioEtapasTaller servicioEtapasTaller;
+        public EtapasTallerController(IServicioEtapasTaller servicioEtapasTaller)
+        {
+            this.servicioEtapasTaller = servicioEtapasTaller;
+        }
 
-
-        [HttpPost("[action]")]
+    [HttpPost("[action]")]
         public async Task<JsonResult> InsertarEtapasTaller(EntitiEtapasTaller entitiEtapasTaller)
         {
             return Json(await this.servicioEtapasTaller.InsertarEtapasTaller(entitiEtapasTaller));

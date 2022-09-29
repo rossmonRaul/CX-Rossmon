@@ -1,5 +1,5 @@
-﻿using BussinesLogic.Servicios;
-using Dominio.Entiti;
+﻿using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.Categoria;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,8 +12,13 @@ namespace CX.Controllers
     [ApiController]
     public class CategoriasController : Controller
     {
-        private readonly ServicioCategorias servicioCategorias = new ServicioCategorias();
+        private readonly IServicioCategorias servicioCategorias;
+        public CategoriasController(IServicioCategorias servicioCategorias)
+        {
+            this.servicioCategorias = servicioCategorias;
+        }
 
+        /*
         [HttpGet("[action]")]
         public async Task<JsonResult> ObtenerCategorias()
         {
@@ -24,7 +29,7 @@ namespace CX.Controllers
         public async Task<JsonResult> ObtenerCategoriasPorId(int idCategoria)
         {
             return Json(await this.servicioCategorias.ObtenerCategoriasPorId(idCategoria));
-        }
+        }*/
 
         [HttpPost("[action]")]
         public async Task<JsonResult> InsertarCategoria(EntitiCategoria entitiCategoria)

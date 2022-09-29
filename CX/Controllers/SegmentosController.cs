@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BussinesLogic.Servicios;
 using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.Segmentos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CX.Controllers
@@ -12,9 +12,14 @@ namespace CX.Controllers
     [ApiController]
     public class SegmentosController : Controller
     {
-        private readonly ServicioSegmentos servicioSegmentos = new ServicioSegmentos();
+        private readonly IServicioSegmentos servicioSegmentos;
 
-        [HttpGet("[action]")]
+        public SegmentosController(IServicioSegmentos servicioSegmentos)
+        {
+            this.servicioSegmentos = servicioSegmentos;
+        }
+
+    [HttpGet("[action]")]
         public async Task<JsonResult> ObtenerSegmentos()
         {
             return Json(await this.servicioSegmentos.ObtenerSegmentos());

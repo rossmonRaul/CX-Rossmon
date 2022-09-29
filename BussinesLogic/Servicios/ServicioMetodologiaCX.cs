@@ -1,6 +1,8 @@
 ﻿using DataAccess.StoredProcedures;
 using Dominio.Dto;
 using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.MetodologiaCX;
+using Dominio.Interfaces.Infraestructura.BaseDatos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,11 +10,14 @@ using System.Threading.Tasks;
 
 namespace BussinesLogic.Servicios
 {
-    public class ServicioMetodologiaCX
+    public class ServicioMetodologiaCX : IServicioMetodologiaCX
     {
 
-        public SPMetodologiaCX spMetodologiaCX = new SPMetodologiaCX();
-
+        private readonly IRepositorioMetodologiaCX spMetodologiaCX;
+        public ServicioMetodologiaCX(IRepositorioMetodologiaCX repositorioMetodologiaCX)
+        {
+            this.spMetodologiaCX = repositorioMetodologiaCX;
+        }
         public async Task<DtoRespuestaSP> InsertarMetodologiaCX(EntitiMetodologiaCX entitiMetodologiaCX)
         {
             return await this.spMetodologiaCX.InsertarMetodologiaCX(entitiMetodologiaCX);

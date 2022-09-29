@@ -1,5 +1,5 @@
-﻿using BussinesLogic.Servicios;
-using Dominio.Entiti;
+﻿using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.Periodicidad;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,10 +13,14 @@ namespace CX.Controllers
     [ApiController]
     public class PeriodicidadController : Controller
     {
-        private readonly ServicioPeriodicidad servicioPeriodicidad = new ServicioPeriodicidad();
+        private readonly IServicioPeriodicidad servicioPeriodicidad;
 
+        public PeriodicidadController(IServicioPeriodicidad servicioPeriodicidad)
+        {
+            this.servicioPeriodicidad = servicioPeriodicidad;
+        }
 
-        [HttpPost("[action]")]
+    [HttpPost("[action]")]
         public async Task<JsonResult> InsertarPeriodicidad(EntitiPeriodicidad entitiPeriodicidad)
         {
             return Json(await this.servicioPeriodicidad.InsertarPeriodicidad(entitiPeriodicidad));

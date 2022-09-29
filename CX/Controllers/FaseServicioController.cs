@@ -1,5 +1,5 @@
-﻿using BussinesLogic.Servicios;
-using Dominio.Entiti;
+﻿using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.FaseServicio;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -9,10 +9,13 @@ namespace CX.Controllers
     [ApiController]
     public class FaseServicioController : Controller
     {
-        private readonly ServicioFaseServicios servicioFaseServicios= new ServicioFaseServicios();
+        private readonly IServicioFaseServicio servicioFaseServicios;
+        public FaseServicioController(IServicioFaseServicio servicioFaseServicios)
+        {
+            this.servicioFaseServicios = servicioFaseServicios;
+        }
 
-
-        [HttpGet("[action]")]
+    [HttpGet("[action]")]
         public async Task<JsonResult> ObtenerFaseServicio()
         {
             return Json(await this.servicioFaseServicios.ObtenerFaseServicios());

@@ -1,6 +1,8 @@
 ﻿using DataAccess.StoredProcedures;
 using Dominio.Dto;
 using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.TipoMetrica;
+using Dominio.Interfaces.Infraestructura.BaseDatos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,9 +10,14 @@ using System.Threading.Tasks;
 
 namespace BussinesLogic.Servicios
 {
-    public class ServicioTipoMetrica
+    public class ServicioTipoMetrica : IServicioTipoMetrica
     {
-        public SPTipoMetrica spTipoMetrica = new SPTipoMetrica();
+        public readonly IRepositorioTipoMetrica spTipoMetrica;
+
+        public ServicioTipoMetrica(IRepositorioTipoMetrica spTipoMetrica)
+        {
+            this.spTipoMetrica = spTipoMetrica;
+        }
 
         public async Task<DtoRespuestaSP> InsertarTipoMetrica(EntitiTipoMetrica entitiTipoMetrica)
         {

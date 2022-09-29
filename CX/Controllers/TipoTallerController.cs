@@ -1,5 +1,5 @@
-﻿using BussinesLogic.Servicios;
-using Dominio.Entiti;
+﻿using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.TipoTaller;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,8 +12,12 @@ namespace CX.Controllers
     [ApiController]
     public class TipoTallerController : Controller
     {
-        private readonly ServicioTipoTaller servicioTipoTaller = new ServicioTipoTaller();
+        private readonly IServicioTipoTaller servicioTipoTaller;
 
+        public TipoTallerController(IServicioTipoTaller servicioTipoTaller)
+        {
+            this.servicioTipoTaller = servicioTipoTaller;
+        }
 
         [HttpPost("[action]")]
         public async Task<JsonResult> InsertarTipoTaller(EntitiTipoTaller entitiTipoTaller)

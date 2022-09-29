@@ -1,5 +1,5 @@
-﻿using BussinesLogic.Servicios;
-using Dominio.Entiti;
+﻿using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.GradoImpacto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,10 +13,13 @@ namespace CX.Controllers
     public class GradoImpactoController : Controller
     {
 
-        private readonly ServicioGradoImpacto servicioGradoImpacto = new ServicioGradoImpacto();
+        private readonly IServicioGradoImpacto servicioGradoImpacto;
+        public GradoImpactoController(IServicioGradoImpacto servicioGradoImpacto)
+        {
+            this.servicioGradoImpacto = servicioGradoImpacto;
+        }
 
-
-        [HttpPost("[action]")]
+    [HttpPost("[action]")]
         public async Task<JsonResult> InsertarGradoImpacto(EntitiGradoImpacto entitiGradoImpacto)
         {
             return Json(await this.servicioGradoImpacto.InsertarGradoImpacto(entitiGradoImpacto));

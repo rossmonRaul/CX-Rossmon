@@ -1,6 +1,8 @@
 ﻿using DataAccess.StoredProcedures;
 using Dominio.Dto;
 using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.FaseServicio;
+using Dominio.Interfaces.Infraestructura.BaseDatos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,9 +10,14 @@ using System.Threading.Tasks;
 
 namespace BussinesLogic.Servicios
 {
-    public class ServicioFaseServicios
+    public class ServicioFaseServicios : IServicioFaseServicio
     {
-        public SPFaseServicios spFaseServicio = new SPFaseServicios();
+        public IRepositorioFaseServicios spFaseServicio;
+
+        public ServicioFaseServicios(IRepositorioFaseServicios repositorioFaseServicios)
+        {
+            this.spFaseServicio = repositorioFaseServicios;
+        }
 
         public async Task<List<DtoFaseServicio>> ObtenerFaseServicios()
         {

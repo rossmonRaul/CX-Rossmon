@@ -1,6 +1,8 @@
 ﻿using DataAccess.StoredProcedures;
 using Dominio.Dto;
 using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.TipoPerspectivas;
+using Dominio.Interfaces.Infraestructura.BaseDatos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,10 +10,13 @@ using System.Threading.Tasks;
 
 namespace BussinesLogic.Servicios
 {
-    public class ServicioTipoPerspectivas
+    public class ServicioTipoPerspectivas: IServicioTipoPerspectivas
     {
-        public SPTipoPerspectivas spTipoPerspectivas = new SPTipoPerspectivas();
-
+        public readonly IRepositorioTipoPerspectivas spTipoPerspectivas;
+        public ServicioTipoPerspectivas(IRepositorioTipoPerspectivas spTipoPerspectivas)
+        {
+            this.spTipoPerspectivas = spTipoPerspectivas;
+        }
         public async Task<DtoRespuestaSP> InsertarTipoPerspectivas(EntitiTipoPerspectivas entitiTipoPerspectivas)
         {
             return await this.spTipoPerspectivas.InsertarTipoPerspectivas(entitiTipoPerspectivas);

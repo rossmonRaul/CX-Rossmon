@@ -1,5 +1,6 @@
 ﻿using BussinesLogic.Servicios;
 using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.TipoPerspectivas;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,12 @@ namespace CX.Controllers
     [ApiController]
     public class TipoPerspectivasController : Controller
     {
-        private readonly ServicioTipoPerspectivas servicioTipoPerspectivas = new ServicioTipoPerspectivas();
+        private readonly IServicioTipoPerspectivas servicioTipoPerspectivas;
+
+        public TipoPerspectivasController(IServicioTipoPerspectivas servicioTipoPerspectivas)
+        {
+            this.servicioTipoPerspectivas = servicioTipoPerspectivas;
+        }
 
 
         [HttpPost("[action]")]

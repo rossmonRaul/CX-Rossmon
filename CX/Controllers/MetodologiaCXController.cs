@@ -1,5 +1,5 @@
-﻿using BussinesLogic.Servicios;
-using Dominio.Entiti;
+﻿using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.MetodologiaCX;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,10 +12,14 @@ namespace CX.Controllers
     [ApiController]
     public class MetodologiaCXController : Controller
     {
-        private readonly ServicioMetodologiaCX servicioMetodologiaCX = new ServicioMetodologiaCX();
+        private readonly IServicioMetodologiaCX servicioMetodologiaCX;
 
+        public MetodologiaCXController(IServicioMetodologiaCX servicioMetodologiaCX)
+        {
+            this.servicioMetodologiaCX = servicioMetodologiaCX;
+        }
 
-        [HttpPost("[action]")]
+    [HttpPost("[action]")]
         public async Task<JsonResult> InsertarMetodologiaCX(EntitiMetodologiaCX entitiMetodologiaCX)
         {
             return Json(await this.servicioMetodologiaCX.InsertarMetodologiaCX(entitiMetodologiaCX));

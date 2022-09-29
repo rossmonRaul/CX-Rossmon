@@ -163,7 +163,7 @@ export class NavMenu extends Component {
 
                                     <Accordion>
                                         <Accordion.Item eventKey="0">
-                                            <Accordion.Header>Reporter�as</Accordion.Header>
+                                            <Accordion.Header>Reporterías</Accordion.Header>
                                             <Accordion.Body>
                                                 <DropdownItem>
                                                     <NavItem>
@@ -178,7 +178,7 @@ export class NavMenu extends Component {
                                             </Accordion.Body>
                                         </Accordion.Item>
                                         <Accordion.Item eventKey="1">
-                                            <Accordion.Header>Cat�logos y Mantenimientos</Accordion.Header>
+                                            <Accordion.Header>Catálogos y Mantenimientos</Accordion.Header>
                                             <Accordion.Body>
                                                 <DropdownItem>
                                                     <NavItem>
@@ -198,7 +198,7 @@ export class NavMenu extends Component {
                                             </Accordion.Body>
                                         </Accordion.Item>
                                         <Accordion.Item eventKey="2">
-                                            <Accordion.Header>Par�metros Hallazgos</Accordion.Header>
+                                            <Accordion.Header>Parámetros Hallazgos</Accordion.Header>
                                             <Accordion.Body>
                                                 <DropdownItem>
                                                     <NavItem>
@@ -287,7 +287,7 @@ export class NavMenu extends Component {
                                 <DropdownMenu right>
                                                 <DropdownItem>
                                                     <NavItem>
-                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoCampana">Campa�as</NavLink>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoCampana">Campañas</NavLink>
                                                     </NavItem>
                                                 </DropdownItem>
                                                 <DropdownItem divider />
@@ -305,7 +305,7 @@ export class NavMenu extends Component {
                                                 <DropdownItem divider />
                                                 <DropdownItem>
                                                     <NavItem>
-                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoMetricas">M�tricas</NavLink>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoMetricas">Métricas</NavLink>
                                                     </NavItem>
                                                 </DropdownItem>
                                                 <DropdownItem divider />

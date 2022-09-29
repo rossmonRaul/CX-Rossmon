@@ -1,6 +1,8 @@
 ﻿using DataAccess.StoredProcedures;
 using Dominio.Dto;
 using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.GradoImpacto;
+using Dominio.Interfaces.Infraestructura.BaseDatos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,10 +11,14 @@ using System.Threading.Tasks;
 
 namespace BussinesLogic.Servicios
 {
-    public class ServicioGradoImpacto
+    public class ServicioGradoImpacto : IServicioGradoImpacto
     {
-        public SPGradoImpacto spGradoImpacto = new SPGradoImpacto();
+        private readonly IRepositorioGradoImpacto spGradoImpacto;
 
+        public ServicioGradoImpacto(IRepositorioGradoImpacto repositorioGradoImpacto)
+        {
+            this.spGradoImpacto = repositorioGradoImpacto;
+        }
         public async Task<DtoRespuestaSP> InsertarGradoImpacto(EntitiGradoImpacto entitiGradoImpacto)
         {
             return await this.spGradoImpacto.InsertarGradoImpacto(entitiGradoImpacto);

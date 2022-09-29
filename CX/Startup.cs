@@ -1,3 +1,5 @@
+using BussinesLogic;
+using DataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -22,9 +24,10 @@ namespace CX
         {
 
             services.AddControllersWithViews();
-
-           /* string conString = this.Configuration.GetConnectionString("BD");
-            connectionstring = conString;*/
+            services.AddInfrastructura(Configuration);
+            services.AddAplicacion(Configuration);
+            /* string conString = this.Configuration.GetConnectionString("BD");
+             connectionstring = conString;*/
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

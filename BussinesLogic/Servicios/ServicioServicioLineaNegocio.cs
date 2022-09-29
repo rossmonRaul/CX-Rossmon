@@ -1,6 +1,8 @@
 ﻿using DataAccess.StoredProcedures;
 using Dominio.Dto;
 using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.ServicioLineaNegocio;
+using Dominio.Interfaces.Infraestructura.BaseDatos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,10 +10,14 @@ using System.Threading.Tasks;
 
 namespace BussinesLogic.Servicios
 {
-    public class ServicioServicioLineaNegocio
+    public class ServicioServicioLineaNegocio : IServicioServicioLineaNegocio
     {
-        public SPServicioLineaNegocio spServicioLineaNegocio = new SPServicioLineaNegocio();
+        public readonly IRepositorioServicioLineaNegocio spServicioLineaNegocio;
 
+        public ServicioServicioLineaNegocio(IRepositorioServicioLineaNegocio spServicioLineaNegocio)
+        {
+            this.spServicioLineaNegocio = spServicioLineaNegocio;
+        }
         public async Task<List<DtoServicioLineaNegocio>> ObtenerServicioLineaNegocio()
         {
             return await this.spServicioLineaNegocio.ObtenerServicioLineaNegocio();

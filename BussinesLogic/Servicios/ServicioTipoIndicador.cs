@@ -1,6 +1,8 @@
 ﻿using DataAccess.StoredProcedures;
 using Dominio.Dto;
 using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.TipoIndicador;
+using Dominio.Interfaces.Infraestructura.BaseDatos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,10 +10,14 @@ using System.Threading.Tasks;
 
 namespace BussinesLogic.Servicios
 {
-    public class ServicioTipoIndicador
+    public class ServicioTipoIndicador : IServicioTipoIndicador
     {
-        public SPTipoIndicador spTipoIndicador = new SPTipoIndicador();
+        public readonly IRepositorioTipoIndicador spTipoIndicador;
 
+        public ServicioTipoIndicador(IRepositorioTipoIndicador spTipoIndicador)
+        {
+            this.spTipoIndicador = spTipoIndicador;
+        }
         public async Task<DtoRespuestaSP> InsertarTipoIndicador(EntitiTipoIndicador entitiTipoIndicador)
         {
             return await this.spTipoIndicador.InsertarTipoIndicador(entitiTipoIndicador);

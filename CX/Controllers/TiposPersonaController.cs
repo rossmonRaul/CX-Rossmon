@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using System.Linq;
 using System.Threading.Tasks;
 using BussinesLogic.Servicios;
 using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.TiposPersona;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CX.Controllers
@@ -12,7 +14,13 @@ namespace CX.Controllers
     [ApiController]
     public class TipoPersonaController : Controller
     {
-        private readonly ServicioTiposPersona servicioTiposPersona = new ServicioTiposPersona();
+        private readonly IServicioTiposPersona servicioTiposPersona;
+
+        public TipoPersonaController(IServicioTiposPersona servicioTipoPersona)
+        {
+            this.servicioTiposPersona = servicioTipoPersona;
+        }
+
 
         [HttpGet("[action]")]
         public async Task<JsonResult> ObtenerTiposPersona()

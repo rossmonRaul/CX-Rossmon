@@ -1,6 +1,5 @@
-﻿
-using BussinesLogic.Servicios;
-using Dominio.Entiti;
+﻿using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.GradoEsfuerzo;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,7 +12,13 @@ namespace CX.Controllers
     [ApiController]
     public class GradosEsfuerzoController : Controller
     {
-        private readonly ServicioGradosEsfuerzo servicioGradosEsfuerzo = new ServicioGradosEsfuerzo();
+        private readonly IServicioGradoEsfuerzo servicioGradosEsfuerzo;
+
+        public GradosEsfuerzoController(IServicioGradoEsfuerzo servicioGradosEsfuerzo)
+        {
+            this.servicioGradosEsfuerzo = servicioGradosEsfuerzo;
+        }
+
 
         [HttpGet("[action]")]
         public async Task<JsonResult> ObtenerGradosEsfuerzo()

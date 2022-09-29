@@ -1,6 +1,8 @@
 ﻿using DataAccess.StoredProcedures;
 using Dominio.Dto;
 using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.TipoTaller;
+using Dominio.Interfaces.Infraestructura.BaseDatos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,9 +10,14 @@ using System.Threading.Tasks;
 
 namespace BussinesLogic.Servicios
 {
-    public class ServicioTipoTaller
+    public class ServicioTipoTaller : IServicioTipoTaller
     {
-        public SPTipoTaller spTipoTaller = new SPTipoTaller();
+        private readonly IRepositorioTipoTaller spTipoTaller;
+
+        public ServicioTipoTaller(IRepositorioTipoTaller spTipoTaller)
+        {
+            this.spTipoTaller = spTipoTaller;
+        }
 
         public async Task<DtoRespuestaSP> InsertarTipoTaller(EntitiTipoTaller entitiTipoTaller)
         {

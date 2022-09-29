@@ -1,6 +1,8 @@
 ﻿using DataAccess.StoredProcedures;
 using Dominio.Dto;
 using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.LineaNegocio;
+using Dominio.Interfaces.Infraestructura.BaseDatos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,9 +10,13 @@ using System.Threading.Tasks;
 
 namespace BussinesLogic.Servicios
 {
-    public class ServicioLineaNegocio
+    public class ServicioLineaNegocio : IServicioLineaNegocio
     {
-        public SPLineaNegocio spLineaNegocio = new SPLineaNegocio();
+        private readonly IRepositorioLineaNegocio spLineaNegocio;
+        public ServicioLineaNegocio(IRepositorioLineaNegocio repositorioLineasNegocios)
+        {
+            this.spLineaNegocio = repositorioLineasNegocios;
+        }
 
 
         public async Task<DtoRespuestaSP> InsertarLineaNegocio(EntitiLineaNegocio entitiLineaNegocio)
@@ -35,6 +41,6 @@ namespace BussinesLogic.Servicios
             return await this.spLineaNegocio.ObtenerLineaNegocio();
         }
 
-        
+
     }
 }

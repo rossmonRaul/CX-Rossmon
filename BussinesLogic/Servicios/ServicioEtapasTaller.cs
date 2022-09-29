@@ -1,6 +1,8 @@
 ﻿using DataAccess.StoredProcedures;
 using Dominio.Dto;
 using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.EtapasTaller;
+using Dominio.Interfaces.Infraestructura.BaseDatos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,9 +10,14 @@ using System.Threading.Tasks;
 
 namespace BussinesLogic.Servicios
 {
-    public class ServicioEtapasTaller
+    public class ServicioEtapasTaller : IServicioEtapasTaller
     {
-        public SPEtapasTaller spEtapasTaller = new SPEtapasTaller();
+        private readonly IRepositorioEtapasTaller spEtapasTaller;
+
+        public ServicioEtapasTaller(IRepositorioEtapasTaller repositorioEtapasTaller)
+        {
+            this.spEtapasTaller = repositorioEtapasTaller;
+        }
         public async Task<DtoRespuestaSP> InsertarEtapasTaller(EntitiEtapasTaller entitiEtapasTaller)
         {
             return await this.spEtapasTaller.InsertarEtapasTaller(entitiEtapasTaller);

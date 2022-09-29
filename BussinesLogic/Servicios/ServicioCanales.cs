@@ -4,13 +4,20 @@ using Dominio.Entiti;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Dominio.Interfaces.Aplicacion.Canales;
+using Dominio.Interfaces.Infraestructura.BaseDatos;
 using System.Threading.Tasks;
 
 namespace BussinesLogic.Servicios
 {
-    public class ServicioCanales
+    public class ServicioCanales : IServicioCanales
     {
-        public SPCanales spCanales = new SPCanales();
+        private readonly IRepositorioCanales spCanales;
+
+        public ServicioCanales(IRepositorioCanales spCanales)
+        {
+            this.spCanales = spCanales;
+        }
 
         public async Task<List<DtoCanales>> ObtenerCanales()
         {

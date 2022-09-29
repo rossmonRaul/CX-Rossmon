@@ -1,6 +1,7 @@
 ﻿using BussinesLogic.Servicios;
 using Dominio.Entiti;
 using Microsoft.AspNetCore.Mvc;
+using Dominio.Interfaces.Aplicacion.TipoInteraccion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,12 @@ namespace CX.Controllers
     [ApiController]
     public class TipoInteraccionController : Controller
     {
-        private readonly ServicioTipoInteraccion servicioTipoInteraccion = new ServicioTipoInteraccion();
+        private readonly IServicioTipoInteraccion servicioTipoInteraccion;
+
+        public TipoInteraccionController(IServicioTipoInteraccion servicioTipoInteraccion)
+        {
+            this.servicioTipoInteraccion = servicioTipoInteraccion;
+        }
 
 
         [HttpPost("[action]")]

@@ -1,5 +1,7 @@
 ﻿using BussinesLogic.Servicios;
 using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.Direccion;
+using Dominio.Interfaces.Aplicacion.Jefatura;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -9,10 +11,15 @@ namespace CX.Controllers
     [ApiController]
     public class JefaturasDireccionController : Controller
     {
-        private readonly ServicioJefaturaDireccion servicioJefaturaDireccion = new ServicioJefaturaDireccion();
-        private readonly ServicioDirecciones servicioDirecciones = new ServicioDirecciones();
+        private readonly IServicioJefaturaDireccion servicioJefaturaDireccion;
+        private readonly IServicioDirecciones servicioDirecciones;
 
-        [HttpGet("[action]")]
+        public JefaturasDireccionController(IServicioJefaturaDireccion servicioJefaturaDireccion)
+        {
+            this.servicioJefaturaDireccion = servicioJefaturaDireccion;
+        }
+
+    [HttpGet("[action]")]
         public async Task<JsonResult> ObtenerJefaturasDireccion()
         {
             return Json(await servicioJefaturaDireccion.ObtenerJefaturasDireccion());

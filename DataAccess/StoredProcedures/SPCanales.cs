@@ -1,8 +1,9 @@
 ﻿using Dapper;
-using DataAccess.Conexion;
+//using DataAccess.Conexion;
 using Dominio.Dto;
 using Dominio.Entiti;
-using Microsoft.Data.SqlClient;
+using Dominio.Interfaces.Infraestructura.BaseDatos;
+//using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 namespace DataAccess.StoredProcedures
 {
 
-    public class SPCanales
+    /*public class SPCanales
     {
         BdConexion bdConexion = new BdConexion();
         private SqlCommand sqlCommand;
@@ -184,5 +185,101 @@ namespace DataAccess.StoredProcedures
             }
             return (DtoCanales)Convert.ChangeType(value, typeof(DtoCanales));
         }
+    }*/
+    
+    public class SPCanales : IRepositorioCanales
+    {
+        private readonly IContextoBD contextoBD;
+
+        public SPCanales(IContextoBD contextoBD)
+        {
+            this.contextoBD = contextoBD;
+        }
+
+        public async Task<DtoRespuestaSP> InsertarCanales(EntitiCanales entitiCanales)
+        {
+            try
+            {
+                Dictionary<string, object> data = new Dictionary<string, object>();
+                data.Add("Canal", entitiCanales.canal);
+                string query = "SPInsertarCanales";
+
+                return await this.contextoBD.EjecutarSP(query, data);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<DtoRespuestaSP> ActualizarCanales(EntitiCanales entitiCanales)
+        {
+
+            try
+            {
+                Dictionary<string, object> data = new Dictionary<string, object>();
+
+                data.Add("IdCanal", entitiCanales.idCanal);
+                data.Add("Canal", entitiCanales.canal);
+                string query = "SPActualizarCanales";
+
+                return await this.contextoBD.EjecutarSP(query, data);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<DtoRespuestaSP> EliminarCanales(int idCanal)
+        {
+            try
+            {
+                Dictionary<string, object> data = new Dictionary<string, object>();
+                data.Add("IdCanal", idCanal);
+                string query = "SPEliminarCanales";
+
+                return await this.contextoBD.EjecutarSP(query, data);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        public async Task<DtoCanales> ObtenerCanalesPorID(int idCanal)
+        {
+            try
+            {
+                Dictionary<string, object> data = new Dictionary<string, object>();
+                data.Add("IdCanal", idCanal);
+                string query = "SPObtenerCanalesPorID";
+
+                return await this.contextoBD.ObtenerDato<DtoCanales>(query, data);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<List<DtoCanales>> ObtenerCanales()
+        {
+            try
+            {
+                string query = "SPObtenerCanales";
+                var result = await this.contextoBD.ObtenerListaDeDatos<DtoCanales>(query);
+
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
+
+    
+
 }

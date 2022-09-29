@@ -1,5 +1,5 @@
-﻿using BussinesLogic.Servicios;
-using Dominio.Entiti;
+﻿using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.LineaNegocio;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,10 +11,15 @@ namespace CX.Controllers
     [ApiController]
     public class LineaNegocioController : Controller
     {
-        private readonly ServicioLineaNegocio servicioLineaNegocio = new ServicioLineaNegocio();
+        private readonly IServicioLineaNegocio servicioLineaNegocio;
+
+        public LineaNegocioController(IServicioLineaNegocio servicioLineaNegocio)
+        {
+            this.servicioLineaNegocio = servicioLineaNegocio;
+        }
 
 
-        [HttpPost("[action]")]
+    [HttpPost("[action]")]
         public async Task<JsonResult> InsertarLineaNegocio(EntitiLineaNegocio entitiLineaNegocio)
         {
                 return Json(await this.servicioLineaNegocio.InsertarLineaNegocio(entitiLineaNegocio));

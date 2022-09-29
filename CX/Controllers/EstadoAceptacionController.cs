@@ -1,5 +1,5 @@
-﻿using BussinesLogic.Servicios;
-using Dominio.Entiti;
+﻿using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.EstadoAceptacion;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -11,10 +11,14 @@ namespace CX.Controllers
     [ApiController]
     public class EstadoAceptacionController : Controller
     {
-        private readonly ServicioEstadoAceptacion servicioEstadoAceptacion = new ServicioEstadoAceptacion();
+        private readonly IServicioEstadoAceptacion servicioEstadoAceptacion;
 
+        public EstadoAceptacionController(IServicioEstadoAceptacion servicioEstadoAceptacion)
+        {
+            this.servicioEstadoAceptacion = servicioEstadoAceptacion;
+        }
 
-        [HttpGet("[action]")]
+    [HttpGet("[action]")]
         public async Task<JsonResult> ObtenerEstadoAceptacion()
         {
             return Json(await this.servicioEstadoAceptacion.ObtenerEstadoAceptacion());

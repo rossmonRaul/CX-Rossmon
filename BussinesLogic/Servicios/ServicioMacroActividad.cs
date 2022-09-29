@@ -1,6 +1,8 @@
 ﻿using DataAccess.StoredProcedures;
 using Dominio.Dto;
 using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.MacroActividad;
+using Dominio.Interfaces.Infraestructura.BaseDatos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,10 +10,14 @@ using System.Threading.Tasks;
 
 namespace BussinesLogic.Servicios
 {
-    public class ServicioMacroActividad
+    public class ServicioMacroActividad : IServicioMacroActividad
     {
-        public SPMacroActividad spMacroActividad = new SPMacroActividad();
+        private readonly IRepositorioMacroActividad spMacroActividad;
 
+        public ServicioMacroActividad(IRepositorioMacroActividad repositorioMacroActividad)
+        {
+            this.spMacroActividad = repositorioMacroActividad;
+        }
         public async Task<DtoRespuestaSP> InsertarMacroActividad(EntitiMacroActividad entitiMacroActividad)
         {
             return await this.spMacroActividad.InsertarMacroActividad(entitiMacroActividad);

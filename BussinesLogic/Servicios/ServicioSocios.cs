@@ -1,6 +1,8 @@
 ﻿using DataAccess.StoredProcedures;
 using Dominio.Dto;
 using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.Socio;
+using Dominio.Interfaces.Infraestructura.BaseDatos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,9 +10,15 @@ using System.Threading.Tasks;
 
 namespace BussinesLogic.Servicios
 {
-    public class ServicioSocios 
+    public class ServicioSocios : IServicioSocios
     {
-        public SPSocios spSocios = new SPSocios();
+        public readonly IRepositorioSocios spSocios;
+
+        public ServicioSocios(IRepositorioSocios spSocios)
+        {
+            this.spSocios = spSocios;
+        }
+
 
         public async Task<List<DtoSocio>> ObtenerSocios()
         {

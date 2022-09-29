@@ -1,6 +1,8 @@
 ﻿using DataAccess.StoredProcedures;
 using Dominio.Dto;
 using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.Direccion;
+using Dominio.Interfaces.Infraestructura.BaseDatos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,10 +10,14 @@ using System.Threading.Tasks;
 
 namespace BussinesLogic.Servicios
 {
-    public class ServicioDirecciones
+    public class ServicioDirecciones : IServicioDirecciones
     {
-        public SPDirecciones spDirecciones = new SPDirecciones();
+        private readonly IRepositorioDirecciones spDirecciones;
 
+        public ServicioDirecciones(IRepositorioDirecciones repositorioDirecciones)
+        {
+            this.spDirecciones = repositorioDirecciones;
+        }
         public async Task<List<DtoDirecciones>> ObtenerDirecciones()
         {
             return await this.spDirecciones.ObtenerDirecciones();

@@ -1,5 +1,5 @@
-﻿using BussinesLogic.Servicios;
-using Dominio.Entiti;
+﻿using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.EstadoHallazgo;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -11,10 +11,14 @@ namespace CX.Controllers
     [ApiController]
     public class EstadoHallazgoController : Controller
     {
-        private readonly ServicioEstadoHallazgo servicioEstadoHallazgo = new ServicioEstadoHallazgo();
+        private readonly IServicioEstadoHallazgo servicioEstadoHallazgo;
 
+        public EstadoHallazgoController(IServicioEstadoHallazgo servicioEstadoHallazgo)
+        {
+            this.servicioEstadoHallazgo = servicioEstadoHallazgo;
+        }
 
-        [HttpGet("[action]")]
+    [HttpGet("[action]")]
         public async Task<JsonResult> ObtenerEstadoHallazgo()
         {
             return Json(await this.servicioEstadoHallazgo.ObtenerEstadoHallazgo());

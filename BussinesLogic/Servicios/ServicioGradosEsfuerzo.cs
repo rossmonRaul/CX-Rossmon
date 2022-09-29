@@ -1,6 +1,8 @@
 ﻿using DataAccess.StoredProcedures;
 using Dominio.Dto;
 using Dominio.Entiti;
+using Dominio.Interfaces.Infraestructura.BaseDatos;
+using Dominio.Interfaces.Aplicacion.GradoEsfuerzo;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,10 +10,14 @@ using System.Threading.Tasks;
 
 namespace BussinesLogic.Servicios
 {
-    public class ServicioGradosEsfuerzo
+    public class ServicioGradosEsfuerzo : IServicioGradoEsfuerzo
     {
-        public SPGradosEsfuerzo spGradosEsfuerzo = new SPGradosEsfuerzo();
+        private readonly IRepositorioGradosEsfuerzo spGradosEsfuerzo;
 
+        public ServicioGradosEsfuerzo(IRepositorioGradosEsfuerzo repositorioGradosEsfuerzo)
+        {
+            this.spGradosEsfuerzo = repositorioGradosEsfuerzo;
+        }
         public async Task<List<DtoGradosEsfuerzo>> ObtenerGradosEsfuerzo()
         {
             return await this.spGradosEsfuerzo.ObtenerGradosEsfuerzo();

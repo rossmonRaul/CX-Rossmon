@@ -1,6 +1,8 @@
 ﻿using DataAccess.StoredProcedures;
 using Dominio.Dto;
 using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.Segmentos;
+using Dominio.Interfaces.Infraestructura.BaseDatos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,10 +10,14 @@ using System.Threading.Tasks;
 
 namespace BussinesLogic.Servicios
 {
-    public class ServicioSegmentos
+    public class ServicioSegmentos : IServicioSegmentos
     {
-        public SPSegmentos spSegmentos = new SPSegmentos();
+        public readonly IRepositorioSegmentos spSegmentos;
 
+        public ServicioSegmentos(IRepositorioSegmentos spSegmentos)
+        {
+            this.spSegmentos = spSegmentos;
+        }
         public async Task<List<DtoSegmentos>> ObtenerSegmentos()
         {
             return await this.spSegmentos.ObtenerSegmentos();

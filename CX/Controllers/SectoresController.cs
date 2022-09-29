@@ -1,5 +1,5 @@
-﻿using BussinesLogic.Servicios;
-using Dominio.Entiti;
+﻿using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.Sectores;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,9 +13,14 @@ namespace CX.Controllers
     public class SectoresController : Controller
     {
 
-        private readonly ServicioSectores servicioSectores = new ServicioSectores();
+        private readonly IServicioSectores servicioSectores;
 
-        [HttpGet("[action]")]
+        public SectoresController(IServicioSectores servicioSectores)
+        {
+            this.servicioSectores = servicioSectores;
+        }
+
+    [HttpGet("[action]")]
         public async Task<JsonResult> ObtenerSectores()
         {
             return Json(await this.servicioSectores.ObtenerSectores());
