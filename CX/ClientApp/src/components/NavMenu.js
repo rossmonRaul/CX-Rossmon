@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+﻿import React, { Component } from 'react';
 import {
     Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
     DropdownItem,
-    NavbarText
 } from 'reactstrap';
+import Accordion from 'react-bootstrap/Accordion';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 
@@ -31,20 +31,20 @@ export class NavMenu extends Component {
         return (
             <header>
                 <Navbar className=" navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" >
-
-                    <NavbarBrand tag={Link} to="/" className="titulo">Customer Experience</NavbarBrand>
                     <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-                    <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
+                    <Collapse className="d-sm-inline-flex flex-sm-row" isOpen={!this.state.collapsed} navbar>
                         <ul className="navbar-nav flex-grow">
 
 
                             <UncontrolledDropdown nav inNavbar>
                                 <DropdownToggle nav caret className="text-white">
                                     Clientes
-                                    
-                           </DropdownToggle>
+
+                                </DropdownToggle>
 
                                 <DropdownMenu right>
+
+
                                     <DropdownItem>
                                         <NavItem>
                                             <NavLink tag={Link} className="text-black" to="/Formulario">Recopilacion de datos de clientes</NavLink>
@@ -57,78 +57,84 @@ export class NavMenu extends Component {
                                         </NavItem>
                                     </DropdownItem>
 
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoCanales">Mantenimiento Canales</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoCategoria">Mantenimiento Categoria</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoFases">Mantenimiento Fases</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoLineasServicio">Mantenimiento Lineas de Servicio</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoSectores">Mantenimiento Sectores</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoSegmentos">Mantenimiento Segmentos</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoCanales">Mantenimiento Canales</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoServicioNegocio">Mantenimiento Servicio Negocio</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/CatalogoServicioSocio">Catalogo de Servicios por Socios</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/CatalogoTipoContactoEncuesta">Catalogo de Tipo de Contacto de Encuesta</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/CatalogoTipoInteraccion">Catalogo de Tipo de Interaccion</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/CatalogoTipoPerspectivas">Catalogo de Tipo de Perspectivas</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/CatalogoTipoIdentificacion">Catalogo de Tipo de Identificacion</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoSocio">Cat�logo de Socios</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
+                                    <Accordion>
+                                        <Accordion.Item eventKey="0">
+                                            <Accordion.Header>Catálogos y Mantenimientos</Accordion.Header>
+                                            <Accordion.Body>
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoCanales">Canales</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoCategoria">Categoria</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoFases">Fases</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoLineasServicio">Lineas de Servicio</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoSectores">Sectores</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoSegmentos">Segmentos</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoCanales">Canales</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoServicioNegocio">Servicio Negocio</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/CatalogoServicioSocio">Servicios por Socios</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/CatalogoTipoContactoEncuesta">Tipos de Contacto de Encuesta</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/CatalogoTipoInteraccion">Tipos de Interaccion</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/CatalogoTipoPerspectivas">Tipos de Perspectivas</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/CatalogoTipoIdentificacion">Catalogo de Tipo de Identificacion</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoSocio">{"Socios"}</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                            </Accordion.Body>
+                                        </Accordion.Item>
+                                    </Accordion>
+
 
                                 </DropdownMenu>
                             </UncontrolledDropdown>
@@ -137,7 +143,7 @@ export class NavMenu extends Component {
                             <UncontrolledDropdown nav inNavbar>
                                 <DropdownToggle nav caret className="text-white">
                                     Hallazgos
-              </DropdownToggle>
+                                </DropdownToggle>
 
                                 <DropdownMenu right>
                                     <DropdownItem>
@@ -153,36 +159,117 @@ export class NavMenu extends Component {
                                             <NavLink tag={Link} className="text-black" to="/AdminHallazgosDireccion">Administracion de hallazgos por direccion</NavLink>
                                         </NavItem>
                                     </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoAnotaciones">Mantenimiento Anotaciones</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoHallazgos">Mantenimiento Hallazgos</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoTalleres">Mantenimiento Talleres</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/EvidenciaTalleres">Evidencia Talleres</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/ReportesHallazgos">Reportes Hallazgos</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
+
+
+                                    <Accordion>
+                                        <Accordion.Item eventKey="0">
+                                            <Accordion.Header>Reporter�as</Accordion.Header>
+                                            <Accordion.Body>
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/EvidenciaTalleres">Evidencia Talleres</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/ReportesHallazgos">Reportes Hallazgos</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                            </Accordion.Body>
+                                        </Accordion.Item>
+                                        <Accordion.Item eventKey="1">
+                                            <Accordion.Header>Cat�logos y Mantenimientos</Accordion.Header>
+                                            <Accordion.Body>
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoAnotaciones">Anotaciones</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoHallazgos">Hallazgos</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoTalleres">Talleres</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                            </Accordion.Body>
+                                        </Accordion.Item>
+                                        <Accordion.Item eventKey="2">
+                                            <Accordion.Header>Par�metros Hallazgos</Accordion.Header>
+                                            <Accordion.Body>
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoDireccion">Direcciones</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+
+
+
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoJefaturaDireccion">Jefatura Direccion</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem divider />
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoActividades">Actividades</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem divider />
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoAceptacion">Estados de Aceptacion</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem divider />
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoEsfuerzo">Esfuerzo</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem divider />
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoImpacto">Impacto</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem divider />
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoModelo">Modelo</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem divider />
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoEstadoHallazgo">Estado Hallazgo</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem divider />
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoTipoTaller">Tipos de Talleres</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem divider />
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoEtapas">Etapas</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem divider />
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoPeriodicidades">Periodicidades</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                            </Accordion.Body>
+                                        </Accordion.Item>
+                                    </Accordion>
                                 </DropdownMenu>
                             </UncontrolledDropdown>
 
@@ -192,156 +279,78 @@ export class NavMenu extends Component {
 
 
 
-                            <UncontrolledDropdown nav inNavbar>
-                                <DropdownToggle nav caret className="text-white">
-                                    Parametros Hallazgos
-              </DropdownToggle>
-
-                                <DropdownMenu right>
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoDireccion">Mantenimiento Direcciones</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-
-                            
-                                
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoJefaturaDireccion">Mantenimiento Jefatura Direccion</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoActividades">Mantenimiento Actividades</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoAceptacion">Mantenimiento Estado Aceptacion</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoEsfuerzo">Mantenimiento Esfuerzo</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoImpacto">Mantenimiento Impacto</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoModelo">Mantenimiento Modelo</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoEstadoHallazgo">Mantenimiento Estado Hallazgo</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoTipoTaller">Mantenimiento Tipo Taller</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoEtapas">Mantenimiento Etapas</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoPeriodicidades">Mantenimiento Periodicidades</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                </DropdownMenu>
-                            </UncontrolledDropdown>
-
-
 
                             <UncontrolledDropdown nav inNavbar>
                                 <DropdownToggle nav caret className="text-white">
-                                    Encuesta
-              </DropdownToggle>
+                                    Encuestas
+                                </DropdownToggle>
                                 <DropdownMenu right>
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoCampana">Mantenimiento Campana</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoEncuesta">Mantenimiento de Encuestas</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoIndicador">Mantenimiento Indicador</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoMetricas">Mantenimiento Metricas</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoPerspectiva">Mantenimiento Perspectiva</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoPregunta">Mantenimiento Pregunta</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoTipoEncuesta">Mantenimiento Tipo Encuesta</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoTipoPersona">Mantenimiento Tipo Persona</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoClientesSocios">Mantenimiento Clientes Socios</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        <NavItem>
-                                            <NavLink tag={Link} className="text-black" to="/MantenimientoInteracciones">Mantenimiento Interacciones</NavLink>
-                                        </NavItem>
-                                    </DropdownItem>
-
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoCampana">Campa�as</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem divider />
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoEncuesta">Encuestas</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem divider />
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoIndicador">Indicadores</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem divider />
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoMetricas">M�tricas</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem divider />
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoPerspectiva">Perspectivas</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem divider />
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoPregunta">Preguntas</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem divider />
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoTipoEncuesta">Tipos de Encuesta</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem divider />
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoTipoPersona">Tipos de Persona</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem divider />
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoClientesSocios">Clientes Por Socios</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem divider />
+                                                <DropdownItem>
+                                                    <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoInteracciones">Interacciones</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
                                 </DropdownMenu>
                             </UncontrolledDropdown>
 
 
                         </ul>
                     </Collapse>
-
+                    <NavbarBrand tag={Link} to="/" className="titulo">Customer Experience</NavbarBrand>
 
                 </Navbar>
             </header>
