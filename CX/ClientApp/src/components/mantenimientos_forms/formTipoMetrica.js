@@ -30,7 +30,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarTipoMetrica, me
                 setlistaTipos(sect.sort((x, y) => { return x.tipo === tipo ? -1 : y.tipo === tipo ? 1 : 0; }));
             }
             else {
-                let defecto = { tipo: '', option: " --- Seleccione un tipo de persona  --- " };//Pone el valor por defecto en seleccionar el tipo de persona
+                let defecto = { tipo: '', option: " -- Seleccione un tipo de métrica  -- " };//Pone el valor por defecto en seleccionar el tipo de persona
                 sect.push(defecto);
                 setlistaTipos(sect.reverse());
             }

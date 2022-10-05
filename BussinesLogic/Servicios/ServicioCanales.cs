@@ -12,33 +12,33 @@ namespace BussinesLogic.Servicios
 {
     public class ServicioCanales : IServicioCanales
     {
-        private readonly IRepositorioCanales spCanales;
+        private readonly IRepositorioCanales repositorioCanales;
 
-        public ServicioCanales(IRepositorioCanales spCanales)
+        public ServicioCanales(IRepositorioCanales repositorioCanales)
         {
-            this.spCanales = spCanales;
+            this.repositorioCanales = repositorioCanales;
         }
 
         public async Task<List<DtoCanales>> ObtenerCanales()
         {
-            return await this.spCanales.ObtenerCanales();
+            return await this.repositorioCanales.ObtenerCanales();
         }
 
         public async Task<DtoRespuestaSP> InsertarCanales(EntitiCanales entitiCanales)
         {
-            return await this.spCanales.InsertarCanales(entitiCanales);
+            return await this.repositorioCanales.InsertarCanales(entitiCanales);
         }
         public async Task<DtoRespuestaSP> ActualizarCanales(EntitiCanales entitiCanales)
         {
-            return await this.spCanales.ActualizarCanales(entitiCanales);
+            return await this.repositorioCanales.ActualizarCanales(entitiCanales);
         }
         public async Task<DtoRespuestaSP> EliminarCanales(int idCanal)
         {
-            return await this.spCanales.EliminarCanales(idCanal);
+            return await this.repositorioCanales.EliminarCanales(idCanal);
         }
         public async Task<DtoCanales> ObtenerCanalesPorID(int idCanal)
         {
-            return await this.spCanales.ObtenerCanalesPorID(idCanal);
+            return await this.repositorioCanales.ObtenerCanalesPorID(idCanal);
         }
     }
 }

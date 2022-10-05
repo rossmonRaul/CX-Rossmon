@@ -13,39 +13,39 @@ namespace BussinesLogic.Servicios
     public class ServicioServicioSocio: IServicioServicioSocio
     {
 
-        public readonly IRepositorioServicioSocio spServicioSocio;
+        public readonly IRepositorioServicioSocio repositorioServicioSocio;
 
-        public ServicioServicioSocio(IRepositorioServicioSocio spServicioSocio)
+        public ServicioServicioSocio(IRepositorioServicioSocio repositorioServicioSocio)
         {
-            this.spServicioSocio = spServicioSocio;
+            this.repositorioServicioSocio = repositorioServicioSocio;
         }
 
         public async Task<List<DtoServicioSocio>> ObtenerServicioSocio()
         {
-            return await this.spServicioSocio.ObtenerServicioSocio();
+            return await this.repositorioServicioSocio.ObtenerServicioSocio();
         }
         public async Task<List<DtoServicioSocio>> ObtenerServicioSocioActivos()
         {
-            return await this.spServicioSocio.ObtenerServicioSocioActivos();
+            return await this.repositorioServicioSocio.ObtenerServicioSocioActivos();
         }
 
         public async Task<DtoRespuestaSP> InsertarServicioSocio(EntitiServicioSocio entitiServicioSocio)
         {
-            return await this.spServicioSocio.InsertarServicioSocio(entitiServicioSocio);
+            return await this.repositorioServicioSocio.InsertarServicioSocio(entitiServicioSocio);
         }
 
         public async Task<DtoRespuestaSP> ActualizarServicioSocio(EntitiServicioSocio entitiServicioSocio)
         {
-            return await this.spServicioSocio.ActualizarServicioSocio(entitiServicioSocio);
+            return await this.repositorioServicioSocio.ActualizarServicioSocio(entitiServicioSocio);
         }
 
        public async Task<DtoServicioSocio> ObtenerServicioSocioPorID(int entitiServicioSocio)
         {
-            return await this.spServicioSocio.ObtenerServicioSocioPorID(entitiServicioSocio);
+            return await this.repositorioServicioSocio.ObtenerServicioSocioPorID(entitiServicioSocio);
         }
         public async Task<DtoRespuestaSP> EliminarServicioSocio(int entitiServicioSocio)
         {
-            return await this.spServicioSocio.EliminarServicioSocio(entitiServicioSocio);
+            return await this.repositorioServicioSocio.EliminarServicioSocio(entitiServicioSocio);
         }
     }
 }

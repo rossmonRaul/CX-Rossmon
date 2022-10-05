@@ -12,31 +12,31 @@ namespace BussinesLogic.Servicios
 {
     public class ServicioEstadoHallazgo : IServicioEstadoHallazgo
     {
-        private readonly IRepositorioEstadoHallazgo spEstadoHallazgo;
+        private readonly IRepositorioEstadoHallazgo repositorioEstadoHallazgo;
         public ServicioEstadoHallazgo(IRepositorioEstadoHallazgo repositorioCategorias)
         {
-            this.spEstadoHallazgo = repositorioCategorias;
+            this.repositorioEstadoHallazgo = repositorioCategorias;
         }
         public async Task<List<DtoEstadoHallazgo>> ObtenerEstadoHallazgo()
         {
-            return await this.spEstadoHallazgo.ObtenerEstadoHallazgo();
+            return await this.repositorioEstadoHallazgo.ObtenerEstadoHallazgo();
         }
 
         public async Task<DtoRespuestaSP> InsertarEstadoHallazgo(EntitiEstadoHallazgo entitiEstadoHallazgo)
         {
-            return await this.spEstadoHallazgo.InsertarEstadoHallazgo(entitiEstadoHallazgo);
+            return await this.repositorioEstadoHallazgo.InsertarEstadoHallazgo(entitiEstadoHallazgo);
         }
         public async Task<DtoRespuestaSP> ActualizarEstadoHallazgo(EntitiEstadoHallazgo entitiEstadoHallazgo)
         {
-            return await this.spEstadoHallazgo.ActualizarEstadoHallazgo(entitiEstadoHallazgo);
+            return await this.repositorioEstadoHallazgo.ActualizarEstadoHallazgo(entitiEstadoHallazgo);
         }
         public async Task<DtoRespuestaSP> EliminarEstadoHallazgo(int idEstadoHallazgo)
         {
-            return await this.spEstadoHallazgo.EliminarEstadoHallazgo(idEstadoHallazgo);
+            return await this.repositorioEstadoHallazgo.EliminarEstadoHallazgo(idEstadoHallazgo);
         }
         public async Task<DtoEstadoHallazgo> ObtenerEstadoHallazgoPorID(int idEstadoHallazgo)
         {
-            return await this.spEstadoHallazgo.ObtenerEstadoHallazgoPorID(idEstadoHallazgo);
+            return await this.repositorioEstadoHallazgo.ObtenerEstadoHallazgoPorID(idEstadoHallazgo);
         }
     }
 }

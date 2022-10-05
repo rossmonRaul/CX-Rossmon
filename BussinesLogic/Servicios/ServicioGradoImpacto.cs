@@ -13,32 +13,32 @@ namespace BussinesLogic.Servicios
 {
     public class ServicioGradoImpacto : IServicioGradoImpacto
     {
-        private readonly IRepositorioGradoImpacto spGradoImpacto;
+        private readonly IRepositorioGradoImpacto repositorioGradoImpacto;
 
         public ServicioGradoImpacto(IRepositorioGradoImpacto repositorioGradoImpacto)
         {
-            this.spGradoImpacto = repositorioGradoImpacto;
+            this.repositorioGradoImpacto = repositorioGradoImpacto;
         }
         public async Task<DtoRespuestaSP> InsertarGradoImpacto(EntitiGradoImpacto entitiGradoImpacto)
         {
-            return await this.spGradoImpacto.InsertarGradoImpacto(entitiGradoImpacto);
+            return await this.repositorioGradoImpacto.InsertarGradoImpacto(entitiGradoImpacto);
         }
         public async Task<DtoRespuestaSP> ActualizarGradoImpacto(EntitiGradoImpacto entitiGradoImpacto)
         {
-            return await this.spGradoImpacto.ActualizarGradoImpacto(entitiGradoImpacto);
+            return await this.repositorioGradoImpacto.ActualizarGradoImpacto(entitiGradoImpacto);
         }
         public async Task<DtoRespuestaSP> EliminarGradoImpacto(int idGradoImpacto)
         {
-            return await this.spGradoImpacto.EliminarGradoImpacto(idGradoImpacto);
+            return await this.repositorioGradoImpacto.EliminarGradoImpacto(idGradoImpacto);
         }
         public async Task<DtoGradoImpacto> ObtenerGradoImpactoPorID(int idGradoImpacto)
         {
-            return await this.spGradoImpacto.ObtenerGradoImpactoPorID(idGradoImpacto);
+            return await this.repositorioGradoImpacto.ObtenerGradoImpactoPorID(idGradoImpacto);
         }
 
         public async Task<List<DtoGradoImpacto>> ObtenerGradoImpacto()
         {
-            return await this.spGradoImpacto.ObtenerGradoImpacto();
+            return await this.repositorioGradoImpacto.ObtenerGradoImpacto();
         }
     }
 }

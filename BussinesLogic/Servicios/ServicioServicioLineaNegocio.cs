@@ -12,38 +12,38 @@ namespace BussinesLogic.Servicios
 {
     public class ServicioServicioLineaNegocio : IServicioServicioLineaNegocio
     {
-        public readonly IRepositorioServicioLineaNegocio spServicioLineaNegocio;
+        public readonly IRepositorioServicioLineaNegocio repositorioServicioLineaNegocio;
 
-        public ServicioServicioLineaNegocio(IRepositorioServicioLineaNegocio spServicioLineaNegocio)
+        public ServicioServicioLineaNegocio(IRepositorioServicioLineaNegocio repositorioServicioLineaNegocio)
         {
-            this.spServicioLineaNegocio = spServicioLineaNegocio;
+            this.repositorioServicioLineaNegocio = repositorioServicioLineaNegocio;
         }
         public async Task<List<DtoServicioLineaNegocio>> ObtenerServicioLineaNegocio()
         {
-            return await this.spServicioLineaNegocio.ObtenerServicioLineaNegocio();
+            return await this.repositorioServicioLineaNegocio.ObtenerServicioLineaNegocio();
         }
 
         public async Task<DtoRespuestaSP> InsertarServicioLineaNegocio(EntitiServicioLineaNegocio entitiServicioLineaNegocio)
         {
-            return await this.spServicioLineaNegocio.InsertarServicioLineaNegocio(entitiServicioLineaNegocio);
+            return await this.repositorioServicioLineaNegocio.InsertarServicioLineaNegocio(entitiServicioLineaNegocio);
         }
 
         public async Task<DtoRespuestaSP> ActualizarServicioLineaNegocio(EntitiServicioLineaNegocio entitiServicioLineaNegocio)
         {
-            return await this.spServicioLineaNegocio.ActualizarServicioLineaNegocio(entitiServicioLineaNegocio);
+            return await this.repositorioServicioLineaNegocio.ActualizarServicioLineaNegocio(entitiServicioLineaNegocio);
         }
 
         public async Task<DtoServicioLineaNegocio> ObtenerServicioLineaNegocioPorID(int idServicio)
         {
-            return await this.spServicioLineaNegocio.ObtenerServicioLineaNegocioPorID(idServicio);
+            return await this.repositorioServicioLineaNegocio.ObtenerServicioLineaNegocioPorID(idServicio);
         }
         public async Task<DtoRespuestaSP> EliminarServicioLineaNegocio(int idServicio)
         {
-            return await this.spServicioLineaNegocio.EliminarServicioLineaNegocio(idServicio);
+            return await this.repositorioServicioLineaNegocio.EliminarServicioLineaNegocio(idServicio);
         }
         public async Task<List<DtoLineaNegocio>> ObtenerLineaNegocioActivos()
         {
-            return await this.spServicioLineaNegocio.ObtenerLineasNegocioActivos();
+            return await this.repositorioServicioLineaNegocio.ObtenerLineasNegocioActivos();
         }
     }
 }

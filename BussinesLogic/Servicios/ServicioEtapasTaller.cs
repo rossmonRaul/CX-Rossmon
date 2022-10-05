@@ -12,32 +12,32 @@ namespace BussinesLogic.Servicios
 {
     public class ServicioEtapasTaller : IServicioEtapasTaller
     {
-        private readonly IRepositorioEtapasTaller spEtapasTaller;
+        private readonly IRepositorioEtapasTaller repositorioEtapasTaller;
 
         public ServicioEtapasTaller(IRepositorioEtapasTaller repositorioEtapasTaller)
         {
-            this.spEtapasTaller = repositorioEtapasTaller;
+            this.repositorioEtapasTaller = repositorioEtapasTaller;
         }
         public async Task<DtoRespuestaSP> InsertarEtapasTaller(EntitiEtapasTaller entitiEtapasTaller)
         {
-            return await this.spEtapasTaller.InsertarEtapasTaller(entitiEtapasTaller);
+            return await this.repositorioEtapasTaller.InsertarEtapasTaller(entitiEtapasTaller);
         }
         public async Task<DtoRespuestaSP> ActualizarEtapasTaller(EntitiEtapasTaller entitiEtapasTaller)
         {
-            return await this.spEtapasTaller.ActualizarEtapasTaller(entitiEtapasTaller);
+            return await this.repositorioEtapasTaller.ActualizarEtapasTaller(entitiEtapasTaller);
         }
         public async Task<DtoRespuestaSP> EliminarEtapasTaller(int idEtapaTaller)
         {
-            return await this.spEtapasTaller.EliminarEtapasTaller(idEtapaTaller);
+            return await this.repositorioEtapasTaller.EliminarEtapasTaller(idEtapaTaller);
         }
         public async Task<DtoEtapasTaller> ObtenerEtapasTallerPorID(int idEtapaTaller)
         {
-            return await this.spEtapasTaller.ObtenerEtapasTallerPorID(idEtapaTaller);
+            return await this.repositorioEtapasTaller.ObtenerEtapasTallerPorID(idEtapaTaller);
         }
 
         public async Task<List<DtoEtapasTaller>> ObtenerEtapasTaller()
         {
-            return await this.spEtapasTaller.ObtenerEtapasTaller();
+            return await this.repositorioEtapasTaller.ObtenerEtapasTaller();
         }
     }
 }

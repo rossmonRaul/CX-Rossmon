@@ -12,32 +12,32 @@ namespace BussinesLogic.Servicios
 {
     public class ServicioMacroActividad : IServicioMacroActividad
     {
-        private readonly IRepositorioMacroActividad spMacroActividad;
+        private readonly IRepositorioMacroActividad repositorioMacroActividad;
 
         public ServicioMacroActividad(IRepositorioMacroActividad repositorioMacroActividad)
         {
-            this.spMacroActividad = repositorioMacroActividad;
+            this.repositorioMacroActividad = repositorioMacroActividad;
         }
         public async Task<DtoRespuestaSP> InsertarMacroActividad(EntitiMacroActividad entitiMacroActividad)
         {
-            return await this.spMacroActividad.InsertarMacroActividad(entitiMacroActividad);
+            return await this.repositorioMacroActividad.InsertarMacroActividad(entitiMacroActividad);
         }
         public async Task<DtoRespuestaSP> ActualizarMacroActividad(EntitiMacroActividad entitiMacroActividad)
         {
-            return await this.spMacroActividad.ActualizarMacroActividad(entitiMacroActividad);
+            return await this.repositorioMacroActividad.ActualizarMacroActividad(entitiMacroActividad);
         }
         public async Task<DtoRespuestaSP> EliminarMacroActividad(int idMacro)
         {
-            return await this.spMacroActividad.EliminarMacroActividad(idMacro);
+            return await this.repositorioMacroActividad.EliminarMacroActividad(idMacro);
         }
         public async Task<DtoMacroActividad> ObtenerMacroActividadPorID(int idMacro)
         {
-            return await this.spMacroActividad.ObtenerMacroActividadPorID(idMacro);
+            return await this.repositorioMacroActividad.ObtenerMacroActividadPorID(idMacro);
         }
 
         public async Task<List<DtoMacroActividad>> ObtenerMacroActividad()
         {
-            return await this.spMacroActividad.ObtenerMacroActividad();
+            return await this.repositorioMacroActividad.ObtenerMacroActividad();
         }
     }
 }

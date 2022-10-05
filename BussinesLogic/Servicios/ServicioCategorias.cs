@@ -13,20 +13,20 @@ namespace BussinesLogic.Servicios
     public class ServicioCategorias : IServicioCategorias
     {
 
-        private readonly IRepositorioCategorias spCategorias;
+        private readonly IRepositorioCategorias repositorioCategorias;
 
         public ServicioCategorias(IRepositorioCategorias repositorioCategorias)
         {
-            this.spCategorias = repositorioCategorias;
+            this.repositorioCategorias = repositorioCategorias;
         }
         #region Selects
         public async Task<List<DtoCategorias>> ObtenerCategorias()
         {
-            return await this.spCategorias.ObtenerCategorias();
+            return await this.repositorioCategorias.ObtenerCategorias();
         }
         public async Task<DtoCategorias> ObtenerCategoriasPorId(int idCategoria)
         {
-            return await this.spCategorias.ObtenerCategoriasPorID(idCategoria);
+            return await this.repositorioCategorias.ObtenerCategoriasPorID(idCategoria);
         }
 
 
@@ -34,15 +34,15 @@ namespace BussinesLogic.Servicios
         #endregion
         public async Task<DtoRespuestaSP> InsertarCategoria(EntitiCategoria entitiCategoria)
         {
-            return await this.spCategorias.InsertarCategoria(entitiCategoria);
+            return await this.repositorioCategorias.InsertarCategoria(entitiCategoria);
         }
         public async Task<DtoRespuestaSP> ActualizarCategoria(EntitiCategoria entitiCategoria)
         {
-            return await this.spCategorias.ActualizarCategoria(entitiCategoria);
+            return await this.repositorioCategorias.ActualizarCategoria(entitiCategoria);
         }
         public async Task<DtoRespuestaSP> InactivarCategoria(int idCategoria)
         {
-            return await this.spCategorias.EliminarCategoria(idCategoria);
+            return await this.repositorioCategorias.EliminarCategoria(idCategoria);
         }
 
 

@@ -12,46 +12,46 @@ namespace BussinesLogic.Servicios
 {
     public class ServicioSocios : IServicioSocios
     {
-        public readonly IRepositorioSocios spSocios;
+        public readonly IRepositorioSocios repositorioSocios;
 
-        public ServicioSocios(IRepositorioSocios spSocios)
+        public ServicioSocios(IRepositorioSocios repositorioSocios)
         {
-            this.spSocios = spSocios;
+            this.repositorioSocios = repositorioSocios;
         }
 
 
         public async Task<List<DtoSocio>> ObtenerSocios()
         {
-            return await this.spSocios.ObtenerSocios();
+            return await this.repositorioSocios.ObtenerSocios();
         }
 
         public async Task<List<DtoTipoPersona>> ObtenerTiposPersona()
         {
-            return await this.spSocios.ObtenerTiposPersona();
+            return await this.repositorioSocios.ObtenerTiposPersona();
         }
 
         public async Task<DtoRespuestaSP> InsertarSocios(EntitiSocio entitiSocios)
         {
-            return await this.spSocios.InsertarSocios(entitiSocios);
+            return await this.repositorioSocios.InsertarSocios(entitiSocios);
         }
 
         public async Task<DtoRespuestaSP> ActualizarSocio(EntitiSocio entitiSocio)
         {
-            return await this.spSocios.ActualizarSocio(entitiSocio);
+            return await this.repositorioSocios.ActualizarSocio(entitiSocio);
         }
 
         public async Task<DtoSocio> ObtenerSocioPorID(int idSocio)
         {
-            return await this.spSocios.ObtenerSocioPorId(idSocio);
+            return await this.repositorioSocios.ObtenerSocioPorId(idSocio);
         }
         public async Task<DtoRespuestaSP> EliminarSocio(int idSocios)
         {
-            return await this.spSocios.EliminarSocio(idSocios);
+            return await this.repositorioSocios.EliminarSocio(idSocios);
         }
 
         public async Task<List<DtoSocio>> ObtenerSociosActivos()
         {
-            return await this.spSocios.ObtenerSociosActivos();
+            return await this.repositorioSocios.ObtenerSociosActivos();
         }
     }
 }

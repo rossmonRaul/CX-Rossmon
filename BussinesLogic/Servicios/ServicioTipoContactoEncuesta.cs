@@ -12,37 +12,37 @@ namespace BussinesLogic.Servicios
 {
     public class ServicioTipoContactoEncuesta: IServicioTipoContactoEncuesta
     {
-        public readonly IRepositorioTipoContactoEncuesta spTipoContactoEncuesta;
+        public readonly IRepositorioTipoContactoEncuesta repositorioTipoContactoEncuesta;
 
-        public ServicioTipoContactoEncuesta(IRepositorioTipoContactoEncuesta spTipoContactoEncuesta)
+        public ServicioTipoContactoEncuesta(IRepositorioTipoContactoEncuesta repositorioTipoContactoEncuesta)
         {
-            this.spTipoContactoEncuesta = spTipoContactoEncuesta;
+            this.repositorioTipoContactoEncuesta = repositorioTipoContactoEncuesta;
         }
         public async Task<DtoRespuestaSP> InsertarTipoContactoEncuesta(EntitiTipoContactoEncuesta entitiTipoContactoEncuesta)
         {
-            return await this.spTipoContactoEncuesta.InsertarTipoContactoEncuesta(entitiTipoContactoEncuesta);
+            return await this.repositorioTipoContactoEncuesta.InsertarTipoContactoEncuesta(entitiTipoContactoEncuesta);
         }
         public async Task<DtoRespuestaSP> ActualizarTipoContactoEncuesta(EntitiTipoContactoEncuesta entitiTipoContactoEncuesta)
         {
-            return await this.spTipoContactoEncuesta.ActualizarTipoContactoEncuesta(entitiTipoContactoEncuesta);
+            return await this.repositorioTipoContactoEncuesta.ActualizarTipoContactoEncuesta(entitiTipoContactoEncuesta);
         }
         public async Task<DtoRespuestaSP> EliminarTipoContactoEncuesta(int idTipoContactoEncuesta)
         {
-            return await this.spTipoContactoEncuesta.EliminarTipoContactoEncuesta(idTipoContactoEncuesta);
+            return await this.repositorioTipoContactoEncuesta.EliminarTipoContactoEncuesta(idTipoContactoEncuesta);
         }
         public async Task<DtoTipoContactoEncuesta> ObtenerTipoContactoEncuestaPorID(int idTipoContactoEncuesta)
         {
-            return await this.spTipoContactoEncuesta.ObtenerTipoContactoEncuestaPorID(idTipoContactoEncuesta);
+            return await this.repositorioTipoContactoEncuesta.ObtenerTipoContactoEncuestaPorID(idTipoContactoEncuesta);
         }
 
         public async Task<List<DtoTipoContactoEncuesta>> ObtenerTipoContactoEncuesta()
         {
-            return await this.spTipoContactoEncuesta.ObtenerTipoContactoEncuesta();
+            return await this.repositorioTipoContactoEncuesta.ObtenerTipoContactoEncuesta();
         }
 
         public async Task<List<DtoTipoContactoEncuesta>> ObtenerTipoContactoEncuestaActivos()
         {
-            return await this.spTipoContactoEncuesta.ObtenerTipoContactoEncuestaActivos();
+            return await this.repositorioTipoContactoEncuesta.ObtenerTipoContactoEncuestaActivos();
         }
     }
 }

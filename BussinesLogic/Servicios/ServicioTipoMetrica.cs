@@ -12,38 +12,38 @@ namespace BussinesLogic.Servicios
 {
     public class ServicioTipoMetrica : IServicioTipoMetrica
     {
-        public readonly IRepositorioTipoMetrica spTipoMetrica;
+        public readonly IRepositorioTipoMetrica repositorioTipoMetrica;
 
-        public ServicioTipoMetrica(IRepositorioTipoMetrica spTipoMetrica)
+        public ServicioTipoMetrica(IRepositorioTipoMetrica repositorioTipoMetrica)
         {
-            this.spTipoMetrica = spTipoMetrica;
+            this.repositorioTipoMetrica = repositorioTipoMetrica;
         }
 
         public async Task<DtoRespuestaSP> InsertarTipoMetrica(EntitiTipoMetrica entitiTipoMetrica)
         {
-            return await this.spTipoMetrica.InsertarTipoMetrica(entitiTipoMetrica);
+            return await this.repositorioTipoMetrica.InsertarTipoMetrica(entitiTipoMetrica);
         }
         public async Task<DtoRespuestaSP> ActualizarTipoMetrica(EntitiTipoMetrica entitiTipoMetrica)
         {
-            return await this.spTipoMetrica.ActualizarTipoMetrica(entitiTipoMetrica);
+            return await this.repositorioTipoMetrica.ActualizarTipoMetrica(entitiTipoMetrica);
         }
         public async Task<DtoRespuestaSP> EliminarTipoMetrica(int idTipoMetrica)
         {
-            return await this.spTipoMetrica.EliminarTipoMetrica(idTipoMetrica);
+            return await this.repositorioTipoMetrica.EliminarTipoMetrica(idTipoMetrica);
         }
         public async Task<DtoTipoMetrica> ObtenerTipoMetricaPorID(int idTipoMetrica)
         {
-            return await this.spTipoMetrica.ObtenerTipoMetricaPorID(idTipoMetrica);
+            return await this.repositorioTipoMetrica.ObtenerTipoMetricaPorID(idTipoMetrica);
         }
 
         public async Task<List<DtoTipoMetrica>> ObtenerTiposMetricas()
         {
-            return await this.spTipoMetrica.ObtenerTiposMetricas();
+            return await this.repositorioTipoMetrica.ObtenerTiposMetricas();
         }
 
         public async Task<List<DtoTipoMetrica>> ObtenerTipoMetricaActivos()
         {
-            return await this.spTipoMetrica.ObtenerTiposMetricasActivos();
+            return await this.repositorioTipoMetrica.ObtenerTiposMetricasActivos();
         }
     }
 }

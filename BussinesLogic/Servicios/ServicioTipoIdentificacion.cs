@@ -12,36 +12,37 @@ namespace BussinesLogic.Servicios
 {
     public class ServicioTipoIdentificacion : IServicioTipoIdentificacion 
     { 
-        private readonly IRepositorioTipoIdentificacion spTipoIdentificacion;
+        private readonly IRepositorioTipoIdentificacion repositorioTipoIdentificacion;
+
         public ServicioTipoIdentificacion(IRepositorioTipoIdentificacion repositorioTipoIdentificacion)
         {
-            this.spTipoIdentificacion = repositorioTipoIdentificacion;
+            this.repositorioTipoIdentificacion = repositorioTipoIdentificacion;
         }
         public async Task<DtoRespuestaSP> InsertarTipoIdentificacion(EntitiTipoIdentificacion entitiTipoIdentificacion)
         {
-            return await this.spTipoIdentificacion.InsertarTipoIdentificacion(entitiTipoIdentificacion);
+            return await this.repositorioTipoIdentificacion.InsertarTipoIdentificacion(entitiTipoIdentificacion);
         }
         public async Task<DtoRespuestaSP> ActualizarTipoIdentificacion(EntitiTipoIdentificacion entitiTipoIdentificacion)
         {
-            return await this.spTipoIdentificacion.ActualizarTipoIdentificacion(entitiTipoIdentificacion);
+            return await this.repositorioTipoIdentificacion.ActualizarTipoIdentificacion(entitiTipoIdentificacion);
         }
         public async Task<DtoRespuestaSP> EliminarTipoIdentificacion(int idTipoIdentificacion)
         {
-            return await this.spTipoIdentificacion.EliminarTipoIdentificacion(idTipoIdentificacion);
+            return await this.repositorioTipoIdentificacion.EliminarTipoIdentificacion(idTipoIdentificacion);
         }
         public async Task<DtoTipoIdentificacion> ObtenerTipoIdentificacionPorID(int idTipoIdentificacion)
         {
-            return await this.spTipoIdentificacion.ObtenerTipoIdentificacionPorID(idTipoIdentificacion);
+            return await this.repositorioTipoIdentificacion.ObtenerTipoIdentificacionPorID(idTipoIdentificacion);
         }
 
         public async Task<List<DtoTipoIdentificacion>> ObtenerTipoIdentificacion()
         {
-            return await this.spTipoIdentificacion.ObtenerTipoIdentificacion();
+            return await this.repositorioTipoIdentificacion.ObtenerTipoIdentificacion();
         }
 
         public async Task<List<DtoTipoIdentificacion>> ObtenerTipoIdentificacionActivos()
         {
-            return await this.spTipoIdentificacion.ObtenerTipoIdentificacionActivos();
+            return await this.repositorioTipoIdentificacion.ObtenerTipoIdentificacionActivos();
         }
     }
 }

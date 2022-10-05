@@ -12,36 +12,36 @@ namespace BussinesLogic.Servicios
 {
     public class ServicioTipoPerspectivas: IServicioTipoPerspectivas
     {
-        public readonly IRepositorioTipoPerspectivas spTipoPerspectivas;
-        public ServicioTipoPerspectivas(IRepositorioTipoPerspectivas spTipoPerspectivas)
+        public readonly IRepositorioTipoPerspectivas repositorioTipoPerspectivas;
+        public ServicioTipoPerspectivas(IRepositorioTipoPerspectivas repositorioTipoPerspectivas)
         {
-            this.spTipoPerspectivas = spTipoPerspectivas;
+            this.repositorioTipoPerspectivas = repositorioTipoPerspectivas;
         }
         public async Task<DtoRespuestaSP> InsertarTipoPerspectivas(EntitiTipoPerspectivas entitiTipoPerspectivas)
         {
-            return await this.spTipoPerspectivas.InsertarTipoPerspectivas(entitiTipoPerspectivas);
+            return await this.repositorioTipoPerspectivas.InsertarTipoPerspectivas(entitiTipoPerspectivas);
         }
         public async Task<DtoRespuestaSP> ActualizarTipoPerspectivas(EntitiTipoPerspectivas entitiTipoPerspectivas)
         {
-            return await this.spTipoPerspectivas.ActualizarTipoPerspectivas(entitiTipoPerspectivas);
+            return await this.repositorioTipoPerspectivas.ActualizarTipoPerspectivas(entitiTipoPerspectivas);
         }
         public async Task<DtoRespuestaSP> EliminarTipoPerspectivas(int idTipoPerspectivas)
         {
-            return await this.spTipoPerspectivas.EliminarTipoPerspectivas(idTipoPerspectivas);
+            return await this.repositorioTipoPerspectivas.EliminarTipoPerspectivas(idTipoPerspectivas);
         }
         public async Task<DtoTipoPerspectivas> ObtenerTipoPerspectivasPorID(int idTipoPerspectivas)
         {
-            return await this.spTipoPerspectivas.ObtenerTipoPerspectivasPorID(idTipoPerspectivas);
+            return await this.repositorioTipoPerspectivas.ObtenerTipoPerspectivasPorID(idTipoPerspectivas);
         }
 
         public async Task<List<DtoTipoPerspectivas>> ObtenerTipoPerspectivas()
         {
-            return await this.spTipoPerspectivas.ObtenerTipoPerspectivas();
+            return await this.repositorioTipoPerspectivas.ObtenerTipoPerspectivas();
         }
 
         public async Task<List<DtoTipoPerspectivas>> ObtenerTipoPerspectivasActivos()
         {
-            return await this.spTipoPerspectivas.ObtenerTipoPerspectivasActivos();
+            return await this.repositorioTipoPerspectivas.ObtenerTipoPerspectivasActivos();
         }
     }
 }

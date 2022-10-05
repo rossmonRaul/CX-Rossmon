@@ -12,38 +12,38 @@ namespace BussinesLogic.Servicios
 {
     public class ServicioTipoTaller : IServicioTipoTaller
     {
-        private readonly IRepositorioTipoTaller spTipoTaller;
+        private readonly IRepositorioTipoTaller repositorioTipoTaller;
 
-        public ServicioTipoTaller(IRepositorioTipoTaller spTipoTaller)
+        public ServicioTipoTaller(IRepositorioTipoTaller repositorioTipoTaller)
         {
-            this.spTipoTaller = spTipoTaller;
+            this.repositorioTipoTaller = repositorioTipoTaller;
         }
 
         public async Task<DtoRespuestaSP> InsertarTipoTaller(EntitiTipoTaller entitiTipoTaller)
         {
-            return await this.spTipoTaller.InsertarTipoTaller(entitiTipoTaller);
+            return await this.repositorioTipoTaller.InsertarTipoTaller(entitiTipoTaller);
         }
         public async Task<DtoRespuestaSP> ActualizarTipoTaller(EntitiTipoTaller entitiTipoTaller)
         {
-            return await this.spTipoTaller.ActualizarTipoTaller(entitiTipoTaller);
+            return await this.repositorioTipoTaller.ActualizarTipoTaller(entitiTipoTaller);
         }
         public async Task<DtoRespuestaSP> EliminarTipoTaller(int idTipoTaller)
         {
-            return await this.spTipoTaller.EliminarTipoTaller(idTipoTaller);
+            return await this.repositorioTipoTaller.EliminarTipoTaller(idTipoTaller);
         }
         public async Task<DtoTipoTaller> ObtenerTipoTallerPorID(int idTipoTaller)
         {
-            return await this.spTipoTaller.ObtenerTipoTallerPorID(idTipoTaller);
+            return await this.repositorioTipoTaller.ObtenerTipoTallerPorID(idTipoTaller);
         }
 
         public async Task<List<DtoTipoTaller>> ObtenerTipoTaller()
         {
-            return await this.spTipoTaller.ObtenerTipoTaller();
+            return await this.repositorioTipoTaller.ObtenerTipoTaller();
         }
 
         public async Task<List<DtoTipoTaller>> ObtenerTipoTallerActivos()
         {
-            return await this.spTipoTaller.ObtenerTipoTallerActivos();
+            return await this.repositorioTipoTaller.ObtenerTipoTallerActivos();
         }
     }
 }

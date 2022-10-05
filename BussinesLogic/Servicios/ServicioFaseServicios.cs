@@ -12,33 +12,33 @@ namespace BussinesLogic.Servicios
 {
     public class ServicioFaseServicios : IServicioFaseServicio
     {
-        public IRepositorioFaseServicios spFaseServicio;
+        public IRepositorioFaseServicios repositorioFaseServicio;
 
         public ServicioFaseServicios(IRepositorioFaseServicios repositorioFaseServicios)
         {
-            this.spFaseServicio = repositorioFaseServicios;
+            this.repositorioFaseServicio = repositorioFaseServicios;
         }
 
         public async Task<List<DtoFaseServicio>> ObtenerFaseServicios()
         {
-            return await this.spFaseServicio.ObtenerFaseServicios();
+            return await this.repositorioFaseServicio.ObtenerFaseServicios();
         }
 
         public async Task<DtoRespuestaSP> InsertarFaseServicio(EntitiFaseServicio entitiFaseServicio)
         {
-            return await this.spFaseServicio.InsertarFaseServicio(entitiFaseServicio);
+            return await this.repositorioFaseServicio.InsertarFaseServicio(entitiFaseServicio);
         }
         public async Task<DtoRespuestaSP> ActualizarFaseServicio(EntitiFaseServicio entitiFaseServicio)
         {
-            return await this.spFaseServicio.ActualizarFaseServicio(entitiFaseServicio);
+            return await this.repositorioFaseServicio.ActualizarFaseServicio(entitiFaseServicio);
         }
         public async Task<DtoRespuestaSP> EliminarFaseServicio(int idFase)
         {
-            return await this.spFaseServicio.EliminarFaseServicio(idFase);
+            return await this.repositorioFaseServicio.EliminarFaseServicio(idFase);
         }
         public async Task<DtoFaseServicio> ObtenerFaseServicioPorID(int idFase)
         {
-            return await this.spFaseServicio.ObtenerFaseServicioPorID(idFase);
+            return await this.repositorioFaseServicio.ObtenerFaseServicioPorID(idFase);
         }
     }
 }
