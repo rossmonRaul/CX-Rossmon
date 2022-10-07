@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BussinesLogic.Servicios;
 using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.Socio;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CX.Controllers
@@ -12,7 +13,12 @@ namespace CX.Controllers
     [ApiController]
     public class SocioController : Controller
     {
-        private readonly ServicioSocios servicioSocios = new ServicioSocios();
+        private readonly IServicioSocios servicioSocios;
+
+        public SocioController(IServicioSocios servicioSocios)
+        {
+            this.servicioSocios = servicioSocios;
+        }
 
         [HttpGet("[action]")]
         public async Task<JsonResult> ObtenerSocios()

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BussinesLogic.Servicios;
 using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.ServicioLineaNegocio;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CX.Controllers
@@ -12,9 +12,14 @@ namespace CX.Controllers
     [ApiController]
     public class ServicioLineaNegocioController : Controller
     {
-        private readonly ServicioServicioLineaNegocio servicioLineaNegocio = new ServicioServicioLineaNegocio();
+        private readonly IServicioServicioLineaNegocio servicioLineaNegocio;
 
-        [HttpGet("[action]")]
+        public ServicioLineaNegocioController(IServicioServicioLineaNegocio servicioLineaNegocio)
+        {
+            this.servicioLineaNegocio = servicioLineaNegocio;
+        }
+
+    [HttpGet("[action]")]
         public async Task<JsonResult> ObtenerServicioLineaNegocio()
         {
             return Json(await this.servicioLineaNegocio.ObtenerServicioLineaNegocio());

@@ -1,5 +1,6 @@
 ﻿using BussinesLogic.Servicios;
 using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.Direccion;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,14 @@ namespace CX.Controllers
     [ApiController]
     public class DireccionesController : Controller
     {
-        private readonly ServicioDirecciones servicioDirecciones = new ServicioDirecciones();
+        private readonly IServicioDirecciones servicioDirecciones;
+        public DireccionesController(IServicioDirecciones servicioDirecciones)
+        {
+            this.servicioDirecciones = servicioDirecciones;
+        }
 
-        [HttpGet("[action]")]
+
+    [HttpGet("[action]")]
         public async Task<JsonResult> ObtenerDirecciones()
         {
             return Json(await this.servicioDirecciones.ObtenerDirecciones());

@@ -1,6 +1,7 @@
 ﻿using BussinesLogic.Servicios;
 using Dominio.Entiti;
 using Microsoft.AspNetCore.Mvc;
+using Dominio.Interfaces.Aplicacion.TipoMetrica;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,12 @@ namespace CX.Controllers
     [ApiController]
     public class TipoMetricaController : Controller
     {
-        private readonly ServicioTipoMetrica servicioTipoMetrica = new ServicioTipoMetrica();
+        private readonly IServicioTipoMetrica servicioTipoMetrica;
+
+        public TipoMetricaController(IServicioTipoMetrica servicioTipoMetrica)
+        {
+            this.servicioTipoMetrica = servicioTipoMetrica;
+        }
 
 
         [HttpPost("[action]")]

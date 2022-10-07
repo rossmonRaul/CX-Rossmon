@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dominio.Interfaces.Aplicacion.TipoIdentificacion;
 
 namespace CX.Controllers
 {
@@ -12,7 +13,12 @@ namespace CX.Controllers
     [ApiController]
     public class TipoIdentificacionController : Controller
     {
-        private readonly ServicioTipoIdentificacion servicioTipoIdentificacion = new ServicioTipoIdentificacion();
+        private readonly IServicioTipoIdentificacion servicioTipoIdentificacion;
+
+        public TipoIdentificacionController(IServicioTipoIdentificacion servicioTipoIdentificacion)
+        {
+            this.servicioTipoIdentificacion = servicioTipoIdentificacion;
+        }
 
 
         [HttpPost("[action]")]

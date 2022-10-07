@@ -1,5 +1,5 @@
-﻿using BussinesLogic.Servicios;
-using Dominio.Entiti;
+﻿using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.MacroActividad;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,10 +13,14 @@ namespace CX.Controllers
     [ApiController]
     public class MacroActividadController : Controller
     {
-        private readonly ServicioMacroActividad servicioMacroActividad = new ServicioMacroActividad();
+        private readonly IServicioMacroActividad servicioMacroActividad;
 
+        public MacroActividadController(IServicioMacroActividad servicioMacroActividad)
+        {
+            this.servicioMacroActividad = servicioMacroActividad;
+        }
 
-        [HttpPost("[action]")]
+    [HttpPost("[action]")]
         public async Task<JsonResult> InsertarMacroActividad(EntitiMacroActividad entitiMacroActividad)
         {
             return Json(await this.servicioMacroActividad.InsertarMacroActividad(entitiMacroActividad));

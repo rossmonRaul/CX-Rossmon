@@ -1,5 +1,5 @@
-﻿using BussinesLogic.Servicios;
-using Dominio.Entiti;
+﻿using Dominio.Entiti;
+using Dominio.Interfaces.Aplicacion.Canales;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -11,7 +11,12 @@ namespace CX.Controllers
     [ApiController]
     public class CanalesController : Controller
     {
-        private readonly ServicioCanales servicioCanales = new ServicioCanales();
+        private readonly IServicioCanales servicioCanales;
+
+        public CanalesController(IServicioCanales servicioCanales)
+        {
+            this.servicioCanales = servicioCanales;
+        }
 
 
         [HttpGet("[action]")]

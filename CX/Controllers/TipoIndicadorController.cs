@@ -2,6 +2,7 @@
 using Dominio.Entiti;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using Dominio.Interfaces.Aplicacion.TipoIndicador;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,7 +13,12 @@ namespace CX.Controllers
     [ApiController]
     public class TipoIndicadorController : Controller
     {
-        private readonly ServicioTipoIndicador servicioTipoIndicador = new ServicioTipoIndicador();
+        private readonly IServicioTipoIndicador servicioTipoIndicador;
+
+        public TipoIndicadorController(IServicioTipoIndicador servicioTipoIndicador)
+        {
+            this.servicioTipoIndicador = servicioTipoIndicador;
+        }
 
 
         [HttpPost("[action]")]

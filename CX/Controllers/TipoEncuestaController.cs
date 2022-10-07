@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dominio.Interfaces.Aplicacion.TipoEncuesta;
 
 namespace CX.Controllers
 {
@@ -12,7 +13,13 @@ namespace CX.Controllers
     [ApiController]
     public class TipoEncuestaController : Controller
     {
-        private readonly ServicioTipoEncuesta servicioTipoEncuesta = new ServicioTipoEncuesta();
+        private readonly IServicioTipoEncuesta servicioTipoEncuesta;
+
+        public TipoEncuestaController(IServicioTipoEncuesta servicioTipoEncuesta)
+        {
+            this.servicioTipoEncuesta = servicioTipoEncuesta;
+        }
+
 
 
         [HttpPost("[action]")]
