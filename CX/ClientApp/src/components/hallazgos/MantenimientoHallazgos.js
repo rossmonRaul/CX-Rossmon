@@ -1,9 +1,50 @@
-﻿import React, { Component } from 'react';
+﻿import React, { Component, useState } from 'react';
+import { InputText, InputSelect } from '../components_forms/inputs'
 import { Container, Form, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
+import { ObtenerGradosEsfuerzo } from '../../servicios/ServicioGradosEsfuerzo';
+import { ObtenerGradoImpacto } from '../../servicios/ServicioGradoImpacto';
+
 export class MantenimientoHallazgos extends Component {
     static displayName = MantenimientoHallazgos.name;
+    constructor(props) {
+        super(props);
+        this.state = {
+            gradosEsfuerzo: [],
+            gradosImpacto: [],
+            pendiente: false,
+            data: {},
+            modal: false,
+            proceso: 1,
+            mensajeRespuesta: {},
+            show: false,
+            alerta: true,
+            gradoEsfuerzo: '',
+            idGradoEsfuerzo: '',
+            gradoImpacto: '',
+            idGradoImpacto: ''
 
+        }
+    }
 
+    async ObtenerGradosEsfuerzo() {
+        const respuesta = await ObtenerGradosEsfuerzo();
+        this.setState({ gradosEsfuerzo: respuesta });
+    }
+    async ObtenerGradosImpacto() {
+        const respuesta = await ObtenerGradoImpacto();
+        console.log(respuesta);
+        this.setState({ gradosImpacto: respuesta });
+       
+    }
+
+    onChangeGradoEsfuerzo = (e) => this.setState({ gradoEsfuerzo: this.state.gradosEsfuerzo.find(obj => obj.idGradoEsfuerzo == e.target.value).gradoEsfuerzo });
+    onChangeGradoImpacto = (e) => this.setState({ gradoImpacto: this.state.gradosImpacto.find(obj => obj.idGradoImpacto == e.target.value).gradoImpacto });
+
+    async componentDidMount() {
+        await this.ObtenerGradosEsfuerzo();
+        await this.ObtenerGradosImpacto();
+
+    }
     render() {
         return (
             <main>
@@ -74,16 +115,24 @@ export class MantenimientoHallazgos extends Component {
                         <Col md={4}>
                             <div className="item1">
                                 <h6 className="heading3">Nivel de Impacto del Hallazgo</h6>
-                                <select className="etiqueta" name="codigo_impacto" ></select>
-                                <select name="descripcion_impacto" ></select>
+                                <select onChange={this.onChangeGradoImpacto} className="etiqueta" name="codigo_impacto" >
+                                    {this.state.gradosImpacto.map(fbb =>
+                                        <option key={fbb.idGradoImpacto} value={fbb.idGradoImpacto}>{fbb.idGradoImpacto}</option>
+                                    )};
+                                </select>
+                                <input name="descripcion_impacto" value={this.state.gradoImpacto}></input>
                             </div>
                         </Col>
 
                         <Col md={4}>
                             <div className="item1">
-                                <h6 className="heading3">Nivel de Esfuerzo del Hallazgo</h6>
-                                <select className="etiqueta" name="codigo_esfuerzo" ></select>
-                                <select name="descripcion_esfuerzo" ></select>
+                                <h6 className="heading3">Grado de Esfuerzo del Hallazgo</h6>
+                                <select onChange={this.onChangeGradoEsfuerzo} className="etiqueta" name="codigo_esfuerzo" >
+                                    {this.state.gradosEsfuerzo.map(fbb =>
+                                        <option key={fbb.idGradoEsfuerzo} value={fbb.idGradoEsfuerzo}>{fbb.idGradoEsfuerzo}</option>
+                                    )};
+                                </select>
+                                <input readonly name="descripcion_grado" value={this.state.gradoEsfuerzo} ></input>
                             </div>
                         </Col>
 
@@ -165,7 +214,7 @@ export class MantenimientoHallazgos extends Component {
                 <div class="row-full">Direcciones y Responsables asignadas al Hallazgo </div>
 
                 <Container>
-                  
+
                     <table className="table table-bordered table" name="table_hallazgo">
                         <thead className="titulo2">
                             <tr >
@@ -183,7 +232,7 @@ export class MantenimientoHallazgos extends Component {
 
                         </tbody>
                     </table>
-                
+
 
 
 
@@ -192,10 +241,10 @@ export class MantenimientoHallazgos extends Component {
                         <Col md={12}>
 
                             <h6 className="heading3">Detalle General del Hallazgo</h6>
-                            <textarea  name="Detalle_direccion_resposable"></textarea>
+                            <textarea name="Detalle_direccion_resposable"></textarea>
                         </Col>
 
-                       
+
                     </Row>
 
                     <Row>
@@ -256,10 +305,12 @@ export class MantenimientoHallazgos extends Component {
 
                 </Container >
 
-               
-                  
-          
-              </main>
+
+
+
+            </main>
         );
     }
 }
+
+

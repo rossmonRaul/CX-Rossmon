@@ -149,9 +149,9 @@ export class CatalogoTipoIdentificacion extends Component {
     render() {
         return (
             <main>
-                <div className="row-full">Catalogo de Tipo de Interaccion </div>
+                <div className="row-full">Catalogo de Tipo de Identificación </div>
                 <Container>
-                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoTipoIdentificacion()}>Insertar Tipo de Interaccion</Button>
+                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoTipoIdentificacion()}>Insertar Tipo de Identificación</Button>
                     <hr />
                     <br />
 
