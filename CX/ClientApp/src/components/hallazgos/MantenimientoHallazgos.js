@@ -8,6 +8,7 @@ import { ObtenerEstadoAceptacion } from '../../servicios/ServicioEstadoAceptacio
 import { ObtenerServicioLineaNegocio, ObtenerLineasNegociosActivos } from '../../servicios/ServicioServicioLineaNegocio';
 import { ObtenerCantidadMantenimientoHallazgo, ObtenerDatosOrbe } from '../../servicios/ServicioMantenimientoHallazgo';
 import { ObtenerMacroActividad } from '../../servicios/ServicioMacroActividad';
+import { ObtenerTalleresCoCreacion } from '../../servicios/ServicioTalleresCoCreacion';
 import Select from 'react-select'
 
 export class MantenimientoHallazgos extends Component {
@@ -46,14 +47,28 @@ export class MantenimientoHallazgos extends Component {
             idMacro: '',
             macroActividad: '',
             numeroOficioEnvio: [],
-            orbe:'',
+            orbe: '',
+            talleresCoCreacion: [],
+            tallerCoCreacion:''
 
         }
     }
+    async ObtenerTalleresCoCreacion() {
+
+        const respuesta = await ObtenerTalleresCoCreacion();
+
+        const options = respuesta.map(function (row) {
+            return { value: row.idTallerCoCreacion, label: row.idTallerCoCreacion +' '+row.descripcionGeneral }
+        })
+
+        this.setState({ talleresCoCreacion: options });
+    }
+
     async ObtenerMacroActividadAsociadoHallazgo() {
         const respuesta = await ObtenerMacroActividad();
         this.setState({ macroActividades: respuesta });
     }
+
     async ObtenerNumeroOficioEnvio() {
         
         const respuesta = await ObtenerDatosOrbe();
@@ -69,6 +84,7 @@ export class MantenimientoHallazgos extends Component {
         const respuesta = await ObtenerCantidadMantenimientoHallazgo();
         this.setState({ secuenciaHallazgo: respuesta.cantidad + 1 });
     }
+
     async ObtenerServicioAsociadoHallazgo() {
         const respuesta = await ObtenerServicioLineaNegocio();
         const options = respuesta.map(function (row) {
@@ -76,6 +92,7 @@ export class MantenimientoHallazgos extends Component {
         })
         this.setState({ serviciosAsociadoHallazgo: options });
     }
+
     async ObtenerLineasNegocio() {
         const respuesta = await ObtenerLineasNegociosActivos();
         this.setState({ lineasNegocio: respuesta });
@@ -154,6 +171,9 @@ export class MantenimientoHallazgos extends Component {
     onChangeMacroNumeroOficioEnvio = (e) => {
         this.state.orbe = e;
     }
+    onChangeTallerCoCreacion = (e) => {
+        this.state.tallerCoCreacion = e;
+    }
   
     async componentDidMount() {
         await this.ObtenerGradosEsfuerzo();
@@ -165,6 +185,7 @@ export class MantenimientoHallazgos extends Component {
         await this.ObtenerSecuenciaHallazgo();
         await this.ObtenerMacroActividadAsociadoHallazgo();
         await this.ObtenerNumeroOficioEnvio();
+        await this.ObtenerTalleresCoCreacion()
     }
     render() {
         return (
@@ -202,8 +223,7 @@ export class MantenimientoHallazgos extends Component {
                         <Col md={4}>
                             <div className="item1">
                                 <h6 className="heading3">Taller de Co Creación</h6>
-                                <select className="etiqueta" name="codigo_cocreacion" ></select>
-                                <select name="descripcion_cocreacion" ></select>
+                                <Select onChange={this.onChangeTallerCoCreacion} isClearable={true} options={this.state.talleresCoCreacion} />
 
                             </div>
                         </Col>

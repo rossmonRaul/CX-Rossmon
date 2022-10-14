@@ -29,6 +29,7 @@ using Dominio.Interfaces.Aplicacion.TipoMetrica;
 using Dominio.Interfaces.Aplicacion.TipoPerspectivas;
 using Dominio.Interfaces.Aplicacion.TiposPersona;
 using Dominio.Interfaces.Aplicacion.TipoTaller;
+using Dominio.Interfaces.Aplicacion.TalleresCoCreacion;
 using Microsoft.Extensions.Configuration;
 
 
@@ -74,6 +75,7 @@ namespace BussinesLogic
             services.AddScoped<IServicioTipoTaller, ServicioTipoTaller>();
             services.AddScoped<IServicioFasesCJ, ServicioFasesCJ>();
             services.AddScoped<IServicioMantenimientoHallazgo, ServicioMantenimientoHallazgo>();
+            services.AddScoped<IServicioTalleresCoCreacion, ServicioTalleresCoCreacion>();
             return services;
         }
     }
