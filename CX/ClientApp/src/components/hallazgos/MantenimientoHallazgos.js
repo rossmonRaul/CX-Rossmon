@@ -53,9 +53,9 @@ export class MantenimientoHallazgos extends Component {
         }
     }
     async ObtenerTalleresCoCreacion() {
-
+       
         const respuesta = await ObtenerTalleresCoCreacion();
-
+        //método que pasa del array traido de backend a un array con un valor y label para poder ser manejados en los select importados
         const options = respuesta.map(function (row) {
             return { value: row.idTallerCoCreacion, label: row.idTallerCoCreacion +' '+row.descripcionGeneral }
         })
@@ -65,7 +65,7 @@ export class MantenimientoHallazgos extends Component {
 
     async ObtenerMacroActividadAsociadoHallazgo() {
         const respuesta = await ObtenerMacroActividad();
-
+        //método que pasa del array traido de backend a un array con un valor y label para poder ser manejados en los select importados
         const options = respuesta.map(function (row) {
             return { value: row.idMacro, label: row.idMacro + ' ' + row.macroActividad }
         })
@@ -76,7 +76,7 @@ export class MantenimientoHallazgos extends Component {
     async ObtenerNumeroOficioEnvio() {
         
         const respuesta = await ObtenerDatosOrbe();
-
+        //método que pasa del array traido de backend a un array con un valor y label para poder ser manejados en los select importados
         const options = respuesta.map(function (row) {
             return { value: row.idOrbe, label: row.orbe }
         })
