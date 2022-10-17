@@ -58,7 +58,10 @@ main {
     margin: -20px;
 }
 
-
+.secuencia{
+    width:50%;
+    margin-left:25%
+}
 
 .botones {
     background-color: #126677;

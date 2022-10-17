@@ -49,8 +49,7 @@ export class MantenimientoHallazgos extends Component {
             numeroOficioEnvio: [],
             orbe: '',
             talleresCoCreacion: [],
-            tallerCoCreacion:''
-
+            tallerCoCreacion:'',
         }
     }
     async ObtenerTalleresCoCreacion() {
@@ -66,7 +65,12 @@ export class MantenimientoHallazgos extends Component {
 
     async ObtenerMacroActividadAsociadoHallazgo() {
         const respuesta = await ObtenerMacroActividad();
-        this.setState({ macroActividades: respuesta });
+
+        const options = respuesta.map(function (row) {
+            return { value: row.idMacro, label: row.idMacro + ' ' + row.macroActividad }
+        })
+
+        this.setState({ macroActividades: options });
     }
 
     async ObtenerNumeroOficioEnvio() {
@@ -87,10 +91,7 @@ export class MantenimientoHallazgos extends Component {
 
     async ObtenerServicioAsociadoHallazgo() {
         const respuesta = await ObtenerServicioLineaNegocio();
-        const options = respuesta.map(function (row) {
-            return { value: row.idServicio, label: row.servicio, idLinea:row.idLinea }
-        })
-        this.setState({ serviciosAsociadoHallazgo: options });
+        this.setState({ serviciosAsociadoHallazgo: respuesta });
     }
 
     async ObtenerLineasNegocio() {
@@ -157,7 +158,11 @@ export class MantenimientoHallazgos extends Component {
         }
     }
     onChangeServicioAsoHallazgo = (e) => {
-        this.state.servicio = e;
+        if (e.target.value != '') {
+            this.setState({ servicio: this.state.serviciosAsociadoHallazgo.find(obj => obj.idServicio == e.target.value).servicio });
+        } else {
+            this.setState({ servicio: '' });
+        }
         
     }
     onChangeMacroActividadAsoHallazgo = (e) => {
@@ -174,7 +179,11 @@ export class MantenimientoHallazgos extends Component {
     onChangeTallerCoCreacion = (e) => {
         this.state.tallerCoCreacion = e;
     }
-  
+
+    onChangeMacroActividad = (e) => {
+        this.state.macroActividad = e;
+    }
+
     async componentDidMount() {
         await this.ObtenerGradosEsfuerzo();
         await this.ObtenerGradosImpacto();
@@ -199,7 +208,7 @@ export class MantenimientoHallazgos extends Component {
                         <Col md={4}>
                             <div className="item1">
                                 <h6 className="heading3"> Secuencia del hallazgo</h6>
-                                <input readonly name="secuencia_hallazgos" value={this.state.secuenciaHallazgo}>
+                                <input readonly className="secuencia" name="secuencia_hallazgos" value={this.state.secuenciaHallazgo}>
                                     
                                 </input>
 
@@ -223,7 +232,7 @@ export class MantenimientoHallazgos extends Component {
                         <Col md={4}>
                             <div className="item1">
                                 <h6 className="heading3">Taller de Co Creación</h6>
-                                <Select onChange={this.onChangeTallerCoCreacion} isClearable={true} options={this.state.talleresCoCreacion} />
+                                <Select placeholder="Seleccione..." onChange={this.onChangeTallerCoCreacion} isClearable={true} options={this.state.talleresCoCreacion} />
 
                             </div>
                         </Col>
@@ -246,20 +255,21 @@ export class MantenimientoHallazgos extends Component {
                         <Col md={4}>
                             <div className="item1">
                                 <h6 className="heading3">Servicio Asociado al Hallazgo </h6>
-                                <Select onChange={this.onChangeServicioAsoHallazgo} isClearable={true} options={this.state.serviciosFiltrados} />
+                                <select onChange={this.onChangeServicioAsoHallazgo} className="etiqueta" name="codigo_servicio_asociado" >
+                                    <option value='' selected>-- Seleccione --</option>
+                                    {this.state.serviciosFiltrados.map(fbb =>
+                                        <option key={fbb.idServicio} value={fbb.idServicio}>{fbb.idServicio}</option>
+                                    )};
+                                </select>
+                                <input name="descripcion_servicio_asociado" value={this.state.servicio}></input>
+                              
                             </div>
                         </Col>
 
                         <Col md={4}>
                             <div className="item1">
                                 <h6 className="heading3">Macro Actividad Asociada al Hallazgo </h6>
-                                <select onChange={this.onChangeMacroActividadAsoHallazgo} className="etiqueta" name="codigo_actividad" >
-                                     <option value='' selected>-- Seleccione --</option>
-                                    {this.state.macroActividades.map(fbb =>
-                                        <option key={fbb.idMacro} value={fbb.idMacro}>{fbb.idMacro}</option>
-                                    )};
-                                </select>
-                                <input name="descripcion_actividad" value={this.state.macroActividad}></input>
+                                <Select placeholder="Seleccione..." onChange={this.onChangeMacroActividad} isClearable={true} options={this.state.macroActividades} />
                             </div>
                         </Col>
                     </Row>
