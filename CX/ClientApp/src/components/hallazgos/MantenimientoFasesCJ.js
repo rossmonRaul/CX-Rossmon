@@ -1,7 +1,6 @@
 ﻿import React, { Component, useEffect, useState } from 'react';
 import { Container, Form, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
-import { ObtenerTipoIdentificacion, ActualizarTipoIdentificacion, AgregarTipoIdentificacion, ObtenerTipoIdentificacionPorId, InactivarTipoIdentificacion } from '../../servicios/ServicioTipoIdentificacion';
-
+import { ObtenerFasesCJ, InactivarFasesCJ, ActualizarFasesCJ, AgregarFasesCJ, ObtenerFasesCJPorId } from '../../servicios/ServicioFasesCJ';
 import 'jquery/dist/jquery.min.js';
 import { Alert } from 'react-bootstrap'
 import { Table } from '../Table';
@@ -12,34 +11,33 @@ import "datatables.net-dt/css/jquery.dataTables.min.css"
 import $ from 'jquery';
 //modal
 import { FormularioModal } from '../components_forms/ventanaModal';
-import Formulario from '../mantenimientos_forms/formTipoIdentificacion';
+import Formulario from '../mantenimientos_forms/formFasesCJ';
 
 
-export class CatalogoTipoIdentificacion extends Component {
-    static displayName = CatalogoTipoIdentificacion.name;
-
+export class MantenimientoFasesCJ extends Component {
+    static displayName = MantenimientoFasesCJ.name;
 
     constructor(props) {
         super(props);
         this.state = {
-            listaTipoIdentificacion: [],
+            listaFasesCJ: [],
             pendiente: false,
             data: {},
             modal: false,
             proceso: 1,
-            modalTitulo: "Registrar tipo de identificacion",
+            modalTitulo: "Registrar FasesCJ",
             labelButton: "Registrar",
             mensajeFormulario: "",
             mensajeRespuesta: {},
             show: false,
             alerta: true,
-            cabeceras: ["Id", "Tipo de identificacion", "Estado", "Acciones"],
+            cabeceras: ["ID", "Fase Customer Journey","Estado","Acciones"],
         };
 
     }
 
     async componentDidMount() {
-        await this.ObtenerListadoTipoIdentificacion();
+        await this.ObtenerListadoFasesCJ();
 
         setTimeout(() => {
             $('#example').DataTable(
@@ -50,48 +48,47 @@ export class CatalogoTipoIdentificacion extends Component {
     }
 
 
-    async ObtenerListadoTipoIdentificacion() {
-        const respuesta = await ObtenerTipoIdentificacion();
-        this.setState({ listaTipoIdentificacion: respuesta });
+    async ObtenerListadoFasesCJ() {
+        const respuesta = await ObtenerFasesCJ();
+        this.setState({ listaFasesCJ: respuesta });
     }
 
-    onClickNuevoTipoIdentificacion = async () => {
+    onClickNuevoFasesCJ = async () => {
         this.setState({ proceso: 1 });
         this.setState({ modal: !this.state.modal });
         this.setState({ labelButton: "Registrar" });
-        this.setState({ modalTitulo: "Registrar Tipo de Identificacion" });
+        this.setState({ modalTitulo: "Registrar Fase Customer Journey" });
     }
 
-    onClickInactivarTipoIdentificacion = async (id) => {
-        const respuesta = await InactivarTipoIdentificacion(id)
+    onClickInactivarFasesCJ = async (id) => {
+        const respuesta = await InactivarFasesCJ(id)
         if (respuesta.indicador === 0) {
-            this.setState({ lineaTipoIdentificacion: await this.ObtenerListadoTipoIdentificacion() });
+            await this.ObtenerListadoFasesCJ();
             this.setState({ alerta: true });
         } else {
             this.setState({ alerta: false });
         }
         this.setState({ mensajeRespuesta: respuesta });
         this.setState({ show: true });
-
     }
 
-    onClickActualizarTipoIdentificacion = async (id) => {
-        this.setState({ data: await ObtenerTipoIdentificacionPorId(id) })
+    onClickActualizarFasesCJ = async (id) => {
+        this.setState({ data: await ObtenerFasesCJPorId(id) })
+        console.log(this.state.data);
         this.setState({ proceso: 2 });
         this.setState({ modal: !this.state.modal });
         this.setState({ labelButton: "Actualizar" });
-        this.setState({ modalTitulo: "Actualizar Tipo de Identificacion" });
+        this.setState({ modalTitulo: "Actualizar Fase Customer Joruney" });
     }
 
-    onClickProcesarTipoIdentificacion = async (data) => {
-
+    onClickProcesarFasesCJ = async (data) => {
         let respuesta = {};
 
         if (this.state.proceso === 1)
-            respuesta = await AgregarTipoIdentificacion(data);
+            respuesta = await AgregarFasesCJ(data);
         else {
 
-            respuesta = await ActualizarTipoIdentificacion(data);
+            respuesta = await ActualizarFasesCJ(data);
         }
 
         if (respuesta.indicador == 0) {
@@ -101,7 +98,7 @@ export class CatalogoTipoIdentificacion extends Component {
 
             $('#example').DataTable().destroy();
 
-            await this.ObtenerListadoTipoIdentificacion();
+            await this.ObtenerListadoFasesCJ();
 
             setTimeout(() => {
                 $('#example').DataTable(
@@ -124,21 +121,20 @@ export class CatalogoTipoIdentificacion extends Component {
 
 
     body = () => {
-        return this.state.listaTipoIdentificacion.map((item, index) => (
+        return this.state.listaFasesCJ.map((item, index) => (
             <tr key={index}>
-                <td>{item.idTipoIdentificacion}</td>
-                <td>{item.tipoIdentificacion}</td>
-
+                <td>{item.idFaseCJ}</td>
+                <td>{item.faseCustomerJourney}</td>
 
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
                 <td style={{ display: "flex", padding: "0.5vw" }}>
 
-                    <Button color="primary" onClick={() => this.onClickActualizarTipoIdentificacion(item.idTipoIdentificacion)} style={{ marginRight: "1vw" }}>Editar
+                    <Button color="primary" onClick={() => this.onClickActualizarFasesCJ(item.idFaseCJ)} style={{ marginRight: "1vw" }}>Editar
                     </Button>
 
-                    <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarTipoIdentificacion(item.idTipoIdentificacion)}> {item.estado === true ? "Inactivar" : "Activar"}
+                    <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarFasesCJ(item.idFaseCJ)}> {item.estado === true ? "Inactivar" : "Activar"}
                     </Button>
                 </td>
             </tr>
@@ -149,9 +145,9 @@ export class CatalogoTipoIdentificacion extends Component {
     render() {
         return (
             <main>
-                <div className="row-full">Catalogo de Tipo de Identificación </div>
+                <div className="row-full">Catálogo de Fases de Customer Journey </div>
                 <Container>
-                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoTipoIdentificacion()}>Insertar Tipo de Identificación</Button>
+                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoFasesCJ()}>Insertar fase de costumer journey</Button>
                     <hr />
                     <br />
 
@@ -165,11 +161,10 @@ export class CatalogoTipoIdentificacion extends Component {
 
                     <br />
 
-
                     <Table tableHeading={this.state.cabeceras} body={this.body()} />
 
                     <FormularioModal show={this.state.modal} handleClose={this.onClickCerrarModal} titulo={this.state.modalTitulo} className=''>
-                        <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarTipoIdentificacion={this.onClickProcesarTipoIdentificacion} mensaje={this.state.mensajeFormulario} />
+                        <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarFasesCJ={this.onClickProcesarFasesCJ} mensaje={this.state.mensajeFormulario} />
                     </FormularioModal>
 
                 </Container>

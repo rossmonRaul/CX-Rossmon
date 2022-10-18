@@ -14,6 +14,11 @@ namespace BussinesLogic.Servicios
     {
         private readonly IRepositorioEstadoAceptacion repositorioEstadoAceptacion;
 
+        public ServicioEstadoAceptacion(IRepositorioEstadoAceptacion repositorioEstadoAceptacion)
+        {
+            this.repositorioEstadoAceptacion = repositorioEstadoAceptacion;
+        }
+
         public async Task<List<DtoEstadoAceptacion>> ObtenerEstadoAceptacion()
         {
             return await this.repositorioEstadoAceptacion.ObtenerEstadoAceptacion();

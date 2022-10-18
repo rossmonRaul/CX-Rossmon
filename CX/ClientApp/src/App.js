@@ -39,6 +39,7 @@ import { MantenimientoImpacto } from './components/hallazgos/MantenimientoImpact
 import { MantenimientoTipoTaller } from './components/hallazgos/MantenimientoTipoTaller';
 import { MantenimientoModelo } from './components/hallazgos/MantenimientoModelo';
 import { MantenimientoEstadoHallazgo } from './components/hallazgos/MantenimientoEstadoHallazgo';
+import { MantenimientoFasesCJ } from './components/hallazgos/MantenimientoFasesCJ';
 import { MantenimientoEtapas } from './components/hallazgos/MantenimientoEtapas';
 import { MantenimientoPeriodicidades } from './components/hallazgos/MantenimientoPeriodicidades';
 
@@ -125,6 +126,7 @@ export default class App extends Component {
                     <Route path='/MantenimientoTipoTaller' component={MantenimientoTipoTaller} />
                     <Route path='/MantenimientoModelo' component={MantenimientoModelo} />
                     <Route path='/MantenimientoEstadoHallazgo' component={MantenimientoEstadoHallazgo} />
+                    <Route path='/MantenimientoFasesCJ' component={MantenimientoFasesCJ} />
                     <Route path='/MantenimientoEtapas' component={MantenimientoEtapas} />
                     <Route path='/MantenimientoPeriodicidades' component={MantenimientoPeriodicidades} />
 

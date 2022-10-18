@@ -1,9 +1,201 @@
-﻿import React, { Component } from 'react';
+﻿import React, { Component, useState } from 'react';
+import { InputText, InputSelect } from '../components_forms/inputs'
 import { Container, Form, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
+import { ObtenerGradosEsfuerzo } from '../../servicios/ServicioGradosEsfuerzo';
+import { ObtenerGradoImpacto } from '../../servicios/ServicioGradoImpacto';
+import { ObtenerFasesCJ } from '../../servicios/ServicioFasesCJ';
+import { ObtenerEstadoAceptacion } from '../../servicios/ServicioEstadoAceptacion';
+import { ObtenerServicioLineaNegocio, ObtenerLineasNegociosActivos } from '../../servicios/ServicioServicioLineaNegocio';
+import { ObtenerCantidadMantenimientoHallazgo, ObtenerDatosOrbe } from '../../servicios/ServicioMantenimientoHallazgo';
+import { ObtenerMacroActividad } from '../../servicios/ServicioMacroActividad';
+import { ObtenerTalleresCoCreacion } from '../../servicios/ServicioTalleresCoCreacion';
+import Select from 'react-select'
+
 export class MantenimientoHallazgos extends Component {
     static displayName = MantenimientoHallazgos.name;
+    constructor(props) {
+        super(props);
+        this.state = {
+            lineasNegocio: [],
+            lineaNegocio: '',
+            idLineaNegocio:'',
+            estadosAceptacion: [],
+            estadoAceptacion: '',
+            idEstadoAceptacion:'',
+            gradosEsfuerzo: [],
+            gradosImpacto: [],
+            fasesCJ:[],
+            pendiente: false,
+            data: {},
+            modal: false,
+            proceso: 1,
+            mensajeRespuesta: {},
+            show: false,
+            alerta: true,
+            gradoEsfuerzo: '',
+            idGradoEsfuerzo: '',
+            gradoImpacto: '',
+            idGradoImpacto: '',
+            CJ: '',
+            idCJ: '',
+            serviciosAsociadoHallazgo: [],
+            serviciosFiltrados:[],
+            idServicio: '',
+            servicio: '',
+            secuenciaHallazgo: '',
+            macroActividades: [],
+            idMacro: '',
+            macroActividad: '',
+            numeroOficioEnvio: [],
+            orbe: '',
+            talleresCoCreacion: [],
+            tallerCoCreacion:'',
+        }
+    }
+    async ObtenerTalleresCoCreacion() {
+       
+        const respuesta = await ObtenerTalleresCoCreacion();
+        //método que pasa del array traido de backend a un array con un valor y label para poder ser manejados en los select importados
+        const options = respuesta.map(function (row) {
+            return { value: row.idTallerCoCreacion, label: row.idTallerCoCreacion +' '+row.descripcionGeneral }
+        })
 
+        this.setState({ talleresCoCreacion: options });
+    }
 
+    async ObtenerMacroActividadAsociadoHallazgo() {
+        const respuesta = await ObtenerMacroActividad();
+        //método que pasa del array traido de backend a un array con un valor y label para poder ser manejados en los select importados
+        const options = respuesta.map(function (row) {
+            return { value: row.idMacro, label: row.idMacro + ' ' + row.macroActividad }
+        })
+
+        this.setState({ macroActividades: options });
+    }
+
+    async ObtenerNumeroOficioEnvio() {
+        
+        const respuesta = await ObtenerDatosOrbe();
+        //método que pasa del array traido de backend a un array con un valor y label para poder ser manejados en los select importados
+        const options = respuesta.map(function (row) {
+            return { value: row.idOrbe, label: row.orbe }
+        })
+
+        this.setState({ numeroOficioEnvio: options });
+
+    }
+    async ObtenerSecuenciaHallazgo() {
+        const respuesta = await ObtenerCantidadMantenimientoHallazgo();
+        this.setState({ secuenciaHallazgo: respuesta.cantidad + 1 });
+    }
+
+    async ObtenerServicioAsociadoHallazgo() {
+        const respuesta = await ObtenerServicioLineaNegocio();
+        this.setState({ serviciosAsociadoHallazgo: respuesta });
+    }
+
+    async ObtenerLineasNegocio() {
+        const respuesta = await ObtenerLineasNegociosActivos();
+        this.setState({ lineasNegocio: respuesta });
+    }
+    async ObtenerGradosEsfuerzo() {
+        const respuesta = await ObtenerGradosEsfuerzo();
+        this.setState({ gradosEsfuerzo: respuesta });
+    }
+    async ObtenerGradosImpacto() {
+        const respuesta = await ObtenerGradoImpacto();
+        this.setState({ gradosImpacto: respuesta });
+       
+    }
+    async ObtenerFasesCJ() {
+        const respuesta = await ObtenerFasesCJ();
+        this.setState({ fasesCJ: respuesta });
+    }
+    async ObtenerEstadoAceptacion() {
+        const respuesta = await ObtenerEstadoAceptacion();
+        this.setState({ estadosAceptacion: respuesta });
+    }
+    onChangeEstadoAceptacion = (e) => {
+        if (e.target.value != '') {
+            this.setState({ estadoAceptacion: this.state.estadosAceptacion.find(obj => obj.idEstadoAceptacion == e.target.value).estadoAceptacion });
+
+        } else {
+            this.setState({ estadoAceptacion: '' });
+        }
+
+    }
+    onChangeGradoEsfuerzo = (e) => {
+        if (e.target.value != '') {
+            this.setState({ gradoEsfuerzo: this.state.gradosEsfuerzo.find(obj => obj.idGradoEsfuerzo == e.target.value).gradoEsfuerzo });
+
+        } else {
+            this.setState({ gradoEsfuerzo: '' });
+        }
+        
+    }
+    onChangeGradoImpacto = (e) => {
+        if (e.target.value != '') {
+            this.setState({ gradoImpacto: this.state.gradosImpacto.find(obj => obj.idGradoImpacto == e.target.value).gradoImpacto });
+        } else {
+            this.setState({ gradoImpacto: ''});
+        }
+    }
+    onChangeFasesCJ = (e) => {
+        if (e.target.value != '') {
+            this.setState({ CJ: this.state.fasesCJ.find(obj => obj.idFaseCJ == e.target.value).faseCustomerJourney });
+        } else {
+            this.setState({ CJ: '' });
+        }
+    }
+    onChangeLineaNegocio = (e) => {
+        if (e.target.value != '') {
+            this.setState({ lineaNegocio: this.state.lineasNegocio.find(obj => obj.idLinea == e.target.value).lineaNegocio });
+            this.state.serviciosFiltrados = this.state.serviciosAsociadoHallazgo.filter(servicio => servicio.idLinea == e.target.value);
+            this.setState({ servicio: '' });
+        } else {
+            this.setState({ lineaNegocio: '' });
+            this.setState({ servicio: '' });
+        }
+    }
+    onChangeServicioAsoHallazgo = (e) => {
+        if (e.target.value != '') {
+            this.setState({ servicio: this.state.serviciosAsociadoHallazgo.find(obj => obj.idServicio == e.target.value).servicio });
+        } else {
+            this.setState({ servicio: '' });
+        }
+        
+    }
+    onChangeMacroActividadAsoHallazgo = (e) => {
+        if (e.target.value != '') {
+            this.setState({ macroActividad: this.state.macroActividades.find(obj => obj.idMacro == e.target.value).macroActividad });
+        }
+        else {
+            this.setState({ macroActividad: '' });
+        }
+    }
+    onChangeMacroNumeroOficioEnvio = (e) => {
+        this.state.orbe = e;
+    }
+    onChangeTallerCoCreacion = (e) => {
+        this.state.tallerCoCreacion = e;
+    }
+
+    onChangeMacroActividad = (e) => {
+        this.state.macroActividad = e;
+    }
+
+    async componentDidMount() {
+        await this.ObtenerGradosEsfuerzo();
+        await this.ObtenerGradosImpacto();
+        await this.ObtenerFasesCJ();
+        await this.ObtenerEstadoAceptacion();
+        await this.ObtenerLineasNegocio();
+        await this.ObtenerServicioAsociadoHallazgo();
+        await this.ObtenerSecuenciaHallazgo();
+        await this.ObtenerMacroActividadAsociadoHallazgo();
+        await this.ObtenerNumeroOficioEnvio();
+        await this.ObtenerTalleresCoCreacion()
+    }
     render() {
         return (
             <main>
@@ -16,8 +208,9 @@ export class MantenimientoHallazgos extends Component {
                         <Col md={4}>
                             <div className="item1">
                                 <h6 className="heading3"> Secuencia del hallazgo</h6>
-                                <select name="secuencia_hallazgos" >
-                                </select>
+                                <input readonly className="secuencia" name="secuencia_hallazgos" value={this.state.secuenciaHallazgo}>
+                                    
+                                </input>
 
                             </div>
                         </Col>
@@ -25,10 +218,13 @@ export class MantenimientoHallazgos extends Component {
                         <Col md={4}>
                             <div className="item1">
                                 <h6 className="heading3">Fase de Customer Journey</h6>
-                                <select name="codigo_fase" >
-
+                                <select onChange={this.onChangeFasesCJ} className="etiqueta" name="codigo_faseCJ" >
+                                    <option value='' selected>-- Seleccione --</option>
+                                    {this.state.fasesCJ.map(fcj =>
+                                        <option key={fcj.idFaseCJ} value={fcj.idFaseCJ}>{fcj.idFaseCJ}</option>
+                                    )};
                                 </select>
-                                <select name="descripcion_fase" ></select>
+                                <input name="descripcion_faseCJ" value={this.state.CJ}></input>
 
                             </div>
                         </Col>
@@ -36,8 +232,7 @@ export class MantenimientoHallazgos extends Component {
                         <Col md={4}>
                             <div className="item1">
                                 <h6 className="heading3">Taller de Co Creación</h6>
-                                <select className="etiqueta" name="codigo_cocreacion" ></select>
-                                <select name="descripcion_cocreacion" ></select>
+                                <Select placeholder="Seleccione..." onChange={this.onChangeTallerCoCreacion} isClearable={true} options={this.state.talleresCoCreacion} />
 
                             </div>
                         </Col>
@@ -46,26 +241,35 @@ export class MantenimientoHallazgos extends Component {
                     <Row>
                         <Col md={4}>
                             <div className="item1">
-                                <h6 className="heading3">Solución Asociada al hallazgo</h6>
-
-                                <select className="etiqueta" name="solucion_hallazgo" ></select>
-                                <select name="descripcion_hallazgo" ></select>
+                                <h6 className="heading3">Solución asociada al hallazgo</h6>
+                                <select onChange={this.onChangeLineaNegocio} className="etiqueta" name="solucion_hallazgo" >
+                                    <option value='' selected>-- Seleccione --</option>
+                                    {this.state.lineasNegocio.map(fcj =>
+                                        <option key={fcj.idLinea} value={fcj.idLinea}>{fcj.idLinea}</option>
+                                    )};
+                                </select>
+                                <input name="descripcion_hallazgo" value={this.state.lineaNegocio}></input>
                             </div>
                         </Col>
 
                         <Col md={4}>
                             <div className="item1">
                                 <h6 className="heading3">Servicio Asociado al Hallazgo </h6>
-                                <select className="etiqueta" name="servicio_hallazgo" ></select>
-                                <select name="servicio_descripcion" ></select>
+                                <select onChange={this.onChangeServicioAsoHallazgo} className="etiqueta" name="codigo_servicio_asociado" >
+                                    <option value='' selected>-- Seleccione --</option>
+                                    {this.state.serviciosFiltrados.map(fbb =>
+                                        <option key={fbb.idServicio} value={fbb.idServicio}>{fbb.idServicio}</option>
+                                    )};
+                                </select>
+                                <input name="descripcion_servicio_asociado" value={this.state.servicio}></input>
+                              
                             </div>
                         </Col>
 
                         <Col md={4}>
                             <div className="item1">
                                 <h6 className="heading3">Macro Actividad Asociada al Hallazgo </h6>
-                                <select className="etiqueta" name="codigo_actividad" ></select>
-                                <select name="descripcion_actividad" ></select>
+                                <Select placeholder="Seleccione..." onChange={this.onChangeMacroActividad} isClearable={true} options={this.state.macroActividades} />
                             </div>
                         </Col>
                     </Row>
@@ -74,24 +278,39 @@ export class MantenimientoHallazgos extends Component {
                         <Col md={4}>
                             <div className="item1">
                                 <h6 className="heading3">Nivel de Impacto del Hallazgo</h6>
-                                <select className="etiqueta" name="codigo_impacto" ></select>
-                                <select name="descripcion_impacto" ></select>
+                                <select onChange={this.onChangeGradoImpacto} className="etiqueta" name="codigo_impacto" >
+                                    <option value='' selected>-- Seleccione --</option>
+                                    {this.state.gradosImpacto.map(fbb =>
+                                        <option key={fbb.idGradoImpacto} value={fbb.idGradoImpacto}>{fbb.idGradoImpacto}</option>
+                                    )};
+                                </select>
+                                <input name="descripcion_impacto" value={this.state.gradoImpacto}></input>
                             </div>
                         </Col>
 
                         <Col md={4}>
                             <div className="item1">
-                                <h6 className="heading3">Nivel de Esfuerzo del Hallazgo</h6>
-                                <select className="etiqueta" name="codigo_esfuerzo" ></select>
-                                <select name="descripcion_esfuerzo" ></select>
+                                <h6 className="heading3">Grado de Esfuerzo del Hallazgo</h6>
+                                <select onChange={this.onChangeGradoEsfuerzo} className="etiqueta" name="codigo_esfuerzo" >
+                                    <option value='' selected>-- Seleccione --</option>
+                                    {this.state.gradosEsfuerzo.map(fbb =>
+                                        <option key={fbb.idGradoEsfuerzo} value={fbb.idGradoEsfuerzo}>{fbb.idGradoEsfuerzo}</option>
+                                    )};
+                                </select>
+                                <input readonly name="descripcion_grado" value={this.state.gradoEsfuerzo} ></input>
                             </div>
                         </Col>
 
                         <Col md={4}>
                             <div className="item1">
                                 <h6 className="heading3">Estado de Aceptación</h6>
-                                <select className="etiqueta" name="codigo_estado_aceptacion" ></select>
-                                <select name="descripcion_estado_aceptacion" ></select>
+                                <select onChange={this.onChangeEstadoAceptacion} className="etiqueta" name="codigo_estado_aceptacion" >
+                                    <option value='' selected>-- Seleccione --</option>
+                                    {this.state.estadosAceptacion.map(fbb =>
+                                        <option key={fbb.idEstadoAceptacion} value={fbb.idEstadoAceptacion}>{fbb.idEstadoAceptacion}</option>
+                                    )};
+                                </select>
+                                <input readonly name="descripcion_estado" value={this.state.estadoAceptacion} ></input>
                             </div>
                         </Col>
                     </Row>
@@ -107,8 +326,9 @@ export class MantenimientoHallazgos extends Component {
 
                         <Col md={4}>
                             <div className="item1">
-                                <h6 className="heading3">Nro de Oficio del Envio</h6>
-                                <select className="etiqueta" name="nro_oficio" ></select>
+                                <h6 className="heading3" style={{ "fontFamily": "Roboto,-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,sans-serif", "fontStyle": "normal", "fontWeight": "400", "textRendering": "optimizeLegibility"}}>Nro de Oficio del Envio</h6>
+
+                                <Select onChange={this.onChangeMacroNumeroOficioEnvio} isClearable={true} options={this.state.numeroOficioEnvio} />
 
                             </div>
                         </Col>
@@ -165,7 +385,7 @@ export class MantenimientoHallazgos extends Component {
                 <div class="row-full">Direcciones y Responsables asignadas al Hallazgo </div>
 
                 <Container>
-                  
+
                     <table className="table table-bordered table" name="table_hallazgo">
                         <thead className="titulo2">
                             <tr >
@@ -183,7 +403,7 @@ export class MantenimientoHallazgos extends Component {
 
                         </tbody>
                     </table>
-                
+
 
 
 
@@ -192,10 +412,10 @@ export class MantenimientoHallazgos extends Component {
                         <Col md={12}>
 
                             <h6 className="heading3">Detalle General del Hallazgo</h6>
-                            <textarea  name="Detalle_direccion_resposable"></textarea>
+                            <textarea name="Detalle_direccion_resposable"></textarea>
                         </Col>
 
-                       
+
                     </Row>
 
                     <Row>
@@ -256,10 +476,12 @@ export class MantenimientoHallazgos extends Component {
 
                 </Container >
 
-               
-                  
-          
-              </main>
+
+
+
+            </main>
         );
     }
 }
+
+

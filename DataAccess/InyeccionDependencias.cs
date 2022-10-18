@@ -41,6 +41,10 @@ namespace DataAccess
             services.AddScoped<IRepositorioTipoPerspectivas, RepositorioTipoPerspectivas>();
             services.AddScoped<IRepositorioTiposPersona, RepositorioTiposPersona>();
             services.AddScoped<IRepositorioTipoTaller, RepositorioTipoTaller>();
+            services.AddScoped<IRepositorioFasesCJ, RepositorioFasesCJ>();
+            services.AddScoped<IRepositorioMantenimientoHallazgo, RepositorioMantenimientoHallazgo>();
+            services.AddScoped<IRepositorioTalleresCoCreacion, RepositorioTalleresCoCreacion>();
+
             return services;
         }
     }

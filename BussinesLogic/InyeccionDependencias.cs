@@ -5,12 +5,14 @@ using Dominio.Interfaces.Aplicacion.Direccion;
 using Dominio.Interfaces.Aplicacion.EstadoAceptacion;
 using Dominio.Interfaces.Aplicacion.EstadoHallazgo;
 using Dominio.Interfaces.Aplicacion.EtapasTaller;
+using Dominio.Interfaces.Aplicacion.FasesCJ;
 using Dominio.Interfaces.Aplicacion.FaseServicio;
 using Dominio.Interfaces.Aplicacion.GradoEsfuerzo;
 using Dominio.Interfaces.Aplicacion.GradoImpacto;
 using Dominio.Interfaces.Aplicacion.Jefatura;
 using Dominio.Interfaces.Aplicacion.LineaNegocio;
 using Dominio.Interfaces.Aplicacion.MacroActividad;
+using Dominio.Interfaces.Aplicacion.MantenimientoHallazgo;
 using Dominio.Interfaces.Aplicacion.MetodologiaCX;
 using Dominio.Interfaces.Aplicacion.Periodicidad;
 using Dominio.Interfaces.Aplicacion.Sectores;
@@ -27,6 +29,7 @@ using Dominio.Interfaces.Aplicacion.TipoMetrica;
 using Dominio.Interfaces.Aplicacion.TipoPerspectivas;
 using Dominio.Interfaces.Aplicacion.TiposPersona;
 using Dominio.Interfaces.Aplicacion.TipoTaller;
+using Dominio.Interfaces.Aplicacion.TalleresCoCreacion;
 using Microsoft.Extensions.Configuration;
 
 
@@ -70,6 +73,9 @@ namespace BussinesLogic
             services.AddScoped<IServicioTipoPerspectivas, ServicioTipoPerspectivas>();
             services.AddScoped<IServicioTiposPersona, ServicioTiposPersona>();
             services.AddScoped<IServicioTipoTaller, ServicioTipoTaller>();
+            services.AddScoped<IServicioFasesCJ, ServicioFasesCJ>();
+            services.AddScoped<IServicioMantenimientoHallazgo, ServicioMantenimientoHallazgo>();
+            services.AddScoped<IServicioTalleresCoCreacion, ServicioTalleresCoCreacion>();
             return services;
         }
     }

@@ -202,12 +202,14 @@ export class NavMenu extends Component {
                                             <Accordion.Body>
                                                 <DropdownItem>
                                                     <NavItem>
+                                                        <NavLink tag={Link} className="text-black" to="/MantenimientoFasesCJ">Fases Customer Journey</NavLink>
+                                                    </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem>
+                                                    <NavItem>
                                                         <NavLink tag={Link} className="text-black" to="/MantenimientoDireccion">Direcciones</NavLink>
                                                     </NavItem>
                                                 </DropdownItem>
-
-
-
                                                 <DropdownItem>
                                                     <NavItem>
                                                         <NavLink tag={Link} className="text-black" to="/MantenimientoJefaturaDireccion">Jefatura Direccion</NavLink>
