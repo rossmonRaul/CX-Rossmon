@@ -41,7 +41,9 @@ html {
     border-block-color: #449FC7;
     margin-top: 200px;
 }
-
+.file-uploader textarea.form-control {
+    min-height: 250px !important;
+}
 
 .titulo {
     color: white;

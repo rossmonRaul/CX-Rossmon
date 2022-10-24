@@ -1,6 +1,6 @@
 ﻿import React, { Component, useState } from 'react';
 import { InputText, InputSelect } from '../components_forms/inputs'
-import { Container, Form, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
+import { Container, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
 import { ObtenerGradosEsfuerzo } from '../../servicios/ServicioGradosEsfuerzo';
 import { ObtenerGradoImpacto } from '../../servicios/ServicioGradoImpacto';
 import { ObtenerFasesCJ } from '../../servicios/ServicioFasesCJ';
@@ -9,7 +9,12 @@ import { ObtenerServicioLineaNegocio, ObtenerLineasNegociosActivos } from '../..
 import { ObtenerCantidadMantenimientoHallazgo, ObtenerDatosOrbe } from '../../servicios/ServicioMantenimientoHallazgo';
 import { ObtenerMacroActividad } from '../../servicios/ServicioMacroActividad';
 import { ObtenerTalleresCoCreacion } from '../../servicios/ServicioTalleresCoCreacion';
+import { ObtenerPeriodicidad } from '../../servicios/ServicioPeriodicidad';
+import { FormularioModal} from '../components_forms/ventanaModal';
+import { ObtenerEstadoHallazgo } from '../../servicios/ServicioEstadoHallazgo';
+import FormAnotacion from '../mantenimientos_forms/formAnotacion';
 import Select from 'react-select'
+import Form from 'react-bootstrap/Form';
 
 export class MantenimientoHallazgos extends Component {
     static displayName = MantenimientoHallazgos.name;
@@ -49,7 +54,13 @@ export class MantenimientoHallazgos extends Component {
             numeroOficioEnvio: [],
             orbe: '',
             talleresCoCreacion: [],
-            tallerCoCreacion:'',
+            tallerCoCreacion: '',
+            estadosHallazgo: [],
+            estadoHallazgo: '',
+            idPeriodicidad: '',
+            periodicidad: '',
+            periodicidadEntregaAvances: [],
+
         }
     }
     async ObtenerTalleresCoCreacion() {
@@ -61,6 +72,17 @@ export class MantenimientoHallazgos extends Component {
         })
 
         this.setState({ talleresCoCreacion: options });
+    }
+
+    async ObtenerEstadosHallazgo() {
+
+        const respuesta = await ObtenerEstadoHallazgo();
+        //método que pasa del array traido de backend a un array con un valor y label para poder ser manejados en los select importados
+        const options = respuesta.map(function (row) {
+            return { value: row.idEstadoHallazgo, label: row.idEstadoHallazgo + ' ' + row.estadoHallazgo }
+        })
+
+        this.setState({ estadosHallazgo: options });
     }
 
     async ObtenerMacroActividadAsociadoHallazgo() {
@@ -114,6 +136,10 @@ export class MantenimientoHallazgos extends Component {
     async ObtenerEstadoAceptacion() {
         const respuesta = await ObtenerEstadoAceptacion();
         this.setState({ estadosAceptacion: respuesta });
+    }
+    async ObtenerPeriodicidadEntregaAvances() {
+        const respuesta = await ObtenerPeriodicidad();
+        this.setState({ periodicidadEntregaAvances: respuesta });
     }
     onChangeEstadoAceptacion = (e) => {
         if (e.target.value != '') {
@@ -183,7 +209,39 @@ export class MantenimientoHallazgos extends Component {
     onChangeMacroActividad = (e) => {
         this.state.macroActividad = e;
     }
+    onChangeEstadoHallazgo = (e) => {
+        this.state.estadoHallazgo = e;
+    }
 
+    verificarPorcentaje = (object) => {
+        //revisa si es numero, si no lo es setea vacio, negativos no acepta porque no hay caracteres especiales, si es mayor a 100 setea 100por defecto.
+        if (!isNaN(object.target.value)) {
+            if (object.target.value >= 101) {
+                object.target.value = 100;
+                return object;
+
+            }
+            else {
+                return object;
+            }
+        }
+        object.target.value = '';
+        return object;
+    }
+
+    onClickAgregarAnotacion = () => {
+        console.log("boton clickeado");
+        this.setState({ modal: !this.state.modal });
+        this.setState({ labelButton: "Agregar" });
+        this.setState({ modalTitulo: "Agregar Anotacion" });
+    }
+
+    onClickCerrarModal = () => {
+        this.setState({ modal: false });
+        this.setState({ mensajeFormulario: "" });
+    }
+
+    onChangePeriodicidadEntregaAvances = (e) => this.setState({ periodicidad: this.state.periodicidadEntregaAvances.find(obj => obj.idPeriodicidad == e.target.value).periodicidad });
     async componentDidMount() {
         await this.ObtenerGradosEsfuerzo();
         await this.ObtenerGradosImpacto();
@@ -194,8 +252,11 @@ export class MantenimientoHallazgos extends Component {
         await this.ObtenerSecuenciaHallazgo();
         await this.ObtenerMacroActividadAsociadoHallazgo();
         await this.ObtenerNumeroOficioEnvio();
-        await this.ObtenerTalleresCoCreacion()
+        await this.ObtenerTalleresCoCreacion();
+        await this.ObtenerEstadosHallazgo();
+        await this.ObtenerPeriodicidadEntregaAvances();
     }
+
     render() {
         return (
             <main>
@@ -319,8 +380,7 @@ export class MantenimientoHallazgos extends Component {
                         <Col md={4}>
                             <div className="item1">
                                 <h6 className="heading3">Estado del Hallazgo </h6>
-                                <select className="etiqueta" name="codigo_estado" ></select>
-                                <select name="descripcion_estado" ></select>
+                                <Select placeholder="Seleccione..." onChange={this.onChangeEstadoHallazgo} isClearable={true} options={this.state.estadosHallazgo} />
                             </div>
                         </Col>
 
@@ -333,12 +393,18 @@ export class MantenimientoHallazgos extends Component {
                             </div>
                         </Col>
 
+
                         <Col md={4}>
                             <div className="item1">
-                                <h6 className="heading3">Porcentaje General</h6>
+                                <Form.Group controlId="formFile" className="mb-3">
+                                    <Form.Label>Anexos</Form.Label>
+                                    <Form.Control style={{ marginBottom: 2 }} type="file" />
 
-                                <input type="text" className="etiqueta" name="porcentaje_general" />
-
+                                    <Button onClick={() => this.onClickAgregarAnotacion()} color="primary" variant="primary" size="sm">Agregar Anotaciones</Button>
+                                </Form.Group>
+                                <FormularioModal show={this.state.modal} handleClose={this.onClickCerrarModal} titulo={this.state.modalTitulo} className="FormularioAnotacion">
+                                    <FormAnotacion />
+                                </FormularioModal>
                             </div>
                         </Col>
                     </Row>
@@ -347,38 +413,37 @@ export class MantenimientoHallazgos extends Component {
                         <Col md={4}>
                             <div className="item1">
                                 <h6 className="heading3">Periodicidad de Entrega de Avances</h6>
-                                <select className="etiqueta" name="periocidad_avance" ></select>
-                                <select name="descripcion_periocidad" ></select>
+                                <select onChange={this.onChangePeriodicidadEntregaAvances} className="etiqueta" name="periodicidad_avance" >
+                                    {this.state.periodicidadEntregaAvances.map(fbb =>
+                                        <option key={fbb.idPeriodicidad} value={fbb.idPeriodicidad}>{fbb.idPeriodicidad}</option>
+                                    )};
+                                </select>
+                                <input name="descripcion_periocidad" value={this.state.periodicidad}></input>
                             </div>
                         </Col>
 
-                        <Col md={4}>
+                        <Col >
                             <div className="item1">
                                 <h6 className="heading3">Detalle General del Hallazgo</h6>
-                                <textarea className="etiqueta" name="Detalle_hallazgo"></textarea>
+                                    <Input
+                                        id="exampleText"
+                                        name="text"
+                                        type="textarea"
+                                    />
 
                             </div>
                         </Col>
-
                         <Col md={4}>
-
+                            <div className="item1">
+                                <h6 className="heading3">Porcentaje General</h6>
+                                <input type="text" pattern="[0-9]{1,3}" min="0" max="100" maxLength="3" onInput={this.verificarPorcentaje} className="etiqueta" name="porcentaje_general" />
+                            </div>
                         </Col>
                     </Row>
 
                     <Row>
                         <Col md={3}>
-
-                        </Col>
-                        <Col md={3}>
                             <button id="btnGuardar" type="button" className="btn  btn-block botones" >Guardar</button>
-                        </Col>
-
-                        <Col md={3}>
-                            <button id="btnGuardar" type="button" className="btn  btn-block botones ">Salir</button>
-                        </Col>
-
-                        <Col md={3}>
-
                         </Col>
                     </Row>
                 </Container >
