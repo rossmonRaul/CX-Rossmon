@@ -44,6 +44,7 @@ namespace DataAccess
             services.AddScoped<IRepositorioFasesCJ, RepositorioFasesCJ>();
             services.AddScoped<IRepositorioMantenimientoHallazgo, RepositorioMantenimientoHallazgo>();
             services.AddScoped<IRepositorioTalleresCoCreacion, RepositorioTalleresCoCreacion>();
+            services.AddScoped<IRepositorioResponsables, RepositorioResponsables>();
 
             return services;
         }

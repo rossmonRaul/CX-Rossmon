@@ -60,10 +60,6 @@ main {
     margin: -20px;
 }
 
-.secuencia{
-    width:50%;
-    margin-left:25%
-}
 
 .botones {
     background-color: #126677;
@@ -83,12 +79,29 @@ table {
     margin-bottom: 1vh !important;
 }
 
-     table.dataTable thead th {
-        color: white !important;
-        background-color: #126677 !important;
+table.dataTable thead th {
+    color: white !important;
+    background-color: #126677 !important;
+}
+
+table.dataTable tbody tr:hover {
+    background-color: #CCE7E7;
+}
+    table.dataTable tbody tr {
+        cursor:pointer;
     }
+.initial {
+    background-color: #DDDDDD;
+    color: #000000
+}
 
+.normal {
+    background-color: #CCCCCC
+}
 
+.highlight {
+    background-color: #8888FF
+}
 /*PAGINATION*/
 
 span .paginate_button {
@@ -250,7 +263,6 @@ span .paginate_button:hover {
 
 .heading3 {
     color: #17A797;
-    text-align: center;
     border-radius: 3px;
     /*border: 1px solid #17A797;*/
 }

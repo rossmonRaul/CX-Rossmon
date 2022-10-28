@@ -7,20 +7,29 @@ import { ObtenerFasesCJ } from '../../servicios/ServicioFasesCJ';
 import { ObtenerEstadoAceptacion } from '../../servicios/ServicioEstadoAceptacion';
 import { ObtenerServicioLineaNegocio, ObtenerLineasNegociosActivos } from '../../servicios/ServicioServicioLineaNegocio';
 import { ObtenerCantidadMantenimientoHallazgo, ObtenerDatosOrbe } from '../../servicios/ServicioMantenimientoHallazgo';
+import { ObtenerResponsables } from '../../servicios/ServicioResponsables';
 import { ObtenerMacroActividad } from '../../servicios/ServicioMacroActividad';
 import { ObtenerTalleresCoCreacion } from '../../servicios/ServicioTalleresCoCreacion';
 import { ObtenerPeriodicidad } from '../../servicios/ServicioPeriodicidad';
 import { FormularioModal} from '../components_forms/ventanaModal';
 import { ObtenerEstadoHallazgo } from '../../servicios/ServicioEstadoHallazgo';
 import FormAnotacion from '../mantenimientos_forms/formAnotacion';
+import FormResponsables from '../mantenimientos_forms/formResponsables';
 import Select from 'react-select'
 import Form from 'react-bootstrap/Form';
+import 'jquery/dist/jquery.min.js';
+import { Table } from '../Table';
+//Datatable Modules
+import "datatables.net-dt/js/dataTables.dataTables"
+import "datatables.net-dt/css/jquery.dataTables.min.css"
+import $ from 'jquery';
 
 export class MantenimientoHallazgos extends Component {
     static displayName = MantenimientoHallazgos.name;
     constructor(props) {
         super(props);
         this.state = {
+            listaResponsables:[],
             lineasNegocio: [],
             lineaNegocio: '',
             idLineaNegocio:'',
@@ -33,6 +42,8 @@ export class MantenimientoHallazgos extends Component {
             pendiente: false,
             data: {},
             modal: false,
+            labelButton: "Registrar",
+            modalResponsables: false,
             proceso: 1,
             mensajeRespuesta: {},
             show: false,
@@ -59,10 +70,25 @@ export class MantenimientoHallazgos extends Component {
             estadoHallazgo: '',
             idPeriodicidad: '',
             periodicidad: '',
+            descripcionGeneralResponsable:'',
             periodicidadEntregaAvances: [],
+            cabeceras: ["ID Direccion", "Direccion", "ID Responsable", "Nombre", "Plazo(Días)", "Fecha de Inicio", "Oficio", "Avance", "Aceptado"],
+            usuarioAgrego: "",
+            fechaAgregado: "",
+            usuarioModifico: "",
+            fechaModificado:"",
 
         }
     }
+
+
+
+    async ObtenerListadoResponsables() {
+        const respuesta = await ObtenerResponsables();
+        this.setState({ listaResponsables: respuesta });
+        console.log(respuesta);
+    }
+
     async ObtenerTalleresCoCreacion() {
        
         const respuesta = await ObtenerTalleresCoCreacion();
@@ -241,7 +267,29 @@ export class MantenimientoHallazgos extends Component {
         this.setState({ mensajeFormulario: "" });
     }
 
-    onChangePeriodicidadEntregaAvances = (e) => this.setState({ periodicidad: this.state.periodicidadEntregaAvances.find(obj => obj.idPeriodicidad == e.target.value).periodicidad });
+    onClickAgregarResponsable = () => {
+        this.setState({ proceso: 1 });
+        this.setState({ modalResponsables: !this.state.modalResponsables });
+        this.setState({ labelButton: "Agregar" });
+        this.setState({ modalTitulo: "Agregar Responsable" });
+        
+
+    }
+
+    onClickCerrarModalResponsable = () => {
+        this.setState({ modalResponsables: false });
+        this.setState({ mensajeFormulario: "" });
+    }
+
+    onChangePeriodicidadEntregaAvances = (e) => {
+        if (e.target.value != '') {
+            this.setState({ periodicidad: this.state.periodicidadEntregaAvances.find(obj => obj.idPeriodicidad == e.target.value).periodicidad });
+        }
+        else {
+            this.setState({ periodicidad: '' });
+        }
+        
+    }
     async componentDidMount() {
         await this.ObtenerGradosEsfuerzo();
         await this.ObtenerGradosImpacto();
@@ -255,7 +303,45 @@ export class MantenimientoHallazgos extends Component {
         await this.ObtenerTalleresCoCreacion();
         await this.ObtenerEstadosHallazgo();
         await this.ObtenerPeriodicidadEntregaAvances();
+
+        setTimeout(() => {
+            $('#example').DataTable(
+                {
+                    "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
+                });
+        }, 100);
+
+        await this.ObtenerListadoResponsables();
     }
+    onClickFila = (item) => {
+        console.log(item);
+        var fechaingreso = new Date(item.fechaIngreso);
+        var fechamodificacion = new Date(item.fechaModificacion);
+        this.setState({ usuarioAgrego: item.ingresadoPor });
+        this.setState({ fechaAgregado: fechaingreso.toLocaleDateString() });
+        this.setState({ usuarioModifica: item.modificadoPor });
+        this.setState({ fechaModificado: fechamodificacion.toLocaleDateString() });
+        
+        this.setState({ descripcionGeneralResponsable: "El nombre del responsable es "+item.nombre+" y está involucrado en la dirección "+item.direccion });
+        
+    }
+
+    body = () => {
+        return this.state.listaResponsables.map((item, index) => (
+            <tr onClick={() => this.onClickFila(item)}  key={index}>
+                <td>{item.idDireccion}</td>
+                <td>{item.direccion}</td>
+                <td>{item.idResponsable}</td>
+                <td>{item.nombre}</td>
+                <td>{item.plazo}</td>
+                <td>{item.fechaInicio}</td>
+                <td>{item.orbe}</td>
+                <td>{item.avance}</td>
+                <td>{item.aceptado}</td>
+            </tr>
+        ))
+    }
+
 
     render() {
         return (
@@ -413,7 +499,11 @@ export class MantenimientoHallazgos extends Component {
                         <Col md={4}>
                             <div className="item1">
                                 <h6 className="heading3">Periodicidad de Entrega de Avances</h6>
+
                                 <select onChange={this.onChangePeriodicidadEntregaAvances} className="etiqueta" name="periodicidad_avance" >
+
+                                    <option value='' selected>-- Seleccione --</option>
+
                                     {this.state.periodicidadEntregaAvances.map(fbb =>
                                         <option key={fbb.idPeriodicidad} value={fbb.idPeriodicidad}>{fbb.idPeriodicidad}</option>
                                     )};
@@ -450,45 +540,38 @@ export class MantenimientoHallazgos extends Component {
                 <div class="row-full">Direcciones y Responsables asignadas al Hallazgo </div>
 
                 <Container>
-
-                    <table className="table table-bordered table" name="table_hallazgo">
-                        <thead className="titulo2">
-                            <tr >
-                                <th>Dirección</th>
-                                <th>Responsable</th>
-                                <th>Plazo (Días)</th>
-                                <th>Fecha inicio</th>
-                                <th>Nro. Oficio</th>
-                                <th>% Avance</th>
-                                <th>Aceptado</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
-
-
-
+                    <Button onClick={() => this.onClickAgregarResponsable()}  style={{ backgroundColor: "#17A797", borderColor: "#17A797" }}>Insertar Responsable</Button>
+                    <br></br>
+                    <br></br>
+                    <Table tableHeading={this.state.cabeceras} body={this.body()} />
+                    <FormularioModal labelButton={this.state.labelButton} show={this.state.modalResponsables} proceso={this.state.proceso} handleClose={this.onClickCerrarModalResponsable} titulo={this.state.modalTitulo} className="FormularioResponsables">
+                        <FormResponsables />
+                    </FormularioModal>
+  
 
 
                     <Row>
                         <Col md={12}>
 
-                            <h6 className="heading3">Detalle General del Hallazgo</h6>
-                            <textarea name="Detalle_direccion_resposable"></textarea>
+                            <h6 className="heading3">Detalle por Dirección y Responsable</h6>
+                            <Input
+                                value={this.state.descripcionGeneralResponsable}
+                                id="exampleText"
+                                name="text"
+                                type="text"
+                            />
                         </Col>
 
 
                     </Row>
-
+                    <br></br>
                     <Row>
                         <Col md={4}>
                             <div className="item1">
                                 <h6 className="heading3"> Adicionado por</h6>
-                                <input type="text" className="etiqueta" name="fecha_adicion" />
-                                <input type="text" placeholder="" name="usuario_adicion" />
+                                <input type="text" className="etiqueta" name="usuario_modificacion" value={this.state.usuarioAgrego} />
+                                <input type="text" placeholder="" name="fecha_modificacion" value={this.state.fechaAgregado} />
+
 
                             </div>
                         </Col>
@@ -496,8 +579,8 @@ export class MantenimientoHallazgos extends Component {
                         <Col md={4}>
                             <div className="item1">
                                 <h6 className="heading3">Modificado por</h6>
-                                <input type="text" className="etiqueta" name="fecha_modificacion" />
-                                <input type="text" placeholder="" name="usuario_modificacion" />
+                                <input type="text" className="etiqueta" name="fecha_modificacion" value={this.state.usuarioModifica} />
+                                <input type="text" placeholder="" name="usuario_modificacion" value={this.state.fechaModificado} />
                             </div>
                         </Col>
 
