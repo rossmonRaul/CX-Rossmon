@@ -76,7 +76,8 @@ export class MantenimientoHallazgos extends Component {
             usuarioAgrego: "",
             fechaAgregado: "",
             usuarioModifico: "",
-            fechaModificado:"",
+            fechaModificado: "",
+            porcentajeGeneral: 0,
 
         }
     }
@@ -139,104 +140,116 @@ export class MantenimientoHallazgos extends Component {
 
     async ObtenerServicioAsociadoHallazgo() {
         const respuesta = await ObtenerServicioLineaNegocio();
-        this.setState({ serviciosAsociadoHallazgo: respuesta });
+        const options = respuesta.map(function (row) {
+            return { value: row.idServicio, label: row.idServicio + ' ' + row.servicio, idLinea:row.idLinea}
+        })
+        this.setState({ serviciosAsociadoHallazgo: options });
     }
+
 
     async ObtenerLineasNegocio() {
         const respuesta = await ObtenerLineasNegociosActivos();
-        this.setState({ lineasNegocio: respuesta });
+        
+
+        const options = respuesta.map(function (row) {
+            return { value: row.idLinea, label: row.idLinea + ' ' + row.lineaNegocio }
+        })
+        this.setState({ lineasNegocio: options });
     }
+
     async ObtenerGradosEsfuerzo() {
         const respuesta = await ObtenerGradosEsfuerzo();
-        this.setState({ gradosEsfuerzo: respuesta });
+        console.log(respuesta);
+        const options = respuesta.map(function (row) {
+            return { value: row.idGradoEsfuerzo, label: row.idGradoEsfuerzo + ' ' + row.gradoEsfuerzo }
+        })
+        this.setState({ gradosEsfuerzo: options });
+
     }
+
     async ObtenerGradosImpacto() {
         const respuesta = await ObtenerGradoImpacto();
-        this.setState({ gradosImpacto: respuesta });
+        const options = respuesta.map(function (row) {
+            return { value: row.idGradoImpacto, label: row.idGradoImpacto + ' ' + row.gradoImpacto }
+        })
+        this.setState({ gradosImpacto: options });
        
     }
+
     async ObtenerFasesCJ() {
         const respuesta = await ObtenerFasesCJ();
-        this.setState({ fasesCJ: respuesta });
+        const options = respuesta.map(function (row) {
+            return { value: row.idFaseCJ, label: row.idFaseCJ + ' ' + row.faseCustomerJourney }
+        })
+        this.setState({ fasesCJ: options });
     }
+
     async ObtenerEstadoAceptacion() {
         const respuesta = await ObtenerEstadoAceptacion();
-        this.setState({ estadosAceptacion: respuesta });
+        const options = respuesta.map(function (row) {
+            return { value: row.idEstadoAceptacion, label: row.idEstadoAceptacion + ' ' + row.estadoAceptacion }
+        })
+        this.setState({ estadosAceptacion: options });
     }
+
     async ObtenerPeriodicidadEntregaAvances() {
         const respuesta = await ObtenerPeriodicidad();
-        this.setState({ periodicidadEntregaAvances: respuesta });
+        const options = respuesta.map(function (row) {
+            return { value: row.idPeriodicidad, label: row.idPeriodicidad + ' ' + row.periodicidad }
+        })
+        this.setState({ periodicidadEntregaAvances: options });
+
     }
+
     onChangeEstadoAceptacion = (e) => {
-        if (e.target.value != '') {
-            this.setState({ estadoAceptacion: this.state.estadosAceptacion.find(obj => obj.idEstadoAceptacion == e.target.value).estadoAceptacion });
-
-        } else {
-            this.setState({ estadoAceptacion: '' });
-        }
-
+        this.setState({ estadoAceptacion: e });
     }
+
     onChangeGradoEsfuerzo = (e) => {
-        if (e.target.value != '') {
-            this.setState({ gradoEsfuerzo: this.state.gradosEsfuerzo.find(obj => obj.idGradoEsfuerzo == e.target.value).gradoEsfuerzo });
+        this.setState({ gradoEsfuerzo: e });
+    }
 
-        } else {
-            this.setState({ gradoEsfuerzo: '' });
-        }
-        
-    }
     onChangeGradoImpacto = (e) => {
-        if (e.target.value != '') {
-            this.setState({ gradoImpacto: this.state.gradosImpacto.find(obj => obj.idGradoImpacto == e.target.value).gradoImpacto });
-        } else {
-            this.setState({ gradoImpacto: ''});
-        }
+
+        this.setState({ gradoImpacto: e });
     }
+
     onChangeFasesCJ = (e) => {
-        if (e.target.value != '') {
-            this.setState({ CJ: this.state.fasesCJ.find(obj => obj.idFaseCJ == e.target.value).faseCustomerJourney });
-        } else {
-            this.setState({ CJ: '' });
-        }
+        this.setState({ CJ: e });
     }
+
     onChangeLineaNegocio = (e) => {
-        if (e.target.value != '') {
-            this.setState({ lineaNegocio: this.state.lineasNegocio.find(obj => obj.idLinea == e.target.value).lineaNegocio });
-            this.state.serviciosFiltrados = this.state.serviciosAsociadoHallazgo.filter(servicio => servicio.idLinea == e.target.value);
+        if (e.value != '') {
+            this.setState({ lineaNegocio: e });
+            this.state.serviciosFiltrados = this.state.serviciosAsociadoHallazgo.filter(servicio => servicio.idLinea == e.value);
             this.setState({ servicio: '' });
         } else {
-            this.setState({ lineaNegocio: '' });
             this.setState({ servicio: '' });
         }
     }
+
     onChangeServicioAsoHallazgo = (e) => {
-        if (e.target.value != '') {
-            this.setState({ servicio: this.state.serviciosAsociadoHallazgo.find(obj => obj.idServicio == e.target.value).servicio });
-        } else {
-            this.setState({ servicio: '' });
-        }
-        
+            this.setState({ servicio: e });
     }
+
     onChangeMacroActividadAsoHallazgo = (e) => {
-        if (e.target.value != '') {
-            this.setState({ macroActividad: this.state.macroActividades.find(obj => obj.idMacro == e.target.value).macroActividad });
-        }
-        else {
-            this.setState({ macroActividad: '' });
-        }
+
+        this.setState({ macroActividad: e });
     }
+
     onChangeMacroNumeroOficioEnvio = (e) => {
-        this.state.orbe = e;
+        this.setState({ orbe: e });
     }
     onChangeTallerCoCreacion = (e) => {
-        this.state.tallerCoCreacion = e;
+        this.setState({ tallerCoCreacion: e });
     }
 
     onChangeMacroActividad = (e) => {
-        this.state.macroActividad = e;
+        this.setState({ macroActividad: e });
+
     }
     onChangeEstadoHallazgo = (e) => {
-        this.state.estadoHallazgo = e;
+        this.setState({ estadoHallazgo: e });
     }
 
     verificarPorcentaje = (object) => {
@@ -244,10 +257,12 @@ export class MantenimientoHallazgos extends Component {
         if (!isNaN(object.target.value)) {
             if (object.target.value >= 101) {
                 object.target.value = 100;
+                this.setState({ porcentajeGeneral: object.target.value });
                 return object;
 
             }
             else {
+                this.setState({ porcentajeGeneral: object.target.value });
                 return object;
             }
         }
@@ -282,14 +297,9 @@ export class MantenimientoHallazgos extends Component {
     }
 
     onChangePeriodicidadEntregaAvances = (e) => {
-        if (e.target.value != '') {
-            this.setState({ periodicidad: this.state.periodicidadEntregaAvances.find(obj => obj.idPeriodicidad == e.target.value).periodicidad });
-        }
-        else {
-            this.setState({ periodicidad: '' });
-        }
-        
+        this.setState({ periodicidad: e });
     }
+
     async componentDidMount() {
         await this.ObtenerGradosEsfuerzo();
         await this.ObtenerGradosImpacto();
@@ -355,9 +365,14 @@ export class MantenimientoHallazgos extends Component {
                         <Col md={4}>
                             <div className="item1">
                                 <h6 className="heading3"> Secuencia del hallazgo</h6>
-                                <input readonly className="secuencia" name="secuencia_hallazgos" value={this.state.secuenciaHallazgo}>
-                                    
-                                </input>
+                                
+                                    <Input
+                                        id="exampleText"
+                                        name="text"
+                                        type="text"
+                                        value={this.state.secuenciaHallazgo}
+                                    />    
+                                
 
                             </div>
                         </Col>
@@ -365,13 +380,7 @@ export class MantenimientoHallazgos extends Component {
                         <Col md={4}>
                             <div className="item1">
                                 <h6 className="heading3">Fase de Customer Journey</h6>
-                                <select onChange={this.onChangeFasesCJ} className="etiqueta" name="codigo_faseCJ" >
-                                    <option value='' selected>-- Seleccione --</option>
-                                    {this.state.fasesCJ.map(fcj =>
-                                        <option key={fcj.idFaseCJ} value={fcj.idFaseCJ}>{fcj.idFaseCJ}</option>
-                                    )};
-                                </select>
-                                <input name="descripcion_faseCJ" value={this.state.CJ}></input>
+                                <Select placeholder="Seleccione..." onChange={this.onChangeFasesCJ} isSearchable={false} isClearable={true} options={this.state.fasesCJ} />
 
                             </div>
                         </Col>
@@ -389,26 +398,14 @@ export class MantenimientoHallazgos extends Component {
                         <Col md={4}>
                             <div className="item1">
                                 <h6 className="heading3">Solución asociada al hallazgo</h6>
-                                <select onChange={this.onChangeLineaNegocio} className="etiqueta" name="solucion_hallazgo" >
-                                    <option value='' selected>-- Seleccione --</option>
-                                    {this.state.lineasNegocio.map(fcj =>
-                                        <option key={fcj.idLinea} value={fcj.idLinea}>{fcj.idLinea}</option>
-                                    )};
-                                </select>
-                                <input name="descripcion_hallazgo" value={this.state.lineaNegocio}></input>
+                                <Select placeholder="Seleccione..." onChange={this.onChangeLineaNegocio} isClearable={true} options={this.state.lineasNegocio}/>
                             </div>
                         </Col>
 
                         <Col md={4}>
                             <div className="item1">
                                 <h6 className="heading3">Servicio Asociado al Hallazgo </h6>
-                                <select onChange={this.onChangeServicioAsoHallazgo} className="etiqueta" name="codigo_servicio_asociado" >
-                                    <option value='' selected>-- Seleccione --</option>
-                                    {this.state.serviciosFiltrados.map(fbb =>
-                                        <option key={fbb.idServicio} value={fbb.idServicio}>{fbb.idServicio}</option>
-                                    )};
-                                </select>
-                                <input name="descripcion_servicio_asociado" value={this.state.servicio}></input>
+                                <Select placeholder="Seleccione..." onChange={this.onChangeServicioAsoHallazgo} isClearable={true} options={this.state.serviciosFiltrados} />
                               
                             </div>
                         </Col>
@@ -425,39 +422,21 @@ export class MantenimientoHallazgos extends Component {
                         <Col md={4}>
                             <div className="item1">
                                 <h6 className="heading3">Nivel de Impacto del Hallazgo</h6>
-                                <select onChange={this.onChangeGradoImpacto} className="etiqueta" name="codigo_impacto" >
-                                    <option value='' selected>-- Seleccione --</option>
-                                    {this.state.gradosImpacto.map(fbb =>
-                                        <option key={fbb.idGradoImpacto} value={fbb.idGradoImpacto}>{fbb.idGradoImpacto}</option>
-                                    )};
-                                </select>
-                                <input name="descripcion_impacto" value={this.state.gradoImpacto}></input>
+                                <Select placeholder="Seleccione..." onChange={this.onChangeGradoImpacto} isSearchable={false} isClearable={true} options={this.state.gradosImpacto} />
                             </div>
                         </Col>
 
                         <Col md={4}>
                             <div className="item1">
                                 <h6 className="heading3">Grado de Esfuerzo del Hallazgo</h6>
-                                <select onChange={this.onChangeGradoEsfuerzo} className="etiqueta" name="codigo_esfuerzo" >
-                                    <option value='' selected>-- Seleccione --</option>
-                                    {this.state.gradosEsfuerzo.map(fbb =>
-                                        <option key={fbb.idGradoEsfuerzo} value={fbb.idGradoEsfuerzo}>{fbb.idGradoEsfuerzo}</option>
-                                    )};
-                                </select>
-                                <input readonly name="descripcion_grado" value={this.state.gradoEsfuerzo} ></input>
+                                <Select placeholder="Seleccione..." onChange={this.onChangeGradoEsfuerzo} isSearchable={false} isClearable={true} options={this.state.gradosEsfuerzo} />
                             </div>
                         </Col>
 
                         <Col md={4}>
                             <div className="item1">
                                 <h6 className="heading3">Estado de Aceptación</h6>
-                                <select onChange={this.onChangeEstadoAceptacion} className="etiqueta" name="codigo_estado_aceptacion" >
-                                    <option value='' selected>-- Seleccione --</option>
-                                    {this.state.estadosAceptacion.map(fbb =>
-                                        <option key={fbb.idEstadoAceptacion} value={fbb.idEstadoAceptacion}>{fbb.idEstadoAceptacion}</option>
-                                    )};
-                                </select>
-                                <input readonly name="descripcion_estado" value={this.state.estadoAceptacion} ></input>
+                                <Select placeholder="Seleccione..." onChange={this.onChangeEstadoAceptacion} isClearable={true} options={this.state.estadosAceptacion} />
                             </div>
                         </Col>
                     </Row>
@@ -482,15 +461,8 @@ export class MantenimientoHallazgos extends Component {
 
                         <Col md={4}>
                             <div className="item1">
-                                <Form.Group controlId="formFile" className="mb-3">
-                                    <Form.Label>Anexos</Form.Label>
-                                    <Form.Control style={{ marginBottom: 2 }} type="file" />
-
-                                    <Button onClick={() => this.onClickAgregarAnotacion()} color="primary" variant="primary" size="sm">Agregar Anotaciones</Button>
-                                </Form.Group>
-                                <FormularioModal show={this.state.modal} handleClose={this.onClickCerrarModal} titulo={this.state.modalTitulo} className="FormularioAnotacion">
-                                    <FormAnotacion />
-                                </FormularioModal>
+                                <h6 className="heading3">Periodicidad de Entrega de Avances</h6>
+                                <Select onChange={this.onChangePeriodicidadEntregaAvances} isClearable={true} options={this.state.periodicidadEntregaAvances} />
                             </div>
                         </Col>
                     </Row>
@@ -498,17 +470,15 @@ export class MantenimientoHallazgos extends Component {
                     <Row>
                         <Col md={4}>
                             <div className="item1">
-                                <h6 className="heading3">Periodicidad de Entrega de Avances</h6>
+                                <h6 className="heading3">Anexos</h6>
+                                <Form.Group controlId="formFile" className="mb-3">
+                                    <Form.Control style={{ marginBottom: 2 }} type="file" />
 
-                                <select onChange={this.onChangePeriodicidadEntregaAvances} className="etiqueta" name="periodicidad_avance" >
-
-                                    <option value='' selected>-- Seleccione --</option>
-
-                                    {this.state.periodicidadEntregaAvances.map(fbb =>
-                                        <option key={fbb.idPeriodicidad} value={fbb.idPeriodicidad}>{fbb.idPeriodicidad}</option>
-                                    )};
-                                </select>
-                                <input name="descripcion_periocidad" value={this.state.periodicidad}></input>
+                                    <Button onClick={() => this.onClickAgregarAnotacion()} color="primary" variant="primary" size="sm">Agregar Anotaciones</Button>
+                                </Form.Group>
+                                <FormularioModal show={this.state.modal} handleClose={this.onClickCerrarModal} titulo={this.state.modalTitulo} className="FormularioAnotacion">
+                                    <FormAnotacion />
+                                </FormularioModal>
                             </div>
                         </Col>
 
@@ -526,7 +496,15 @@ export class MantenimientoHallazgos extends Component {
                         <Col md={4}>
                             <div className="item1">
                                 <h6 className="heading3">Porcentaje General</h6>
-                                <input type="text" pattern="[0-9]{1,3}" min="0" max="100" maxLength="3" onInput={this.verificarPorcentaje} className="etiqueta" name="porcentaje_general" />
+                                <Input
+                                    id="exampleText"
+                                    name="text"
+                                    type="text"
+                                    value={this.state.porcentajeGeneral}
+                                    onInput={this.verificarPorcentaje}
+                                    pattern="[0-9]{1,3}" min="0" max="100" maxLength="3"
+                                />   
+
                             </div>
                         </Col>
                     </Row>

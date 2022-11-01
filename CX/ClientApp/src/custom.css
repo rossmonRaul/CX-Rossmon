@@ -184,6 +184,9 @@ span .paginate_button:hover {
 }
 
 
+.row{
+    margin-bottom :20px;
+}
 
 .row-full {
     width: 100vw;
@@ -282,13 +285,10 @@ span .paginate_button:hover {
 .item1 input[type="text"],
 .item1 input[type="date"],
 .item1 select {
-    margin-left: 10px;
-    width: 150px;
+    width: 100%;
     font-size: 16px;
     border: 1px solid #dadce0;
     border-radius: 3px;
-    margin-bottom: 20px;
-    height: 30px;
 }
 
     .item1 [type="text"]:focus,
