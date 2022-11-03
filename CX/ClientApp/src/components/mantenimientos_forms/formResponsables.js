@@ -100,6 +100,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarResponsable, me
     const onChangeNombre = (e) => setNombre(e.target.value);
     const onChangeDireccion = (e) => setDireccion(e.target.value);
     const onChangeAvance = (e) => setAvance(e.target.value);
+    const onChangePlazo = (e) => setPlazo(e.target.value);
     const onChangeAceptado = (e) => setAceptado(e.target.value);
     const onChangeFechaInicio = (e) => setFechaInicio(e.target.value);
     return (
@@ -110,7 +111,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarResponsable, me
                     classGroup="form-lineas"></InputSelect>
                 <br />
 
-                <InputText id='txt-nombre' label='Nombre del responsable:' type='text' placeholder='Ingrese el nombre del responsable' value={nombre}
+                <InputText id='txt-nombre' label='Nombre del responsable' type='text' placeholder='Ingrese el nombre del responsable' value={nombre}
                     onChange={onChangeNombre} mensajeValidacion="El nombre del responsable es requerido" />
 
                 {mensaje !== "" ? <p className="text-info text-center">{mensaje}</p> : ""}
@@ -119,10 +120,22 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarResponsable, me
                 <InputSelect className="slct_lineas" controlId="slct_lineas" label="Oficio de Orbe" data={listaOrbe} value={idOrbe} onChange={onChangeOrbe} optionValue="idOrbe" optionLabel="orbe"
                     classGroup="form-lineas"></InputSelect>
                 <br />
+                <InputText id='txt-plzo' label='Plazo en días' type='number' placeholder='Ingrese el plazo en días' value={plazo}
+                    onChange={onChangePlazo} mensajeValidacion="El plazo es requerido" />
 
+                {mensaje !== "" ? <p className="text-info text-center">{mensaje}</p> : ""}
 
+                <InputText id='txt-avance' label='Porcentaje de Avance' type='number' placeholder='Ingrese el porcentaje de avance' value={avance}
+                    onChange={onChangeAvance} mensajeValidacion="El avance es requerido" />
+
+                {mensaje !== "" ? <p className="text-info text-center">{mensaje}</p> : ""}
+
+                <InputText id='txt-fecha' label='Fecha de Inicio:' type='date' placeholder='Ingrese la fecha de inicio' value={fechaInicio}
+                    onChange={onChangeFechaInicio} mensajeValidacion="La fecha de inicio es requerida" />
+
+                {mensaje !== "" ? <p className="text-info text-center">{mensaje}</p> : ""}
                 <div className='text-right'>
-                    <Button variant="primary" type="submit" size="sm">{labelButton}</Button>
+                    <Button variant="primary" type="submit" size="sm">Guardar responsable</Button>
                 </div>
             </Form>
         </>

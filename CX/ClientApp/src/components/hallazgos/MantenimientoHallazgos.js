@@ -522,8 +522,8 @@ export class MantenimientoHallazgos extends Component {
                     <br></br>
                     <br></br>
                     <Table tableHeading={this.state.cabeceras} body={this.body()} />
-                    <FormularioModal labelButton={this.state.labelButton} show={this.state.modalResponsables} proceso={this.state.proceso} handleClose={this.onClickCerrarModalResponsable} titulo={this.state.modalTitulo} className="FormularioResponsables">
-                        <FormResponsables />
+                    <FormularioModal show={this.state.modalResponsables} proceso={this.state.proceso} handleClose={this.onClickCerrarModalResponsable} titulo={this.state.modalTitulo} className="FormularioResponsables">
+                        <FormResponsables/>
                     </FormularioModal>
   
 
