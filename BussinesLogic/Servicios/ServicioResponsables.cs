@@ -40,6 +40,11 @@ namespace BussinesLogic.Servicios
         {
             return await this.repositorioResponsables.ObtenerResponsablePorId(idResponsable);
         }
+
+        public async Task<List<DtoResponsable>> ObtenerResponsablesPorIdHallazgo(int idHallazgo)
+        {
+            return await this.repositorioResponsables.ObtenerResponsablesPorIdHallazgo(idHallazgo);
+        }
         public async Task<DtoRespuestaSP> EliminarResponsable(int idResponsables)
         {
             return await this.repositorioResponsables.EliminarResponsable(idResponsables);

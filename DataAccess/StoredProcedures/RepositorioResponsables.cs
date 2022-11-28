@@ -52,14 +52,14 @@ namespace DataAccess.StoredProcedures
                 Dictionary<string, object> data = new Dictionary<string, object>();
 
                 data.Add("Nombre", entitiResponsable.Nombre);
+                data.Add("IdResponsable", entitiResponsable.IdResponsable);
                 data.Add("IdDireccion", entitiResponsable.IdDireccion);
-                data.Add("IdHallazgo", entitiResponsable.IdHallazgo);
                 data.Add("Plazo", entitiResponsable.Plazo);
                 data.Add("FechaInicio", entitiResponsable.FechaInicio);
                 data.Add("IdOrbe", entitiResponsable.IdOrbe);
                 data.Add("Avance", entitiResponsable.Avance);
                 data.Add("Aceptado", entitiResponsable.Aceptado);
-                string query = "SPActualizarResponsables";
+                string query = "SPActualizarResponsable";
 
                 return await this.contextoBD.EjecutarSP(query, data);
             }
@@ -76,7 +76,7 @@ namespace DataAccess.StoredProcedures
             {
                 Dictionary<string, object> data = new Dictionary<string, object>();
                 data.Add("IdResponsable", idResponsable);
-                string query = "SPEliminarResponsables";
+                string query = "SPEliminarResponsable";
 
                 return await this.contextoBD.EjecutarSP(query, data);
             }
@@ -93,9 +93,26 @@ namespace DataAccess.StoredProcedures
             {
                 Dictionary<string, object> data = new Dictionary<string, object>();
                 data.Add("IdResponsable", idResponsable);
-                string query = "SPObtenerResponsablesPorID";
+                string query = "SPObtenerResponsablePorID";
 
                 return await this.contextoBD.ObtenerDato<DtoResponsable>(query, data);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<List<DtoResponsable>> ObtenerResponsablesPorIdHallazgo(int idHallazgo)
+        {
+            try
+            {
+                Dictionary<string, object> data = new Dictionary<string, object>();
+                data.Add("idHallazgo", idHallazgo);
+                string query = "SPObtenerResponsablesPorIdHallazgo";
+                var result = await this.contextoBD.ObtenerListaDeDatos<DtoResponsable>(query,data);
+
+                return result;
             }
             catch (Exception)
             {

@@ -12,6 +12,7 @@ namespace Dominio.Interfaces.Infraestructura.BaseDatos
         Task<List<DtoResponsable>> ObtenerResponsables();
         Task<DtoRespuestaSP> InsertarResponsables(EntitiResponsable entitiResponsable);
         Task<DtoResponsable> ObtenerResponsablePorId(int idResponsable);
+        Task<List<DtoResponsable>> ObtenerResponsablesPorIdHallazgo(int idHallazgo);
         Task<DtoRespuestaSP> EliminarResponsable(int idResponsable);
         Task<DtoRespuestaSP> ActualizarResponsable(EntitiResponsable entitiResponsable);
         Task<List<DtoResponsable>> ObtenerResponsablesActivos();

@@ -1,4 +1,5 @@
-﻿using Dominio.Entiti;
+﻿using BussinesLogic.Servicios;
+using Dominio.Entiti;
 using Dominio.Interfaces.Aplicacion.MantenimientoHallazgo;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -19,6 +20,49 @@ namespace CX.Controllers
         }
 
 
+        [HttpPost("[action]")]
+        public async Task<JsonResult> AgregarMantenimientoHallazgo(EntitiHallazgo EntitiHallazgo)
+        {
+            return Json(await this.servicioMantenimientoHallazgo.AgregarMantenimientoHallazgo(EntitiHallazgo));
+        }
+
+        [HttpPut("[action]")]
+        public async Task<JsonResult> ActualizarMantenimientoHallazgo(EntitiHallazgo EntitiHallazgo)
+        {
+            return Json(await this.servicioMantenimientoHallazgo.ActualizarMantenimientoHallazgo(EntitiHallazgo));
+        }
+
+        [HttpDelete("[action]")]
+        public async Task<JsonResult> EliminarMantenimientoHallazgo(int idMantenimientoHallazgo)
+        {
+            return Json(await this.servicioMantenimientoHallazgo.EliminarMantenimientoHallazgo(idMantenimientoHallazgo));
+        }
+
+        [HttpGet("[action]/{idMantenimientoHallazgo}")]
+        public async Task<JsonResult> ObtenerMantenimientoHallazgoPorID(int idMantenimientoHallazgo)
+        {
+            return Json(await this.servicioMantenimientoHallazgo.ObtenerMantenimientoHallazgoPorID(idMantenimientoHallazgo));
+        }
+
+
+        [HttpGet("[action]")]
+        public async Task<JsonResult> ObtenerMantenimientoHallazgo()
+        {
+            return Json(await this.servicioMantenimientoHallazgo.ObtenerMantenimientoHallazgo());
+        }
+
+        [HttpGet("[action]")]
+        public async Task<JsonResult> ObtenerGridMantenimientoHallazgo()
+        {
+            return Json(await this.servicioMantenimientoHallazgo.ObtenerGridMantenimientoHallazgo());
+        }
+
+        /* [HttpGet("[action]")]
+         public async Task<JsonResult> ObtenerMantenimientoHallazgoActivos()
+         {
+             return Json(await this.servicioMantenimientoHallazgo.ObtenerMantenimientoHallazgoActivos());
+         }
+        */
         [HttpGet("[action]")]
         public async Task<JsonResult> ObtenerCantidadMantenimientoHallazgo()
         {
@@ -30,5 +74,6 @@ namespace CX.Controllers
         {
             return Json(await this.servicioMantenimientoHallazgo.ObtenerDatosOrbe());
         }
+
     }
 }

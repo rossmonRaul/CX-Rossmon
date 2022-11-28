@@ -33,3 +33,28 @@ export const Table = ({ tableHeading, body }) => {
         </>
     )
 }
+
+export const Table2 = ({ tableHeading, body }) => {
+
+    return (
+        <>
+            <table id="example2"
+                className="table" >
+                <thead >
+                    <tr style={{ backgroundColor: "#126677", color: "white" }}>
+                        {
+                            tableHeading.map(header => {
+                                return <th>{header}</th>
+                            })
+                        }
+                    </tr >
+                </thead>
+                <tbody >
+                    {
+                        body
+                    }
+                </tbody>
+            </table >
+        </>
+    )
+}

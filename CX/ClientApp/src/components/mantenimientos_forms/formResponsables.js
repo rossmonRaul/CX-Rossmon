@@ -12,15 +12,15 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarResponsable, me
     const [idDireccion, setDireccion] = useState(proceso == 2 ? data.idDireccion : '');
     const [nombre, setNombre] = useState(proceso == 2 ? data.nombre : '');
     const [plazo, setPlazo] = useState(proceso == 2 ? data.plazo : '');
-    const [fechaInicio, setFechaInicio] = useState(proceso == 2 ? data.fechaInicio : '');
+    const [fechaInicio, setFechaInicio] = useState(proceso == 2 ? data.fechaInicio.substring(0, data.fechaInicio.indexOf('T')) : '');
     const [idOrbe, setIdOrbe] = useState(proceso == 2 ? data.idOrbe : '');
     const [avance, setAvance] = useState(proceso == 2 ? data.avance : '');
     const [aceptado, setAceptado] = useState(proceso == 2 ? data.aceptado : '');
-    const [idTipoPersona, setIdTipoPersona] = useState(proceso == 2 ? parseInt(data.idTipoPersona) : 1);
 
 
     const [listaDirecciones, setlistaDirecciones] = useState([]);
     const [listaOrbe, setlistaOrbe] = useState([]);
+    const [opciones, setOpciones] = useState([]);
     //validación
     const [validated, setValidated] = useState(false);
 
@@ -28,9 +28,11 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarResponsable, me
 
         ObtenerListaDirecciones();
         ObtenerListaOrbe();
+        ObtenerAceptado();
     }, []);
 
     const ObtenerListaDirecciones = async () => {
+        console.log(data);
         const sect = await ObtenerDirecciones();
         console.log(sect);
         if (sect !== undefined) {
@@ -67,79 +69,99 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarResponsable, me
 
     }
 
+    const ObtenerAceptado = async () => {
+        const sect = [];
+        let opcionSi = { valor: 1, opcion: "Si" };
+        let opcionNo = { valor: 0, opcion: "No" };
+        let defecto = { valor: '', opcion: " --- Seleccione un estado de aceptado  --- " };//Pone el valor por defecto en seleccionar el tipo de persona
+        sect.push(opcionSi);
+        sect.push(opcionNo);
+        sect.push(defecto);
 
-    const onClickAceptar = async (event) => {
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) { //valida el form
-            event.preventDefault();
-            event.stopPropagation();
-        } else { //si está correcto arma la variable datos
-            const datos = {
-                IdDireccion: idDireccion,
-                Nombre: nombre,
-                Plazo: plazo,
-                fechaInicio: fechaInicio,
-                IdOrbe: idOrbe,
-                Avance: avance,
-                Aceptado: aceptado,
-            };
-            if (proceso === 2) { datos.IdResponsable = parseInt(data.idResponsable); };
-            const result = onClickProcesarResponsable(datos); //se ejecuta la función
+        if (proceso === 2) {
+            setOpciones(sect.sort((x, y) => { return x.valor === aceptado ? -1 : y.valor === aceptado ? 1 : 0; }));//Ordena el array colocando de primero el tipo de persona del actual socio
+        } else {
+            
+            setOpciones(sect.reverse());
         }
-        setValidated(true);
-        event.preventDefault();
+       
     }
 
 
 
+const onClickAceptar = async (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) { //valida el form
+        event.preventDefault();
+        event.stopPropagation();
+    } else { //si está correcto arma la variable datos
+        const datos = {
+            IdDireccion: parseInt(idDireccion),
+            Nombre: nombre,
+            Plazo: parseInt(plazo),
+            fechaInicio: fechaInicio,
+            IdOrbe: parseInt(idOrbe),
+            Avance: parseInt(avance),
+            Aceptado: parseInt(aceptado),
+        };
+        if (proceso === 2) { datos.IdResponsable = parseInt(data.idResponsable); };
+        const result = onClickProcesarResponsable(datos); //se ejecuta la función
+    }
+    setValidated(true);
+    event.preventDefault();
+}
+const onChangeOrbe = (e) => setIdOrbe(e.target.value);
+const onChangeNombre = (e) => setNombre(e.target.value);
+const onChangeDireccion = (e) => setDireccion(e.target.value);
+const onChangeAvance = (e) => setAvance(e.target.value);
+const onChangePlazo = (e) => setPlazo(e.target.value);
+const onChangeAceptado = (e) => setAceptado(e.target.value);
+const onChangeFechaInicio = (e) => setFechaInicio(e.target.value);
 
-    const onChangeIdTipoPersona = (e) => {
-        setIdTipoPersona(e.target.value);
-    } 
-    const onChangeOrbe = (e) => setIdOrbe(e.target.value);
-    const onChangeNombre = (e) => setNombre(e.target.value);
-    const onChangeDireccion = (e) => setDireccion(e.target.value);
-    const onChangeAvance = (e) => setAvance(e.target.value);
-    const onChangePlazo = (e) => setPlazo(e.target.value);
-    const onChangeAceptado = (e) => setAceptado(e.target.value);
-    const onChangeFechaInicio = (e) => setFechaInicio(e.target.value);
-    return (
-        <>
-            <Form noValidate validated={validated} onSubmit={onClickAceptar}>
-
-                <InputSelect className="slct_lineas" controlId="slct_lineas" label="Direccion" data={listaDirecciones} value={idDireccion} onChange={onChangeDireccion} optionValue="idDireccion" optionLabel="direccion"
-                    classGroup="form-lineas"></InputSelect>
-                <br />
-
-                <InputText id='txt-nombre' label='Nombre del responsable' type='text' placeholder='Ingrese el nombre del responsable' value={nombre}
-                    onChange={onChangeNombre} mensajeValidacion="El nombre del responsable es requerido" />
-
-                {mensaje !== "" ? <p className="text-info text-center">{mensaje}</p> : ""}
 
 
-                <InputSelect className="slct_lineas" controlId="slct_lineas" label="Oficio de Orbe" data={listaOrbe} value={idOrbe} onChange={onChangeOrbe} optionValue="idOrbe" optionLabel="orbe"
-                    classGroup="form-lineas"></InputSelect>
-                <br />
-                <InputText id='txt-plzo' label='Plazo en días' type='number' placeholder='Ingrese el plazo en días' value={plazo}
-                    onChange={onChangePlazo} mensajeValidacion="El plazo es requerido" />
+return (
+    <>
+        <Form noValidate validated={validated} onSubmit={onClickAceptar}>
 
-                {mensaje !== "" ? <p className="text-info text-center">{mensaje}</p> : ""}
+            <InputSelect className="slct_lineas" controlId="slct_lineas" label="Direccion" data={listaDirecciones} value={idDireccion} onChange={onChangeDireccion} optionValue="idDireccion" optionLabel="direccion"
+                classGroup="form-lineas"></InputSelect>
+            <br />
 
-                <InputText id='txt-avance' label='Porcentaje de Avance' type='number' placeholder='Ingrese el porcentaje de avance' value={avance}
-                    onChange={onChangeAvance} mensajeValidacion="El avance es requerido" />
+            <InputText id='txt-nombre' label='Nombre del responsable' type='text' placeholder='Ingrese el nombre del responsable' value={nombre}
+                onChange={onChangeNombre} mensajeValidacion="El nombre del responsable es requerido" />
 
-                {mensaje !== "" ? <p className="text-info text-center">{mensaje}</p> : ""}
+            {mensaje !== "" ? <p className="text-info text-center">{mensaje}</p> : ""}
 
-                <InputText id='txt-fecha' label='Fecha de Inicio:' type='date' placeholder='Ingrese la fecha de inicio' value={fechaInicio}
-                    onChange={onChangeFechaInicio} mensajeValidacion="La fecha de inicio es requerida" />
 
-                {mensaje !== "" ? <p className="text-info text-center">{mensaje}</p> : ""}
-                <div className='text-right'>
-                    <Button variant="primary" type="submit" size="sm">Guardar responsable</Button>
-                </div>
-            </Form>
-        </>
-    )
+            <InputSelect className="slct_lineas" controlId="slct_lineas" label="Oficio de Orbe" data={listaOrbe} value={idOrbe} onChange={onChangeOrbe} optionValue="idOrbe" optionLabel="orbe"
+                classGroup="form-lineas"></InputSelect>
+            <br />
+            <InputText id='txt-plzo' label='Plazo en días' type='number' placeholder='Ingrese el plazo en días' value={plazo}
+                onChange={onChangePlazo} mensajeValidacion="El plazo es requerido" />
+
+            {mensaje !== "" ? <p className="text-info text-center">{mensaje}</p> : ""}
+
+            <InputText id='txt-avance' label='Porcentaje de Avance' type='number' placeholder='Ingrese el porcentaje de avance' value={avance}
+                onChange={onChangeAvance} mensajeValidacion="El avance es requerido" />
+
+            {mensaje !== "" ? <p className="text-info text-center">{mensaje}</p> : ""}
+
+            <InputText id='txt-fecha' label='Fecha de Inicio:' type='date' placeholder='Ingrese la fecha de inicio' value={fechaInicio}
+                onChange={onChangeFechaInicio} mensajeValidacion="La fecha de inicio es requerida" />
+
+            <InputSelect className="slct_lineas" controlId="slct_lineas" label="¿Aceptado?" data={opciones} value={aceptado} onChange={onChangeAceptado} optionValue="valor" optionLabel="opcion"
+                classGroup="form-lineas"></InputSelect>
+            <br />
+
+
+            {mensaje !== "" ? <p className="text-info text-center">{mensaje}</p> : ""}
+            <div className='text-right'>
+                <Button variant="primary" type="submit" size="sm">Guardar responsable</Button>
+            </div>
+        </Form>
+    </>
+)
 }
 
 export default Formulario

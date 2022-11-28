@@ -18,7 +18,42 @@ namespace BussinesLogic.Servicios
         {
             this.repositorioMantenimientoHallazgo = repositorioMantenimientoHallazgo;
         }
-        /*int idMantenimientoHallazgo*/
+        ////////////
+
+        public async Task<DtoRespuestaSP> AgregarMantenimientoHallazgo(EntitiHallazgo EntitiHallazgo)
+        {
+            return await this.repositorioMantenimientoHallazgo.AgregarMantenimientoHallazgo(EntitiHallazgo);
+        }
+        public async Task<DtoRespuestaSP> ActualizarMantenimientoHallazgo(EntitiHallazgo EntitiHallazgo)
+        {
+            return await this.repositorioMantenimientoHallazgo.ActualizarMantenimientoHallazgo(EntitiHallazgo);
+        }
+        public async Task<DtoRespuestaSP> EliminarMantenimientoHallazgo(int idMantenimientoHallazgo)
+        {
+            return await this.repositorioMantenimientoHallazgo.EliminarMantenimientoHallazgo(idMantenimientoHallazgo);
+        }
+        public async Task<DtoHallazgo> ObtenerMantenimientoHallazgoPorID(int idMantenimientoHallazgo)
+        {
+            return await this.repositorioMantenimientoHallazgo.ObtenerMantenimientoHallazgoPorID(idMantenimientoHallazgo);
+        }
+
+        public async Task<List<DtoHallazgo>> ObtenerMantenimientoHallazgo()
+        {
+            return await this.repositorioMantenimientoHallazgo.ObtenerMantenimientoHallazgo();
+        }
+
+        public async Task<List<DtoGridHallazgo>> ObtenerGridMantenimientoHallazgo()
+        {
+            return await this.repositorioMantenimientoHallazgo.ObtenerGridMantenimientoHallazgo();
+        }
+
+
+        /*public async Task<List<DtoHallazgo>> ObtenerMantenimientoHallazgoActivos()
+        {
+            return await this.repositorioMantenimientoHallazgo.ObtenerMantenimientoHallazgoActivos();
+        }*/
+
+        ////////////
         public async Task<DtoCantidadDatos> ObtenerCantidadMantenimientoHallazgo()
         {
             return await this.repositorioMantenimientoHallazgo.ObtenerCantidadMantenimientoHallazgo();

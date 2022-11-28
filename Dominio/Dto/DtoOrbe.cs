@@ -9,5 +9,7 @@ namespace Dominio.Dto
         public int idOrbe { get; set; }
 
         public string orbe { get; set; }
+
+        public string fechaIngreso { get; set; }
     }
 }

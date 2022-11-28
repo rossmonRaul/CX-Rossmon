@@ -52,6 +52,12 @@ namespace CX.Controllers
             return Json(await this.servicioResponsables.ObtenerResponsablePorID(idResponsable));
         }
 
+        [HttpGet("[action]/{idHallazgo}")]
+        public async Task<JsonResult> ObtenerResponsablesPorIdHallazgo(int idHallazgo)
+        {
+            return Json(await this.servicioResponsables.ObtenerResponsablesPorIdHallazgo(idHallazgo));
+        }
+
         [HttpDelete("[action]")]
         public async Task<JsonResult> EliminarResponsable(int idResponsable)
         {

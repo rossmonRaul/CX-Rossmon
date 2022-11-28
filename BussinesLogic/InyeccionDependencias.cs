@@ -31,6 +31,7 @@ using Dominio.Interfaces.Aplicacion.TiposPersona;
 using Dominio.Interfaces.Aplicacion.TipoTaller;
 using Dominio.Interfaces.Aplicacion.TalleresCoCreacion;
 using Dominio.Interfaces.Aplicacion.Responsables;
+using Dominio.Interfaces.Aplicacion.ParticipantesEquipoTrabajo;
 using Microsoft.Extensions.Configuration;
 
 
@@ -39,6 +40,9 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Dominio.Interfaces.Aplicacion.EtapaTallerCo;
+using Dominio.Interfaces.Aplicacion.MantenimientoTalleresCoCreacion;
+using Dominio.Interfaces.Infraestructura.BaseDatos;
 
 namespace BussinesLogic
 {
@@ -78,6 +82,9 @@ namespace BussinesLogic
             services.AddScoped<IServicioMantenimientoHallazgo, ServicioMantenimientoHallazgo>();
             services.AddScoped<IServicioTalleresCoCreacion, ServicioTalleresCoCreacion>();
             services.AddScoped<IServicioResponsables, ServicioResponsables>();
+            services.AddScoped<IServicioMantenimientoTalleresCoCreacion, ServicioMantenimientoTalleresCoCreacion>();
+            services.AddScoped<IServicioEtapaTallerCo, ServicioEtapasTallerCo>();
+            services.AddScoped<IServicioParticipantesEquipoTrabajo, ServicioParticipantesEquipoTrabajo>();
             return services;
         }
     }
