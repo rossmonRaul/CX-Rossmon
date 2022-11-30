@@ -36,13 +36,13 @@ namespace BussinesLogic.Servicios
             return await this.repositorioEtapaTallerCo.ObtenerEtapaTallerCoPorID(idEtapaTallerCo);
         }
 
-        public async Task<List<DtoEtapaTallerCo>> ObtenerEtapasTallerCo(int idTipoTaller)
+        public async Task<List<DtoEtapaTallerCo>> ObtenerEtapasTallerCo(int idTipoTaller, int idTallerCoCreacion)
         {
-            return await this.repositorioEtapaTallerCo.ObtenerEtapasTallerCo(idTipoTaller);
+            return await this.repositorioEtapaTallerCo.ObtenerEtapasTallerCo(idTipoTaller, idTallerCoCreacion);
         }
-        public async Task<DtoEtapaTallerCo> ObtenerFechasTallerCo(int idTipoTaller)
+        public async Task<DtoEtapaTallerCo> ObtenerFechasTallerCo(int idTipoTaller, int idTallerCoCreacion)
         {
-            return await this.repositorioEtapaTallerCo.ObtenerFechasTallerCo(idTipoTaller);
+            return await this.repositorioEtapaTallerCo.ObtenerFechasTallerCo(idTipoTaller, idTallerCoCreacion);
         }
 
         public async Task<DtoCantidadDatos> ObtenerCantidadEtapasTallerCo()

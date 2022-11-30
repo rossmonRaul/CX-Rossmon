@@ -41,7 +41,6 @@ public class RepositorioParticipantesEquipoTrabajo : IRepositorioParticipantesEq
             Dictionary<string, object> data = new Dictionary<string, object>();
 
             data.Add("IdParticipante", entitiParticipante.IdParticipante);
-            data.Add("IdTallerCoCreacion", entitiParticipante.IdTallerCoCreacion);
             data.Add("NombreParticipante", entitiParticipante.NombreParticipante);
             data.Add("IdDireccion", entitiParticipante.IdDireccion);
             data.Add("IdFaseCJ", entitiParticipante.IdFaseCJ);

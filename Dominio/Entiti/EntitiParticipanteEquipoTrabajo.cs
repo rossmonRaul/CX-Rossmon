@@ -10,7 +10,7 @@ namespace Dominio.Entiti
         public string NombreParticipante { get; set; }
         public int IdDireccion { get; set; }
         public int IdFaseCJ { get; set; }
-        public bool Asistencia { get; set; }
+        public int Asistencia { get; set; }
         public int IdTallerCoCreacion { get; set; }
     }
 }

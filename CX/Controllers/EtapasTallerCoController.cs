@@ -42,16 +42,17 @@ namespace CX.Controllers
             return Json(await this.servicioEtapasTallerCo.ObtenerEtapaTallerCoPorID(idEtapaTallerCo));
         }
 
-        [HttpGet("[action]/{idTipoTaller}")]
-        public async Task<JsonResult> ObtenerEtapasTallerCo(int idTipoTaller)
+        [HttpGet("[action]/{idTipoTaller}/{idTallerCoCreacion}")]
+        //idTallerCoCreacion
+        public async Task<JsonResult> ObtenerEtapasTallerCo(int idTipoTaller, int idTallerCoCreacion)
         {
-            return Json(await this.servicioEtapasTallerCo.ObtenerEtapasTallerCo(idTipoTaller));
+            return Json(await this.servicioEtapasTallerCo.ObtenerEtapasTallerCo(idTipoTaller, idTallerCoCreacion));
         }
 
-        [HttpGet("[action]/{idTipoTaller}")]
-        public async Task<JsonResult> ObtenerFechasTallerCo(int idTipoTaller)
+        [HttpGet("[action]/{idTipoTaller}/{idTallerCoCreacion}")]
+        public async Task<JsonResult> ObtenerFechasTallerCo(int idTipoTaller, int idTallerCoCreacion)
         {
-            return Json(await this.servicioEtapasTallerCo.ObtenerFechasTallerCo(idTipoTaller));
+            return Json(await this.servicioEtapasTallerCo.ObtenerFechasTallerCo(idTipoTaller, idTallerCoCreacion));
         }
 
         [HttpGet("[action]")]

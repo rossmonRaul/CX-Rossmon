@@ -10,8 +10,8 @@ namespace Dominio.Interfaces.Aplicacion.EtapaTallerCo
     public interface IServicioEtapaTallerCo
     {
         Task<DtoCantidadDatos> ObtenerCantidadEtapasTallerCo();
-        Task<List<DtoEtapaTallerCo>> ObtenerEtapasTallerCo(int idTipoTaller);
-        Task<DtoEtapaTallerCo> ObtenerFechasTallerCo(int idTipoTaller);
+        Task<List<DtoEtapaTallerCo>> ObtenerEtapasTallerCo(int idTipoTaller, int idTallerCoCreacion);
+        Task<DtoEtapaTallerCo> ObtenerFechasTallerCo(int idTipoTaller, int idTallerCoCreacion);
         Task<DtoRespuestaSP> AgregarEtapaTallerCo(EntitiEtapaTallerCo entitiEtapaTallerCo);
         Task<DtoRespuestaSP> ActualizarEtapaTallerCo(EntitiEtapaTallerCo entitiEtapaTallerCo);
         Task<DtoEtapaTallerCo> ObtenerEtapaTallerCoPorID(int idEtapaTallerCo);

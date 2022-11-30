@@ -73,7 +73,7 @@ export class MantenimientoHallazgos extends Component {
             periodicidad: '',
             descripcionGeneralResponsable: '',
             periodicidadEntregaAvances: [],
-            cabeceras: ["ID Direccion", "Direccion", "ID Responsable", "Nombre", "Plazo(Días)", "Fecha de Inicio", "Oficio", "Avance", "Aceptado","Estado", "Acciones"],
+            cabeceras: ["ID Direccion", "Direccion", "ID Responsable", "Nombre", "Plazo(Días)", "Fecha de Inicio", "Oficio", "Avance", "Aceptacíón","Estado", "Acciones"],
             usuarioAgrego: "",
             fechaAgregado: "",
             usuarioModifico: "",
@@ -334,7 +334,10 @@ export class MantenimientoHallazgos extends Component {
         $('#example').DataTable().destroy();
 
         await this.ObtenerListadoGridHallazgo();
-
+        const tablita = document.getElementById("tablaHallazgo");
+        tablita.hidden = false;
+        const fechasHallazgo = document.getElementById("apartadofechas");
+        fechasHallazgo.hidden = true;
         setTimeout(() => {
             $('#example').DataTable(
                 {
@@ -362,6 +365,16 @@ export class MantenimientoHallazgos extends Component {
 
         await this.ObtenerListadoGridHallazgo();
 
+        this.setState({ usuarioAgregoH: '' });
+        this.setState({ fechaAgregadoH: '' });
+        this.setState({ usuarioModificoH: '' });
+        this.setState({ fechaModificadoH: '' });
+        this.setState({ usuarioFinalizadoH: '' });
+        this.setState({ fechaFinalizadoH: '' });
+        const tablita = document.getElementById("tablaHallazgo");
+        tablita.hidden = false;
+        const fechasHallazgo = document.getElementById("apartadofechas");
+        fechasHallazgo.hidden = true;
         setTimeout(() => {
             $('#example').DataTable(
                 {
@@ -447,7 +460,10 @@ export class MantenimientoHallazgos extends Component {
         }
         const responsables = document.getElementById("responsables");
         responsables.hidden = false;
-
+        const tablita = document.getElementById("tablaHallazgo");
+        tablita.hidden = true;
+        const fechasHallazgo = document.getElementById("apartadofechas");
+        fechasHallazgo.hidden = false;
         const element = document.getElementById("FormMM");
         const element2 = document.getElementById("btnGuardar");
         const element3 = document.getElementById("btnEditar");
@@ -500,6 +516,10 @@ export class MantenimientoHallazgos extends Component {
     }
 
     onClickNuevoMantenimientoHallazgo() {
+        const tablita = document.getElementById("tablaHallazgo");
+        tablita.hidden = true;
+        const fechasHallazgo = document.getElementById("apartadofechas");
+        fechasHallazgo.hidden = true;
         this.ObtenerSecuenciaHallazgo();
         this.setState({ macroActividad: '' });
         this.setState({ CJ: '' });
@@ -670,6 +690,10 @@ export class MantenimientoHallazgos extends Component {
 
     ///
     async componentDidMount() {
+        const tablita = document.getElementById("tablaHallazgo");
+        tablita.hidden = false;
+        const fechasHallazgo = document.getElementById("apartadofechas");
+        fechasHallazgo.hidden = true;
         await this.ObtenerGradosEsfuerzo();
         await this.ObtenerGradosImpacto();
         await this.ObtenerFasesCJ();
@@ -726,7 +750,7 @@ export class MantenimientoHallazgos extends Component {
                 <td>{item.fechaInicio.substring(0, item.fechaInicio.indexOf('T'))}</td>
                 <td>{item.orbe}</td>
                 <td>{item.avance}</td>
-                <td>{item.aceptado}</td>
+                <td>{item.aceptado === 1 ? "Aceptado": "No Aceptado"}</td>
 
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
@@ -742,6 +766,7 @@ export class MantenimientoHallazgos extends Component {
             </tr>
         ))
     }
+
     gridMantenimiento = () => {
         return this.state.listaGridHallazgo.map((item, index) => (
             <tr key={index}>
@@ -823,6 +848,7 @@ export class MantenimientoHallazgos extends Component {
         } = this.state;
         return (
             <main>
+                <div id="tablaHallazgo" hidden>
                 <div class="row-full">Grid Hallazgo</div>
                 <Container >
                     <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoMantenimientoHallazgo()}>Insertar Nuevo Mantenimiento</Button>
@@ -840,8 +866,8 @@ export class MantenimientoHallazgos extends Component {
                     <br />
 
                     <Table tableHeading={this.state.cabeceras2} body={this.gridMantenimiento()} />
-                </Container >
-
+                    </Container >
+                </div>
                 <div id="FormMM" hidden >
                     <div class="row-full">Información General de Definición del Hallazgo </div>
 
@@ -1080,6 +1106,7 @@ export class MantenimientoHallazgos extends Component {
 
                     </Container >
                 </div>
+                <div id="apartadofechas" hidden>
                 <div class="row-full">Fechas relacionadas al Registro</div>
                 <Container>
 
@@ -1117,7 +1144,7 @@ export class MantenimientoHallazgos extends Component {
                     </Row>
 
                 </Container >
-
+                </div>
 
 
 

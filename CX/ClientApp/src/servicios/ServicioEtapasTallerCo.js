@@ -16,12 +16,12 @@ export const ObtenerEtapaTallerCoPorID = async (id) => {
     return await ProcesarDatosApi('GET', url);
 }
 
-export const ObtenerEtapasTallerCo = async (id) => {
-    const url = `${controlador}/ObtenerEtapasTallerCo/${id}`;
+export const ObtenerEtapasTallerCo = async (id, id1) => {
+    const url = `${controlador}/ObtenerEtapasTallerCo/${id}/${id1}`;
     return await ProcesarDatosApi('GET', url);
 }
-export const ObtenerFechasTallerCo = async (id) => {
-    const url = `${controlador}/ObtenerFechasTallerCo/${id}`;
+export const ObtenerFechasTallerCo = async (id, id1) => {
+    const url = `${controlador}/ObtenerFechasTallerCo/${id}/${id1}`;
     return await ProcesarDatosApi('GET', url);
 }
 export const ObtenerCantidadEtapasTallerCo = async () => {

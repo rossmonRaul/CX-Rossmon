@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 namespace DataAccess.StoredProcedures
 {
 
-   
+
     public class RepositorioEtapasTallerCo : IRepositorioEtapaTallerCo
     {
         private readonly IContextoBD contextoBD;
@@ -25,12 +25,13 @@ namespace DataAccess.StoredProcedures
         {
             this.contextoBD = contextoBD;
         }
-        public async Task<DtoRespuestaSP> AgregarEtapaTallerCo(EntitiEtapaTallerCo entitiEtapaTallerCo )
+        public async Task<DtoRespuestaSP> AgregarEtapaTallerCo(EntitiEtapaTallerCo entitiEtapaTallerCo)
         {
             try
             {
                 Dictionary<string, object> data = new Dictionary<string, object>();
 
+                data.Add("IdTallerCoCreacion ", entitiEtapaTallerCo.idTallerCoCreacion);
                 data.Add("IdTipoTaller ", entitiEtapaTallerCo.idTipoTaller);
                 data.Add("IdMacro ", entitiEtapaTallerCo.idMacro);
                 data.Add("Observacion ", entitiEtapaTallerCo.observacion);
@@ -52,6 +53,7 @@ namespace DataAccess.StoredProcedures
                 Dictionary<string, object> data = new Dictionary<string, object>();
 
                 data.Add("IdEtapaTallerCo", entitiEtapaTallerCo.idEtapaTallerCo);
+                data.Add("IdTallerCoCreacion ", entitiEtapaTallerCo.idTallerCoCreacion);
                 data.Add("IdTipoTaller ", entitiEtapaTallerCo.idTipoTaller);
                 data.Add("IdMacro ", entitiEtapaTallerCo.idMacro);
                 data.Add("Observacion ", entitiEtapaTallerCo.observacion);
@@ -65,22 +67,22 @@ namespace DataAccess.StoredProcedures
             }
         }
 
-       /* public async Task<DtoRespuestaSP> EliminarMantenimientoTallerCoCreacion(int idMantenimientoTallerCoCreacion)
+        /* public async Task<DtoRespuestaSP> EliminarMantenimientoTallerCoCreacion(int idMantenimientoTallerCoCreacion)
 
-        {
-            try
-            {
-                Dictionary<string, object> data = new Dictionary<string, object>();
-                data.Add("IdMantenimientoTalleresCoCreacion", idMantenimientoTallerCoCreacion);
-                string query = "SPEliminarMantenimientoTallerCoCreacion";
+         {
+             try
+             {
+                 Dictionary<string, object> data = new Dictionary<string, object>();
+                 data.Add("IdMantenimientoTalleresCoCreacion", idMantenimientoTallerCoCreacion);
+                 string query = "SPEliminarMantenimientoTallerCoCreacion";
 
-                return await this.contextoBD.EjecutarSP(query, data);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }*/
+                 return await this.contextoBD.EjecutarSP(query, data);
+             }
+             catch (Exception)
+             {
+                 throw;
+             }
+         }*/
 
 
         public async Task<DtoEtapaTallerCo> ObtenerEtapaTallerCoPorID(int idEtapaTallerCo)
@@ -99,14 +101,16 @@ namespace DataAccess.StoredProcedures
             }
         }
 
-        public async Task<List<DtoEtapaTallerCo>> ObtenerEtapasTallerCo(int idTipoTaller)
+        public async Task<List<DtoEtapaTallerCo>> ObtenerEtapasTallerCo(int idTipoTaller, int idTallerCoCreacion)
         {
             try
             {
                 Dictionary<string, object> data = new Dictionary<string, object>();
+
+                data.Add("IdTallerCoCreacion", idTallerCoCreacion);
                 data.Add("IdTipoTaller", idTipoTaller);
                 string query = "SPObtenerEtapasTallerCoCreacion";
-                var result = await this.contextoBD.ObtenerListaDeDatos<DtoEtapaTallerCo>(query,data);
+                var result = await this.contextoBD.ObtenerListaDeDatos<DtoEtapaTallerCo>(query, data);
 
                 return result;
             }
@@ -115,11 +119,12 @@ namespace DataAccess.StoredProcedures
                 throw;
             }
         }
-        public async Task<DtoEtapaTallerCo> ObtenerFechasTallerCo(int idTipoTaller)
+        public async Task<DtoEtapaTallerCo> ObtenerFechasTallerCo(int idTipoTaller, int idTallerCoCreacion)
         {
             try
             {
                 Dictionary<string, object> data = new Dictionary<string, object>();
+                data.Add("IdTallerCoCreacion", idTallerCoCreacion);
                 data.Add("IdTipoTaller", idTipoTaller);
                 string query = "SPObtenerFechasTallerCoCreacion";
                 var result = await this.contextoBD.ObtenerDato<DtoEtapaTallerCo>(query, data);
@@ -146,7 +151,7 @@ namespace DataAccess.StoredProcedures
                 throw;
             }
         }
-     
+
     }
 }
 
