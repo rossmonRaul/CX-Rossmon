@@ -106,7 +106,7 @@ export class MantenimientoHallazgos extends Component {
 
     async ObtenerListadoResponsablesPorIdHallazgo() {
         const respuesta = await ObtenerResponsablesPorIdHallazgo(this.mantenimientoHallazgo.idMantenimientoHallazgo);
-        console.log(respuesta);
+
         this.setState({ listaResponsables: respuesta });
     }
 
@@ -169,7 +169,7 @@ export class MantenimientoHallazgos extends Component {
 
     async ObtenerGradosEsfuerzo() {
         const respuesta = await ObtenerGradosEsfuerzo();
-        console.log(respuesta);
+
         const options = respuesta.map(function (row) {
             return { value: row.idGradoEsfuerzo, label: row.idGradoEsfuerzo + ' ' + row.gradoEsfuerzo }
         })
@@ -296,10 +296,10 @@ export class MantenimientoHallazgos extends Component {
     }
 
     onClickAgregarAnotacion = () => {
-        console.log("Agregar Anotacion");
+
 
         this.setState({ data: this.mantenimientoHallazgo });
-        console.log(this.state.data);
+
         this.setState({ modal: !this.state.modal });
         this.setState({ labelButton: "Agregar" });
         this.setState({ modalTitulo: "Agregar Anotacion" });
@@ -307,13 +307,11 @@ export class MantenimientoHallazgos extends Component {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     onClickProcesarAnotacion = async (data) => {
-        console.log(data);
         this.setState({ anotacion: data });
     }
     
     GuardarHallazgo = async (data) => {
         let respuesta = {};
-        console.log(data);
         respuesta = await AgregarMantenimientoHallazgo(data);
         const element = document.getElementById("FormMM");
         const element2 = document.getElementById("btnEditar");
@@ -352,7 +350,6 @@ export class MantenimientoHallazgos extends Component {
     EditarHallazgo = async (data) => {
         let respuesta = {};
         respuesta = await ActualizarMantenimientoHallazgo(data);
-        console.log(respuesta);
         if (respuesta.indicador == 0) {
             this.setState({ modal: false });
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
@@ -442,8 +439,7 @@ export class MantenimientoHallazgos extends Component {
             const respuesta = await ObtenerMantenimientoHallazgoPorID(e);
             this.mantenimientoHallazgo = respuesta;
             this.setState({ data: respuesta });
-            console.log("mantenimientoHallazgo");
-            console.log(this.mantenimientoHallazgo);
+
 
             $('#example2').DataTable().destroy();
             await this.ObtenerListadoResponsablesPorIdHallazgo();
@@ -500,7 +496,6 @@ export class MantenimientoHallazgos extends Component {
         this.setState({ fechaFinalizadoH: 'Sin Finalizar' });
 
         if (this.state.estadoHallazgo.value === 8) {
-            console.log(this.state.estadoHallazgo);
             this.setState({ usuarioFinalizadoH: this.mantenimientoHallazgo.finalizadoPor });
             this.setState({ fechaFinalizadoH: this.formatDate(this.mantenimientoHallazgo.fechaFinalizacion) });
         }
@@ -580,6 +575,21 @@ export class MantenimientoHallazgos extends Component {
         element2.hidden = false;
         element3.hidden = false;
     }
+    onClickCancelar = async () => {
+        const tablita = document.getElementById("tablaHallazgo");
+        const fechasHallazgo = document.getElementById("apartadofechas");
+        const responsables = document.getElementById("responsables");
+        const element = document.getElementById("FormMM");
+        const element2 = document.getElementById("btnEditar");
+        const element3 = document.getElementById("btnGuardar");
+        element.hidden = true;
+        element2.hidden = false;
+        element3.hidden = false;
+        fechasHallazgo.hidden = true;
+        tablita.hidden = false;
+        responsables.hidden = true;
+
+    }
     onClickEditarMantenimiento = async () => {
 
         const responsables = document.getElementById("responsables");
@@ -618,8 +628,6 @@ export class MantenimientoHallazgos extends Component {
     //Responsables//
     onClickInactivarResponsable = async (id) => {
         const respuesta = await InactivarResponsable(id)
-        console.log("Inactivado ")
-        console.log(respuesta);
         if (respuesta.indicador === 0) {
             $('#example2').DataTable().destroy();
             await this.ObtenerListadoResponsablesPorIdHallazgo();
@@ -654,7 +662,6 @@ export class MantenimientoHallazgos extends Component {
 
     onClickProcesarResponsable = async (data) => {
         data.IdHallazgo = parseInt(this.state.secuenciaHallazgo);
-        console.log(data.IdHallazgo);
         let respuesta = {};
 
         if (this.state.proceso === 1)
@@ -728,7 +735,6 @@ export class MantenimientoHallazgos extends Component {
     }
 
     onClickFila = (item) => {
-        console.log(item);
         var fechaingreso = new Date(item.fechaIngreso);
         var fechamodificacion = new Date(item.fechaModificacion);
         this.setState({ usuarioAgrego: item.ingresadoPor });
@@ -1039,10 +1045,11 @@ export class MantenimientoHallazgos extends Component {
                                 </div>
                             </Col>
                         </Row>
-                        <Row>
-                            <Col md={3}>
-                                <button id="btnGuardar" type="button" className="btn  btn-block botones" onClick={() => this.onClickAgregarMantenimiento()}>Guardar</button>
-                                <button id="btnEditar" type="button" className="btn  btn-block botones" onClick={() => this.onClickEditarMantenimiento()}>Editar</button>
+                        <Row id="filaBotones">
+                            <Col id="botonesGuardado" md={3}>
+                                <button id="btnGuardar" type="button" className="btn btn-primary btn-lg" onClick={() => this.onClickAgregarMantenimiento()}>Guardar</button>
+                                <button id="btnEditar" type="button" className="btn btn-primary btn-lg" onClick={() => this.onClickEditarMantenimiento()}>Editar</button>
+                                <button id="btnCancelar" type="button" className="btn btn-danger btn-lg" onClick={() => this.onClickCancelar()}>Cancelar</button>
                             </Col>
                         </Row>
 

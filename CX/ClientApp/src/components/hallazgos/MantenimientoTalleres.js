@@ -81,8 +81,7 @@ export class MantenimientoTalleres extends Component {
     ///Equipo de Trabajo
     onClickInactivarParticipanteEquipoTrabajo = async (id) => {
         const respuesta = await EliminarParticipante(id)
-        console.log("Inactivado ")
-        console.log(respuesta);
+
         if (respuesta.indicador === 0) {
             await this.ObtenerListadoParticipantesEquipoTrabajo();
             this.setState({ alertaP: true });
@@ -95,7 +94,7 @@ export class MantenimientoTalleres extends Component {
 
     async ObtenerEquipoTrabajoPorIdTaller() {
         const respuesta = await ObtenerEquipoTrabajoPorIdTaller(this.mantenimientoTallerCo.idMantenimientoTalleresCoCreacion);
-        console.log(respuesta);
+
         this.setState({ listaParticipantes: respuesta });
     }
 
@@ -113,7 +112,7 @@ export class MantenimientoTalleres extends Component {
 
     onClickProcesarParticipante = async (data) => {
         data.IdTallerCoCreacion = parseInt(this.state.secuenciaHallazgo);
-        console.log(data.IdHallazgo);
+
         let respuesta = {};
 
         if (this.state.proceso === 1)
@@ -167,7 +166,7 @@ export class MantenimientoTalleres extends Component {
 
     async ObtenerListadoParticipantesEquipoTrabajo() {
         const respuesta = await ObtenerEquipoTrabajoPorIdTaller(this.mantenimientoTallerCo.idMantenimientoTalleresCoCreacion);
-        console.log(respuesta);
+
         this.setState({ listaParticipantes: respuesta });
         
     }
@@ -264,8 +263,9 @@ export class MantenimientoTalleres extends Component {
         const element3 = document.getElementById("btnEditar");
         element2.hidden = false;
         element.hidden = false;
-        element4.hidden = false;
+        element4.hidden = true;
         element3.hidden = true;
+
         var datos = {
             idTipoTaller: parseInt(this.state.tipoTaller.value),
             idSolucionAsociadaHallazgo: parseInt(this.state.lineaNegocio.value),
@@ -280,6 +280,7 @@ export class MantenimientoTalleres extends Component {
         element2.hidden = false;
         element3.hidden = false;
     }
+
     GuardarHallazgo = async (data) => {
         let respuesta = {};
         respuesta = await AgregarMantenimientoTallerCoCreacion(data);
@@ -448,12 +449,31 @@ export class MantenimientoTalleres extends Component {
         const element2 = document.getElementById("btnEditar");
         const element3 = document.getElementById("btnGuardar");
         element.hidden = false;
-        element4.hidden = false;
+        element4.hidden = true;
         element2.hidden = true;
         element3.hidden = false;
         document.getElementById("detalleGeneral").focus();
 
     }
+    ///////////////////////////////////////////////457
+    onClickCancelar = async () => {
+        const tablita = document.getElementById("tablaTaller");
+        const participantes = document.getElementById("participantes");
+        const element5 = document.getElementById("formEM");
+        const formMantTaller = document.getElementById("FormMT");
+        const formEtapa = document.getElementById("FormEtapa");
+        const element2 = document.getElementById("btnEditar");
+        const element3 = document.getElementById("btnGuardar");
+        tablita.hidden = false;
+        element2.hidden = false;
+        element3.hidden = false;
+        formMantTaller.hidden = true;
+        participantes.hidden = true;
+        formEtapa.hidden = true;
+        element5.hidden = true;
+
+    }
+    
     formatDate = (i) => {
         if (i != '') {
             var datePart = i.match(/\d+/g),
@@ -631,7 +651,7 @@ export class MantenimientoTalleres extends Component {
         element2.hidden = true; 
         element3.hidden = false;
         //document.getElementById("detalleGeneral").focus();
-        console.log(this.etapaTallerCo);
+
         this.setState({ secuenciaEtapa: this.etapaTallerCo.idEtapaTallerCo });
         this.setState({ idTipoTaller: this.etapaTallerCo.idTipoTaller });
         this.setState({ macroActividad: this.state.macroActividades.find(x => x.value === parseInt(this.etapaTallerCo.idMacro)) });
@@ -846,7 +866,7 @@ export class MantenimientoTalleres extends Component {
                 <div id="tablaTaller" hidden> 
                 <div class="row-full">Grid Taller CoCreacion</div>
                 <Container >
-                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoMantenimientoTallerCo()}>Insertar Nuevo Mantenimiento Taller Cocreación</Button>
+                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoMantenimientoTallerCo()}>Insertar Nuevo Taller Cocreación</Button>
                     <hr />
                     <br />
 
@@ -951,10 +971,11 @@ export class MantenimientoTalleres extends Component {
 
 
                     </Row>
-                    <Row>
+                    <Row id="filaBotones">
                         <Col md={3}>
-                                <button id="btnGuardar" type="button" className="btn  btn-block botones" onClick={() => this.onClickAgregarMantenimientoTallerCo()}>Guardar</button>
-                                <button id="btnEditar" type="button" className="btn  btn-block botones" onClick={() => this.onClickEditarMantenimientoTallerCo()}>Editar</button>
+                                <button id="btnGuardar" type="button" className="btn btn-primary btn-lg" onClick={() => this.onClickAgregarMantenimientoTallerCo()}>Guardar</button>
+                                <button id="btnEditar" type="button" className="btn btn-primary btn-lg" onClick={() => this.onClickEditarMantenimientoTallerCo()}>Editar</button>
+                                <button id="btnCancelar" type="button" className="btn btn-danger btn-lg" onClick={() => this.onClickCancelar()}>Cancelar</button>
                         </Col>
                     </Row>
                   </Container>
@@ -1004,105 +1025,107 @@ export class MantenimientoTalleres extends Component {
 
                     </Container >
                 </div>
+
                 <div id="FormEtapa" hidden>
-                <div class="row-full">Observaciones </div>
+                    <div class="row-full">Observaciones </div>
 
-                <Container>
-
-
-                    <Row>
-                        <Col md={4}>
-                            <div className="item1">
-                                <h5 className="heading3"> Etapa</h5>
-                                <Select id="tipoTaller" onChange={this.onChangeObtenerIdEtapa} isClearable={true} value={tipoTallerEtapa} options={this.state.talleresEtapa} />
-                            </div>
-                        </Col>
-                        <div id="BotonGuardarEtapa" hidden>
-                        <Col md={4}>
-                            <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoDatoEtapa()}>Insertar Nueva Macro Actividad</Button>
-                        </Col>
-                        </div>
-                        <Col md={4}>
-
-                        </Col>
-                    </Row>
+                    <Container>
 
 
-                    <Table3 tableHeading={this.state.cabeceraEtapa} body={this.tablaEtapas()} />
-
-                    <div id="formEM" hidden>
-                        <div class="heading2">Agregar datos a etapa </div>
                         <Row>
-                        <Col md={4}>
-                            <div className="item1">
-                                <h5 className="heading3"> Secuencia</h5>
-                                    <input readonly className="secuencia" name="secuencia_hallazgos" value={this.state.secuenciaEtapa}>
-
-                                </input>
-
+                            <Col md={4}>
+                                <div className="item1">
+                                    <h5 className="heading3"> Etapa</h5>
+                                    <Select id="tipoTaller" onChange={this.onChangeObtenerIdEtapa} isClearable={true} value={tipoTallerEtapa} options={this.state.talleresEtapa} />
+                                </div>
+                            </Col>
+                            <div id="BotonGuardarEtapa" hidden>
+                            <Col md={4}>
+                                <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoDatoEtapa()}>Insertar Nueva Macro Actividad</Button>
+                            </Col>
                             </div>
-                        </Col>
+                            <Col md={4}>
+
+                            </Col>
+                        </Row>
+
+
+                        <Table3 tableHeading={this.state.cabeceraEtapa} body={this.tablaEtapas()} />
+
+                        <div id="formEM" hidden>
+                            <div class="heading2">Agregar datos a etapa </div>
+                            <Row>
+                            <Col md={4}>
+                                <div className="item1">
+                                    <h5 className="heading3"> Secuencia</h5>
+                                        <input readonly className="secuencia" name="secuencia_hallazgos" value={this.state.secuenciaEtapa}>
+
+                                    </input>
+
+                                </div>
+                            </Col>
+
+                                <Col md={4}>
+                                    <div className="item1">
+                                        <h6 className="heading3">Macro Actividad Asociada a la etapa </h6>
+                                        <Select id="macroActividadAso" placeholder="Seleccione..." onChange={this.onChangeMacroActividad} isClearable={true} value={macroActividad} options={this.state.macroActividades} />
+                                    </div>
+                                </Col>
+                            <Col >
+                                <div className="item1">
+                                    <h6 className="heading3">Observaciones</h6>
+                                    <Input
+                                        id="detalleGeneral"
+                                        name="text"
+                                        type="textarea"
+                                        value={observacion}
+                                        onChange={this.onChangeObservacion}
+
+                                    />
+
+                                </div>
+                            </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                        <button id="btnGuardarEtapa" type="button" className="btn btn-primary btn-lg" onClick={() => this.onClickAgregarEtapa()}>Guardar</button>
+                                        <button id="btnEditarEtapa" type="button" className="btn btn-primary btn-lg" onClick={() => this.onClickEditarEtapa()}>Editar</button>
+                                </Col>
+                            </Row>
+                        </div>
+                        <div class="heading2">Información Auditoria</div>
+                        <Row>
+                            <Col md={4}>
+                                <div className="item1">
+                                    <h5 className="heading3"> Adicionado por</h5>
+                                    <div id="fechas">
+                                        <input type="text" className="etiqueta" name="fecha_adicion" value={this.state.fechaCreacionT} />
+                                        <input type="text" placeholder="" name="usuario_adicion" value={this.state.usuarioCreacionT}/>
+                                    </div>
+
+                                </div>
+                            </Col>
 
                             <Col md={4}>
                                 <div className="item1">
-                                    <h6 className="heading3">Macro Actividad Asociada a la etapa </h6>
-                                    <Select id="macroActividadAso" placeholder="Seleccione..." onChange={this.onChangeMacroActividad} isClearable={true} value={macroActividad} options={this.state.macroActividades} />
+                                    <h5 className="heading3">Modificado por</h5>
+                                    <div id="fechas">
+                                        <input type="text" className="etiqueta" name="fecha_modificacion" value={this.state.fechaModificadoT} />
+                                        <input type="text" placeholder="" name="usuario_modificacion" value={this.state.usuarioModificoT} />
+                                    </div>
                                 </div>
                             </Col>
-                        <Col >
-                            <div className="item1">
-                                <h6 className="heading3">Observaciones</h6>
-                                <Input
-                                    id="detalleGeneral"
-                                    name="text"
-                                    type="textarea"
-                                    value={observacion}
-                                    onChange={this.onChangeObservacion}
 
-                                />
+                            <Col md={4}>
 
-                            </div>
-                        </Col>
-                        </Row>
-                        <Row>
-                            <Col>
-                                <button id="btnGuardarEtapa" type="button" className="btn  btn-block botones" onClick={() => this.onClickAgregarEtapa()}>Guardar</button>
-                                <button id="btnEditarEtapa" type="button" className="btn  btn-block botones" onClick={() => this.onClickEditarEtapa()}>Editar</button>
                             </Col>
                         </Row>
-                    </div>
-                    <div class="heading2">Información Auditoria</div>
-                    <Row>
-                        <Col md={4}>
-                            <div className="item1">
-                                <h5 className="heading3"> Adicionado por</h5>
-                                <div id="fechas">
-                                    <input type="text" className="etiqueta" name="fecha_adicion" value={this.state.fechaCreacionT} />
-                                    <input type="text" placeholder="" name="usuario_adicion" value={this.state.usuarioCreacionT}/>
-                                </div>
-
-                            </div>
-                        </Col>
-
-                        <Col md={4}>
-                            <div className="item1">
-                                <h5 className="heading3">Modificado por</h5>
-                                <div id="fechas">
-                                    <input type="text" className="etiqueta" name="fecha_modificacion" value={this.state.fechaModificadoT} />
-                                    <input type="text" placeholder="" name="usuario_modificacion" value={this.state.usuarioModificoT} />
-                                </div>
-                            </div>
-                        </Col>
-
-                        <Col md={4}>
-
-                        </Col>
-                    </Row>
 
 
-                </Container >
+                    </Container >
 
                 </div>
+
             </main>
         );
     }

@@ -260,10 +260,15 @@ span .paginate_button:hover {
         border: 1px solid #126677;
     }
 
-
-
+#filaBotones{
+    align-items:center;
+    justify-content:center;
+    display:flex;
+}
+#btnCancelar{
+    margin-left:2px;
+}
 /*hallazgos*/
-
 .heading3 {
     color: #17A797;
     border-radius: 3px;
