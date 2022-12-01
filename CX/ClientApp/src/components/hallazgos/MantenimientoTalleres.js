@@ -73,15 +73,29 @@ export class MantenimientoTalleres extends Component {
             modalParticipantes: false,
             mensajeRespuestaP: {},
             alertaP: true,
-            showP:false,
+            showP: false,
+            usuarioAgrego: "",
+            fechaAgregado: "",
+            usuarioModifico: "",
+            fechaModificado: "",
 
         };
     }
 
     ///Equipo de Trabajo
+    onClickFila = (item) => {
+        var fechaingreso = new Date(item.fechaIngreso);
+        var fechamodificacion = new Date(item.fechaModificacion);
+        this.setState({ usuarioAgrego: item.ingresadoPor });
+        this.setState({ fechaAgregado: fechaingreso.toLocaleDateString() });
+        this.setState({ usuarioModifica: item.modificadoPor });
+        this.setState({ fechaModificado: fechamodificacion.toLocaleDateString() });
+    }
+
     onClickInactivarParticipanteEquipoTrabajo = async (id) => {
         const respuesta = await EliminarParticipante(id)
-
+        console.log("Inactivado ")
+        console.log(respuesta);
         if (respuesta.indicador === 0) {
             await this.ObtenerListadoParticipantesEquipoTrabajo();
             this.setState({ alertaP: true });
@@ -94,7 +108,7 @@ export class MantenimientoTalleres extends Component {
 
     async ObtenerEquipoTrabajoPorIdTaller() {
         const respuesta = await ObtenerEquipoTrabajoPorIdTaller(this.mantenimientoTallerCo.idMantenimientoTalleresCoCreacion);
-
+        console.log(respuesta);
         this.setState({ listaParticipantes: respuesta });
     }
 
@@ -112,7 +126,7 @@ export class MantenimientoTalleres extends Component {
 
     onClickProcesarParticipante = async (data) => {
         data.IdTallerCoCreacion = parseInt(this.state.secuenciaHallazgo);
-
+        console.log(data.IdHallazgo);
         let respuesta = {};
 
         if (this.state.proceso === 1)
@@ -166,7 +180,7 @@ export class MantenimientoTalleres extends Component {
 
     async ObtenerListadoParticipantesEquipoTrabajo() {
         const respuesta = await ObtenerEquipoTrabajoPorIdTaller(this.mantenimientoTallerCo.idMantenimientoTalleresCoCreacion);
-
+        console.log(respuesta);
         this.setState({ listaParticipantes: respuesta });
         
     }
@@ -651,7 +665,7 @@ export class MantenimientoTalleres extends Component {
         element2.hidden = true; 
         element3.hidden = false;
         //document.getElementById("detalleGeneral").focus();
-
+        console.log(this.etapaTallerCo);
         this.setState({ secuenciaEtapa: this.etapaTallerCo.idEtapaTallerCo });
         this.setState({ idTipoTaller: this.etapaTallerCo.idTipoTaller });
         this.setState({ macroActividad: this.state.macroActividades.find(x => x.value === parseInt(this.etapaTallerCo.idMacro)) });
@@ -798,7 +812,7 @@ export class MantenimientoTalleres extends Component {
     }
     tablaEquipoTrabajo = () => {
         return this.state.listaParticipantes.map((item, index) => (
-            <tr key={index}>
+            <tr onClick={() => this.onClickFila(item)} key={index}>
                 <td>{item.idParticipante}</td>
                 <td>{item.nombreParticipante}</td>
                 <td>{item.direccion}</td>
@@ -819,9 +833,6 @@ export class MantenimientoTalleres extends Component {
                     </Button>
                 </td>
 
-                <FormularioModal show={this.state.modalParticipantes} handleClose={this.onClickCerrarModalParticipante} titulo={this.state.modalTituloP} className="FormularioParticipantes">
-                    <FormParticipantesEquipoTrabajo labelButton={this.state.labelButtonP} data={this.state.data} proceso={this.state.proceso} onClickProcesarParticipante={this.onClickProcesarParticipante} mensaje={this.state.mensajeFormularioP} />
-                </FormularioModal>
             </tr>
         ))
     }
@@ -994,7 +1005,9 @@ export class MantenimientoTalleres extends Component {
 
                         <br />
                         <Table2 tableHeading={this.state.cabeceraEquipoTrabajo} body={this.tablaEquipoTrabajo()} />
-
+                        <FormularioModal show={this.state.modalParticipantes} handleClose={this.onClickCerrarModalParticipante} titulo={this.state.modalTituloP} className="FormularioParticipantes">
+                            <FormParticipantesEquipoTrabajo labelButton={this.state.labelButtonP} data={this.state.data} proceso={this.state.proceso} onClickProcesarParticipante={this.onClickProcesarParticipante} mensaje={this.state.mensajeFormularioP} />
+                        </FormularioModal>
 
 
 
@@ -1002,8 +1015,8 @@ export class MantenimientoTalleres extends Component {
                             <Col md={4}>
                                 <div className="item1">
                                     <h5 className="heading3"> Adicionado por</h5>
-                                    <input type="text" className="etiqueta" name="fecha_adicion" />
-                                    <input type="text" placeholder="" name="usuario_adicion_taller" />
+                                    <input type="text" className="etiqueta" name="fecha_adicion" value={this.state.fechaAgregado} />
+                                    <input type="text" placeholder="" name="usuario_adicion_taller" value={this.state.usuarioAgrego} />
 
                                 </div>
                             </Col>
@@ -1011,8 +1024,8 @@ export class MantenimientoTalleres extends Component {
                             <Col md={4}>
                                 <div className="item1">
                                     <h5 className="heading3">Modificado por</h5>
-                                    <input type="text" className="etiqueta" name="fecha_modificacion" />
-                                    <input type="text" placeholder="" name="usuario_modificacion_taller" />
+                                    <input type="text" className="etiqueta" name="fecha_modificacion" value={this.state.fechaModificado} />
+                                    <input type="text" placeholder="" name="usuario_modificacion_taller" value={this.state.usuarioModifica} />
                                 </div>
                             </Col>
 
