@@ -28,9 +28,9 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarParticipante, m
     }, []);
 
     const ObtenerListaDirecciones = async () => {
-        console.log(data);
+
         const sect = await ObtenerDirecciones();
-        console.log(sect);
+
         if (sect !== undefined) {
             if (proceso === 2) {
                 setlistaDirecciones(sect.sort((x, y) => { return x.idDireccion === idDireccion ? -1 : y.idDireccion === idDireccion ? 1 : 0; }));//Ordena el array colocando de primero el tipo de persona del actual socio
@@ -43,7 +43,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarParticipante, m
 
                 sect.push(defecto);
                 setlistaDirecciones(sect.reverse());
-                console.log(sect);
+
             }
 
         }
@@ -51,7 +51,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarParticipante, m
     }
     const ObtenerListaFasesCJ = async () => {
         const sect = await ObtenerFasesCJ();
-        console.log(sect);
+
         if (sect !== undefined) {
             if (proceso === 2) {
                 setlistaFasesCJ(sect.sort((x, y) => { return x.idFaseCJ === idFaseCJ ? -1 : y.idFaseCJ === idFaseCJ ? 1 : 0; }));//Ordena el array colocando de primero el tipo de persona del actual socio

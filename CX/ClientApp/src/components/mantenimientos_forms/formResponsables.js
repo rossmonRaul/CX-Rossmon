@@ -32,9 +32,8 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarResponsable, me
     }, []);
 
     const ObtenerListaDirecciones = async () => {
-        console.log(data);
         const sect = await ObtenerDirecciones();
-        console.log(sect);
+
         if (sect !== undefined) {
             if (proceso === 2) {
                 setlistaDirecciones(sect.sort((x, y) => { return x.idDireccion === idDireccion ? -1 : y.idDireccion === idDireccion ? 1 : 0; }));//Ordena el array colocando de primero el tipo de persona del actual socio
@@ -47,7 +46,6 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarResponsable, me
 
                 sect.push(defecto);
                 setlistaDirecciones(sect.reverse());
-                console.log(sect);
             }
 
         }
