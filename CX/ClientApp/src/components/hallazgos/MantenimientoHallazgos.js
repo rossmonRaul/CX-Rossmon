@@ -313,12 +313,12 @@ export class MantenimientoHallazgos extends Component {
     GuardarHallazgo = async (data) => {
         let respuesta = {};
         respuesta = await AgregarMantenimientoHallazgo(data);
-        const element = document.getElementById("FormMM");
-        const element2 = document.getElementById("btnEditar");
-        const element3 = document.getElementById("btnGuardar");
-        element.hidden = true;
-        element2.hidden = false;
-        element3.hidden = false;
+        const formHallazgo = document.getElementById("formHallazgo");
+        const botonEditar = document.getElementById("btnEditar");
+        const botonGuardar = document.getElementById("btnGuardar");
+        formHallazgo.hidden = true;
+        botonEditar.hidden = false;
+        botonGuardar.hidden = false;
 
         if (respuesta.indicador == 0) {
             this.setState({ modal: false });
@@ -332,8 +332,8 @@ export class MantenimientoHallazgos extends Component {
         $('#example').DataTable().destroy();
 
         await this.ObtenerListadoGridHallazgo();
-        const tablita = document.getElementById("tablaHallazgo");
-        tablita.hidden = false;
+        const tablaHallazgo = document.getElementById("tablaHallazgo");
+        tablaHallazgo.hidden = false;
         const fechasHallazgo = document.getElementById("apartadofechas");
         fechasHallazgo.hidden = true;
         setTimeout(() => {
@@ -368,8 +368,8 @@ export class MantenimientoHallazgos extends Component {
         this.setState({ fechaModificadoH: '' });
         this.setState({ usuarioFinalizadoH: '' });
         this.setState({ fechaFinalizadoH: '' });
-        const tablita = document.getElementById("tablaHallazgo");
-        tablita.hidden = false;
+        const tablaHallazgo = document.getElementById("tablaHallazgo");
+        tablaHallazgo.hidden = false;
         const fechasHallazgo = document.getElementById("apartadofechas");
         fechasHallazgo.hidden = true;
         setTimeout(() => {
@@ -456,16 +456,16 @@ export class MantenimientoHallazgos extends Component {
         }
         const responsables = document.getElementById("responsables");
         responsables.hidden = false;
-        const tablita = document.getElementById("tablaHallazgo");
-        tablita.hidden = true;
+        const tablaHallazgo = document.getElementById("tablaHallazgo");
+        tablaHallazgo.hidden = true;
         const fechasHallazgo = document.getElementById("apartadofechas");
         fechasHallazgo.hidden = false;
-        const element = document.getElementById("FormMM");
-        const element2 = document.getElementById("btnGuardar");
-        const element3 = document.getElementById("btnEditar");
-        element2.hidden = true;
-        element.hidden = false;
-        element3.hidden = false;
+        const formHallazgo = document.getElementById("formHallazgo");
+        const botonGuardar = document.getElementById("btnGuardar");
+        const botonEditar = document.getElementById("btnEditar");
+        formHallazgo.hidden = false;
+        botonGuardar.hidden = true;
+        botonEditar.hidden = false;
 
         this.setState({ macroActividad: this.state.macroActividades.find(x => x.value === this.mantenimientoHallazgo.idMacroActividadAsociadaHallazgo) });
         this.setState({ CJ: this.state.fasesCJ.find(x => x.value === this.mantenimientoHallazgo.idFaseCJ) });
@@ -500,7 +500,6 @@ export class MantenimientoHallazgos extends Component {
             this.setState({ fechaFinalizadoH: this.formatDate(this.mantenimientoHallazgo.fechaFinalizacion) });
         }
 
-
     }
 
 
@@ -511,8 +510,8 @@ export class MantenimientoHallazgos extends Component {
     }
 
     onClickNuevoMantenimientoHallazgo() {
-        const tablita = document.getElementById("tablaHallazgo");
-        tablita.hidden = true;
+        const tablaHallazgo = document.getElementById("tablaHallazgo");
+        tablaHallazgo.hidden = true;
         const fechasHallazgo = document.getElementById("apartadofechas");
         fechasHallazgo.hidden = true;
         this.ObtenerSecuenciaHallazgo();
@@ -538,22 +537,22 @@ export class MantenimientoHallazgos extends Component {
         this.setState({ fechaModificadoH: '' });
         this.setState({ usuarioFinalizadoH: '' });
         this.setState({ fechaFinalizadoH: '' });
-        const element = document.getElementById("FormMM");
-        const element2 = document.getElementById("btnEditar");
-        const element3 = document.getElementById("btnGuardar");
-        element.hidden = false;
-        element2.hidden = true;
-        element3.hidden = false;
+        const formHallazgo = document.getElementById("formHallazgo");
+        const botonEditar = document.getElementById("btnEditar");
+        const botonGuardar = document.getElementById("btnGuardar");
+        formHallazgo.hidden = false;
+        botonEditar.hidden = true;
+        botonGuardar.hidden = false;
         document.getElementById("porcentaje").focus();
     }
 
     onClickAgregarMantenimiento = async () => {
-        const element = document.getElementById("FormMM");
-        const element2 = document.getElementById("btnGuardar");
-        const element3 = document.getElementById("btnEditar");
-        element2.hidden = false;
-        element.hidden = false;
-        element3.hidden = true;
+        const formHallazgo = document.getElementById("formHallazgo");
+        const botonGuardar = document.getElementById("btnGuardar");
+        const botonEditar = document.getElementById("btnEditar");
+        formHallazgo.hidden = false;
+        botonGuardar.hidden = false;
+        botonEditar.hidden = true;
         var datos = {
             IdSolucionAsociadaHallazgo: parseInt(this.state.lineaNegocio.value),
             IdGradoImpacto: parseInt(this.state.gradoImpacto.value),
@@ -571,34 +570,34 @@ export class MantenimientoHallazgos extends Component {
             detalleEspecificoHallazgo: this.state.detalleEspecificoH,
         };
         const result = this.GuardarHallazgo(datos);
-        element.hidden = true;
-        element2.hidden = false;
-        element3.hidden = false;
+        formHallazgo.hidden = true;
+        botonGuardar.hidden = false;
+        botonEditar.hidden = false;
     }
     onClickCancelar = async () => {
-        const tablita = document.getElementById("tablaHallazgo");
+        const tablaHallazgo = document.getElementById("tablaHallazgo");
         const fechasHallazgo = document.getElementById("apartadofechas");
         const responsables = document.getElementById("responsables");
-        const element = document.getElementById("FormMM");
-        const element2 = document.getElementById("btnEditar");
-        const element3 = document.getElementById("btnGuardar");
-        element.hidden = true;
-        element2.hidden = false;
-        element3.hidden = false;
+        const formHallazgo = document.getElementById("formHallazgo");
+        const botonEditar = document.getElementById("btnEditar");
+        const botonGuardar = document.getElementById("btnGuardar");
+        formHallazgo.hidden = true;
+        botonEditar.hidden = false;
+        botonGuardar.hidden = false;
         fechasHallazgo.hidden = true;
-        tablita.hidden = false;
+        tablaHallazgo.hidden = false;
         responsables.hidden = true;
 
     }
     onClickEditarMantenimiento = async () => {
 
         const responsables = document.getElementById("responsables");
-        const element = document.getElementById("FormMM");
-        const element2 = document.getElementById("btnEditar");
-        const element3 = document.getElementById("btnGuardar");
-        element.hidden = false;
-        element2.hidden = false;
-        element3.hidden = true;
+        const formHallazgo = document.getElementById("formHallazgo");
+        const botonEditar = document.getElementById("btnEditar");
+        const botonGuardar = document.getElementById("btnGuardar");
+        formHallazgo.hidden = false;
+        botonEditar.hidden = false;
+        botonGuardar.hidden = true;
         var datos = {
             IdMantenimientoHallazgo: this.state.secuenciaHallazgo,
             IdSolucionAsociadaHallazgo: parseInt(this.state.lineaNegocio.value),
@@ -618,13 +617,11 @@ export class MantenimientoHallazgos extends Component {
         };
 
         const result = this.EditarHallazgo(datos);
-        element.hidden = true;
-        element2.hidden = false;
-        element3.hidden = false;
+        formHallazgo.hidden = true;
+        botonEditar.hidden = false;
+        botonGuardar.hidden = false;
         responsables.hidden = true;
     }
-    /////
-    ///////
     //Responsables//
     onClickInactivarResponsable = async (id) => {
         const respuesta = await InactivarResponsable(id)
@@ -697,8 +694,8 @@ export class MantenimientoHallazgos extends Component {
 
     ///
     async componentDidMount() {
-        const tablita = document.getElementById("tablaHallazgo");
-        tablita.hidden = false;
+        const tablaHallazgo = document.getElementById("tablaHallazgo");
+        tablaHallazgo.hidden = false;
         const fechasHallazgo = document.getElementById("apartadofechas");
         fechasHallazgo.hidden = true;
         await this.ObtenerGradosEsfuerzo();
@@ -874,7 +871,7 @@ export class MantenimientoHallazgos extends Component {
                     <Table tableHeading={this.state.cabeceras2} body={this.gridMantenimiento()} />
                     </Container >
                 </div>
-                <div id="FormMM" hidden >
+                <div id="formHallazgo" hidden >
                     <div class="row-full">Información General de Definición del Hallazgo </div>
 
                     <Container>

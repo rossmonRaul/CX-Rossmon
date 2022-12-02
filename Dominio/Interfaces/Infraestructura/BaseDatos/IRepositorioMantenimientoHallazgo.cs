@@ -16,7 +16,7 @@ namespace Dominio.Interfaces.Infraestructura.BaseDatos
         Task<DtoHallazgo> ObtenerMantenimientoHallazgoPorID(int idMantenimientoHallazgo);
         Task<List<DtoHallazgo>> ObtenerMantenimientoHallazgo();
         Task<List<DtoGridHallazgo>> ObtenerGridMantenimientoHallazgo();
-        Task<DtoCantidadDatos> ObtenerCantidadMantenimientoHallazgo(/*int idMantenimientoHallazgo*/);
+        Task<DtoCantidadDatos> ObtenerCantidadMantenimientoHallazgo();
         Task<List<DtoOrbe>> ObtenerDatosOrbe();
     }
 }

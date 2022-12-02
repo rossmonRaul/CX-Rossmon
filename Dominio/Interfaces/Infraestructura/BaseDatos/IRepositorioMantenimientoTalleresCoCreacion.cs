@@ -9,7 +9,7 @@ namespace Dominio.Interfaces.Infraestructura.BaseDatos
 {
     public interface IRepositorioMantenimientoTalleresCoCreacion
     {
-        Task<DtoCantidadDatos> ObtenerCantidadMantenimientoTalleresCoCreacion(/*int idMantenimientoHallazgo*/);
+        Task<DtoCantidadDatos> ObtenerCantidadMantenimientoTalleresCoCreacion();
 
         Task<List<DtoOrbe>> ObtenerDatosOrbe();
 

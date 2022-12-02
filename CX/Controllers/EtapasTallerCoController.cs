@@ -29,12 +29,6 @@ namespace CX.Controllers
         {
             return Json(await this.servicioEtapasTallerCo.ActualizarEtapaTallerCo(entitiEtapaTallerCo));
         }
-        /*
-        [HttpDelete("[action]")]
-        public async Task<JsonResult> EliminarMantenimientoTallerCoCreacion(int idMantenimientoTalleresCoCreacion)
-        {
-            return Json(await this.servicioEtapasTallerCo.EliminarMantenimientoTallerCoCreacion(idMantenimientoTalleresCoCreacion));
-        }*/
 
         [HttpGet("[action]/{idEtapaTallerCo}")]
         public async Task<JsonResult> ObtenerEtapaTallerCoPorID(int idEtapaTallerCo)
@@ -43,7 +37,7 @@ namespace CX.Controllers
         }
 
         [HttpGet("[action]/{idTipoTaller}/{idTallerCoCreacion}")]
-        //idTallerCoCreacion
+
         public async Task<JsonResult> ObtenerEtapasTallerCo(int idTipoTaller, int idTallerCoCreacion)
         {
             return Json(await this.servicioEtapasTallerCo.ObtenerEtapasTallerCo(idTipoTaller, idTallerCoCreacion));

@@ -56,13 +56,6 @@ namespace CX.Controllers
         {
             return Json(await this.servicioMantenimientoHallazgo.ObtenerGridMantenimientoHallazgo());
         }
-
-        /* [HttpGet("[action]")]
-         public async Task<JsonResult> ObtenerMantenimientoHallazgoActivos()
-         {
-             return Json(await this.servicioMantenimientoHallazgo.ObtenerMantenimientoHallazgoActivos());
-         }
-        */
         [HttpGet("[action]")]
         public async Task<JsonResult> ObtenerCantidadMantenimientoHallazgo()
         {

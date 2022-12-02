@@ -18,7 +18,6 @@ namespace BussinesLogic.Servicios
         {
             this.repositorioMantenimientoTalleresCoCreacion = repositorioMantenimientoTalleresCoCreacion;
         }
-        /*int idMantenimientoHallazgo*/
         public async Task<DtoRespuestaSP> AgregarMantenimientoTallerCoCreacion(EntitiMantenimientoTallerCoCreacion entitiMantenimientoTallerCoCreacion)
         {
             return await this.repositorioMantenimientoTalleresCoCreacion.AgregarMantenimientoTallerCoCreacion(entitiMantenimientoTallerCoCreacion);

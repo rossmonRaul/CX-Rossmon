@@ -18,7 +18,7 @@ namespace BussinesLogic.Servicios
         {
             this.repositorioEtapaTallerCo = repositorioEtapaTallerCo;
         }
-        /*int idMantenimientoHallazgo*/
+
         public async Task<DtoRespuestaSP> AgregarEtapaTallerCo(EntitiEtapaTallerCo entitiEtapaTallerCo)
         {
             return await this.repositorioEtapaTallerCo.AgregarEtapaTallerCo(entitiEtapaTallerCo);
@@ -27,10 +27,7 @@ namespace BussinesLogic.Servicios
         {
             return await this.repositorioEtapaTallerCo.ActualizarEtapaTallerCo(entitiEtapaTallerCo);
         }
-        /* public async Task<DtoRespuestaSP> EliminarMantenimientoTallerCoCreacion(int idMantenimientoTallerCoCreacion)
-         {
-             return await this.repositorioEtapaTallerCo.EliminarMantenimientoTallerCoCreacion(idMantenimientoTallerCoCreacion);
-         }*/
+
         public async Task<DtoEtapaTallerCo> ObtenerEtapaTallerCoPorID(int idEtapaTallerCo)
         {
             return await this.repositorioEtapaTallerCo.ObtenerEtapaTallerCoPorID(idEtapaTallerCo);

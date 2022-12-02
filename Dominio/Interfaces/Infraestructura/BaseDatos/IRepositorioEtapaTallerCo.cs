@@ -16,7 +16,5 @@ namespace Dominio.Interfaces.Infraestructura.BaseDatos
         Task<DtoRespuestaSP> ActualizarEtapaTallerCo(EntitiEtapaTallerCo entitiEtapaTallerCo);
         Task<DtoEtapaTallerCo> ObtenerEtapaTallerCoPorID(int idEtapaTallerCo);
 
-        // Task<DtoRespuestaSP> EliminarMantenimientoTallerCoCreacion(int idMantenimientoTallerCoCreacion);
-
     }
 }

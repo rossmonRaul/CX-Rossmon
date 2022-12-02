@@ -18,7 +18,6 @@ namespace BussinesLogic.Servicios
         {
             this.repositorioMantenimientoHallazgo = repositorioMantenimientoHallazgo;
         }
-        ////////////
 
         public async Task<DtoRespuestaSP> AgregarMantenimientoHallazgo(EntitiHallazgo EntitiHallazgo)
         {
@@ -46,14 +45,6 @@ namespace BussinesLogic.Servicios
         {
             return await this.repositorioMantenimientoHallazgo.ObtenerGridMantenimientoHallazgo();
         }
-
-
-        /*public async Task<List<DtoHallazgo>> ObtenerMantenimientoHallazgoActivos()
-        {
-            return await this.repositorioMantenimientoHallazgo.ObtenerMantenimientoHallazgoActivos();
-        }*/
-
-        ////////////
         public async Task<DtoCantidadDatos> ObtenerCantidadMantenimientoHallazgo()
         {
             return await this.repositorioMantenimientoHallazgo.ObtenerCantidadMantenimientoHallazgo();

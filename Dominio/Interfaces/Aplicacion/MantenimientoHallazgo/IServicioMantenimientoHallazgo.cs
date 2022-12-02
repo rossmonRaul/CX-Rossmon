@@ -11,16 +11,8 @@ namespace Dominio.Interfaces.Aplicacion.MantenimientoHallazgo
     {
         Task<List<DtoHallazgo>> ObtenerMantenimientoHallazgo();
         Task<List<DtoGridHallazgo>> ObtenerGridMantenimientoHallazgo();
-
-        //Task<List<DtoMantenimientoHallazgo>> ObtenerMantenimientoHallazgoActivos();
-
-
         Task<DtoRespuestaSP> AgregarMantenimientoHallazgo(EntitiHallazgo entitiMantenimientoHallazgo);
-
-
         Task<DtoRespuestaSP> ActualizarMantenimientoHallazgo(EntitiHallazgo entitiMantenimientoHallazgo);
-
-
         Task<DtoHallazgo> ObtenerMantenimientoHallazgoPorID(int entitiMantenimientoHallazgo);
 
         Task<DtoRespuestaSP> EliminarMantenimientoHallazgo(int entitiMantenimientoHallazgo);

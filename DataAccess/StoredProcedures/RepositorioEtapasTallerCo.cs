@@ -66,25 +66,6 @@ namespace DataAccess.StoredProcedures
                 throw;
             }
         }
-
-        /* public async Task<DtoRespuestaSP> EliminarMantenimientoTallerCoCreacion(int idMantenimientoTallerCoCreacion)
-
-         {
-             try
-             {
-                 Dictionary<string, object> data = new Dictionary<string, object>();
-                 data.Add("IdMantenimientoTalleresCoCreacion", idMantenimientoTallerCoCreacion);
-                 string query = "SPEliminarMantenimientoTallerCoCreacion";
-
-                 return await this.contextoBD.EjecutarSP(query, data);
-             }
-             catch (Exception)
-             {
-                 throw;
-             }
-         }*/
-
-
         public async Task<DtoEtapaTallerCo> ObtenerEtapaTallerCoPorID(int idEtapaTallerCo)
         {
             try
