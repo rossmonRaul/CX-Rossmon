@@ -20,12 +20,17 @@ export const ActualizarResponsable = async (data) => {
 }
 
 export const InactivarResponsable = async (id) => {
-    const url = `${controlador}/eliminarsocio?idResponsable=${id}`;
+    const url = `${controlador}/eliminarResponsable?idResponsable=${id}`;
     return await ProcesarDatosApi('DELETE', url);
 }
 
 
 export const ObtenerResponsablePorId = async (id) => {
     const url = `${controlador}/ObtenerResponsablePorID/${id}`;
+    return await ProcesarDatosApi('GET', url);
+}
+
+export const ObtenerResponsablesPorIdHallazgo = async (id) => {
+    const url = `${controlador}/ObtenerResponsablesPorIdHallazgo/${id}`;
     return await ProcesarDatosApi('GET', url);
 }

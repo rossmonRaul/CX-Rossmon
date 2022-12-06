@@ -9,9 +9,14 @@ namespace Dominio.Interfaces.Infraestructura.BaseDatos
 {
     public interface IRepositorioMantenimientoHallazgo
     {
-        Task<DtoCantidadDatos> ObtenerCantidadMantenimientoHallazgo(/*int idMantenimientoHallazgo*/);
+
+        Task<DtoRespuestaSP> AgregarMantenimientoHallazgo(EntitiHallazgo EntitiHallazgo);
+        Task<DtoRespuestaSP> ActualizarMantenimientoHallazgo(EntitiHallazgo EntitiHallazgo);
+        Task<DtoRespuestaSP> EliminarMantenimientoHallazgo(int idMantenimientoHallazgo);
+        Task<DtoHallazgo> ObtenerMantenimientoHallazgoPorID(int idMantenimientoHallazgo);
+        Task<List<DtoHallazgo>> ObtenerMantenimientoHallazgo();
+        Task<List<DtoGridHallazgo>> ObtenerGridMantenimientoHallazgo();
+        Task<DtoCantidadDatos> ObtenerCantidadMantenimientoHallazgo();
         Task<List<DtoOrbe>> ObtenerDatosOrbe();
-
-
     }
 }

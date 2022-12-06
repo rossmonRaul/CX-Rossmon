@@ -17,6 +17,8 @@ namespace Dominio.Interfaces.Aplicacion.Responsables
 
         Task<DtoResponsable> ObtenerResponsablePorID(int idResponsable);
 
+        Task<List<DtoResponsable>> ObtenerResponsablesPorIdHallazgo(int idHallazgo);
+
         Task<DtoRespuestaSP> EliminarResponsable(int idResponsables);
 
         Task<List<DtoResponsable>> ObtenerResponsablesActivos();

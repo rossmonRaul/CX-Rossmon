@@ -13,6 +13,7 @@ namespace Dominio.Dto
         public int Plazo { get; set; }
         public DateTime FechaInicio { get; set; }
         public char Orbe { get; set; }
+        public int idOrbe { get; set; }
         public int Avance { get; set; }
         public int Aceptado { get; set; }
         public int IdHallazgo { get; set; }
