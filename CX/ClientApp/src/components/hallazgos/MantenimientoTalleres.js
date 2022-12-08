@@ -283,7 +283,7 @@ export class MantenimientoTalleres extends Component {
             idSolucionAsociadaHallazgo: parseInt(this.state.lineaNegocio.value),
             idServicioAsociadoHallazgo: parseInt(this.state.servicio.value),
             numOficioEnvio: parseInt(this.state.orbe.value),
-            fechaNumOficio: this.formatDate(this.state.fechaCreacion),
+            fechaNumOficio: this.state.fechaCreacion,
             descripcionGeneral: this.state.detalleGeneral,
           
         }; 
@@ -372,7 +372,7 @@ export class MantenimientoTalleres extends Component {
         this.state.serviciosFiltrados = this.state.serviciosAsociadoHallazgo.filter(servicio => servicio.idLinea == this.mantenimientoTallerCo.idSolucionAsociadaHallazgo);
         this.setState({ servicio: this.state.serviciosFiltrados.find(x => x.value === this.mantenimientoTallerCo.idServicioAsociadoHallazgo) });
         this.setState({ orbe: this.state.numeroOficioEnvio.find(x => x.value === this.mantenimientoTallerCo.numOficioEnvio) });
-        this.setState({ fechaCreacion: this.formatDate2(this.mantenimientoTallerCo.fechaNumOficio) });
+        this.setState({ fechaCreacion: this.formatDate(this.mantenimientoTallerCo.fechaNumOficio) });
         this.setState({ detalleGeneral: this.mantenimientoTallerCo.descripcionGeneral });
     }
 
@@ -392,7 +392,7 @@ export class MantenimientoTalleres extends Component {
             idSolucionAsociadaHallazgo: parseInt(this.state.lineaNegocio.value),
             idServicioAsociadoHallazgo: parseInt(this.state.servicio.value),
             numOficioEnvio: parseInt(this.state.orbe.value),
-            fechaNumOficio: this.formatDate(this.state.fechaCreacion),
+            fechaNumOficio: this.state.fechaCreacion,
             descripcionGeneral: this.state.detalleGeneral,
         };
         const result = this.EditarHallazgo(datos);
