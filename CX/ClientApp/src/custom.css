@@ -3,9 +3,58 @@ a {
     color: #126677;
 }
 
-    a:hover {
-        color: #17A797;
+
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+    .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
     }
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+
+    .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+        .sidenav a {
+            font-size: 18px;
+        }
+}
+
+
+
+
+a:hover {
+    color: #17A797;
+}
 
 code {
     color: #E01A76;
@@ -41,9 +90,7 @@ html {
     border-block-color: #449FC7;
     margin-top: 200px;
 }
-.file-uploader textarea.form-control {
-    min-height: 250px !important;
-}
+
 
 .titulo {
     color: white;
@@ -60,6 +107,10 @@ main {
     margin: -20px;
 }
 
+.secuencia{
+    width:50%;
+    margin-left:25%
+}
 
 .botones {
     background-color: #126677;
@@ -79,29 +130,12 @@ table {
     margin-bottom: 1vh !important;
 }
 
-table.dataTable thead th {
-    color: white !important;
-    background-color: #126677 !important;
-}
-
-table.dataTable tbody tr:hover {
-    background-color: #CCE7E7;
-}
-    table.dataTable tbody tr {
-        cursor:pointer;
+     table.dataTable thead th {
+        color: white !important;
+        background-color: #126677 !important;
     }
-.initial {
-    background-color: #DDDDDD;
-    color: #000000
-}
 
-.normal {
-    background-color: #CCCCCC
-}
 
-.highlight {
-    background-color: #8888FF
-}
 /*PAGINATION*/
 
 span .paginate_button {
@@ -184,9 +218,6 @@ span .paginate_button:hover {
 }
 
 
-.row{
-    margin-bottom :20px;
-}
 
 .row-full {
     width: 100vw;
@@ -260,17 +291,13 @@ span .paginate_button:hover {
         border: 1px solid #126677;
     }
 
-#filaBotones{
-    align-items:center;
-    justify-content:center;
-    display:flex;
-}
-#btnCancelar{
-    margin-left:2px;
-}
+
+
 /*hallazgos*/
+
 .heading3 {
     color: #17A797;
+    text-align: center;
     border-radius: 3px;
     /*border: 1px solid #17A797;*/
 }
@@ -284,16 +311,19 @@ span .paginate_button:hover {
 
 .etiqueta {
     margin-right: 20px;
-    margin-bottom:10px;
+    margin-left: 20px;
 }
 
 .item1 input[type="text"],
 .item1 input[type="date"],
 .item1 select {
-    width: 100%;
+    margin-left: 10px;
+    width: 150px;
     font-size: 16px;
     border: 1px solid #dadce0;
     border-radius: 3px;
+    margin-bottom: 20px;
+    height: 30px;
 }
 
     .item1 [type="text"]:focus,
@@ -360,30 +390,9 @@ textarea {
     margin-bottom: 30px;
 }
 
+
+
 .cont {
     box-shadow: none;
     background-color: #F5F5F5;
-}
-
-#contfechas {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-#fechas {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    width: 70%;
-}
-
-#fechas input[type="text"] {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        width: 50%;
 }

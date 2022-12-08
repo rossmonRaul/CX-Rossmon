@@ -1,4 +1,5 @@
 ﻿using DataAccess.StoredProcedures;
+using Dominio.Interfaces.Aplicacion.PreguntasEncuesta;
 using Dominio.Interfaces.Infraestructura.BaseDatos;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +28,8 @@ namespace DataAccess
             services.AddScoped<IRepositorioMacroActividad,RepositorioMacroActividad>();
             services.AddScoped<IRepositorioMetodologiaCX,RepositorioMetodologiaCX>();
             services.AddScoped<IRepositorioPeriodicidad,RepositorioPeriodicidad>();
+            services.AddScoped<IRepositorioPreguntasEncuestas, RepositorioPreguntasEncuestas>(); //**
+            services.AddScoped<IRepositorioRespuestasPreguntasEncuesta, RepositorioRespuestasPreguntaEncuesta>(); //**
             services.AddScoped<IRepositorioSectores,RepositorioSectores>();
             services.AddScoped<IRepositorioSegmentos,RepositorioSegmentos>();
             services.AddScoped<IRepositorioServicioLineaNegocio,RepositorioServicioLineaNegocio>();
@@ -44,10 +47,7 @@ namespace DataAccess
             services.AddScoped<IRepositorioFasesCJ, RepositorioFasesCJ>();
             services.AddScoped<IRepositorioMantenimientoHallazgo, RepositorioMantenimientoHallazgo>();
             services.AddScoped<IRepositorioTalleresCoCreacion, RepositorioTalleresCoCreacion>();
-            services.AddScoped<IRepositorioResponsables, RepositorioResponsables>();
-            services.AddScoped<IRepositorioMantenimientoTalleresCoCreacion, RepositorioMantenimientoTalleresCoCreacion>();
-            services.AddScoped<IRepositorioEtapaTallerCo, RepositorioEtapasTallerCo>();
-            services.AddScoped<IRepositorioParticipantesEquipoTrabajo, RepositorioParticipantesEquipoTrabajo>();
+
             return services;
         }
     }

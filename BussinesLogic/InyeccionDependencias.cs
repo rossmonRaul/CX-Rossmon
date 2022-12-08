@@ -30,8 +30,12 @@ using Dominio.Interfaces.Aplicacion.TipoPerspectivas;
 using Dominio.Interfaces.Aplicacion.TiposPersona;
 using Dominio.Interfaces.Aplicacion.TipoTaller;
 using Dominio.Interfaces.Aplicacion.TalleresCoCreacion;
-using Dominio.Interfaces.Aplicacion.Responsables;
-using Dominio.Interfaces.Aplicacion.ParticipantesEquipoTrabajo;
+
+using Dominio.Interfaces.Aplicacion.PreguntasEncuesta;
+using Dominio.Interfaces.Aplicacion.RespuestasPreguntaEncuesta;
+
+
+
 using Microsoft.Extensions.Configuration;
 
 
@@ -40,9 +44,6 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Dominio.Interfaces.Aplicacion.EtapaTallerCo;
-using Dominio.Interfaces.Aplicacion.MantenimientoTalleresCoCreacion;
-using Dominio.Interfaces.Infraestructura.BaseDatos;
 
 namespace BussinesLogic
 {
@@ -64,6 +65,8 @@ namespace BussinesLogic
             services.AddScoped<IServicioMacroActividad, ServicioMacroActividad>();
             services.AddScoped<IServicioMetodologiaCX, ServicioMetodologiaCX>();
             services.AddScoped<IServicioPeriodicidad, ServicioPeriodicidad>();
+            services.AddScoped<IServicioPreguntasEncuesta, ServicioPreguntasEncuesta>(); //*
+            services.AddScoped<IServicioRespuestasPreguntaEncuesta, ServicioRespuestasPreguntaEncuesta>(); //*
             services.AddScoped<IServicioSectores, ServicioSectores>();
             services.AddScoped<IServicioSegmentos, ServicioSegmentos>();
             services.AddScoped<IServicioServicioLineaNegocio, ServicioServicioLineaNegocio>();
@@ -81,10 +84,6 @@ namespace BussinesLogic
             services.AddScoped<IServicioFasesCJ, ServicioFasesCJ>();
             services.AddScoped<IServicioMantenimientoHallazgo, ServicioMantenimientoHallazgo>();
             services.AddScoped<IServicioTalleresCoCreacion, ServicioTalleresCoCreacion>();
-            services.AddScoped<IServicioResponsables, ServicioResponsables>();
-            services.AddScoped<IServicioMantenimientoTalleresCoCreacion, ServicioMantenimientoTalleresCoCreacion>();
-            services.AddScoped<IServicioEtapaTallerCo, ServicioEtapasTallerCo>();
-            services.AddScoped<IServicioParticipantesEquipoTrabajo, ServicioParticipantesEquipoTrabajo>();
             return services;
         }
     }

@@ -141,6 +141,11 @@ export class MantenimientoTipoEncuesta extends Component {
     }
 
 
+
+
+
+
+
     render() {
         return (
             <main>

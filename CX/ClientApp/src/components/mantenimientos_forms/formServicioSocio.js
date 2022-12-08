@@ -57,17 +57,17 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarServiciosSocios
         }
     }
 
-        const ObtenerListaSocio = async () => {
-            const soc = await ObtenerSocios();
-            if (soc !== undefined) {
-                if (proceso === 2) {
-                    setListaSocio(soc.sort((x, y) => { return parseInt(x.idSocio) === idSocio ? -1 : parseInt(y.idSocio) === idSocio ? 1 : 0; }));
-                } else {
-                    let defecto = { idSocio: '', nombre: "-- Seleccione un Socio --" };
-                    soc.push(defecto);
-                    setListaSocio(soc.reverse());
-                }
+    const ObtenerListaSocio = async () => {
+        const soc = await ObtenerSocios();
+        if (soc !== undefined) {
+            if (proceso === 2) {
+                setListaSocio(soc.sort((x, y) => { return parseInt(x.idSocio) === idSocio ? -1 : parseInt(y.idSocio) === idSocio ? 1 : 0; }));
+            } else {
+                let defecto = { idSocio: '', nombre: "-- Seleccione un Socio --" };
+                soc.push(defecto);
+                setListaSocio(soc.reverse());
             }
+        }
     }
     
     const onClickAceptar = async (event) => {
