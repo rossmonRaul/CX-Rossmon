@@ -34,6 +34,8 @@ using Dominio.Interfaces.Aplicacion.Responsables;
 using Dominio.Interfaces.Aplicacion.ParticipantesEquipoTrabajo;
 using Microsoft.Extensions.Configuration;
 
+using Dominio.Interfaces.Aplicacion.PreguntasEncuesta;
+using Dominio.Interfaces.Aplicacion.RespuestasPreguntaEncuesta;
 
 using Microsoft.Extensions.DependencyInjection;
 //using Dominio.Interfaces.
@@ -64,6 +66,8 @@ namespace BussinesLogic
             services.AddScoped<IServicioMacroActividad, ServicioMacroActividad>();
             services.AddScoped<IServicioMetodologiaCX, ServicioMetodologiaCX>();
             services.AddScoped<IServicioPeriodicidad, ServicioPeriodicidad>();
+            services.AddScoped<IServicioPreguntasEncuesta, ServicioPreguntasEncuesta>(); //*
+            services.AddScoped<IServicioRespuestasPreguntaEncuesta, ServicioRespuestasPreguntaEncuesta>(); //*
             services.AddScoped<IServicioSectores, ServicioSectores>();
             services.AddScoped<IServicioSegmentos, ServicioSegmentos>();
             services.AddScoped<IServicioServicioLineaNegocio, ServicioServicioLineaNegocio>();
