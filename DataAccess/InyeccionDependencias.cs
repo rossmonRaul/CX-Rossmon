@@ -27,6 +27,8 @@ namespace DataAccess
             services.AddScoped<IRepositorioMacroActividad,RepositorioMacroActividad>();
             services.AddScoped<IRepositorioMetodologiaCX,RepositorioMetodologiaCX>();
             services.AddScoped<IRepositorioPeriodicidad,RepositorioPeriodicidad>();
+            services.AddScoped<IRepositorioPreguntasEncuestas, RepositorioPreguntasEncuestas>();
+            services.AddScoped<IRepositorioRespuestasPreguntasEncuesta, RepositorioRespuestasPreguntaEncuesta>();
             services.AddScoped<IRepositorioSectores,RepositorioSectores>();
             services.AddScoped<IRepositorioSegmentos,RepositorioSegmentos>();
             services.AddScoped<IRepositorioServicioLineaNegocio,RepositorioServicioLineaNegocio>();

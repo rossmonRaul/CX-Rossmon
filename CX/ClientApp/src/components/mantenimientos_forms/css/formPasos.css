@@ -1,0 +1,190 @@
+﻿.App {
+    width: 100%;
+    margin-left:0%;
+}
+
+
+.dvPregunta{
+    padding:15px;
+}
+
+    .dvPregunta .h4Pregunta {
+        background-color: ghostwhite;
+        padding: 7px;
+        border-radius: 15px;
+        color: darkcyan;
+        font-family: Verdana;
+        font-size: 19px;
+    }
+
+
+.btnListoVolver {
+    width: 80px;
+    font-size: 15px;
+    border: none;
+}
+
+
+.ddl {
+    width: 372px;
+    /*background-color: whitesmoke;*/
+    background-color: ghostwhite;
+    font-family: 'Times New Roman', Times, serif;
+    color: gray;
+    font-size: large;
+    border: ridge;
+    height: 60px;
+}
+
+
+
+.btn-pregunta {
+    background-color: cadetblue;
+    width: 40%;
+    border: none;
+}
+
+.btn_listo {
+    margin-top: 30px;
+    height: 30px;
+    background-color: cadetblue;
+    margin-left: 50px;
+    border: none
+}
+
+.slct_ids {
+    width: 70px;
+}
+
+
+.btnCalificacionEstrellas {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.on {
+    color:aqua;
+}
+
+.off {
+    color: #ccc;
+}
+
+
+
+
+
+
+
+
+.btnVolver {
+    /*margin-right:25%;*/
+    height: 31px;
+    background-color: cadetblue;
+    color: white;
+    border: none;
+    font-size: 15px;
+}
+
+.slct_socios {
+    /*margin-right:25px;
+    background-color:aqua*/
+}
+
+.main-frmP2 {
+    width: 100%;
+    margin-left: 0%;
+}
+
+.cont-button {
+    /*background-color: aqua;*/
+    /*margin: 5px;*/
+    width: 100%;
+}
+
+.button {
+    width: 100%;
+    background-color: #f0f8ff;
+    border: hidden;
+    color:darkslategray;
+    font-family:'Times New Roman', Times, serif;
+    word-wrap: break-word;
+    margin: 10px;
+    font-size:13.5px
+}
+
+.App-logo {
+    height: 40vmin;
+    pointer-events: none;
+}
+
+.contenedor{
+    width:100%
+}
+
+.cont-input1 {
+    width: 20%;
+}
+.cont-input2 {
+    width: 20%;
+}
+
+
+.btnAgregarRespuesta{
+    background-color:aliceblue;
+    color:dodgerblue;
+    border:none;
+    font-size:13px;
+    font-weight:500;
+    height:30px;
+    margin-top:30px
+}
+
+.btnEliminarRespuestas {
+    background-color: aliceblue;
+    color: red;
+    border: none;
+    font-size: 13px;
+    font-weight: 500;
+    height: 30px;
+    margin-top: 30px
+}
+
+.btnAgregarRespuesta:hover {
+    background-color: lightgray;
+    color: darkslategray;
+}
+
+
+    @media (prefers-reduced-motion: no-preference) {
+        .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+}
+
+.App-header {
+    background-color: aqua;
+    min-height: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
