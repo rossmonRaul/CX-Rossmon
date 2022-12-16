@@ -13,17 +13,12 @@ export class AdminHallazgosDireccion extends Component {
                 <Container>
 
                     <Row>
-                        <Col md={4}>
+                        
 
-                        </Col>
-
-                        <Col md={4}>
-
-                        </Col>
-
-                        <Col md={4}>
+                        <Col md={3}>
+                            <h5 className="heading3">Estado a visualizar</h5>
                             <div className="item1">
-                                <h5 className="heading3">Estado a visualizar</h5>
+                                
                                 <select className="etiqueta" name="estado" >
                                 </select>
                             </div>

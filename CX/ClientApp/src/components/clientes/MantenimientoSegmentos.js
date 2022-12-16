@@ -174,7 +174,7 @@ export class MantenimientoSegmentos extends Component {
                 <div className="row-full">Mantenimiento de Segmentos </div>
                 <Container>
 
-                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoSegmento()}>Insertar segmento</Button>
+                    <Button className="btn1"  onClick={() => this.onClickNuevoSegmento()}>Insertar segmento</Button>
                     <hr />
                     <br />
                     {/*ALERTA*/}
@@ -189,7 +189,8 @@ export class MantenimientoSegmentos extends Component {
 
                     <Table tableHeading={this.state.cabeceras} body={this.body()} />
                 </Container>
-
+                <Container className="cont">
+                </Container>
 
                 <FormularioModal show={this.state.modal} handleClose={this.onClickCerrarModal} titulo={this.state.modalTitulo} className=''>
                     <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarSegmento={this.onClickProcesarSegmento} mensaje={this.state.mensajeFormulario} />
