@@ -7,65 +7,61 @@ export class Formulario extends Component {
 
 
 
-
+   
     render() {
         return (
-
+         
             <main>
+            
 
-                <div class="row-full">Clientes </div>
+                <div class="row-full">Recopilación de datos de clientes a encuestar </div>
 
-
+             
                 <div className="wrapper">
 
                     <div className="form_container">
-                        <div className="form_wrap fullname2">
-                            <h1 className="heading2">Recopilación de datos de clientes a encuestar</h1>
-                        </div>
                         <div className="form_wrap fullname">
                             <div className="form_item">
 
                                 <label className="etiquetas">Nombre de usuario</label>
-                                {/*    <input type="text" name="nom_usuario" onChange={(e) => setNomUsuario(e.target.value)} />*/}
+                            {/*    <input type="text" name="nom_usuario" onChange={(e) => setNomUsuario(e.target.value)} />*/}
                                 <input type="text" name="nom_usuario" />
-                            </div>
+                        </div>
 
                             <div className="form_item">
 
-                                <label className="etiquetas">Consecutivo #</label>
+                            <label>Consecutivo #</label>
                                 <input type="text" name="Consecutivo" />
 
-                            </div>
-
                         </div>
+
+                    </div>
 
                         <div className="form_wrap fullname">
                             <div className="form_item">
 
-                                <label className="etiquetas">Face de servicio</label>
-
+                            <label>Face de servicio</label>
+                        
                                 <select id="" class=" " name="face_servicio" >
-                                </select>
-
-                            </div>
-
-                            <div class="form_item">
-
-                                <label className="etiquetas">Fecha</label>
-                                <input type="date" name="fecha" />
-
-                            </div>
+                            </select>
 
                         </div>
+
+                        <div class="form_item">
+
+                            <label>Fecha</label>
+                                <input type="date" name="fecha"  />
+
+                        </div>
+
                     </div>
+                </div>
                 </div>
 
                 <div className="wrapper">
-
+                 
                     <div className="form_container">
-                        <div className="form_wrap fullname2">
-                            <h1 className="heading2">Datos del cliente</h1>
-                        </div>
+                        <h1 className="heading2">Datos del cliente</h1>
                         <div className="form_wrap fullname">
                             <div className="form_item">
 
@@ -76,7 +72,7 @@ export class Formulario extends Component {
 
                             <div className="form_item">
 
-                                <label className="etiquetas">Nombre cliente</label>
+                                <label>Nombre cliente</label>
                                 <input type="text" name="nom_cliente" />
 
                             </div>
@@ -86,7 +82,7 @@ export class Formulario extends Component {
                         <div className="form_wrap fullname">
                             <div className="form_item">
 
-                                <label className="etiquetas">Sector económico</label>
+                                <label>Sector económico</label>
 
                                 <select id="" class=" " name="sector" >
                                 </select>
@@ -95,7 +91,7 @@ export class Formulario extends Component {
 
                             <div className="form_item">
 
-                                <label className="etiquetas">Segmento</label>
+                                <label>Segmento</label>
                                 <select id="" class=" " name="segmento">
                                 </select>
 
@@ -105,7 +101,7 @@ export class Formulario extends Component {
                         <div className="form_wrap fullname">
                             <div className="form_item">
 
-                                <label className="etiquetas">Categoría</label>
+                                <label>Categoría</label>
 
                                 <select id="slAeropuerto" class=" " name="categoria" >
                                 </select>
@@ -114,17 +110,17 @@ export class Formulario extends Component {
 
                             <div className="form_item">
 
-                                <label className="etiquetas">Línea de negocio</label>
+                                <label>Línea de negocio</label>
                                 <select id="" class=" " name="linea_negocio" >
                                 </select>
 
                             </div>
 
                         </div>
-                        <div className="form_wrap fullname">
+                           <div className="form_wrap fullname">
                             <div className="form_item">
 
-                                <label className="etiquetas">Servicios y productos</label>
+                                <label>Servicios y productos</label>
 
                                 <select id="" class=" " name="servicio">
                                 </select>
@@ -142,9 +138,7 @@ export class Formulario extends Component {
                 <div className="wrapper">
 
                     <div className="form_container">
-                        <div className="form_wrap fullname2">
-                            <h1 className="heading2">Datos de contacto</h1>
-                        </div>
+                        <h1 className="heading2">Datos de contacto</h1>
                         <div className="form_wrap fullname">
                             <div className="form_item">
 
@@ -155,7 +149,7 @@ export class Formulario extends Component {
 
                             <div className="form_item">
 
-                                <label className="etiquetas">Canal encuesta</label>
+                                <label>Canal encuesta</label>
                                 <select id="" class=" " name="canal">
                                 </select>
 
@@ -166,7 +160,7 @@ export class Formulario extends Component {
                         <div className="form_wrap fullname">
                             <div className="form_item">
 
-                                <label className="etiquetas">Teléfono</label>
+                                <label>Teléfono</label>
 
                                 <input type="text" name="telefono_contacto" />
 
@@ -174,7 +168,7 @@ export class Formulario extends Component {
 
                             <div className="form_item">
 
-                                <label className="etiquetas">Celular</label>
+                                <label>Celular</label>
                                 <input type="text" placeholder="" name="celular_contacto" />
 
                             </div>
@@ -183,7 +177,7 @@ export class Formulario extends Component {
                         <div className="form_wrap fullname">
                             <div className="form_item">
 
-                                <label className="etiquetas">Correo</label>
+                                <label>Correo</label>
                                 <input type="text" placeholder="" name="correo_contacto" />
 
                             </div>
@@ -193,16 +187,14 @@ export class Formulario extends Component {
                             </div>
 
                         </div>
-
+                   
                     </div>
                 </div>
 
                 <div className="wrapper">
 
                     <div className="form_container">
-                        <div className="form_wrap fullname2">
-                            <h1 className="heading2">Datos del socio</h1>
-                        </div>
+                        <h1 className="heading2">Datos del socio</h1>
                         <div className="form_wrap fullname">
                             <div className="form_item">
 
@@ -213,7 +205,7 @@ export class Formulario extends Component {
 
                             <div className="form_item">
 
-                                <label className="etiquetas">Nombre del socio</label>
+                                <label>Nombre del socio</label>
                                 <input type="text" name="nom_socio" />
 
                             </div>
@@ -223,7 +215,7 @@ export class Formulario extends Component {
                         <div className="form_wrap fullname">
                             <div className="form_item">
 
-                                <label className="etiquetas">Teléfono</label>
+                                <label>Teléfono</label>
 
                                 <input type="text" placeholder="" name="telefono_socio" />
 
@@ -231,7 +223,7 @@ export class Formulario extends Component {
 
                             <div className="form_item">
 
-                                <label className="etiquetas">Celular</label>
+                                <label>Celular</label>
                                 <input type="text" placeholder="" name="celular_socio" />
 
                             </div>
@@ -240,7 +232,7 @@ export class Formulario extends Component {
                         <div className="form_wrap fullname">
                             <div className="form_item">
 
-                                <label className="etiquetas">Correo</label>
+                                <label>Correo</label>
                                 <input type="text" placeholder="" name="correo_socio" />
 
                             </div>
@@ -256,26 +248,26 @@ export class Formulario extends Component {
                     </div>
                 </div>
                 <Container className="cont">
+               
+                <Row>
+                    <Col md={3}>
 
-                    <Row>
-                        <Col md={4}>
+                    </Col>
+                    <Col md={3}>
+                        <button id="btnGuardar" type="button" className="btn  btn-block botones" >Guardar</button>
+                    </Col>
 
-                        </Col>
-                        <Col md={3}>
-                            <button id="btnGuardar" type="button" className="btn  btn-block botones" >Guardar</button>
-                        </Col>
+                    <Col md={3}>
+                        <button id="btnGuardar" type="button" className="btn  btn-block botones ">Salir</button>
+                    </Col>
 
-                        <Col md={3}>
-                            <button id="btnGuardar" type="button" className="btn  btn-block botones ">Salir</button>
-                        </Col>
+                    <Col md={3}>
 
-                        <Col md={3}>
-
-                        </Col>
-                    </Row>
+                    </Col>
+                </Row>
                 </Container>
-            </main>
-
+                </main>
+           
         );
     }
 }

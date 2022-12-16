@@ -134,7 +134,7 @@ export class CatalogoTipoContactoEncuesta extends Component {
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
-                <td style={{ padding: "0.5vw" }}>
+                <td style={{ display: "flex", padding: "0.5vw" }}>
 
                     <Button color="primary" onClick={() => this.onClickActualizarTipoContactoEncuesta(item.idTipoContactoEncuesta)} style={{ marginRight: "1vw" }}>Editar
                     </Button>
@@ -152,7 +152,7 @@ export class CatalogoTipoContactoEncuesta extends Component {
             <main>
                 <div className="row-full">Catalogo de Tipo de Contacto de Encuesta </div>
                 <Container>
-                    <Button className="btn1" onClick={() => this.onClickNuevoTipoContactoEncuesta()}>Insertar Tipo de Contacto de Encuesta</Button>
+                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoTipoContactoEncuesta()}>Insertar Tipo de Contacto de Encuesta</Button>
                     <hr />
                     <br />
 
@@ -173,8 +173,6 @@ export class CatalogoTipoContactoEncuesta extends Component {
                         <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarTipoContactoEncuesta={this.onClickProcesarTipoContactoEncuesta} mensaje={this.state.mensajeFormulario} />
                     </FormularioModal>
 
-                </Container>
-                <Container className="cont">
                 </Container>
             </main>
         );

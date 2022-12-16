@@ -248,11 +248,10 @@ export class MantenimientoPregunta extends Component {
     render() {
         return (
             <main>
-                <Container className="cont">
-                </Container>
+       
                 <Container>
 
-                    <Button className="btn1" onClick={() => this.onClickNuevaPregunta()}>Insertar Nueva Pregunta</Button>
+                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevaPregunta()}>Insertar Nueva Pregunta</Button>
                     <hr />
 
                     <br />
@@ -312,8 +311,7 @@ export class MantenimientoPregunta extends Component {
 
 
                 </Container >
-                <Container className="cont">
-                </Container>
+
                 </main>
             );
     }

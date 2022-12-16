@@ -136,7 +136,7 @@ export class MantenimientoEtapas extends Component {
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
-                <td style={{  padding: "0.5vw" }}>
+                <td style={{ display: "flex", padding: "0.5vw" }}>
 
                     <Button color="primary" onClick={() => this.onClickActualizaEtapaTaller(item.idEtapaTaller)} style={{ marginRight: "1vw" }}>Editar
                     </Button>
@@ -153,7 +153,7 @@ export class MantenimientoEtapas extends Component {
             <main>
                 <div className="row-full">Mantenimiento de Etapas de Tipo de Taller</div>
                 <Container>
-                    <Button className="btn1" onClick={() => this.onClickNuevaEtapaTaller()}>Insertar Etapa de Tipo de Taller</Button>
+                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevaEtapaTaller()}>Insertar Etapa de Tipo de Taller</Button>
                     <hr />
                     <br />
 
@@ -176,9 +176,9 @@ export class MantenimientoEtapas extends Component {
 
                 </Container>
 
-                <Container className="cont">
-                </Container>
-
+                <br />
+                <br />
+                <br />
             </main>
         );
     }

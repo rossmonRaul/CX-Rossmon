@@ -133,7 +133,7 @@ export class CatalogoTipoInteraccion extends Component {
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
-                <td style={{ padding: "0.5vw" }}>
+                <td style={{ display: "flex", padding: "0.5vw" }}>
 
                     <Button color="primary" onClick={() => this.onClickActualizarTipoInteraccion(item.idTipoInteraccion)} style={{ marginRight: "1vw" }}>Editar
                     </Button>
@@ -151,7 +151,7 @@ export class CatalogoTipoInteraccion extends Component {
             <main>
                 <div className="row-full">Catalogo de Tipo de Interaccion </div>
                 <Container>
-                    <Button className="btn1" onClick={() => this.onClickNuevoTipoInteraccion()}>Insertar Tipo de Interaccion</Button>
+                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoTipoInteraccion()}>Insertar Tipo de Interaccion</Button>
                     <hr />
                     <br />
 
@@ -172,8 +172,6 @@ export class CatalogoTipoInteraccion extends Component {
                         <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarTipoInteraccion={this.onClickProcesarTipoInteraccion} mensaje={this.state.mensajeFormulario} />
                     </FormularioModal>
 
-                </Container>
-                <Container className="cont">
                 </Container>
             </main>
         );

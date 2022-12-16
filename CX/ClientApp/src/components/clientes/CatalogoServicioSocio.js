@@ -137,7 +137,7 @@ export class CatalogoServicioSocio extends Component {
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
-                <td style={{  padding: "0.5vw" }}>
+                <td style={{ display: "flex", padding: "0.5vw" }}>
 
                     <Button color="primary" onClick={() => this.onClickActualizarServiciosSocios(item.idServicioSocio)} style={{ marginRight: "1vw" }}>Editar
                     </Button>
@@ -155,7 +155,7 @@ export class CatalogoServicioSocio extends Component {
             <main>
                 <div className="row-full">Catalogo Servicio por Socio </div>
                 <Container>
-                    <Button className="btn1" onClick={() => this.onClickNuevoServicioSocios()}>Insertar Servicio Socio</Button>
+                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoServicioSocios()}>Insertar Servicio Socio</Button>
                     <hr />
                     <br />
 
@@ -176,8 +176,6 @@ export class CatalogoServicioSocio extends Component {
                         <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarServiciosSocios={this.onClickProcesarServiciosSocios} mensaje={this.state.mensajeFormulario} />
                     </FormularioModal>
 
-                </Container>
-                <Container className="cont">
                 </Container>
             </main>
         );

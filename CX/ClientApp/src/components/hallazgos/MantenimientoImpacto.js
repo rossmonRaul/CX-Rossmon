@@ -134,7 +134,7 @@ export class MantenimientoImpacto extends Component {
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
-                <td style={{ padding: "0.5vw" }}>
+                <td style={{ display: "flex", padding: "0.5vw" }}>
 
                     <Button color="primary" onClick={() => this.onClickActualizarGradoImpacto(item.idGradoImpacto)} style={{ marginRight: "1vw" }}>Editar
                     </Button>
@@ -151,7 +151,7 @@ export class MantenimientoImpacto extends Component {
             <main>
                 <div className="row-full">Mantenimiento de Grados de Impacto</div>
                 <Container>
-                    <Button className="btn1" onClick={() => this.onClickNuevaGradoImpacto()}>Insertar Grado de Impacto</Button>
+                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevaGradoImpacto()}>Insertar Grado de Impacto</Button>
                     <hr />
                     <br />
 
@@ -174,9 +174,9 @@ export class MantenimientoImpacto extends Component {
 
                 </Container>
 
-                <Container className="cont">
-                </Container>
-
+                <br />
+                <br />
+                <br />
             </main>
         );
     }

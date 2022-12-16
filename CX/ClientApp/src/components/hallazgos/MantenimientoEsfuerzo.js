@@ -143,7 +143,7 @@ export class MantenimientoEsfuerzo extends Component {
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
-                <td style={{  padding: "0.5vw" }}>
+                <td style={{ display: "flex", padding: "0.5vw" }}>
 
                     <Button color="primary" onClick={() => this.onClickActualizarGradoEsfuerzo(item.idGradoEsfuerzo)} style={{ marginRight: "1vw" }}>Editar
                                             </Button>
@@ -160,7 +160,7 @@ export class MantenimientoEsfuerzo extends Component {
             <main>
                 <div className="row-full">Mantenimiento del Grado de Esfuerzo </div>
                 <Container>
-                    <Button className="btn1" onClick={() => this.onClickNuevoGradoEsfuerzo()}>Insertar grado esfuerzo</Button>
+                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoGradoEsfuerzo()}>Insertar grado esfuerzo</Button>
                     <hr />
                     <br />
 
@@ -181,10 +181,8 @@ export class MantenimientoEsfuerzo extends Component {
                     </FormularioModal>
 
                 </Container>
-                <Container className="cont">
-                </Container>
 
-                
+
 
             </main>
         );

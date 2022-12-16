@@ -13,7 +13,6 @@ export class Layout extends Component {
                 {this.props.children}
 
             </div>
-
         );
     }
 }

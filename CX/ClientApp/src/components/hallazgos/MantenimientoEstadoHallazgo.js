@@ -156,7 +156,7 @@ export class MantenimientoEstadoHallazgo extends Component {
             <main>
                 <div className="row-full">Mantenimiento de Estado de Hallazgo </div>
                 <Container>
-                    <Button className="btn1" onClick={() => this.onClickNuevaEstadoHallazgo()}>Insertar Estado de Hallazgo</Button>
+                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevaEstadoHallazgo()}>Insertar Estado de Hallazgo</Button>
                     <hr />
                     <br />
 
@@ -175,8 +175,6 @@ export class MantenimientoEstadoHallazgo extends Component {
                         <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarEstadoHallazgo={this.onClickProcesarEstadoHallazgo} mensaje={this.state.mensajeFormulario} />
                     </FormularioModal>
 
-                </Container>
-                <Container className="cont">
                 </Container>
             </main>
         );

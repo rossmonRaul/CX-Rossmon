@@ -132,7 +132,7 @@ export class MantenimientoCategoria extends Component {
                 <td> {item.rango}</td>
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
-                <td style={{  padding: "0.5vw" }}>
+                <td style={{ display: "flex", padding: "0.5vw" }}>
 
                     <Button color="primary" onClick={() => this.onClickActualizarCategoria(item.idCategoria)} style={{ marginRight: "1vw" }}>Editar
                     </Button>
@@ -151,7 +151,7 @@ export class MantenimientoCategoria extends Component {
 
                 <div className="row-full">Mantenimiento de Categorias </div>
                 <Container>
-                    <Button className="btn1" onClick={() => this.onClickNuevaCategoría()}>Insertar Categoría</Button>
+                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevaCategoría()}>Insertar Categoría</Button>
                     <hr />
                     <br />
 
@@ -172,8 +172,7 @@ export class MantenimientoCategoria extends Component {
 
 
                 </Container>
-                <Container className="cont">
-                </Container>
+
             </main>
         );
     }
