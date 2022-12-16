@@ -256,7 +256,7 @@ export class MantenimientoIndicador extends Component {
             <main>
                 <div className="row-full">Mantenimiento de Tipos de Indicadores</div>
                 <Container>
-                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoTipoIndicador()}>Insertar Tipo Indicador</Button>
+                    <Button className="btn1"  onClick={() => this.onClickNuevoTipoIndicador()}>Insertar Tipo Indicador</Button>
                     <hr />
                     <br />
 
@@ -292,6 +292,9 @@ export class MantenimientoIndicador extends Component {
                         </Button>
                     </FormularioModal>
                 </Container>
+                <Container className="cont">
+                </Container>
+
             </main>
         );
     }

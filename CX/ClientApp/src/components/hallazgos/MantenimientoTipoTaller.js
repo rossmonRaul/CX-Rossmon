@@ -132,7 +132,7 @@ export class MantenimientoTipoTaller extends Component {
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
-                <td style={{ display: "flex", padding: "0.5vw" }}>
+                <td style={{  padding: "0.5vw" }}>
 
                     <Button color="primary" onClick={() => this.onClickActualizarTipoTaller(item.idTipoTaller)} style={{ marginRight: "1vw" }}>Editar
                     </Button>
@@ -149,7 +149,7 @@ export class MantenimientoTipoTaller extends Component {
             <main>
                 <div className="row-full">Mantenimiento de Tipo de Taller</div>
                 <Container>
-                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoTipoTaller()}>Insertar Tipo de Taller</Button>
+                    <Button className="btn1" onClick={() => this.onClickNuevoTipoTaller()}>Insertar Tipo de Taller</Button>
                     <hr />
                     <br />
 
@@ -173,9 +173,9 @@ export class MantenimientoTipoTaller extends Component {
 
                 </Container>
 
-                <br />
-                <br />
-                <br />
+
+                <Container className="cont">
+                </Container>
             </main>
         );
     }
