@@ -476,7 +476,8 @@ export class MantenimientoHallazgos extends Component {
 
                 </Container >
 
-
+                <Container className="cont">
+                </Container>
 
 
             </main>

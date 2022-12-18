@@ -22,7 +22,7 @@ export class MantenimientoAceptacion extends Component {
         super(props);
         this.state = {
             listaEstadoAceptacion: [],
-            cabeceras: ["Id Estado ", "Codigo", "Estado de Aceptacion","Estado", "Acciones"],
+            cabeceras: ["Id Estado ", "Codigo", "Estado de Aceptacion", "Estado", "Acciones"],
             pendiente: false,
             data: {},
             modal: false,

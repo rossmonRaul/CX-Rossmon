@@ -31,7 +31,7 @@ export class MantenimientoDireccion extends Component {
         super(props);
         this.state = {
             direcciones: [],
-            cabeceras: [ "Código", "Dirección", "Estado", "Acciones"],
+            cabeceras: ["Código", "Dirección", "Estado", "Acciones"],
             pendiente: false,
             data: {},
             modal: false,
@@ -146,7 +146,7 @@ export class MantenimientoDireccion extends Component {
                 <td style={{ padding: "0.5vw" }}>
 
                     <Button color="primary" onClick={() => this.onClickActualizarDireccion(item.idDireccion)} style={{ marginRight: "1vw" }}>Editar
-                                            </Button>
+                    </Button>
 
                     <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarDireccion(item.idDireccion)}> {item.estado === true ? "Inactivar" : "Activar"}
                     </Button>

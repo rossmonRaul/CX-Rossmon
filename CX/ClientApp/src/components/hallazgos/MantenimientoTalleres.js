@@ -72,7 +72,7 @@ export class MantenimientoTalleres extends Component {
                             </div>
                         </Col>
 
-                       
+
                     </Row>
 
 
@@ -91,32 +91,32 @@ export class MantenimientoTalleres extends Component {
 
                         </tbody>
                     </table>
-               
 
 
-                <Row>
-                    <Col md={4}>
-                        <div className="item1">
-                            <h5 className="heading3"> Adicionado por</h5>
-                            <input type="text" className="etiqueta" name="fecha_adicion" />
-                            <input type="text" placeholder="" name="usuario_adicion_taller" />
 
-                        </div>
-                    </Col>
+                    <Row>
+                        <Col md={4}>
+                            <div className="item1">
+                                <h5 className="heading3"> Adicionado por</h5>
+                                <input type="text" className="etiqueta" name="fecha_adicion" />
+                                <input type="text" placeholder="" name="usuario_adicion_taller" />
 
-                    <Col md={4}>
-                        <div className="item1">
-                            <h5 className="heading3">Modificado por</h5>
-                            <input type="text" className="etiqueta" name="fecha_modificacion" />
-                            <input type="text" placeholder="" name="usuario_modificacion_taller" />
-                        </div>
-                    </Col>
+                            </div>
+                        </Col>
 
-                    <Col md={4}>
+                        <Col md={4}>
+                            <div className="item1">
+                                <h5 className="heading3">Modificado por</h5>
+                                <input type="text" className="etiqueta" name="fecha_modificacion" />
+                                <input type="text" placeholder="" name="usuario_modificacion_taller" />
+                            </div>
+                        </Col>
 
-                    </Col>
-                </Row>
-               
+                        <Col md={4}>
+
+                        </Col>
+                    </Row>
+
                 </Container >
 
 
@@ -159,36 +159,38 @@ export class MantenimientoTalleres extends Component {
 
                         </tbody>
                     </table>
-              
 
 
-                <Row>
-                    <Col md={4}>
-                        <div className="item1">
-                            <h5 className="heading3"> Adicionado por</h5>
-                            <input type="text" className="etiqueta" name="fecha_adicion" />
-                            <input type="text" placeholder="" name="usuario_adicion_taller" />
 
-                        </div>
-                    </Col>
+                    <Row>
+                        <Col md={4}>
+                            <div className="item1">
+                                <h5 className="heading3"> Adicionado por</h5>
+                                <input type="text" className="etiqueta" name="fecha_adicion" />
+                                <input type="text" placeholder="" name="usuario_adicion_taller" />
 
-                    <Col md={4}>
-                        <div className="item1">
-                            <h5 className="heading3">Modificado por</h5>
-                            <input type="text" className="etiqueta" name="fecha_modificacion" />
-                            <input type="text" placeholder="" name="usuario_modificacion_taller" />
-                        </div>
-                    </Col>
+                            </div>
+                        </Col>
 
-                    <Col md={4}>
+                        <Col md={4}>
+                            <div className="item1">
+                                <h5 className="heading3">Modificado por</h5>
+                                <input type="text" className="etiqueta" name="fecha_modificacion" />
+                                <input type="text" placeholder="" name="usuario_modificacion_taller" />
+                            </div>
+                        </Col>
 
-                    </Col>
-                </Row>
-                
+                        <Col md={4}>
+
+                        </Col>
+                    </Row>
+
 
                 </Container >
-              
-              
+
+                <Container className="cont">
+                </Container>
+
             </main>
         );
     }

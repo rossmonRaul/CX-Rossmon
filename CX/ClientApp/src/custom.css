@@ -134,8 +134,8 @@ thead {
     font-size: 16px;
     color: white;
     margin-bottom: 60px;
-    
 }
+
     .botones:hover {
         background-color: #84A5FE;
         width: 130px;
@@ -144,24 +144,23 @@ thead {
         border-color: #536DFE;
         font-size: 18px;
         color: white;
- 
     }
+
 .btn1 {
     background-color: #536DFE;
     font-family: 'Nunito', sans-serif;
     font-size: 16px;
     color: white;
-    
 }
+
     .btn1:hover {
         background-color: #84A5FE;
-       
         color: white;
         border-color: #536DFE;
         font-size: 18px;
         color: white;
     }
-   
+
 .titulo2 {
     color: white;
     font-size: 15px;
@@ -176,23 +175,23 @@ table {
     color: #303F9F;
     font-size: 14px;
 }
+
     table thead {
         background-color: #303F9F;
         font-family: 'Nunito', sans-serif;
         color: white;
-    
     }
 
      table.dataTable thead th {
     color: white !important;
     background-color: #303F9F !important;
 }
+
 table th {
     background-color: #303F9F !important;
     font-family: 'Nunito', sans-serif;
     color: white;
     font-size: 16px;
-
 }
 
 table tr {
@@ -203,6 +202,7 @@ table tr {
     align-items: center;
     vertical-align: middle;
 }
+
 table td {
     border-style: solid;
     border-width: 10px 0px 10px 0px;
@@ -210,7 +210,6 @@ table td {
     height: 35px;
     align-items: center;
     vertical-align: middle;
-
 }
 
 
@@ -428,11 +427,10 @@ span .paginate_button:hover {
     border-radius: 3px;
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
-    font-size:16px;
+    font-size: 16px;
 }
 
 .heading4 {
-    
     margin-left: 15px;
     border-radius: 3px;
     /*border: 1px solid #17A797;*/
@@ -653,11 +651,11 @@ textarea {
     thead {
         color: #303F9F;
     }
+
     .cont {
         box-shadow: none;
         background-color: #F5F5F5;
     }
-
 }
 
 @media only screen and (min-width:1095px) and (max-width:1204px) {
@@ -735,7 +733,6 @@ textarea {
         box-shadow: none;
         background-color: #F5F5F5;
     }
-
 }
 
 @media only screen and (min-width:1005px) and (max-width:1094px) {
@@ -825,11 +822,11 @@ textarea {
     thead {
         color: #303F9F;
     }
+
     .cont {
         box-shadow: none;
         background-color: #F5F5F5;
     }
-
 }
 
 @media only screen and (min-width:861px) and (max-width:1004px) {
@@ -917,11 +914,11 @@ textarea {
     thead {
         color: #303F9F;
     }
+
     .cont {
         box-shadow: none;
         background-color: #F5F5F5;
     }
-
 }
 
 @media only screen and (min-width:759px) and (max-width:860px) {
@@ -1002,11 +999,11 @@ textarea {
         color: #757575;
         font-weight: 300;
     }
+
     .cont {
         box-shadow: none;
         background-color: #F5F5F5;
     }
-
 }
 
 @media only screen and (min-width:650px) and (max-width:758px) {
@@ -1087,11 +1084,11 @@ textarea {
         color: #757575;
         font-weight: 300;
     }
+
     .cont {
         box-shadow: none;
         background-color: #F5F5F5;
     }
-
 }
 
 @media only screen and (min-width:575px) and (max-width:649px) {
@@ -1172,11 +1169,11 @@ textarea {
         color: #757575;
         font-weight: 300;
     }
+
     .cont {
         box-shadow: none;
         background-color: #F5F5F5;
     }
-
 }
 
 @media only screen and (max-width:574px) {
@@ -1258,9 +1255,9 @@ textarea {
         color: #757575;
         font-weight: 300;
     }
+
     .cont {
         box-shadow: none;
         background-color: #F5F5F5;
     }
-
 }

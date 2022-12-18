@@ -16,7 +16,7 @@ export class Reporte extends Component {
                     <table className="table"
                         name="table_contacto">
                         <thead>
-                            <tr 
+                            <tr
                             >
                                 <th>Fecha</th>
                                 <th>Consecutivo #</th>

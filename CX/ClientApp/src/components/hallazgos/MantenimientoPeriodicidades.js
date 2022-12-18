@@ -165,7 +165,7 @@ export class MantenimientoPeriodicidades extends Component {
                     }
 
                     <br />
-                 
+
                     <Table tableHeading={this.state.cabeceras} body={this.body()} />
 
                     <FormularioModal show={this.state.modal} handleClose={this.onClickCerrarModal} titulo={this.state.modalTitulo} className=''>
@@ -175,7 +175,7 @@ export class MantenimientoPeriodicidades extends Component {
                 </Container>
                 <Container className="cont">
                 </Container>
-            
+
             </main>
         );
     }

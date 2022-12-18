@@ -15,7 +15,7 @@ import FormularioPasos from '../mantenimientos_forms/formPasos';
 import { Container, Form, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
 export class MantenimientoPregunta extends Component {
     static displayName = MantenimientoPregunta.name;
-    
+
 
     constructor(props) {
         super(props);
@@ -39,7 +39,7 @@ export class MantenimientoPregunta extends Component {
             modalTitulo: "Parametrización de Pregunta",
             modalTitulo3: "Actualizar respuestas",
             labelButton: "Registrar",
-            cabeceras: ["ID", "Pregunta", "Tipo Pregunta", "Sigla", "Métrica", "Tipo Encuesta","Estado", "Acciones"],
+            cabeceras: ["ID", "Pregunta", "Tipo Pregunta", "Sigla", "Métrica", "Tipo Encuesta", "Estado", "Acciones"],
             cabeceras2: ["Pregunta"],
             cabeceras3: ["ID", "Respuesta"]  //PARA LA TABLA DE EDICIÓN DE RESPUESTAS
         };
@@ -77,7 +77,7 @@ export class MantenimientoPregunta extends Component {
 
             respuesta = await ActualizarPregunta(data);
         }
-        
+
         if (respuesta.indicador == 0) {
             this.setState({ modal: false });
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
@@ -85,7 +85,7 @@ export class MantenimientoPregunta extends Component {
 
             $('#example').DataTable().destroy();
 
-            
+
         } else {
             this.setState({ mensajeFormulario: respuesta.mensaje });
             this.setState({ alerta: false });
@@ -135,7 +135,7 @@ export class MantenimientoPregunta extends Component {
         //console.log(this.state.data);
     }
 
- 
+
     onClickActualizarRespuestasPregunta = async (id, respuesta) => {
         await this.ObtenerRespuestasPreguntaEncuestaID(id);
         this.setState({ proceso: 2 });
@@ -197,7 +197,7 @@ export class MantenimientoPregunta extends Component {
         this.setState({ mensajeFormulario: "" });
     }
 
-    
+
     body = () => {
         return this.state.listaPreguntas.map((item, index) => (
             <tr key={index}>
@@ -277,11 +277,11 @@ export class MantenimientoPregunta extends Component {
 
 
                     <FormularioModal show={this.state.modal} handleClose={this.onClickCerrarModal} titulo={this.state.modalTitulo} className=''>
-                       
-                        <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarPregunta={this.onClickProcesarPregunta} mensaje={this.state.mensajeFormulario} />                   
+
+                        <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarPregunta={this.onClickProcesarPregunta} mensaje={this.state.mensajeFormulario} />
 
                     </FormularioModal>
-                    
+
 
                     {/*PARA FORM DE PASOS*/}
                     <FormularioModal show={this.state.modal2} handleClose={this.onClickCerrarModal2} titulo={this.state.modalTitulo} className=''>
@@ -298,13 +298,13 @@ export class MantenimientoPregunta extends Component {
                             : ""}
 
                         {/*COMPONENTE QUE VA MOSTRANDO LOS PASOS (LOS DEMÁS COMPONENTES O FORMS)*/}
-                        <FormularioPasos data={this.state.data} proceso={this.state.proceso} onClickProcesarPregunta={this.onClickProcesarPregunta} onClickProcesarRespuestasPregunta={this.onClickProcesarRespuestasPregunta } />
-                        
+                        <FormularioPasos data={this.state.data} proceso={this.state.proceso} onClickProcesarPregunta={this.onClickProcesarPregunta} onClickProcesarRespuestasPregunta={this.onClickProcesarRespuestasPregunta} />
+
                     </FormularioModal>
 
 
                     <FormularioModal show={this.state.modal3} handleClose={this.onClickCerrarModal3} titulo={this.state.modalTitulo} className=''>
-                       
+
                         <Table tableHeading={this.state.cabeceras3} body={this.respuestas()} />
                         <Button className="primary btn btn-primary btn-sm" onClick={() => this.onClickGuardarRespuestas()} style={{ marginRight: "1vw" }}>Guardar
                         </Button>
@@ -314,7 +314,7 @@ export class MantenimientoPregunta extends Component {
                 </Container >
                 <Container className="cont">
                 </Container>
-                </main>
-            );
+            </main>
+        );
     }
 }

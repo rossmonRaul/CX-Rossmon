@@ -96,7 +96,7 @@ export class MantenimientoFases extends Component {
 
         if (respuesta.indicador == 0) {
             this.setState({ modal: false });
-            this.setState({ faseServicio : await this.ObtenerListadoFaseServicio() });
+            this.setState({ faseServicio: await this.ObtenerListadoFaseServicio() });
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta: true });
 
@@ -124,7 +124,7 @@ export class MantenimientoFases extends Component {
     }
 
     body = () => {
-      return  this.state.listaFases.map((item, index) => (
+        return this.state.listaFases.map((item, index) => (
             <tr key={index}>
                 <td>{item.idFase}</td>
                 <td>{item.fase}</td>
@@ -132,7 +132,7 @@ export class MantenimientoFases extends Component {
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
-                <td style={{  padding: "0.5vw" }}>
+                <td style={{ padding: "0.5vw" }}>
 
                     <Button color="primary" onClick={() => this.onClickActualizarFaseServicio(item.idFase)} style={{ marginRight: "1vw" }}>Editar
                     </Button>

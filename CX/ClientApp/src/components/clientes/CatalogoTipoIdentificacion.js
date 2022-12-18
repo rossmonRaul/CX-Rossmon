@@ -133,7 +133,7 @@ export class CatalogoTipoIdentificacion extends Component {
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
-                <td style={{  padding: "0.5vw" }}>
+                <td style={{ padding: "0.5vw" }}>
 
                     <Button color="primary" onClick={() => this.onClickActualizarTipoIdentificacion(item.idTipoIdentificacion)} style={{ marginRight: "1vw" }}>Editar
                     </Button>

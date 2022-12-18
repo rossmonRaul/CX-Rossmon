@@ -151,7 +151,7 @@ export class MantenimientoSectores extends Component {
                 <td style={{ padding: "0.5vw" }}>
 
                     <Button color="primary" onClick={() => this.onClickActualizarSector(item.idSector)} style={{ marginRight: "1vw" }}>Editar
-                                            </Button>
+                    </Button>
 
                     <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarSector(item.idSector)}> {item.estado === true ? "Inactivar" : "Activar"}
                     </Button>
@@ -166,7 +166,7 @@ export class MantenimientoSectores extends Component {
             <main>
                 <div className="row-full">Mantenimiento de Sectores </div>
                 <Container>
-                    <Button className="btn1"  onClick={() => this.onClickNuevoSector()}>Insertar sector</Button>
+                    <Button className="btn1" onClick={() => this.onClickNuevoSector()}>Insertar sector</Button>
                     <hr />
                     <br />
 

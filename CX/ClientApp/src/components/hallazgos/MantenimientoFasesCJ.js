@@ -31,7 +31,7 @@ export class MantenimientoFasesCJ extends Component {
             mensajeRespuesta: {},
             show: false,
             alerta: true,
-            cabeceras: ["ID", "Fase Customer Journey","Estado","Acciones"],
+            cabeceras: ["ID", "Fase Customer Journey", "Estado", "Acciones"],
         };
 
     }
@@ -129,7 +129,7 @@ export class MantenimientoFasesCJ extends Component {
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
-                <td style={{  padding: "0.5vw" }}>
+                <td style={{ padding: "0.5vw" }}>
 
                     <Button color="primary" onClick={() => this.onClickActualizarFasesCJ(item.idFaseCJ)} style={{ marginRight: "1vw" }}>Editar
                     </Button>

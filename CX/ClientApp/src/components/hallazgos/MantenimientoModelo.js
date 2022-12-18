@@ -59,7 +59,7 @@ export class MantenimientoModelo extends Component {
         this.setState({ listaMetodologias: respuesta });
     }
 
-    onClickNuevaMetodologiaCX= async () => {
+    onClickNuevaMetodologiaCX = async () => {
         this.setState({ proceso: 1 });
         this.setState({ modal: !this.state.modal });
         this.setState({ labelButton: "Registrar" });
@@ -129,13 +129,13 @@ export class MantenimientoModelo extends Component {
         return this.state.listaMetodologias.map((item, index) => (
             <tr key={index}>
                 <td>{item.idMetodologia}</td>
-               
+
                 <td>{item.metodologia}</td>
 
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
-                <td style={{  padding: "0.5vw" }}>
+                <td style={{ display: "flex", padding: "0.5vw" }}>
 
                     <Button color="primary" onClick={() => this.onClickActualizarMetodologiaCX(item.idMetodologia)} style={{ marginRight: "1vw" }}>Editar
                     </Button>
@@ -152,7 +152,7 @@ export class MantenimientoModelo extends Component {
             <main>
                 <div className="row-full">Mantenimiento de Metodología del Modelo de Experiencia Cliente</div>
                 <Container>
-                    <Button className="btn1" onClick={() => this.onClickNuevaMetodologiaCX()}>Insertar Metodología del Modelo de Experiencia Cliente</Button>
+                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevaMetodologiaCX()}>Insertar Metodología del Modelo de Experiencia Cliente</Button>
                     <hr />
                     <br />
 
@@ -165,7 +165,7 @@ export class MantenimientoModelo extends Component {
                         : ""}
 
                     <br />
-                   
+
                     <Table tableHeading={this.state.cabeceras} body={this.body()} />
 
 
@@ -174,9 +174,10 @@ export class MantenimientoModelo extends Component {
                     </FormularioModal>
 
                 </Container>
-                <Container className="cont">
-                </Container>
-                
+
+                <br />
+                <br />
+                <br />
             </main>
         );
     }

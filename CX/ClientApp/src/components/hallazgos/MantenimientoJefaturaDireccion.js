@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { Container, Form, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
 import { Alert } from 'react-bootstrap'
-import { ObtenerJefaturasDireccion, EliminarJefaturasDireccion, caragcombo, InsertarJefaturasDireccion, ObtenerJefaturasDireccionPorId,ActualizarJefaturasDireccion } from '../../servicios/ServicioJefaturasDireccion.js'
+import { ObtenerJefaturasDireccion, EliminarJefaturasDireccion, caragcombo, InsertarJefaturasDireccion, ObtenerJefaturasDireccionPorId, ActualizarJefaturasDireccion } from '../../servicios/ServicioJefaturasDireccion.js'
 import { FormularioModal } from '../components_forms/ventanaModal';
 import Formulario from '../mantenimientos_forms/formJefaturasDireccion';
 import { Table } from '../Table.js';
@@ -141,7 +141,7 @@ export class MantenimientoJefaturaDireccion extends Component {
                 <td> {item.jefatura}</td>
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
-                <td style={{  padding: "0.5vw" }}>
+                <td style={{ padding: "0.5vw" }}>
 
                     <Button color="primary" onClick={() => this.onClickActualizarJefatura(item.idJefatura)} style={{ marginRight: "1vw" }}>Editar
                     </Button>

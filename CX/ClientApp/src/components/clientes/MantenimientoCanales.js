@@ -123,7 +123,7 @@ export class MantenimientoCanales extends Component {
         this.setState({ mensajeFormulario: "" });
     }
     body = () => {
-       return this.state.listaCanales.map((item, index) => (
+        return this.state.listaCanales.map((item, index) => (
             <tr key={index}>
                 <td>{item.idCanal}</td>
                 <td>{item.canal}</td>
@@ -161,7 +161,7 @@ export class MantenimientoCanales extends Component {
                         : ""}
 
                     <br />
-                   
+
                     <Table tableHeading={this.state.cabeceras} body={this.body()} />
                     <FormularioModal show={this.state.modal} handleClose={this.onClickCerrarModal} titulo={this.state.modalTitulo} className=''>
                         <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarCanales={this.onClickProcesarCanales} mensaje={this.state.mensajeFormulario} />
@@ -169,7 +169,7 @@ export class MantenimientoCanales extends Component {
 
                 </Container>
                 <Container className="cont">
-                    </Container>
+                </Container>
             </main>
         );
     }

@@ -31,7 +31,7 @@ export class MantenimientoTipoPersona extends Component {
             mensajeRespuesta: {},
             show: false,
             alerta: true,
-            cabeceras: ["ID", "Tipo de Persona","Estado","Acciones"],
+            cabeceras: ["ID", "Tipo de Persona", "Estado", "Acciones"],
         };
 
     }

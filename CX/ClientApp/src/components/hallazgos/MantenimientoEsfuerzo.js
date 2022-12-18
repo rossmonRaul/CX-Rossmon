@@ -30,7 +30,7 @@ export class MantenimientoEsfuerzo extends Component {
         super(props);
         this.state = {
             gradosEsfuerzo: [],
-            cabeceras: [ "Código", "Grado de esfuerzo", "Estado", "Acciones"],
+            cabeceras: ["Código", "Grado de esfuerzo", "Estado", "Acciones"],
             pendiente: false,
             data: {},
             modal: false,
@@ -137,16 +137,16 @@ export class MantenimientoEsfuerzo extends Component {
         return this.state.gradosEsfuerzo.map((item, index) => (
             <tr key={index}>
                 <td>{item.idGradoEsfuerzo}</td>
-                
+
                 <td>{item.gradoEsfuerzo}</td>
 
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
-                <td style={{  padding: "0.5vw" }}>
+                <td style={{ padding: "0.5vw" }}>
 
                     <Button color="primary" onClick={() => this.onClickActualizarGradoEsfuerzo(item.idGradoEsfuerzo)} style={{ marginRight: "1vw" }}>Editar
-                                            </Button>
+                    </Button>
 
                     <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarGradoEsfuerzo(item.idGradoEsfuerzo)} > {item.estado === true ? "Inactivar" : "Activar"}
                     </Button>
@@ -184,7 +184,7 @@ export class MantenimientoEsfuerzo extends Component {
                 <Container className="cont">
                 </Container>
 
-                
+
 
             </main>
         );
