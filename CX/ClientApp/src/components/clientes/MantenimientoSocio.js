@@ -132,7 +132,7 @@ export class MantenimientoSocio extends Component {
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
-                <td style={{ display: "flex", padding: "0.5vw" }}>
+                <td style={{ padding: "0.5vw" }}>
 
                     <Button color="primary" onClick={() => this.onClickActualizarSocio(item.idSocio)} style={{ marginRight: "1vw" }}>Editar
                     </Button>
@@ -150,7 +150,7 @@ export class MantenimientoSocio extends Component {
             <main>
                 <div className="row-full">Catálogo de Socios </div>
                 <Container>
-                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoSocio()}>Insertar Socio</Button>
+                    <Button className="btn1" onClick={() => this.onClickNuevoSocio()}>Insertar Socio</Button>
                     <hr />
                     <br />
 
@@ -170,6 +170,8 @@ export class MantenimientoSocio extends Component {
                         <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarSocio={this.onClickProcesarSocio} mensaje={this.state.mensajeFormulario} />
                     </FormularioModal>
 
+                </Container>
+                <Container className="cont">
                 </Container>
             </main>
         );

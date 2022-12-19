@@ -132,7 +132,7 @@ const MenuDesplegable = ({ data, proceso, onClickProcesarPregunta, onClickProces
 
                                <div style={{ display: "flex", justifyContent: "space-around" }}>
 
-                                <Button onClick={mostrarFormOpciones} type="submit" className="primary" variant="primary"  size="sm">Siguiente</Button>
+                                   <Button onClick={mostrarFormOpciones} type="submit" className="primary" variant="primary"  size="sm">Siguiente</Button>
                                 <Button className="btnListoVolver" variant="secondary" onClick={volverPasoDos}>
                                     Atras
                                 </Button>
@@ -167,7 +167,7 @@ const MenuDesplegable = ({ data, proceso, onClickProcesarPregunta, onClickProces
                         <br></br>
                         <br></br>
 
-                         
+                         <div style={{ display: "flex", justifyContent: "space-around" }}>
 
                             <InputText id='inputOpciones' label='' type='text' placeholder='Ingrese la Opción' value={respuestaDdl}
                                 onChange={onChangeRespuestaDDL} mensajeValidacion="Este campo es requerido"
@@ -175,15 +175,15 @@ const MenuDesplegable = ({ data, proceso, onClickProcesarPregunta, onClickProces
 
                             <div style={{ display: "flex", justifyContent: "space-around" }}>
 
-                                <Button type="submit" className="btnAgregarRespuesta" onClick={nuevaOpcion}>
-                                    Ingresar Opción
-                                </Button>
+                            <Button type="submit" className="btnAgregarRespuesta" onClick={nuevaOpcion}>
+                                Ingresar Opción
+                            </Button>
 
                                 <Button className="btnEliminarRespuestas" variant="secondary" onClick={eliminarRespuestas}>
                                     Eliminar Respuestas
                                 </Button>
 
-                            </div>
+                        </div>
 
                         <br></br>
 
@@ -195,7 +195,7 @@ const MenuDesplegable = ({ data, proceso, onClickProcesarPregunta, onClickProces
                         </div>
 
                         <br></br>
-                            
+                        
                         </Form>
                     </div>
                 </Card.Body>

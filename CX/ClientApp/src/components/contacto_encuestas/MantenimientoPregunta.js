@@ -178,8 +178,151 @@ export class MantenimientoPregunta extends Component {
     }
 
 
+    }
+
+    async ObtenerListaPreguntas() {
+        const respuesta = await ObtenerPreguntas();
+        this.setState({ listaPreguntas: respuesta });
+    }
+    async componentDidMount() {
+        await this.ObtenerListaPreguntas();
+        setTimeout(() => {
+            $('#example').DataTable(
+                {
+                    "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
+                });
+        }, 100);
+    }
+
+
+    async ObtenerRespuestasPreguntaEncuestaID(id) {
+        const respuesta = await ObtenerRespuestasPreguntaEncuestaPorId(id);
+        this.setState({ listaRespuestasPregunta: respuesta });
+        console.log(this.state.listaRespuestasPregunta);
+    }
+
+
+    onClickProcesarPregunta = async (data) => {
+        let respuesta = {};
+
+        if (this.state.proceso === 1)
+            respuesta = await InsertarPreguntaEncuesta(data);
+        else {
+
+            respuesta = await ActualizarPregunta(data);
+        }
+
+        if (respuesta.indicador == 0) {
+            this.setState({ modal: false });
+            this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
+            this.setState({ alerta: true });
+
+            $('#example').DataTable().destroy();
+
+
+        } else {
+            this.setState({ mensajeFormulario: respuesta.mensaje });
+            this.setState({ alerta: false });
+        }
+
+        await this.ObtenerListaPreguntas();
+
+        setTimeout(() => {
+            $('#example').DataTable(
+                {
+                    "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
+                });
+        }, 100);
+
+        this.setState({ show: true });
+    }
+
+
+    onClickInactivarPregunta = async (id) => {
+        const respuesta = await InactivarPreguntaEncuesta(id)
+        if (respuesta.indicador === 0) {
+            await this.ObtenerListaPreguntas();
+            this.setState({ alerta: true });
+        } else {
+            this.setState({ alerta: false });
+        }
+        this.setState({ mensajeRespuesta: respuesta });
+        this.setState({ show: true });
+    }
+
+
+    onClickNuevaPregunta = async () => {
+        this.setState({ proceso: 1 });
+        this.setState({ modal2: !this.state.modal2 });
+        this.setState({ labelButton: "Registrar" });
+        this.setState({ modalTitulo: "Crear Nueva Pregunta" });
+    }
+
+
+
+    onClickActualizarPregunta = async (id) => {
+        this.setState({ data: await ObtenerPreguntaPorId(id) })
+        this.setState({ proceso: 2 });
+        this.setState({ modal: !this.state.modal });
+        this.setState({ labelButton: "Actualizar" });
+        this.setState({ modalTitulo: "Actualizar Pregunta ID: " + id });
+        //console.log(this.state.data);
+    }
+
+
+    onClickActualizarRespuestasPregunta = async (id, respuesta) => {
+        await this.ObtenerRespuestasPreguntaEncuestaID(id);
+        this.setState({ proceso: 2 });
+        this.setState({ modal3: !this.state.modal3 });
+        this.setState({ labelButton: "Actualizar" });
+        this.setState({ modalTitulo: "Actualizar Respuesta de: " + respuesta });
+    }
+
+
+
+    onClickProcesarRespuestasPregunta = async (data) => {
+
+        let respuesta = {};
+
+        if (this.state.proceso === 1)
+            respuesta = await AgregarRespuestaPreguntaEncuesta(data);
+        else {
+
+            respuesta = await ActualizarRespuestasPreguntaEncuesta(data);
+            this.setState({ modal3: false });
+        }
+
+        if (respuesta.indicador == 0) {
+            this.setState({ mensajeRespuesta2: respuesta }); //Un objeto con el .indicador y el .mensaje
+            this.setState({ alerta2: true });
+
+
+
+        } else {
+            this.setState({ mensajeFormulario2: respuesta.mensaje });
+            this.setState({ alerta2: false });
+
+        }
+
+        this.setState({ show2: true });
+    }
+
+
+
+    onClickGuardarRespuestas = () => {
+        this.state.listaRespuestasPregunta.map((item, index) => (
+            this.onClickProcesarRespuestasPregunta(item)
+        ))
+    }
+
+
     onClickCerrarModal = () => {
         this.setState({ modal: false });
+        this.setState({ mensajeFormulario: "" });
+    }
+
+    onClickCerrarModal2 = () => {
+        this.setState({ modal2: false });
         this.setState({ mensajeFormulario: "" });
     }
 
@@ -307,7 +450,10 @@ export class MantenimientoPregunta extends Component {
 
                 </Container >
 
-                </main>
-            );
+                </Container >
+                <Container className="cont">
+                </Container>
+            </main>
+        );
     }
 }

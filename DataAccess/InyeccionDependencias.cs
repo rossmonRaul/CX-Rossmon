@@ -1,4 +1,5 @@
 ﻿using DataAccess.StoredProcedures;
+using Dominio.Interfaces.Aplicacion.PreguntasEncuesta;
 using Dominio.Interfaces.Infraestructura.BaseDatos;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -46,10 +47,7 @@ namespace DataAccess
             services.AddScoped<IRepositorioFasesCJ, RepositorioFasesCJ>();
             services.AddScoped<IRepositorioMantenimientoHallazgo, RepositorioMantenimientoHallazgo>();
             services.AddScoped<IRepositorioTalleresCoCreacion, RepositorioTalleresCoCreacion>();
-            services.AddScoped<IRepositorioResponsables, RepositorioResponsables>();
-            services.AddScoped<IRepositorioMantenimientoTalleresCoCreacion, RepositorioMantenimientoTalleresCoCreacion>();
-            services.AddScoped<IRepositorioEtapaTallerCo, RepositorioEtapasTallerCo>();
-            services.AddScoped<IRepositorioParticipantesEquipoTrabajo, RepositorioParticipantesEquipoTrabajo>();
+
             return services;
         }
     }

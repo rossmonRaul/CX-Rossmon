@@ -22,7 +22,7 @@ export class MantenimientoAceptacion extends Component {
         super(props);
         this.state = {
             listaEstadoAceptacion: [],
-            cabeceras: ["Id Estado ", "Codigo", "Estado de Aceptacion","Estado", "Acciones"],
+            cabeceras: ["Id Estado ", "Codigo", "Estado de Aceptacion", "Estado", "Acciones"],
             pendiente: false,
             data: {},
             modal: false,
@@ -135,7 +135,7 @@ export class MantenimientoAceptacion extends Component {
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
-                <td style={{ display: "flex", padding: "0.5vw" }}>
+                <td style={{ padding: "0.5vw" }}>
 
 
 
@@ -156,7 +156,7 @@ export class MantenimientoAceptacion extends Component {
             <main>
                 <div className="row-full">Mantenimiento de Estado de Aceptación </div>
                 <Container>
-                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevaEstadoAceptacion()}>Insertar Estado de Aceptación</Button>
+                    <Button className="btn1" onClick={() => this.onClickNuevaEstadoAceptacion()}>Insertar Estado de Aceptación</Button>
                     <hr />
                     <br />
 
@@ -175,6 +175,8 @@ export class MantenimientoAceptacion extends Component {
                         <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarEstadoAceptacion={this.onClickProcesarEstadoAceptacion} mensaje={this.state.mensajeFormulario} />
                     </FormularioModal>
 
+                </Container>
+                <Container className="cont">
                 </Container>
             </main>
         );

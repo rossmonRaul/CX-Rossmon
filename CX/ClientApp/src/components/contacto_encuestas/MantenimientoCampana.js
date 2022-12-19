@@ -46,7 +46,7 @@ export class MantenimientoCampana extends Component {
                         </Col>
                     </Row>
                     <Row>
-                       
+
 
                         <Col md={2}>
                             <div className="item1">
@@ -64,9 +64,9 @@ export class MantenimientoCampana extends Component {
 
                             </div>
                         </Col>
-                    
-                 
-                   
+
+
+
                         <Col md={2}>
                             <div className="item1">
                                 <h6 className="heading3">Cantidad de días</h6>
@@ -107,8 +107,8 @@ export class MantenimientoCampana extends Component {
 
                             </div>
                         </Col>
-                        </Row>
-                   
+                    </Row>
+
                     <div className="heading2">Lista campañas </div>
                     <table className="table table-bordered table" name="table_contacto">
                         <thead>
@@ -121,7 +121,7 @@ export class MantenimientoCampana extends Component {
                                 <th>Contacto</th>
                                 <th>Encuesta</th>
                                 <th>Estado</th>
-                             
+
 
                             </tr>
                         </thead>
@@ -170,17 +170,18 @@ export class MantenimientoCampana extends Component {
 
 
 
-            
 
-                   
-                    
-
-                  
+                <Container className="cont">
+                </Container>
 
 
-               
 
-              
+
+
+
+
+
+
             </main>
         );
     }

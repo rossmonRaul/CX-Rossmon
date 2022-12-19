@@ -1,20 +1,21 @@
 ﻿.App {
     width: 100%;
-    margin-left:0%;
+    margin-left: 0%;
 }
 
 
-.dvPregunta{
-    padding:15px;
+.dvPregunta {
+    padding: 25px;
 }
 
     .dvPregunta .h4Pregunta {
         background-color: ghostwhite;
-        padding: 7px;
+        padding: 10px;
         border-radius: 15px;
-        color: darkcyan;
+        color: cadetblue;
         font-family: Verdana;
-        font-size: 19px;
+        font-size: 17px;
+        /*text-shadow: 1px 1px 2px grey;*/
     }
 
 
@@ -65,7 +66,7 @@
 }
 
 .on {
-    color:aqua;
+    color: aqua;
 }
 
 .off {
@@ -108,11 +109,11 @@
     width: 100%;
     background-color: #f0f8ff;
     border: hidden;
-    color:darkslategray;
-    font-family:'Times New Roman', Times, serif;
+    color: darkslategray;
+    font-family: 'Times New Roman', Times, serif;
     word-wrap: break-word;
     margin: 10px;
-    font-size:13.5px
+    font-size: 13.5px
 }
 
 .App-logo {
@@ -120,13 +121,14 @@
     pointer-events: none;
 }
 
-.contenedor{
-    width:100%
+.contenedor {
+    width: 100%
 }
 
 .cont-input1 {
     width: 20%;
 }
+
 .cont-input2 {
     width: 20%;
 }
@@ -142,9 +144,9 @@
     margin-top:30px
 }
 
-.btnEliminarRespuestas {
+.btnAgregarRespuesta {
     background-color: aliceblue;
-    color: red;
+    color: dodgerblue;
     border: none;
     font-size: 13px;
     font-weight: 500;
@@ -152,14 +154,14 @@
     margin-top: 30px
 }
 
-.btnAgregarRespuesta:hover {
-    background-color: lightgray;
-    color: darkslategray;
-}
+    .btnAgregarRespuesta:hover {
+        background-color: lightgray;
+        color: darkslategray;
+    }
 
 
-    @media (prefers-reduced-motion: no-preference) {
-        .App-logo {
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
         animation: App-logo-spin infinite 20s linear;
     }
 }

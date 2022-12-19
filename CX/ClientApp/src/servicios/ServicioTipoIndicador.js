@@ -38,3 +38,5 @@ export const ObtenerTiposIndicadoresActivos = async () => {
     const url = `${controlador}/ObtenerTiposIndicadoresActivos`;
     return await ProcesarDatosApi('GET', url);
 }
+
+

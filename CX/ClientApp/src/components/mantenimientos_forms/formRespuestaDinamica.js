@@ -53,7 +53,7 @@ const RespuestaDinamica = ({ listaRespuesta, setListaRespuesta, onClickAceptarR,
                     <h4 className="h4Pregunta" >{pregunta}</h4>
                 </div>
 
-                <h6>Ahora ingrese las opciones:</h6>
+                <h7>Ahora ingrese las opciones:</h7>
 
                 <br></br>
                 <br></br>

@@ -132,9 +132,10 @@ export class ReportesHallazgos extends Component {
 
                 </Container >
 
-             
-           
-             
+
+                <Container className="cont">
+                </Container>
+
             </main>
         );
     }
