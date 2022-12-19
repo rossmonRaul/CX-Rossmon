@@ -196,7 +196,11 @@ const MenuDesplegable = ({ data, proceso, onClickProcesarPregunta, onClickProces
 
                         <br></br>
                         
-                        </Form>
+                       
+                            </div>
+
+
+                     </Form>
                     </div>
                 </Card.Body>
             </Card>
