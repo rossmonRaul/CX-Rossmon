@@ -212,14 +212,14 @@ export class MantenimientoPregunta extends Component {
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === 0 ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === 1 ? "Activo" : "Inactivo"}</td>
-                <td style={{ display: "flex", padding: "0.5vw" }}>
+                <td style={{ padding: "0.5vw", width: "15vw" }}>
 
-                    <Button color="primary" onClick={() => this.onClickActualizarPregunta(item.idPreguntaEncuesta)} style={{ marginRight: "1vw" }}>Editar
+                    <Button color="primary" onClick={() => this.onClickActualizarPregunta(item.idPreguntaEncuesta)} style={{ marginRight: "0.5vw" }}>Editar
                     </Button>
 
-                    <Button color="secondary" onClick={() => this.onClickActualizarRespuestasPregunta(item.idPreguntaEncuesta, item.pregunta)} style={{ marginRight: "1vw" }}>Respuestas</Button>
+                    <Button color="secondary" onClick={() => this.onClickActualizarRespuestasPregunta(item.idPreguntaEncuesta, item.pregunta)} style={{ marginRight: "0.5vw" }}>Respuestas</Button>
 
-                    <Button color={item.estado === 1 ? "danger" : "success"} onClick={() => this.onClickInactivarPregunta(item.idPreguntaEncuesta)}> {item.estado === 1 ? "Inactivar" : "Activar"}
+                    <Button color={item.estado === 1 ? "danger" : "success"} onClick={() => this.onClickInactivarPregunta(item.idPreguntaEncuesta)} style={{ marginLeft: "0", marginTop: "0vw" }}> {item.estado === 1 ? "Inactivar" : "Activar"}
                     </Button>
                 </td>
             </tr >
@@ -247,11 +247,12 @@ export class MantenimientoPregunta extends Component {
 
     render() {
         return (
-            <main>
-
+            <>
+                <Container className="cont">
+                </Container>
                 <Container>
 
-                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevaPregunta()}>Insertar Nueva Pregunta</Button>
+                    <Button className="btn1" onClick={() => this.onClickNuevaPregunta()}>Insertar Nueva Pregunta</Button>
                     <hr />
 
                     <br />
@@ -311,8 +312,9 @@ export class MantenimientoPregunta extends Component {
 
 
                 </Container >
-
-            </main>
+                <Container className="cont">
+                </Container>
+            </>
         );
     }
 }

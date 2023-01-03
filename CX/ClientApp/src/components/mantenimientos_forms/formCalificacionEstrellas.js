@@ -61,7 +61,7 @@ const CalificacionEstrellas = ({ data, proceso, onClickProcesarPregunta, volverP
             <div style={{ display: "flex", justifyContent: "space-around" }}>
 
                 <Button className="primary" variant="primary" type="submit" size="sm">Guardar</Button>
-                <Button className="btnVolver" variant="secondary" onClick={volverPasoDos}>
+                <Button  variant="secondary" onClick={volverPasoDos}>
                     Atrás
                 </Button>
                 </div>

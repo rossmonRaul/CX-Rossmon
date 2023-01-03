@@ -10,6 +10,7 @@ namespace Dominio.Entiti
         public int IdTipoIndicador { get; set; }
         public string Sigla { get; set; }
         public int Minimo { get; set; }
+        public int Medio { get; set; }
         public int Maximo { get; set; }
     }
 }

@@ -1,21 +1,28 @@
 ﻿import React, { Component, useState } from 'react';
 import { InputText, InputSelect } from '../components_forms/inputs'
-import { Container, Form, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
-import { ObtenerGradosEsfuerzo } from '../../servicios/ServicioGradosEsfuerzo';
-import { ObtenerGradoImpacto } from '../../servicios/ServicioGradoImpacto';
-import { ObtenerFasesCJ } from '../../servicios/ServicioFasesCJ';
-import { ObtenerEstadoAceptacion } from '../../servicios/ServicioEstadoAceptacion';
-import { ObtenerServicioLineaNegocio, ObtenerLineasNegociosActivos } from '../../servicios/ServicioServicioLineaNegocio';
-import { ObtenerCantidadMantenimientoHallazgo, ObtenerDatosOrbe } from '../../servicios/ServicioMantenimientoHallazgo';
-import { ObtenerMacroActividad } from '../../servicios/ServicioMacroActividad';
-import { ObtenerTalleresCoCreacion } from '../../servicios/ServicioTalleresCoCreacion';
-import Select from 'react-select'
+import { Container, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
+import { ObtenerCantidadMantenimientoHallazgo, ObtenerDatosOrbe, ObtenerGridMantenimiento, InactivarMantenimientoHallazgo, ObtenerMantenimientoHallazgoPorID, AgregarMantenimientoHallazgo, ActualizarMantenimientoHallazgo } from '../../servicios/ServicioMantenimientoHallazgo';
+import { ObtenerResponsables, ObtenerResponsablesPorIdHallazgo, AgregarResponsable, ObtenerResponsablePorId, ActualizarResponsable, InactivarResponsable } from '../../servicios/ServicioResponsables';
+import { FormularioModal } from '../components_forms/ventanaModal';
+import FormResponsables from '../mantenimientos_forms/formResponsables';
+import 'jquery/dist/jquery.min.js';
+import { Alert } from 'react-bootstrap';
+import { Table, Table2 } from '../Table';
+//Datatable Modules
+import "datatables.net-dt/js/dataTables.dataTables"
+import "datatables.net-dt/css/jquery.dataTables.min.css"
+import $ from 'jquery';
+
+import Formulario from '../mantenimientos_forms/formHallazgos';
+
+
 
 export class MantenimientoHallazgos extends Component {
     static displayName = MantenimientoHallazgos.name;
     constructor(props) {
         super(props);
         this.state = {
+            listaResponsables: [],
             lineasNegocio: [],
             lineaNegocio: '',
             idLineaNegocio: '',
@@ -28,7 +35,10 @@ export class MantenimientoHallazgos extends Component {
             pendiente: false,
             data: {},
             modal: false,
+            labelButton: "Registrar",
+            modalResponsables: false,
             proceso: 1,
+            proceso2: 1,
             mensajeRespuesta: {},
             show: false,
             alerta: true,
@@ -50,437 +60,610 @@ export class MantenimientoHallazgos extends Component {
             orbe: '',
             talleresCoCreacion: [],
             tallerCoCreacion: '',
+            estadosHallazgo: [],
+            estadoHallazgo: '',
+            idPeriodicidad: '',
+            periodicidad: '',
+            descripcionGeneralResponsable: '',
+            periodicidadEntregaAvances: [],
+            cabeceras: ["ID Direccion", "Direccion", "ID Responsable", "Nombre", "Plazo(Días)", "Fecha de Inicio", "Oficio", "Avance", "Aceptacíón", "Estado", "Acciones"],
+            usuarioAgrego: "",
+            fechaAgregado: "",
+            usuarioModifico: "",
+            fechaModificado: "",
+            porcentajeGeneral: 0,
+            mantenimientoHallazgo: '',
+            listaGridHallazgo: [],
+            mensajeFormulario: "",
+            cabeceras2: ["Id", "Detalle Especifico", "Solucion Asociada", "Servicio", "Estado", "Acciones"],
+            detalleGeneralH: '',
+            detalleEspecificoH: '',
+            usuarioAgregoH: "",
+            fechaAgregadoH: "",
+            usuarioModificoH: "",
+            fechaModificadoH: "",
+            usuarioFinalizadoH: "",
+            fechaFinalizadoH: "",
+            anotacion: '',
+            modalHallazgo: false,
+            formEditarHallazgo: false
+
+
         }
     }
-    async ObtenerTalleresCoCreacion() {
 
-        const respuesta = await ObtenerTalleresCoCreacion();
-        //método que pasa del array traido de backend a un array con un valor y label para poder ser manejados en los select importados
-        const options = respuesta.map(function (row) {
-            return { value: row.idTallerCoCreacion, label: row.idTallerCoCreacion + ' ' + row.descripcionGeneral }
-        })
 
-        this.setState({ talleresCoCreacion: options });
+
+    async ObtenerListadoResponsables() {
+        const respuesta = await ObtenerResponsables();
+        this.setState({ listaResponsables: respuesta });
     }
 
-    async ObtenerMacroActividadAsociadoHallazgo() {
-        const respuesta = await ObtenerMacroActividad();
-        //método que pasa del array traido de backend a un array con un valor y label para poder ser manejados en los select importados
-        const options = respuesta.map(function (row) {
-            return { value: row.idMacro, label: row.idMacro + ' ' + row.macroActividad }
-        })
+    async ObtenerListadoResponsablesPorIdHallazgo() {
+        const respuesta = await ObtenerResponsablesPorIdHallazgo(this.mantenimientoHallazgo.idMantenimientoHallazgo);
 
-        this.setState({ macroActividades: options });
+        this.setState({ listaResponsables: respuesta });
     }
 
-    async ObtenerNumeroOficioEnvio() {
 
-        const respuesta = await ObtenerDatosOrbe();
-        //método que pasa del array traido de backend a un array con un valor y label para poder ser manejados en los select importados
-        const options = respuesta.map(function (row) {
-            return { value: row.idOrbe, label: row.orbe }
-        })
 
-        this.setState({ numeroOficioEnvio: options });
-
-    }
     async ObtenerSecuenciaHallazgo() {
         const respuesta = await ObtenerCantidadMantenimientoHallazgo();
         this.setState({ secuenciaHallazgo: respuesta.cantidad + 1 });
     }
 
-    async ObtenerServicioAsociadoHallazgo() {
-        const respuesta = await ObtenerServicioLineaNegocio();
-        this.setState({ serviciosAsociadoHallazgo: respuesta });
+
+
+
+
+    onClickAgregarAnotacion = () => {
+
+
+        this.setState({ data: this.mantenimientoHallazgo });
+
+        this.setState({ modal: !this.state.modal });
+        this.setState({ labelButton: "Agregar" });
+        this.setState({ modalTitulo: "Agregar Anotacion" });
     }
 
-    async ObtenerLineasNegocio() {
-        const respuesta = await ObtenerLineasNegociosActivos();
-        this.setState({ lineasNegocio: respuesta });
-    }
-    async ObtenerGradosEsfuerzo() {
-        const respuesta = await ObtenerGradosEsfuerzo();
-        this.setState({ gradosEsfuerzo: respuesta });
-    }
-    async ObtenerGradosImpacto() {
-        const respuesta = await ObtenerGradoImpacto();
-        this.setState({ gradosImpacto: respuesta });
 
+    onClickProcesarAnotacion = async (data) => {
+        this.setState({ anotacion: data });
+       
     }
-    async ObtenerFasesCJ() {
-        const respuesta = await ObtenerFasesCJ();
-        this.setState({ fasesCJ: respuesta });
-    }
-    async ObtenerEstadoAceptacion() {
-        const respuesta = await ObtenerEstadoAceptacion();
-        this.setState({ estadosAceptacion: respuesta });
-    }
-    onChangeEstadoAceptacion = (e) => {
-        if (e.target.value != '') {
-            this.setState({ estadoAceptacion: this.state.estadosAceptacion.find(obj => obj.idEstadoAceptacion == e.target.value).estadoAceptacion });
 
-        } else {
-            this.setState({ estadoAceptacion: '' });
+
+
+    onClickProcesarHallazgo = async (data) => {
+        let respuesta = {};
+
+        if (this.state.proceso2 === 1)
+            respuesta = await AgregarMantenimientoHallazgo(data);
+        else {
+
+            respuesta = await ActualizarMantenimientoHallazgo(data);
         }
 
-    }
-    onChangeGradoEsfuerzo = (e) => {
-        if (e.target.value != '') {
-            this.setState({ gradoEsfuerzo: this.state.gradosEsfuerzo.find(obj => obj.idGradoEsfuerzo == e.target.value).gradoEsfuerzo });
+        if (respuesta.indicador == 0) {
+            this.setState({ modalHallazgo: false });
+            this.setState({ mensajeRespuesta: respuesta}); //Un objeto con el .indicador y el .mensaje
+            this.setState({ alerta: true });
 
-        } else {
-            this.setState({ gradoEsfuerzo: '' });
+            $('#example').DataTable().destroy();
+
+            await this.ObtenerListadoGridHallazgo();
+            if (this.state.proceso2 === 1) {
+                this.setState({ usuarioAgregoH: '' });
+                this.setState({ fechaAgregadoH: '' });
+                this.setState({ usuarioModificoH: '' });
+                this.setState({ fechaModificadoH: '' });
+                this.setState({ usuarioFinalizadoH: '' });
+                this.setState({ fechaFinalizadoH: '' });
+                const tablaHallazgo = document.getElementById("tablaHallazgo");
+                tablaHallazgo.hidden = false;
+                const fechasHallazgo = document.getElementById("apartadofechas");
+                fechasHallazgo.hidden = true;
+            }
+            setTimeout(() => {
+                $('#example').DataTable(
+                    {
+                        "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
+                    });
+            }, 100);
+
+            this.setState({ show: true });
         }
+    }
+
+    onClickCerrarModal = () => {
+        this.setState({ modal: false });
+        this.setState({ mensajeFormulario: "" });
+    }
+
+    onClickAgregarResponsable = () => {
+        this.setState({ proceso: 1 });
+        this.setState({ modalResponsables: !this.state.modalResponsables });
+        this.setState({ labelButton: "Agregar" });
+        this.setState({ modalTitulo: "Agregar Responsable" });
+    }
+
+    onClickCerrarModalResponsable = () => {
+        this.setState({ modalResponsables: false });
+        this.setState({ mensajeFormulario: "" });
+    }
+
+
+
+    onClickInactivarGridMantenimiento = async (id) => {
+        const respuesta = await InactivarMantenimientoHallazgo(id)
+        if (respuesta.indicador === 0) {
+            this.setState({ lineaTipoIdentificacion: await this.ObtenerListadoGridHallazgo() });
+            this.setState({ alerta: true });
+        } else {
+            this.setState({ alerta: false });
+        }
+        this.setState({ mensajeRespuesta: respuesta });
+        this.setState({ show: true });
 
     }
-    onChangeGradoImpacto = (e) => {
-        if (e.target.value != '') {
-            this.setState({ gradoImpacto: this.state.gradosImpacto.find(obj => obj.idGradoImpacto == e.target.value).gradoImpacto });
-        } else {
-            this.setState({ gradoImpacto: '' });
-        }
-    }
-    onChangeFasesCJ = (e) => {
-        if (e.target.value != '') {
-            this.setState({ CJ: this.state.fasesCJ.find(obj => obj.idFaseCJ == e.target.value).faseCustomerJourney });
-        } else {
-            this.setState({ CJ: '' });
-        }
-    }
-    onChangeLineaNegocio = (e) => {
-        if (e.target.value != '') {
-            this.setState({ lineaNegocio: this.state.lineasNegocio.find(obj => obj.idLinea == e.target.value).lineaNegocio });
-            this.state.serviciosFiltrados = this.state.serviciosAsociadoHallazgo.filter(servicio => servicio.idLinea == e.target.value);
-            this.setState({ servicio: '' });
-        } else {
-            this.setState({ lineaNegocio: '' });
-            this.setState({ servicio: '' });
-        }
-    }
-    onChangeServicioAsoHallazgo = (e) => {
-        if (e.target.value != '') {
-            this.setState({ servicio: this.state.serviciosAsociadoHallazgo.find(obj => obj.idServicio == e.target.value).servicio });
-        } else {
-            this.setState({ servicio: '' });
-        }
 
+    formatDate = (i) => {
+        if (i != '') {
+            var datePart = i.match(/\d+/g),
+                year = datePart[2], // get only two digits
+                month = datePart[0],
+                day = datePart[1];
+            return day + "/" + month + "/" + year;
+        } else {
+            return "No hay";
+        }
     }
-    onChangeMacroActividadAsoHallazgo = (e) => {
-        if (e.target.value != '') {
-            this.setState({ macroActividad: this.state.macroActividades.find(obj => obj.idMacro == e.target.value).macroActividad });
+
+
+
+    async focusInput2(e) {
+
+
+        const respuesta = await ObtenerMantenimientoHallazgoPorID(e);
+        this.mantenimientoHallazgo = respuesta;
+        this.setState({ secuenciaHallazgo: this.mantenimientoHallazgo.idMantenimientoHallazgo });
+        this.setState({ data: await ObtenerMantenimientoHallazgoPorID(e) });
+        this.setState({ proceso2: 2 });
+        if (e != '') {
+
+            $('#example2').DataTable().destroy();
+            await this.ObtenerListadoResponsablesPorIdHallazgo();
+            setTimeout(() => {
+                $('#example2').DataTable(
+                    {
+                        "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
+                    });
+            }, 100);
+
         }
         else {
-            this.setState({ macroActividad: '' });
+            this.setState({ mantenimientoHallazgo: '' });
         }
-    }
-    onChangeMacroNumeroOficioEnvio = (e) => {
-        this.state.orbe = e;
-    }
-    onChangeTallerCoCreacion = (e) => {
-        this.state.tallerCoCreacion = e;
+
+
+
+        const responsables = document.getElementById("responsables");
+        responsables.hidden = false;
+        const tablaHallazgo = document.getElementById("tablaHallazgo");
+        tablaHallazgo.hidden = true;
+        const fechasHallazgo = document.getElementById("apartadofechas");
+        fechasHallazgo.hidden = false;
+        const formHallazgo = document.getElementById("formHallazgo");
+        formHallazgo.hidden = false;
+
+        this.setState({ usuarioAgregoH: this.mantenimientoHallazgo.ingresadoPor });
+        this.setState({ fechaAgregadoH: this.formatDate(this.mantenimientoHallazgo.fechaIngreso) });
+        this.setState({ usuarioModificoH: this.mantenimientoHallazgo.modificadoPor });
+        this.setState({ fechaModificadoH: this.formatDate(this.mantenimientoHallazgo.fechaModificacion) });
+        this.setState({ usuarioFinalizadoH: 'Sin Finalizar' });
+        this.setState({ fechaFinalizadoH: 'Sin Finalizar' });
+
+        if (this.state.estadoHallazgo.value === 8) {
+            this.setState({ usuarioFinalizadoH: this.mantenimientoHallazgo.finalizadoPor });
+            this.setState({ fechaFinalizadoH: this.formatDate(this.mantenimientoHallazgo.fechaFinalizacion) });
+        }
+
+
+
     }
 
-    onChangeMacroActividad = (e) => {
-        this.state.macroActividad = e;
+
+
+    async ObtenerListadoGridHallazgo() {
+        const respuesta = await ObtenerGridMantenimiento();
+        this.setState({ listaGridHallazgo: respuesta });
+    }
+
+
+    onClickCancelar = async () => {
+        const tablaHallazgo = document.getElementById("tablaHallazgo");
+        const fechasHallazgo = document.getElementById("apartadofechas");
+        const responsables = document.getElementById("responsables");
+        const formHallazgo = document.getElementById("formHallazgo");
+
+        this.setState({ data: {} });
+        this.setState({ proceso2: 1 });
+        formHallazgo.hidden = true;
+
+        fechasHallazgo.hidden = true;
+        tablaHallazgo.hidden = false;
+        responsables.hidden = true;
+
+
+    }
+
+    onClickInactivarResponsable = async (id) => {
+        const respuesta = await InactivarResponsable(id)
+        if (respuesta.indicador === 0) {
+            $('#example2').DataTable().destroy();
+            await this.ObtenerListadoResponsablesPorIdHallazgo();
+            setTimeout(() => {
+                $('#example2').DataTable(
+                    {
+                        "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
+                    });
+            }, 100);
+            this.setState({ alerta: true });
+        } else {
+            this.setState({ alerta: false });
+        }
+        this.setState({ mensajeRespuesta: respuesta });
+        this.setState({ show: true });
+    }
+
+    onClickActualizarResponsable = async (id) => {
+        this.setState({ data: await ObtenerResponsablePorId(id) })
+
+
+        this.setState({ proceso: 2 });
+        this.setState({ modalResponsables: !this.state.modalResponsables });
+        this.setState({ labelButton: "Actualizar" });
+        this.setState({ modalTitulo: "Actualizar Responsable" });
+    }
+
+    onClickNuevoResponsable = async () => {
+        this.setState({ proceso: 1 });
+        this.setState({ secuenciaHallazgo: '' });
+        this.setState({ modalResponsables: !this.state.modalResponsables });
+        this.setState({ labelButton: "Registrar" });
+        this.setState({ modalTitulo: "Registrar Socio" });
+    }
+
+    onClickProcesarResponsable = async (data) => {
+        data.IdHallazgo = parseInt(this.state.secuenciaHallazgo);
+
+        let respuesta = {};
+
+        if (this.state.proceso === 1)
+
+            respuesta = await AgregarResponsable(data);
+        else {
+
+            respuesta = await ActualizarResponsable(data);
+        }
+
+        if (respuesta.indicador == 0) {
+            this.setState({ modal: false });
+            this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
+            this.setState({ alerta: true });
+            this.setState({ modalResponsables: !this.state.modalResponsables });
+            $('#example2').DataTable().destroy();
+
+            await this.ObtenerListadoResponsablesPorIdHallazgo();
+
+            setTimeout(() => {
+                $('#example2').DataTable(
+                    {
+                        "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
+                    });
+            }, 100);
+        } else {
+            this.setState({ mensajeFormulario: respuesta.mensaje });
+            this.setState({ alerta: false });
+        }
+
+        this.setState({ show: true });
     }
 
     async componentDidMount() {
-        await this.ObtenerGradosEsfuerzo();
-        await this.ObtenerGradosImpacto();
-        await this.ObtenerFasesCJ();
-        await this.ObtenerEstadoAceptacion();
-        await this.ObtenerLineasNegocio();
-        await this.ObtenerServicioAsociadoHallazgo();
+        const tablaHallazgo = document.getElementById("tablaHallazgo");
+        tablaHallazgo.hidden = false;
+        const fechasHallazgo = document.getElementById("apartadofechas");
+        fechasHallazgo.hidden = true;
         await this.ObtenerSecuenciaHallazgo();
-        await this.ObtenerMacroActividadAsociadoHallazgo();
-        await this.ObtenerNumeroOficioEnvio();
-        await this.ObtenerTalleresCoCreacion()
+        await this.ObtenerListadoGridHallazgo();
+        await this.ObtenerListadoResponsables();
+
+        setTimeout(() => {
+            $('#example').DataTable(
+                {
+                    "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
+                });
+        }, 100);
+
+        setTimeout(() => {
+            $('#example2').DataTable(
+                {
+                    "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
+                });
+        }, 100);
+
+
+
     }
+
+    onClickFila = (item) => {
+        var fechaingreso = new Date(item.fechaIngreso);
+        var fechamodificacion = new Date(item.fechaModificacion);
+        this.setState({ usuarioAgrego: item.ingresadoPor });
+        this.setState({ fechaAgregado: fechaingreso.toLocaleDateString() });
+        this.setState({ usuarioModifica: item.modificadoPor });
+        this.setState({ fechaModificado: fechamodificacion.toLocaleDateString() });
+        this.setState({ descripcionGeneralResponsable: "El nombre del responsable es " + item.nombre + " y está involucrado en la dirección " + item.direccion });
+    }
+
+    onClickNuevoHallazgo = async () => {
+        this.setState({ proceso2: 1 });
+        this.setState({ modalHallazgo: !this.state.modal });
+        this.setState({ labelButton: "Registrar" });
+        this.setState({ modalTitulo: "Registrar Nuevo Hallazgo" });
+    }
+
+    onClickCerrarModalHallazgo = () => {
+        this.setState({ modalHallazgo: false });
+        this.setState({ mensajeFormulario: "" });
+    }
+
+    body = () => {
+        return this.state.listaResponsables.map((item, index) => (
+            <tr onClick={() => this.onClickFila(item)} key={index}>
+                <td>{item.idDireccion}</td>
+                <td>{item.direccion}</td>
+                <td>{item.idResponsable}</td>
+                <td>{item.nombre}</td>
+                <td>{item.plazo}</td>
+                <td>{item.fechaInicio.substring(0, item.fechaInicio.indexOf('T'))}</td>
+                <td>{item.orbe}</td>
+                <td>{item.avance}</td>
+                <td>{item.aceptado === 1 ? "Aceptado" : "No Aceptado"}</td>
+
+                {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
+                <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
+                    {item.estado === true ? "Activo" : "Inactivo"}</td>
+                <td style={{ display: "flex", padding: "0.5vw" }}>
+
+                    <Button color="primary" onClick={() => this.onClickActualizarResponsable(item.idResponsable)} style={{ marginRight: "1vw" }}>Editar
+                    </Button>
+
+                    <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarResponsable(item.idResponsable)}> {item.estado === true ? "Inactivar" : "Activar"}
+                    </Button>
+                </td>
+            </tr>
+        ))
+    }
+
+    gridMantenimiento = () => {
+        return this.state.listaGridHallazgo.map((item, index) => (
+            <tr key={index}>
+                <td>{item.idMantenimientoHallazgo}</td>
+                <td>{item.detalleEspecificoHallazgo}</td>
+                <td>{item.lineaNegocio}</td>
+                <td>{item.servicio}</td>
+
+
+
+
+                {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
+                <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
+                    {item.estado === true ? "Activo" : "Inactivo"}</td>
+                <td style={{ display: "flex", padding: "0.5vw" }}>
+
+                    <Button color="primary" onClick={() => this.focusInput2(item.idMantenimientoHallazgo)} style={{ marginRight: "1vw" }}>Editar
+                    </Button>
+
+                    <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarGridMantenimiento(item.idMantenimientoHallazgo)}> {item.estado === true ? "Inactivar" : "Activar"}
+                    </Button>
+                </td>
+            </tr>
+        ))
+    }
+
+
     render() {
+        const { listaResponsables,
+            idEstadoAceptacion,
+            pendiente,
+            modal,
+            labelButton,
+            modalResponsables,
+            proceso,
+            mensajeRespuesta,
+            show,
+            alerta,
+            descripcionGeneralResponsable,
+            periodicidadEntregaAvances,
+            cabeceras,
+            usuarioAgrego,
+            fechaAgregado,
+            usuarioModifico,
+            fechaModificado,
+            porcentajeGeneral,
+            proceso2
+        } = this.state;
         return (
             <main>
-                <div class="row-full">Información General de Definición del Hallazgo </div>
+                <div id="tablaHallazgo" hidden>
+                    <div class="row-full">Grid Hallazgo</div>
+                    <Container >
+                        <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoHallazgo()}>Insertar Nuevo Mantenimiento</Button>
 
-                <Container>
+                        <hr />
+                        <br />
 
+                        {/*ALERTA*/}
 
-                    <Row>
-                        <Col md={4}>
-                            <div className="item1">
-                                <h6 className="heading3"> Secuencia del hallazgo</h6>
-                                <input readonly className="secuencia" name="secuencia_hallazgos" value={this.state.secuenciaHallazgo}>
+                        {this.state.show ?
+                            <Alert variant={this.state.alerta === true ? "success" : "danger"} onClose={() => this.setState({ show: false })} dismissible>
+                                {this.state.mensajeRespuesta.mensaje}
+                            </Alert>
+                            : ""}
 
-                                </input>
+                        <br />
 
-                            </div>
-                        </Col>
-
-                        <Col md={4}>
-                            <div className="item1">
-                                <h6 className="heading3">Fase de Customer Journey</h6>
-                                <select onChange={this.onChangeFasesCJ} className="etiqueta" name="codigo_faseCJ" >
-                                    <option value='' selected>-- Seleccione --</option>
-                                    {this.state.fasesCJ.map(fcj =>
-                                        <option key={fcj.idFaseCJ} value={fcj.idFaseCJ}>{fcj.idFaseCJ}</option>
-                                    )};
-                                </select>
-                                <input name="descripcion_faseCJ" value={this.state.CJ}></input>
-
-                            </div>
-                        </Col>
-
-                        <Col md={4}>
-                            <div className="item1">
-                                <h6 className="heading3">Taller de Co Creación</h6>
-                                <Select placeholder="Seleccione..." onChange={this.onChangeTallerCoCreacion} isClearable={true} options={this.state.talleresCoCreacion} />
-
-                            </div>
-                        </Col>
-                    </Row>
-
-                    <Row>
-                        <Col md={4}>
-                            <div className="item1">
-                                <h6 className="heading3">Solución asociada al hallazgo</h6>
-                                <select onChange={this.onChangeLineaNegocio} className="etiqueta" name="solucion_hallazgo" >
-                                    <option value='' selected>-- Seleccione --</option>
-                                    {this.state.lineasNegocio.map(fcj =>
-                                        <option key={fcj.idLinea} value={fcj.idLinea}>{fcj.idLinea}</option>
-                                    )};
-                                </select>
-                                <input name="descripcion_hallazgo" value={this.state.lineaNegocio}></input>
-                            </div>
-                        </Col>
-
-                        <Col md={4}>
-                            <div className="item1">
-                                <h6 className="heading3">Servicio Asociado al Hallazgo </h6>
-                                <select onChange={this.onChangeServicioAsoHallazgo} className="etiqueta" name="codigo_servicio_asociado" >
-                                    <option value='' selected>-- Seleccione --</option>
-                                    {this.state.serviciosFiltrados.map(fbb =>
-                                        <option key={fbb.idServicio} value={fbb.idServicio}>{fbb.idServicio}</option>
-                                    )};
-                                </select>
-                                <input name="descripcion_servicio_asociado" value={this.state.servicio}></input>
-
-                            </div>
-                        </Col>
-
-                        <Col md={4}>
-                            <div className="item1">
-                                <h6 className="heading3">Macro Actividad Asociada al Hallazgo </h6>
-                                <Select placeholder="Seleccione..." onChange={this.onChangeMacroActividad} isClearable={true} options={this.state.macroActividades} />
-                            </div>
-                        </Col>
-                    </Row>
-
-                    <Row>
-                        <Col md={4}>
-                            <div className="item1">
-                                <h6 className="heading3">Nivel de Impacto del Hallazgo</h6>
-                                <select onChange={this.onChangeGradoImpacto} className="etiqueta" name="codigo_impacto" >
-                                    <option value='' selected>-- Seleccione --</option>
-                                    {this.state.gradosImpacto.map(fbb =>
-                                        <option key={fbb.idGradoImpacto} value={fbb.idGradoImpacto}>{fbb.idGradoImpacto}</option>
-                                    )};
-                                </select>
-                                <input name="descripcion_impacto" value={this.state.gradoImpacto}></input>
-                            </div>
-                        </Col>
-
-                        <Col md={4}>
-                            <div className="item1">
-                                <h6 className="heading3">Grado de Esfuerzo del Hallazgo</h6>
-                                <select onChange={this.onChangeGradoEsfuerzo} className="etiqueta" name="codigo_esfuerzo" >
-                                    <option value='' selected>-- Seleccione --</option>
-                                    {this.state.gradosEsfuerzo.map(fbb =>
-                                        <option key={fbb.idGradoEsfuerzo} value={fbb.idGradoEsfuerzo}>{fbb.idGradoEsfuerzo}</option>
-                                    )};
-                                </select>
-                                <input readonly name="descripcion_grado" value={this.state.gradoEsfuerzo} ></input>
-                            </div>
-                        </Col>
-
-                        <Col md={4}>
-                            <div className="item1">
-                                <h6 className="heading3">Estado de Aceptación</h6>
-                                <select onChange={this.onChangeEstadoAceptacion} className="etiqueta" name="codigo_estado_aceptacion" >
-                                    <option value='' selected>-- Seleccione --</option>
-                                    {this.state.estadosAceptacion.map(fbb =>
-                                        <option key={fbb.idEstadoAceptacion} value={fbb.idEstadoAceptacion}>{fbb.idEstadoAceptacion}</option>
-                                    )};
-                                </select>
-                                <input readonly name="descripcion_estado" value={this.state.estadoAceptacion} ></input>
-                            </div>
-                        </Col>
-                    </Row>
-
-                    <Row>
-                        <Col md={4}>
-                            <div className="item1">
-                                <h6 className="heading3">Estado del Hallazgo </h6>
-                                <select className="etiqueta" name="codigo_estado" ></select>
-                                <select name="descripcion_estado" ></select>
-                            </div>
-                        </Col>
-
-                        <Col md={4}>
-                            <div className="item1">
-                                <h6 className="heading3" style={{ "fontFamily": "Roboto,-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,sans-serif", "fontStyle": "normal", "fontWeight": "400", "textRendering": "optimizeLegibility" }}>Nro de Oficio del Envio</h6>
-
-                                <Select onChange={this.onChangeMacroNumeroOficioEnvio} isClearable={true} options={this.state.numeroOficioEnvio} />
-
-                            </div>
-                        </Col>
-
-                        <Col md={4}>
-                            <div className="item1">
-                                <h6 className="heading3">Porcentaje General</h6>
-
-                                <input type="text" className="etiqueta" name="porcentaje_general" />
-
-                            </div>
-                        </Col>
-                    </Row>
-
-                    <Row>
-                        <Col md={4}>
-                            <div className="item1">
-                                <h6 className="heading3">Periodicidad de Entrega de Avances</h6>
-                                <select className="etiqueta" name="periocidad_avance" ></select>
-                                <select name="descripcion_periocidad" ></select>
-                            </div>
-                        </Col>
-
-                        <Col md={4}>
-                            <div className="item1">
-                                <h6 className="heading3">Detalle General del Hallazgo</h6>
-                                <textarea className="etiqueta" name="Detalle_hallazgo"></textarea>
-
-                            </div>
-                        </Col>
-
-                        <Col md={4}>
-
-                        </Col>
-                    </Row>
-
-                    <Row>
-                        <Col md={3}>
-
-                        </Col>
-                        <Col md={3}>
-                            <button id="btnGuardar" type="button" className="btn  btn-block botones" >Guardar</button>
-                        </Col>
-
-                        <Col md={3}>
-                            <button id="btnGuardar" type="button" className="btn  btn-block botones ">Salir</button>
-                        </Col>
-
-                        <Col md={3}>
-
-                        </Col>
-                    </Row>
-                </Container >
-                <div class="row-full">Direcciones y Responsables asignadas al Hallazgo </div>
-
-                <Container>
-
-                    <table className="table table-bordered table" name="table_hallazgo">
-                        <thead className="titulo2">
-                            <tr >
-                                <th>Dirección</th>
-                                <th>Responsable</th>
-                                <th>Plazo (Días)</th>
-                                <th>Fecha inicio</th>
-                                <th>Nro. Oficio</th>
-                                <th>% Avance</th>
-                                <th>Aceptado</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
+                        <Table tableHeading={this.state.cabeceras2} body={this.gridMantenimiento()} />
+                        <FormularioModal show={this.state.modalHallazgo} handleClose={this.onClickCerrarModalHallazgo} titulo={this.state.modalTitulo} className=''>
+                            <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso2={this.state.proceso2} mensaje={this.state.mensajeFormulario} onClickAgregarAnotacion={this.state.onClickAgregarAnotacion}
+                                onClickProcesarHallazgo={this.onClickProcesarHallazgo}
+                            />
+                        </FormularioModal>
 
 
 
+                    </Container >
+                </div>
+                <div id="formHallazgo" hidden >
+                    <div class="row-full">Información General de Definición del Hallazgo </div>
 
 
-                    <Row>
-                        <Col md={12}>
 
-                            <h6 className="heading3">Detalle General del Hallazgo</h6>
-                            <textarea name="Detalle_direccion_resposable"></textarea>
-                        </Col>
-
-
-                    </Row>
-
-                    <Row>
-                        <Col md={4}>
-                            <div className="item1">
-                                <h6 className="heading3"> Adicionado por</h6>
-                                <input type="text" className="etiqueta" name="fecha_adicion" />
-                                <input type="text" placeholder="" name="usuario_adicion" />
-
-                            </div>
-                        </Col>
-
-                        <Col md={4}>
-                            <div className="item1">
-                                <h6 className="heading3">Modificado por</h6>
-                                <input type="text" className="etiqueta" name="fecha_modificacion" />
-                                <input type="text" placeholder="" name="usuario_modificacion" />
-                            </div>
-                        </Col>
-
-                        <Col md={4}>
-
-                        </Col>
-                    </Row>
-
-                </Container >
-
-                <div class="row-full">Fechas relacionadas al Registro</div>
-                <Container>
+                    <Input
+                        id="numsecuencia"
+                        name="text"
+                        type="hidden"
+                        value={this.state.secuenciaHallazgo}
+                    />
 
 
-                    <Row>
-                        <Col md={4}>
-                            <div className="item1">
-                                <h6 className="heading3"> Adicionado por</h6>
-                                <input type="text" className="etiqueta" name="fecha_adicion" />
-                                <input type="text" placeholder="" name="usuario_adicion" />
 
-                            </div>
-                        </Col>
+                    <Container>
+                        {Number(proceso2) === 1 ?
+                            <><h6 className="heading3">Insertar</h6></>
 
-                        <Col md={4}>
-                            <div className="item1">
-                                <h6 className="heading3">Modificado por</h6>
-                                <input type="text" className="etiqueta" name="fecha_modificacion" />
-                                <input type="text" placeholder="" name="usuario_modificacion" />
-                            </div>
-                        </Col>
+                            : <>
+                                {/*ALERTA*/}
 
-                        <Col md={4}>
-                            <div className="item1">
-                                <h6 className="heading3">Finalizado</h6>
-                                <input type="text" className="etiqueta" name="fecha_modificacion" />
-                                <input type="text" placeholder="" name="usuario_modificacion" />
-                            </div>
-                        </Col>
-                    </Row>
+                                {this.state.show ?
+                                    <Alert variant={this.state.alerta === true ? "success" : "danger"} onClose={() => this.setState({ show: false })} dismissible>
+                                        {this.state.mensajeRespuesta.mensaje}
+                                    </Alert>
+                                    : ""}
 
-                </Container >
+                                <br />
+                                <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso2={this.state.proceso2} mensaje={this.state.mensajeFormulario} onClickAgregarAnotacion={this.state.onClickAgregarAnotacion}
+                                    onClickProcesarHallazgo={this.onClickProcesarHallazgo} onClickCancelar={this.onClickCancelar} /></>
 
-                <Container className="cont">
-                </Container>
+
+                        }
+
+                    </Container >
+                </div>
+
+
+
+                <div id="responsables" hidden>
+                    <div class="row-full">Direcciones y Responsables asignadas al Hallazgo </div>
+                    <Container>
+                        <Button onClick={() => this.onClickAgregarResponsable()} style={{ backgroundColor: "#17A797", borderColor: "#17A797" }}>Insertar Responsable</Button>
+                        <br></br>
+                        <br></br>
+                        <Table2 tableHeading={this.state.cabeceras} body={this.body()} />
+                        <FormularioModal labelButton={this.state.labelButton} show={this.state.modalResponsables} proceso={this.state.proceso} handleClose={this.onClickCerrarModalResponsable} titulo={this.state.modalTitulo} className="FormularioResponsables">
+                            <FormResponsables labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarResponsable={this.onClickProcesarResponsable} mensaje={this.state.mensajeFormulario} />
+                        </FormularioModal>
+
+
+
+                        <Row>
+                            <Col md={12}>
+
+                                <h6 className="heading3">Detalle por Dirección y Responsable</h6>
+                                <Input
+                                    value={this.state.descripcionGeneralResponsable}
+                                    id="exampleText"
+                                    name="text"
+                                    type="text"
+                                />
+                            </Col>
+
+
+                        </Row>
+                        <br></br>
+                        <Row>
+                            <Col md={4}>
+                                <div className="item1">
+                                    <h6 className="heading3"> Adicionado por</h6>
+                                    <input type="text" className="etiqueta" name="usuario_modificacion" value={this.state.usuarioAgrego} />
+                                    <input type="text" placeholder="" name="fecha_modificacion" value={this.state.fechaAgregado} />
+
+
+                                </div>
+                            </Col>
+
+                            <Col md={4}>
+                                <div className="item1">
+                                    <h6 className="heading3">Modificado por</h6>
+                                    <input type="text" className="etiqueta" name="fecha_modificacion" value={this.state.usuarioModifica} />
+                                    <input type="text" placeholder="" name="usuario_modificacion" value={this.state.fechaModificado} />
+                                </div>
+                            </Col>
+
+                            <Col md={4}>
+
+                            </Col>
+                        </Row>
+
+                    </Container >
+                </div>
+                <div id="apartadofechas" hidden>
+                    <div class="row-full">Fechas relacionadas al Registro</div>
+
+
+                    <Container>
+                        <Row>
+                            <Col md={4}>
+                                <div className="item1" id="contfechas">
+                                    <h6 className="heading3"> Adicionado por</h6>
+                                    <div id="fechas">
+                                        <input type="text" className="etiqueta" name="fecha_adicion" value={this.state.fechaAgregadoH} />
+                                        <input type="text" placeholder="" name="usuario_adicion" value={this.state.usuarioAgregoH} />
+                                    </div>
+                                </div>
+                            </Col>
+
+                            <Col md={4}>
+                                <div className="item1" id="contfechas">
+                                    <h6 className="heading3">Modificado por</h6>
+                                    <div id="fechas">
+                                        <input type="text" className="etiqueta" name="fecha_modificacion" value={this.state.fechaModificadoH} />
+                                        <input type="text" placeholder="" name="usuario_modificacion" value={this.state.usuarioModificoH} />
+                                    </div>
+                                </div>
+                            </Col>
+
+                            <Col md={4}>
+                                <div className="item1" id="contfechas" >
+                                    <h6 className="heading3">Finalizado</h6>
+                                    <div id="fechas">
+                                        <input type="text" className="etiqueta" name="fecha_modificacion" value={this.state.fechaFinalizadoH} />
+                                        <input type="text" placeholder="" name="usuario_modificacion" value={this.state.usuarioFinalizadoH} />
+                                    </div>
+                                </div>
+                            </Col>
+                        </Row>
+
+                    </Container >
+                </div>
+
 
 
             </main>
         );
     }
 }
+
+

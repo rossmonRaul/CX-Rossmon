@@ -40,7 +40,7 @@ export class MantenimientoIndicador extends Component {
             alerta: true,
             alerta2: true,
             alerta3: false,
-            cabeceras: ["ID", "Sigla", "Descripción", "Mínimo", "Máximo", "Estado", "Acción"],
+            cabeceras: ["ID", "Sigla", "Descripción", "Mínimo","Medio", "Máximo", "Estado", "Acción"],
             cabeceras2: ["Valor", "Descripción"],
         };
 
@@ -117,6 +117,12 @@ export class MantenimientoIndicador extends Component {
         }
         if (data.minimo < 0) {
             this.setState({ mensajeError: "El valor mínimo no puede ser menor a 0" });
+            this.setState({ show3: true });
+            return
+        }
+
+        if (data.medio > data.maximo || data.medio<data.minimo) {
+            this.setState({ mensajeError: "El valor medio tiene que estar entre el valor máximo y el valor mínimo" });
             this.setState({ show3: true });
             return
         }
@@ -213,6 +219,7 @@ export class MantenimientoIndicador extends Component {
                 <td>{item.sigla}</td>
                 <td>{item.tipoIndicador}</td>
                 <td>{item.minimo}</td>
+                <td>{item.medio}</td>
                 <td>{item.maximo}</td>
 
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}

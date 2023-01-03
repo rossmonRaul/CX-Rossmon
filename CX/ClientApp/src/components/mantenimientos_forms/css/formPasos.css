@@ -21,8 +21,9 @@
 
 .btnListoVolver {
     width: 80px;
-    font-size: 15px;
+    font-size: 11px;
     border: none;
+    background-color: #6c757d;
 }
 
 
@@ -37,12 +38,38 @@
     height: 60px;
 }
 
+.btnVolver {
+    width: 80px;
+    font-size: 11px;
+    border: none;
+    background-color: #6c757d;
+}
 
+.primary {
+    width: 80px;
+}
+
+.divpaso {
+    width: 150px;
+}
+
+.card.body {
+    position: fixed;
+    width: 450px;
+}
+
+.card {
+    width: 400px;
+    margin-left: -5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
 .btn-pregunta {
     background-color: cadetblue;
     width: 40%;
     border: none;
+    font-size: 13px;
 }
 
 .btn_listo {
@@ -63,6 +90,7 @@
     border: none;
     outline: none;
     cursor: pointer;
+    font-size: 13px;
 }
 
 .on {
@@ -134,14 +162,14 @@
 }
 
 
-.btnAgregarRespuesta{
-    background-color:aliceblue;
-    color:dodgerblue;
-    border:none;
-    font-size:13px;
-    font-weight:500;
-    height:30px;
-    margin-top:30px
+.btnAgregarRespuesta {
+    background-color: aliceblue;
+    color: dodgerblue;
+    border: none;
+    font-size: 13px;
+    font-weight: 500;
+    height: 30px;
+    margin-top: 30px
 }
 
 .btnAgregarRespuesta {

@@ -10,6 +10,7 @@ namespace Dominio.Dto
         public string TipoIndicador { get; set; }
         public string Sigla { get; set; }
         public int Minimo { get; set; }
+        public int Medio { get; set; }
         public int Maximo { get; set; }
         public int IdClasificacion { get; set; }
     }

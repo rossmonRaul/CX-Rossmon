@@ -9,7 +9,15 @@ namespace Dominio.Interfaces.Aplicacion.MantenimientoHallazgo
 {
     public interface IServicioMantenimientoHallazgo
     {
+        Task<List<DtoHallazgo>> ObtenerMantenimientoHallazgo();
+        Task<List<DtoGridHallazgo>> ObtenerGridMantenimientoHallazgo();
+        Task<DtoRespuestaSP> AgregarMantenimientoHallazgo(EntitiHallazgo entitiMantenimientoHallazgo);
+        Task<DtoRespuestaSP> ActualizarMantenimientoHallazgo(EntitiHallazgo entitiMantenimientoHallazgo);
+        Task<DtoHallazgo> ObtenerMantenimientoHallazgoPorID(int entitiMantenimientoHallazgo);
+
+        Task<DtoRespuestaSP> EliminarMantenimientoHallazgo(int entitiMantenimientoHallazgo);
         Task<DtoCantidadDatos> ObtenerCantidadMantenimientoHallazgo();
+
         Task<List<DtoOrbe>> ObtenerDatosOrbe();
 
     }

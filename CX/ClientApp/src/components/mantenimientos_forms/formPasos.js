@@ -70,116 +70,99 @@ const FormularioPasos = ({ data, proceso, onClickProcesarPregunta, onClickProces
         case 1:
             return (
                 <div>
-                    <Container>
-                        <Row>
-                            <Col md={{ span: 15, offset: 0 }} className="custom-margin">
+                    <Container style={{width:"450px"}}>
+                       
                                 <StepOne nextStep={nextStep} />
-                            </Col>
-                        </Row>
+                           
                     </Container>
                 </div>
             );
         case 2:
             return (
-                <div className="App">
-                    <Container>
-                        <Row>
-                            <Col md={{ span: 15, offset: 0 }} className="custom-margin">
+                <div >
+                    <Container style={{ width: "450px" }}>
                                 <StepTwo seleccionUnica={seleccionUnica} seleccionMultiple={seleccionMultiple}
                                     menuDesplegable={menuDesplegable} correoElectronico={correoElectronico} cajaTextoAbierto={cajaTextoAbierto} prevStep={prevStep} calificacionEstrellas={calificacionEstrellas} />
-                            </Col>
-                        </Row>
+                          
                     </Container>
                 </div>
             );
         case 4:
             return (
-                <div className="App">
-                    <Container>
-                        <Row>
-                            <Col md={{ span: 15, offset: 0 }} className="custom-margin">
+                <div >
+                    <Container style={{ width: "450px" }}>
+                       
                                 <SeleccionUnica data={data} proceso={proceso} onClickProcesarPregunta={onClickProcesarPregunta} onClickProcesarRespuestasPregunta={onClickProcesarRespuestasPregunta}
                                     volverPasoDos={volverPasoDos} varIdTipoIndicador={varIdTipoIndicador} varIdTipoEncuesta={varIdTipoEncuesta}
                                     varIdTipoMetrica={varIdTipoMetrica} varIdTipoPerspectiva={varIdTipoPerspectiva} varIdTipoContactoEncuesta={varIdTipoContactoEncuesta}
                                     varIdTipoInteraccion={varIdTipoInteraccion} />
-                            </Col>
-                        </Row>
+                           
                     </Container>
                 </div>
             );
         case 5:
             return (
-                <div className="App">
-                    <Container>
-                        <Row>
-                            <Col md={{ span: 15, offset: 0 }} className="custom-margin">
+                <div>
+                    <Container style={{ width: "450px" }}>
+                       
                                 <SeleccionMultiple volverPasoDos={volverPasoDos} data={data} proceso={proceso} onClickProcesarPregunta={onClickProcesarPregunta} onClickProcesarRespuestasPregunta={onClickProcesarRespuestasPregunta}
                                     volverPasoDos={volverPasoDos} varIdTipoIndicador={varIdTipoIndicador} varIdTipoEncuesta={varIdTipoEncuesta}
                                     varIdTipoMetrica={varIdTipoMetrica} varIdTipoPerspectiva={varIdTipoPerspectiva} varIdTipoContactoEncuesta={varIdTipoContactoEncuesta}
                                     varIdTipoInteraccion={varIdTipoInteraccion} />
-                            </Col>
-                        </Row>
+                           
                     </Container>
                 </div>
             );
         case 6:
             return (
-                <div className="App">
-                    <Container>
-                        <Row>
-                            <Col md={{ span: 15, offset: 0 }} className="custom-margin">
+                <div >
+                    <Container style={{ width: "450px" }}>
+                        
                                 <MenuDesplegable data={data} proceso={proceso} onClickProcesarPregunta={onClickProcesarPregunta} onClickProcesarRespuestasPregunta={onClickProcesarRespuestasPregunta}
                                     volverPasoDos={volverPasoDos} varIdTipoIndicador={varIdTipoIndicador} varIdTipoEncuesta={varIdTipoEncuesta}
                                     varIdTipoMetrica={varIdTipoMetrica} varIdTipoPerspectiva={varIdTipoPerspectiva} varIdTipoContactoEncuesta={varIdTipoContactoEncuesta}
                                     varIdTipoInteraccion={varIdTipoInteraccion} />
-                            </Col>
-                        </Row>
+                            
                     </Container>
                 </div>
             );
         case 7:
             return (
-                <div className="App">
-                    <Container>
-                        <Row>
-                            <Col md={{ span: 15, offset: 0 }} className="custom-margin">
+                <div >
+                    <Container style={{ width: "450px" }}>
+                        
                                 <CorreoElectronico data={data} proceso={proceso} onClickProcesarPregunta={onClickProcesarPregunta} onClickProcesarRespuestasPregunta={onClickProcesarRespuestasPregunta}
                                     volverPasoDos={volverPasoDos} varIdTipoIndicador={varIdTipoIndicador} varIdTipoEncuesta={varIdTipoEncuesta}
                                     varIdTipoMetrica={varIdTipoMetrica} varIdTipoPerspectiva={varIdTipoPerspectiva} varIdTipoContactoEncuesta={varIdTipoContactoEncuesta}
                                     varIdTipoInteraccion={varIdTipoInteraccion}
                                 />
-                            </Col>
-                        </Row>
+                           
                     </Container>
                 </div>
             );
         case 8:
             return (
-                <div className="App">
-                    <Container>
-                        <Row>
-                            <Col md={{ span: 15, offset: 0 }} className="custom-margin">
+                <div >
+                    <Container style={{ width: "450px" }}>
+                 
                                 <CajaTextoAbierto data={data} proceso={proceso} onClickProcesarPregunta={onClickProcesarPregunta} onClickProcesarRespuestasPregunta={onClickProcesarRespuestasPregunta}
                                     volverPasoDos={volverPasoDos} varIdTipoIndicador={varIdTipoIndicador} varIdTipoEncuesta={varIdTipoEncuesta}
                                     varIdTipoMetrica={varIdTipoMetrica} varIdTipoPerspectiva={varIdTipoPerspectiva} varIdTipoContactoEncuesta={varIdTipoContactoEncuesta}
                                     varIdTipoInteraccion={varIdTipoInteraccion} />
-                            </Col>
-                        </Row>
+                          
                     </Container>
                 </div>
             );
         case 9:
             return (
-                <div className="App">
-                    <Container>
-                        <Row>
-                            <Col md={{ span: 15, offset: 0 }} className="custom-margin">
+                <div >
+                    <Container style={{ width: "450px" }}>
+                       
                                 <CalificacionEstrellas data={data} proceso={proceso} onClickProcesarPregunta={onClickProcesarPregunta} onClickProcesarRespuestasPregunta={onClickProcesarRespuestasPregunta}
                                     volverPasoDos={volverPasoDos} varIdTipoIndicador={varIdTipoIndicador} varIdTipoEncuesta={varIdTipoEncuesta}
                                     varIdTipoMetrica={varIdTipoMetrica} varIdTipoPerspectiva={varIdTipoPerspectiva} varIdTipoContactoEncuesta={varIdTipoContactoEncuesta}
                                     varIdTipoInteraccion={varIdTipoInteraccion} />
-                            </Col>
-                        </Row>
+                           
                     </Container>
                 </div>
             );

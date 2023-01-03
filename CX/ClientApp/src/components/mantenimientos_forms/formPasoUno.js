@@ -10,7 +10,7 @@ import { InputSelect } from '../components_forms/inputs'
 import "../mantenimientos_forms/css/formPasos.css";
 
 //VARIABLES QUE SE UTILIZAN EN EL COMPONENTE FORM PASOS PARA SER TRASLADADAS COMO PROPIEDADES A LOS COMPONENTES QUE LAS REQUIERAN
-export var varIdTipoIndicador = 1; export var varIdTipoEncuesta = 1; export var varIdTipoMetrica = 1; export var varIdTipoPerspectiva= 1;
+export var varIdTipoIndicador = 1; export var varIdTipoEncuesta = 1; export var varIdTipoMetrica = 1; export var varIdTipoPerspectiva = 1;
 export var varIdTipoPregunta = 1; export var varIdTipoContactoEncuesta = 1; export var varIdTipoInteraccion = 1;
 
 //PASO UNO, AQUÍ SE GUARDAN TODOS LOS VALORES DE PARAMETRIZACIÓN
@@ -65,7 +65,7 @@ const StepOne = ({ nextStep, data, proceso }) => {
             }
         }
     }
-    
+
 
     const ObtenerListaTipoIndicador = async () => {
         const soc = await ObtenerTiposIndicadores();
@@ -134,10 +134,10 @@ const StepOne = ({ nextStep, data, proceso }) => {
 
     const onChangeTipoPerspectiva = (e) => setTipoPerspectiva(e.target.value);
     const onChangeTipoInteraccion = (e) => setTipoInteraccion(e.target.value);
-    const onChangeTipoMetrica = (e) => setTipoMetrica(e.target.value); 
-    const onChangeTipoEncuesta = (e) => setTipoEncuesta(e.target.value); 
-    const onChangeTipoContactoEncuesta = (e) => setTipoContactoEncuesta(e.target.value); 
-    const onChangeSocio = (e) => setTipoIndicador(e.target.value); 
+    const onChangeTipoMetrica = (e) => setTipoMetrica(e.target.value);
+    const onChangeTipoEncuesta = (e) => setTipoEncuesta(e.target.value);
+    const onChangeTipoContactoEncuesta = (e) => setTipoContactoEncuesta(e.target.value);
+    const onChangeSocio = (e) => setTipoIndicador(e.target.value);
 
     //GUARDAR TODOS LOS VALORES DE PARAMETRIZACIÓN PARA ENVIARLOS COMO PROPIEDADES DESDE EL formPasos
     varIdTipoIndicador = idTipoIndicador;
@@ -148,19 +148,20 @@ const StepOne = ({ nextStep, data, proceso }) => {
     varIdTipoInteraccion = idTipoInteraccion;
 
     return (
-        <div>
-            <Card style={{ marginTop: 1 }}>
-                <Card.Body>
+        <>
+            <Card  >
+                <Card.Body >
                     <Form onSubmit={submitFormData}>
 
                         <h6>Parametrizar Pregunta</h6>
 
                         <br></br>
 
-                        <div style={{ display: "flex", justifyContent: "space-around" }}>
+                        <div style={{ display: "flex", justifyContent: "space-around"}} >
                             <InputSelect className="slct_socios" controlId="slct_socios" label="Tipo Contacto Encuesta" data={listaTipoContactoEncuesta} value={idTipoContactoEncuesta}
                                 onChange={onChangeTipoContactoEncuesta} optionValue="idTipoContactoEncuesta" optionLabel="tipoContactoEncuesta"
-                                classGroup="form-lineas"></InputSelect>
+                                classGroup="form-lineas"
+                            ></InputSelect>
 
                             <InputSelect className="slct_socios" controlId="slct_socios" label="Tipo Indicador" data={listaTipoIndicador} value={idTipoIndicador}
                                 onChange={onChangeSocio} optionValue="idTipoIndicador" optionLabel="tipoIndicador"
@@ -178,7 +179,7 @@ const StepOne = ({ nextStep, data, proceso }) => {
                             <InputSelect className="slct_socios" controlId="slct_socios" label="Tipo Métrica" data={listaTipoMetrica} value={idTipoMetrica}
                                 onChange={onChangeTipoMetrica} optionValue="idTipoMetrica" optionLabel="tipo"
                                 classGroup="form-lineas"></InputSelect>
-                            
+
                         </div>
 
                         <br></br>
@@ -191,19 +192,19 @@ const StepOne = ({ nextStep, data, proceso }) => {
 
                             <InputSelect className="slct_socios" controlId="slct_socios" label="Tipo Perspectiva" data={listaTipoPerspectiva} value={idTipoPerspectiva}
                                 onChange={onChangeTipoPerspectiva} optionValue="idTipoPerspectiva" optionLabel="tipoPerspectiva"
-                                classGroup="form-lineas"></InputSelect>
+                                classGroup="form-lineas" style={{ width: "23.5vw" }}></InputSelect>
 
                         </div>
 
                         <br></br>
 
-                        <Button variant="primary" type="submit">
+                        <Button variant="primary" type="submit" style={{ marginLeft: "8.5vw", }}>
                             Siguiente
                         </Button>
                     </Form>
                 </Card.Body>
             </Card>
-        </div>
+        </>
     );
 };
 

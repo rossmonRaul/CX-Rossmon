@@ -49,33 +49,33 @@ const CorreoElectronico = ({ data, proceso, onClickProcesarPregunta, volverPasoD
         <>
             <Form noValidate validated={validated} onSubmit={onClickAceptar}>
 
-            <Card style={{ marginTop: 1, textAlign: "left" }}>
-                <Card.Body>
+                <Card style={{ marginTop: 1, textAlign: "left" }}>
+                    <Card.Body>
 
-                    <h4>Correo Electrónico</h4>
+                        <h4>Correo Electrónico</h4>
 
-                    <br></br>
+                        <br></br>
                         {/*<label>{MiId }</label>*/}
                         <InputText id='txt-Pregunta' label='Pregunta:' type='text' placeholder='Ingrese la pregunta' value={pregunta}
                             onChange={onChangePreguntas} mensajeValidacion="Este campo es requerido"
                         />
-                        
+
 
                         <InputText id='txt-Pregunta' label='' type='text' placeholder='' value={'mi_correo55@gmail.com'}
                             onChange={onChangeRespuesta} mensajeValidacion="Este campo es requerido"
                         />
 
-                    <br></br>
+                        <br></br>
 
                         <div style={{ display: "flex", justifyContent: "space-around" }}>
 
                             <Button className="primary" variant="primary" type="submit" size="sm">Guardar</Button>
 
-                            <Button className="btnVolver" variant="secondary" onClick={volverPasoDos}>
+                            <Button className="btnVolver" style={{ fontSize: "11px", backgroundColor: "#6c757d" }} variant="secondary" onClick={volverPasoDos}>
                                 Atrás
                             </Button>
-                        </div> 
-                </Card.Body>
+                        </div>
+                    </Card.Body>
                 </Card>
             </Form>
 
