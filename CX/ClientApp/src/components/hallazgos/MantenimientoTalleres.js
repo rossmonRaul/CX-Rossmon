@@ -1,9 +1,9 @@
 ﻿import React, { Component, useState } from 'react';
 import { Container, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
-import { ObtenerCantidadMantenimientoTalleresCoCreacion, ObtenerDatosOrbe, ObtenerFechasTallerCoCreacion, ObtenerEtapasTallerCoCreacion, ObtenerMantenimientoTallerCoCreacion, EliminarMantenimientoTallerCoCreacion, ObtenerMantenimientoTallerCoCreacionPorID, AgregarMantenimientoTallerCoCreacion, ActualizarMantenimientoTallerCoCreacion } from '../../servicios/ServicioMantenimientoTalleresCoCreacion';
+import { ObtenerCantidadMantenimientoTalleresCoCreacion, ObtenerDatosOrbe, ObtenerMantenimientoTallerCoCreacion, EliminarMantenimientoTallerCoCreacion, ObtenerMantenimientoTallerCoCreacionPorID, AgregarMantenimientoTallerCoCreacion, ActualizarMantenimientoTallerCoCreacion } from '../../servicios/ServicioMantenimientoTalleresCoCreacion';
 import { AgregarEtapaTallerCo, ActualizarEtapaTallerCo, ObtenerEtapaTallerCoPorID, ObtenerEtapasTallerCo, ObtenerFechasTallerCo, ObtenerCantidadEtapasTallerCo } from '../../servicios/ServicioEtapasTallerCo';
 import { ObtenerServicioLineaNegocio, ObtenerLineasNegociosActivos } from '../../servicios/ServicioServicioLineaNegocio';
-import { InsertarParticipanteEquipoTrabajo, ObtenerEquipoTrabajoPorIdTaller,EliminarParticipante,ObtenerParticipantePorID,ActualizarParticipante  } from '../../servicios/ServicioParticipantesEquipoTrabajo';
+import { InsertarParticipanteEquipoTrabajo, ObtenerEquipoTrabajoPorIdTaller, EliminarParticipante, ObtenerParticipantePorID, ActualizarParticipante } from '../../servicios/ServicioParticipantesEquipoTrabajo';
 import { ObtenerTipoTaller } from '../../servicios/ServicioTipoTaller';
 import { ObtenerMacroActividad } from '../../servicios/ServicioMacroActividad';
 import FormAnotacion from '../mantenimientos_forms/formAnotacion';
@@ -12,28 +12,30 @@ import { FormularioModal } from '../components_forms/ventanaModal';
 import Form from 'react-bootstrap/Form';
 import Select from 'react-select';
 import { Alert } from 'react-bootstrap';
-import { Table, Table2, Table3   } from '../Table';
+import { Table, Table2, Table3 } from '../Table';
 import "datatables.net-dt/js/dataTables.dataTables"
 import "datatables.net-dt/css/jquery.dataTables.min.css"
 import 'jquery/dist/jquery.min.js';
 import $ from 'jquery';
+import Formulario from '../mantenimientos_forms/formTalleresCoCreacion';
+
 
 export class MantenimientoTalleres extends Component {
     static displayName = MantenimientoTalleres.name;
     constructor(props) {
         super(props);
         this.state = {
-            lineasNegocio: [],
             lineaNegocio: '',
             idLineaNegocio: '',
             pendiente: false,
             data: {},
             modal: false,
             proceso: 1,
+            procesot: 1,
             mensajeRespuesta: {},
             show: false,
             alerta: true,
-            modalTitulo:'Evidencia',
+            modalTitulo: 'Evidencia',
             serviciosAsociadoHallazgo: [],
             serviciosFiltrados: [],
             idServicio: '',
@@ -44,23 +46,23 @@ export class MantenimientoTalleres extends Component {
             orbe: '',
             fechaCreacion: '',
             detalleGeneral: '',
-            fechaNumOficio:'',
+            fechaNumOficio: '',
             talleres: [],
             idTipoTaller: '',
             tipoTaller: '',
-            tipoTallerEtapa:'',
-            talleresEtapa:[],
+            tipoTallerEtapa: '',
+            talleresEtapa: [],
             mantenimientoTallerCo: '',
             listaTallerCoCreacion: [],
-            listaEtapas:[],
+            listaEtapas: [],
             cabeceras: ["Id", "Taller", "Solucion Asociada", "Servicio", "Estado", "Acciones"],
             cabeceraEtapa: ["Id", "Macro Actividad(Linea)", "Observaciones", "Acciones", "Anexos"],
-            cabeceraEquipoTrabajo: ["Id Participante", "Nombre", "Direccion", "Fase Customer Journey", "Asistencia" ,"Estado", "Acciones"],
+            cabeceraEquipoTrabajo: ["Id Participante", "Nombre", "Direccion", "Fase Customer Journey", "Asistencia", "Estado", "Acciones"],
             usuarioModificoT: "",
             fechaModificadoT: "",
             usuarioCreacionT: "",
             fechaCreacionT: "",
-            observacion:"",
+            observacion: "",
             macroActividades: [],
             idMacro: '',
             macroActividad: '',
@@ -85,10 +87,8 @@ export class MantenimientoTalleres extends Component {
             mensajeRespuestaE: {},
             alertaE: true,
             showE: false,
-
         };
     }
-
     ///Equipo de Trabajo
     onClickFila = (item) => {
         var fechaingreso = new Date(item.fechaIngreso);
@@ -98,7 +98,6 @@ export class MantenimientoTalleres extends Component {
         this.setState({ usuarioModifica: item.modificadoPor });
         this.setState({ fechaModificado: fechamodificacion.toLocaleDateString() });
     }
-
     onClickInactivarParticipanteEquipoTrabajo = async (id) => {
         const respuesta = await EliminarParticipante(id)
         if (respuesta.indicador === 0) {
@@ -110,45 +109,35 @@ export class MantenimientoTalleres extends Component {
         this.setState({ mensajeRespuestaP: respuesta });
         this.setState({ showP: true });
     }
-
     async ObtenerEquipoTrabajoPorIdTaller() {
         const respuesta = await ObtenerEquipoTrabajoPorIdTaller(this.mantenimientoTallerCo.idMantenimientoTalleresCoCreacion);
         this.setState({ listaParticipantes: respuesta });
     }
-
     onClickAgregarParticipante = () => {
         this.setState({ proceso: 1 });
         this.setState({ modalParticipantes: !this.state.modalParticipantes });
         this.setState({ labelButtonP: "Agregar" });
         this.setState({ modalTituloP: "Agregar Participante" });
     }
-    
     onClickCerrarModalParticipante = () => {
         this.setState({ modalParticipantes: false });
         this.setState({ mensajeFormularioP: "" });
     }
-
     onClickProcesarParticipante = async (data) => {
         data.IdTallerCoCreacion = parseInt(this.state.secuenciaHallazgo);
         let respuesta = {};
-
         if (this.state.proceso === 1)
-
             respuesta = await InsertarParticipanteEquipoTrabajo(data);
         else {
-
             respuesta = await ActualizarParticipante(data);
         }
-
         if (respuesta.indicador == 0) {
             this.setState({ modalP: false });
             this.setState({ mensajeRespuestaP: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alertaP: true });
             this.setState({ modalParticipantes: !this.state.modalParticipantes });
-            
             $('#example2').DataTable().destroy();
             await this.ObtenerEquipoTrabajoPorIdTaller();
-            
             setTimeout(() => {
                 $('#example2').DataTable(
                     {
@@ -159,10 +148,8 @@ export class MantenimientoTalleres extends Component {
             this.setState({ mensajeFormularioP: respuesta.mensaje });
             this.setState({ alertaP: false });
         }
-
         this.setState({ showP: true });
     }
-
     onClickActualizarParticipante = async (id) => {
         this.setState({ data: await ObtenerParticipantePorID(id) })
         this.setState({ proceso: 2 });
@@ -170,35 +157,22 @@ export class MantenimientoTalleres extends Component {
         this.setState({ labelButtonP: "Actualizar" });
         this.setState({ modalTituloP: "Actualizar Participante" });
     }
-
-    ///Termina Equipos de Trabajo
-
-
-
-
     async ObtenerListadoMantenimientoCo() {
         const respuesta = await ObtenerMantenimientoTallerCoCreacion();
         this.setState({ listaTallerCoCreacion: respuesta });
     }
-
     async ObtenerListadoParticipantesEquipoTrabajo() {
         const respuesta = await ObtenerEquipoTrabajoPorIdTaller(this.mantenimientoTallerCo.idMantenimientoTalleresCoCreacion);
         this.setState({ listaParticipantes: respuesta });
-        
     }
-
     async ObtenerNumeroOficioEnvio() {
-
         const respuesta = await ObtenerDatosOrbe();
         //método que pasa del array traido de backend a un array con un valor y label para poder ser manejados en los select importados
         const options = respuesta.map(function (row) {
             return { value: row.idOrbe, fecha: row.fechaIngreso, label: row.idOrbe + ' ' + row.orbe }
         })
-
         this.setState({ numeroOficioEnvio: options });
-
     }
-
     async ObtenerSecuenciaHallazgo() {
         const respuesta = await ObtenerCantidadMantenimientoTalleresCoCreacion();
         this.setState({ secuenciaHallazgo: respuesta.cantidad + 1 });
@@ -207,8 +181,6 @@ export class MantenimientoTalleres extends Component {
         const respuestaEtapa = await ObtenerCantidadEtapasTallerCo();
         this.setState({ secuenciaEtapa: respuestaEtapa.cantidad + 1 });
     }
-        
-    
     async ObtenerServicioAsociadoHallazgo() {
         const respuesta = await ObtenerServicioLineaNegocio();
         const options = respuesta.map(function (row) {
@@ -216,7 +188,6 @@ export class MantenimientoTalleres extends Component {
         })
         this.setState({ serviciosAsociadoHallazgo: options });
     }
-
     async ObtenerLineasNegocio() {
         const respuesta = await ObtenerLineasNegociosActivos();
         const options = respuesta.map(function (row) {
@@ -224,7 +195,6 @@ export class MantenimientoTalleres extends Component {
         })
         this.setState({ lineasNegocio: options });
     }
-
     async ObtenerTalleres() {
         const respuesta = await ObtenerTipoTaller();
         const options = respuesta.map(function (row) {
@@ -239,103 +209,14 @@ export class MantenimientoTalleres extends Component {
         })
         this.setState({ talleresEtapa: options });
     }
+    async focusEdit1(e) {
+        const respuesta = await ObtenerMantenimientoTallerCoCreacionPorID(e);
+        this.mantenimientoTallerCo = respuesta;
+        this.setState({ secuenciaHallazgo: this.mantenimientoTallerCo.idMantenimientoTalleresCoCreacion });
+        this.setState({ data: await ObtenerMantenimientoTallerCoCreacionPorID(e) });
+        this.setState({ procesot: 2 });
 
-    onChangeLineaNegocio = (e) => {
-        if (e.value != '') {
-            this.setState({ lineaNegocio: e });
-            this.state.serviciosFiltrados = this.state.serviciosAsociadoHallazgo.filter(servicio => servicio.idLinea == e.value);
-            this.setState({ servicio: '' });
-        } else {
-            this.setState({ servicio: '' });
-        }
-    }
-    
-    onChangeServicioAsoHallazgo = (e) => {
-        this.setState({ servicio: e });
-    }
-
-    onChangeTipoTaller = (e) => {
-        this.setState({ tipoTaller: e });
-    }
-
-    onChangeMacroNumeroOficioEnvio = (e) => {
-        this.setState({ orbe: e });
-        var cadena = this.formatDate(e.fecha.slice(0, 10));
-        this.setState({ fechaCreacion: cadena })
-
-    }
-    onChangeDetalleGeneral = (e) => {
-        this.setState({ detalleGeneral: e.target.value });
-    }
-    
-    onClickAgregarMantenimientoTallerCo = async () => {
-        const formTalleres = document.getElementById("FormTalleresCo");
-        const formEtapa = document.getElementById("observaciones");
-        const botonGuardar = document.getElementById("btnGuardar");
-        const botonEditar = document.getElementById("btnEditar");
-        formTalleres.hidden = false;
-        formEtapa.hidden = true;
-        botonGuardar.hidden = false;
-        botonEditar.hidden = true;
-
-        var datos = {
-            idTipoTaller: parseInt(this.state.tipoTaller.value),
-            idSolucionAsociadaHallazgo: parseInt(this.state.lineaNegocio.value),
-            idServicioAsociadoHallazgo: parseInt(this.state.servicio.value),
-            numOficioEnvio: parseInt(this.state.orbe.value),
-            fechaNumOficio: this.state.fechaCreacion,
-            descripcionGeneral: this.state.detalleGeneral,
-          
-        }; 
-        const result = this.GuardarHallazgo(datos);
-        formTalleres.hidden = true;
-        botonGuardar.hidden = false;
-        botonEditar.hidden = false;
-    }
-
-    GuardarHallazgo = async (data) => {
-        let respuesta = {};
-        respuesta = await AgregarMantenimientoTallerCoCreacion(data);
-        const formTalleres = document.getElementById("FormTalleresCo");
-        const formEtapa = document.getElementById("observaciones");
-        const botonEditar = document.getElementById("btnEditar");
-        const botonGuardar = document.getElementById("btnGuardar");
-        formTalleres.hidden = true;
-        formEtapa.hidden = true;
-        botonEditar.hidden = false;
-        botonGuardar.hidden = false;
-
-        if (respuesta.indicador == 0) {
-            this.setState({ modal: false });
-            this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
-            this.setState({ alerta: true });
-        }
-        else {
-            this.setState({ mensajeFormulario: respuesta.mensaje });
-            this.setState({ alerta: false });
-        }
-        $('#example').DataTable().destroy();
-
-        await this.ObtenerListadoMantenimientoCo();
-        const tablaTaller = document.getElementById("tablaTaller");
-        tablaTaller.hidden = false;
-
-        setTimeout(() => {
-            $('#example').DataTable(
-                {
-                    "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
-                });
-        }, 100);
-
-        this.setState({ show: true });
-    }
-
-    async focusEdit(e) {
         if (e != '') {
-            const respuesta = await ObtenerMantenimientoTallerCoCreacionPorID(e);
-            this.mantenimientoTallerCo = respuesta;
-            this.setState({ data: respuesta });
-
             $('#example2').DataTable().destroy();
             await this.ObtenerListadoParticipantesEquipoTrabajo();
             setTimeout(() => {
@@ -354,83 +235,11 @@ export class MantenimientoTalleres extends Component {
         tablaTaller.hidden = true;
         const formTalleres = document.getElementById("FormTalleresCo");
         const observaciones = document.getElementById("observaciones");
-        const botonGuardar = document.getElementById("btnGuardar");
-        const botonEditar = document.getElementById("btnEditar");
         formTalleres.hidden = false;
         observaciones.hidden = false;
-        botonGuardar.hidden = true;
-        botonEditar.hidden = false;
-        document.getElementById("detalleGeneral").focus();
-        //Etapas
-        
+
         this.setState({ idTallerCo: this.mantenimientoTallerCo.idMantenimientoTalleresCoCreacion });
-
-        //editar taller
-        this.setState({ secuenciaHallazgo: this.mantenimientoTallerCo.idMantenimientoTalleresCoCreacion });
-        this.setState({ tipoTaller: this.state.talleres.find(x => x.value === this.mantenimientoTallerCo.idTipoTaller) });
-        this.setState({ lineaNegocio: this.state.lineasNegocio.find(x => x.value === this.mantenimientoTallerCo.idSolucionAsociadaHallazgo) });
-        this.state.serviciosFiltrados = this.state.serviciosAsociadoHallazgo.filter(servicio => servicio.idLinea == this.mantenimientoTallerCo.idSolucionAsociadaHallazgo);
-        this.setState({ servicio: this.state.serviciosFiltrados.find(x => x.value === this.mantenimientoTallerCo.idServicioAsociadoHallazgo) });
-        this.setState({ orbe: this.state.numeroOficioEnvio.find(x => x.value === this.mantenimientoTallerCo.numOficioEnvio) });
-        this.setState({ fechaCreacion: this.formatDate(this.mantenimientoTallerCo.fechaNumOficio) });
-        this.setState({ detalleGeneral: this.mantenimientoTallerCo.descripcionGeneral });
     }
-
-    onClickEditarMantenimientoTallerCo = async () => {
-        const participantes = document.getElementById("participantes");
-        const formTalleres = document.getElementById("FormTalleresCo");
-        const observaciones = document.getElementById("observaciones");
-        const botonEditar = document.getElementById("btnEditar");
-        const botonGuardar = document.getElementById("btnGuardar");
-        formTalleres.hidden = false;
-        observaciones.hidden = false;
-        botonEditar.hidden = false;
-        botonGuardar.hidden = true;
-        var datos = {
-            idMantenimientoTalleresCoCreacion: this.state.secuenciaHallazgo,
-            idTipoTaller: parseInt(this.state.tipoTaller.value),
-            idSolucionAsociadaHallazgo: parseInt(this.state.lineaNegocio.value),
-            idServicioAsociadoHallazgo: parseInt(this.state.servicio.value),
-            numOficioEnvio: parseInt(this.state.orbe.value),
-            fechaNumOficio: this.state.fechaCreacion,
-            descripcionGeneral: this.state.detalleGeneral,
-        };
-        const result = this.EditarHallazgo(datos);
-        formTalleres.hidden = true;
-        botonEditar.hidden = false;
-        botonGuardar.hidden = false;
-        participantes.hidden = true;
-    }
-
-    EditarHallazgo = async (data) => {
-        let respuesta = {};
-        respuesta = await ActualizarMantenimientoTallerCoCreacion(data);
-        if (respuesta.indicador == 0) {
-            this.setState({ modal: false });
-            this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
-            this.setState({ alerta: true });
-        } else {
-            this.setState({ mensajeFormulario: respuesta.mensaje });
-            this.setState({ alerta: false });
-        }
-        $('#example').DataTable().destroy();
-
-        await this.ObtenerListadoMantenimientoCo();
-        const tablaTaller = document.getElementById("tablaTaller");
-        tablaTaller.hidden = false;
-        setTimeout(() => {
-            $('#example').DataTable(
-                {
-                    "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
-                });
-        }, 100);
-
-        this.setState({ show: true });
-
-    }
-
-  
-
     onClickInactivarMantenimientoTallerCo = async (id) => {
         const respuesta = await EliminarMantenimientoTallerCoCreacion(id);
         if (respuesta.indicador === 0) {
@@ -441,83 +250,25 @@ export class MantenimientoTalleres extends Component {
         }
         this.setState({ mensajeRespuesta: respuesta });
         this.setState({ show: true });
-
     }
-    onClickNuevoMantenimientoTallerCo() {
-        const tablaTaller = document.getElementById("tablaTaller");
-        tablaTaller.hidden = true;
-        this.ObtenerSecuenciaHallazgo();
-        this.setState({ tipoTaller:'' });
-        this.setState({ lineaNegocio: '' });
-        this.setState({ servicio:''});
-        this.setState({ orbe: '' });
-        this.setState({ fechaCreacion: '' });
-        this.setState({ detalleGeneral: '' });
-        const formTalleres = document.getElementById("FormTalleresCo");
-        const observaciones = document.getElementById("observaciones");
-        const botonEditar = document.getElementById("btnEditar");
-        const botonGuardar = document.getElementById("btnGuardar");
-        formTalleres.hidden = false;
-        observaciones.hidden = true;
-        botonEditar.hidden = true;
-        botonGuardar.hidden = false;
-        document.getElementById("detalleGeneral").focus();
-
-    }
-    ///////////////////////////////////////////////457
-    onClickCancelar = async () => {
-        $('#example3').DataTable().destroy();
+    onClickCancelar1 = async () => {
         const tablaTaller = document.getElementById("tablaTaller");
         const participantes = document.getElementById("participantes");
         const formEtapa = document.getElementById("formAgregarEtapa");
         const formMantTaller = document.getElementById("FormTalleresCo");
         const observaciones = document.getElementById("observaciones");
-        const botonEditar = document.getElementById("btnEditar");
-        const botonGuardar = document.getElementById("btnGuardar");
         tablaTaller.hidden = false;
-        botonEditar.hidden = false;
-        botonGuardar.hidden = false;
         formMantTaller.hidden = true;
         participantes.hidden = true;
         observaciones.hidden = true;
         formEtapa.hidden = true;
         const botonGuardarEtapa = document.getElementById("BotonGuardarEtapa");
         botonGuardarEtapa.hidden = true;
-        this.setState({ listaEtapas: [] });
-        this.setState({ tipoTallerEtapa: '' });
-        this.setState({ usuarioModificoT: '' });
-        this.setState({ fechaModificadoT: '' });
-        this.setState({ usuarioCreacionT: '' });
-        this.setState({ fechaCreacionT: '' });
-
+        this.setState({ data: {} });
+        this.setState({ procesot: 1 });
     }
-    
-    formatDate = (i) => {
-        if (i != '') {
-            var datePart = i.match(/\d+/g),
-                year = datePart[2], 
-                month = datePart[0],
-                day = datePart[1];
-            return day + "/" + month + "/" + year;
-        } else {
-            return "No hay";
-        }
-    }
-
-    formatDate2 = (i) => {
-        if (i != '') {
-            var datePart = i.match(/\d+/g),
-                year = datePart[2],
-                month = datePart[1],
-                day = datePart[0];
-            return day + "/" + month + "/" + year;
-        } else {
-            return "No hay";
-        }
-    }
-
     formatDateEtapa = (i) => {
-        if (i != ''&& i!=null) {
+        if (i != '' && i != null) {
             var datePart = i.match(/\d+/g),
                 year = datePart[0],
                 month = datePart[1],
@@ -531,14 +282,16 @@ export class MantenimientoTalleres extends Component {
         this.setState({ modal: false });
         this.setState({ mensajeFormulario: "" });
     }
+    onClickCerrarModaltaller = () => {
+        this.setState({ modal: false });
+        this.setState({ mensajeFormulario: "" });
+    }
     onClickAgregarEvidencia = () => {
-
         this.setState({ data: this.mantenimientoHallazgo });
         this.setState({ modal: !this.state.modal });
         this.setState({ labelButton: "Agregar" });
         this.setState({ modalTitulo: "Agregar Evidencia" });
     }
-    ////////Nuevo/////////
     async ObtenerMacroActividadAsoEtapa() {
         const respuesta = await ObtenerMacroActividad();
         //método que pasa del array traido de backend a un array con un valor y label para poder ser manejados en los select importados
@@ -548,11 +301,8 @@ export class MantenimientoTalleres extends Component {
 
         this.setState({ macroActividades: options });
     }
-
     onChangeMacroActividad = (e) => {
         this.setState({ macroActividad: e });
-
-
     }
     onClickNuevoDatoEtapa() {
         const formEtapa = document.getElementById("formAgregarEtapa");
@@ -566,25 +316,17 @@ export class MantenimientoTalleres extends Component {
         this.ObtenerSecuenciaHallazgo();
         this.setState({ macroActividad: '' });
         this.setState({ observacion: '' });
-
-
     }
-    onChangeObservacion= (e) => {
+    onChangeObservacion = (e) => {
         this.setState({ observacion: e.target.value });
     }
-
     onChangeObtenerIdEtapa = async (e) => {
-
         const botonGuardarEtapa = document.getElementById("BotonGuardarEtapa");
         botonGuardarEtapa.hidden = false;
         this.setState({ tipoTallerEtapa: e });
-        //const respuesta = await ObtenerEtapasTallerCo(e.value, this.state.idTallerCo);
-        //this.setState({ listaEtapas: respuesta });
         $('#example3').DataTable().destroy();
-
         const respuesta1 = await ObtenerEtapasTallerCo(e.value, this.state.idTallerCo);
         this.setState({ listaEtapas: respuesta1 });
-
         setTimeout(() => {
             $('#example3').DataTable(
                 {
@@ -619,13 +361,11 @@ export class MantenimientoTalleres extends Component {
             idTipoTaller: parseInt(this.state.tipoTallerEtapa.value),
             idMacro: parseInt(this.state.macroActividad.value),
             observacion: this.state.observacion,
-
         };
         const result = this.GuardarEtapa(datos);
         formEtapa.hidden = true;
         botonGuardar.hidden = false;
         botonEditar.hidden = false;
-        
     }
     GuardarEtapa = async (data) => {
         let respuesta = {};
@@ -656,11 +396,8 @@ export class MantenimientoTalleres extends Component {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 });
         }, 100);
-
         this.setState({ showE: true });
-
     }
-    
     async onclickFocusEditarEtapa(e) {
         if (e != '') {
             const respuesta = await ObtenerEtapaTallerCoPorID(e);
@@ -676,21 +413,15 @@ export class MantenimientoTalleres extends Component {
         const botonEditar = document.getElementById("btnEditarEtapa");
         formEtapa.hidden = false;
         observaciones.hidden = false;
-        botonGuardar.hidden = true; 
+        botonGuardar.hidden = true;
         botonEditar.hidden = false;
         //document.getElementById("detalleGeneral").focus();
         this.setState({ secuenciaEtapa: this.etapaTallerCo.idEtapaTallerCo });
         this.setState({ idTipoTaller: this.etapaTallerCo.idTipoTaller });
         this.setState({ macroActividad: this.state.macroActividades.find(x => x.value === parseInt(this.etapaTallerCo.idMacro)) });
         this.setState({ observacion: this.etapaTallerCo.observacion });
-
-       
-
-    } 
-
-
+    }
     onClickEditarEtapa = async () => {
-        
         const formEtapa = document.getElementById("formAgregarEtapa");
         const observaciones = document.getElementById("observaciones");
         const botonEditar = document.getElementById("btnEditarEtapa");
@@ -710,8 +441,7 @@ export class MantenimientoTalleres extends Component {
         formEtapa.hidden = true;
         botonEditar.hidden = false;
         botonGuardar.hidden = false;
-
-        }
+    }
     EditarEtapa = async (data) => {
         let respuesta = {};
         respuesta = await ActualizarEtapaTallerCo(data);
@@ -734,11 +464,58 @@ export class MantenimientoTalleres extends Component {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 });
         }, 100);
-
         this.setState({ showE: true });
-
     }
+    onClickNuevoTallerCoCreacion = async () => {
+        this.setState({ procesot: 1 });
+        this.setState({ modal: !this.state.modal });
+        this.setState({ labelButton: "Registrar" });
+        this.setState({ modalTitulo: "Registrar Taller CoCreacion" });
+    }
+    onClickGuardarTallerCoCreacion = async (data) => {
+        let respuesta = {};
+        if (this.state.procesot === 1)
+            respuesta = await AgregarMantenimientoTallerCoCreacion(data);
+        else if (this.state.procesot === 2) {
+            respuesta = await ActualizarMantenimientoTallerCoCreacion(data);
+        }
+        if (respuesta.indicador == 0) {
+            this.setState({ modal: false });
 
+            this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
+            this.setState({ alerta: true });
+            $('#example').DataTable().destroy();
+
+            await this.ObtenerListadoMantenimientoCo();
+
+            if (this.state.procesot === 1) {
+                const tablaTaller = document.getElementById("tablaTaller");
+                const participantes = document.getElementById("participantes");
+                const formEtapa = document.getElementById("formAgregarEtapa");
+                const observaciones = document.getElementById("observaciones");
+                const botonGuardarEtapa = document.getElementById("BotonGuardarEtapa");
+                tablaTaller.hidden = false;
+                participantes.hidden = true;
+                observaciones.hidden = true;
+                formEtapa.hidden = true;
+                botonGuardarEtapa.hidden = true;
+                this.setState({ tipoTaller: '' });
+                this.setState({ lineaNegocio: '' });
+                this.setState({ servicio: '' });
+                this.setState({ orbe: '' });
+                this.setState({ fechaCreacion: '' });
+                this.setState({ detalleGeneral: '' });
+            }
+            setTimeout(() => {
+                $('#example').DataTable(
+                    {
+                        "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
+                    });
+            }, 100);
+
+            this.setState({ show: true });
+        }
+    }
     async componentDidMount() {
         const tablaTaller = document.getElementById("tablaTaller");
         tablaTaller.hidden = false;
@@ -763,14 +540,13 @@ export class MantenimientoTalleres extends Component {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 });
         }, 100);
-        
+
         setTimeout(() => {
             $('#example3').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 });
         }, 100);
-
         await this.ObtenerListadoMantenimientoCo();
     }
     gridMantenimiento = () => {
@@ -780,16 +556,12 @@ export class MantenimientoTalleres extends Component {
                 <td>{item.tipoTaller}</td>
                 <td>{item.lineaNegocio}</td>
                 <td>{item.servicio}</td>
-
-
-
-
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
                 <td style={{ display: "flex", padding: "0.5vw" }}>
 
-                    <Button color="primary" onClick={() => this.focusEdit(item.idMantenimientoTalleresCoCreacion)} style={{ marginRight: "1vw" }}>Editar
+                    <Button color="primary" onClick={() => this.focusEdit1(item.idMantenimientoTalleresCoCreacion)} style={{ marginRight: "1vw" }}>Editar
                     </Button>
 
                     <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarMantenimientoTallerCo(item.idMantenimientoTalleresCoCreacion)}> {item.estado === true ? "Inactivar" : "Activar"}
@@ -807,16 +579,14 @@ export class MantenimientoTalleres extends Component {
                 <td> <Button color="primary" onClick={() => this.onclickFocusEditarEtapa(item.idEtapaTallerCo)} style={{ marginRight: "1vw" }}>Editar
                 </Button></td>
 
-               
-
                 <td style={{ display: "flex", padding: "0.5vw" }}>
                     <Form.Group controlId="formFile" className="mb-3">
                         <Button onClick={() => this.onClickAgregarEvidencia()} color="primary" variant="primary" size="sm">Evidencia</Button>
                     </Form.Group>
-                        <FormularioModal show={this.state.modal} handleClose={this.onClickCerrarModal} titulo={this.state.modalTitulo} className="FormularioAnotacion">
+                    <FormularioModal show={this.state.modal} handleClose={this.onClickCerrarModal} titulo={this.state.modalTitulo} className="FormularioAnotacion">
                         <FormAnotacion /*onClickProcesarAnotacion={this.onClickProcesarAnotacion}*/ />
                     </FormularioModal>
-                    
+
                 </td>
             </tr>
         ))
@@ -831,7 +601,7 @@ export class MantenimientoTalleres extends Component {
                 <td>{
                     item.asistencia === 1 ? "Asistió" : "No Asistió"
                 }</td>
-                
+
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
@@ -848,164 +618,54 @@ export class MantenimientoTalleres extends Component {
         ))
     }
     render() {
-        const {  
-            lineasNegocio,
-            lineaNegocio,
-            idLineaNegocio,
-            pendiente,
-            data,
-            modal,
-            proceso,
-            mensajeRespuesta,
-            show,
-            alerta,
-            serviciosAsociadoHallazgo,
-            serviciosFiltrados,
-            idServicio,
-            servicio,
-            secuenciaHallazgo,
-            secuenciaEtapa,
-            numeroOficioEnvio,
-            orbe,
-            detalleGeneral,
-            fechaNumOficio,
-            fechaCreacion,
-            talleres,
-            idTipoTaller,
-            tipoTaller,
+        const {
+            procesot,
             tipoTallerEtapa,
-            usuarioModificoT, 
-            fechaModificadoT,
-            usuarioCreacionT,
-            fechaCreacionT,
-            macroActividades,
-            idMacro,
             macroActividad,
             observacion,
         } = this.state;
         return (
             <main>
-                <div id="tablaTaller" hidden> 
-                <div class="row-full">Grid Taller CoCreacion</div>
-                <Container >
-                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoMantenimientoTallerCo()}>Insertar Nuevo Taller Cocreación</Button>
-                    <hr />
-                    <br />
-
-                    {/*ALERTA*/}
-
-                    {this.state.show ?
-                        <Alert variant={this.state.alerta === true ? "success" : "danger"} onClose={() => this.setState({ show: false })} dismissible>
-                            {this.state.mensajeRespuesta.mensaje}
-                        </Alert>
-                        : ""}
-
-                    <br />
-
-                    <Table tableHeading={this.state.cabeceras} body={this.gridMantenimiento()} />
+                <div id="tablaTaller" hidden>
+                    <div class="row-full">Grid Taller CoCreacion</div>
+                    <Container >
+                        <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoTallerCoCreacion()}>Insertar Nuevo Taller Cocreación</Button>
+                        <hr />
+                        <br />
+                        {/*ALERTA*/}
+                        {this.state.show ?
+                            <Alert variant={this.state.alerta === true ? "success" : "danger"} onClose={() => this.setState({ show: false })} dismissible>
+                                {this.state.mensajeRespuesta.mensaje}
+                            </Alert>
+                            : ""}
+                        <br />
+                        <Table tableHeading={this.state.cabeceras} body={this.gridMantenimiento()} />
+                        <FormularioModal show={this.state.modal} handleClose={this.onClickCerrarModaltaller} titulo={this.state.modalTitulo} className=''>
+                            <Formulario labelButton={this.state.labelButton} data={this.state.data} procesot={this.state.procesot} onClickGuardarTallerCoCreacion={this.onClickGuardarTallerCoCreacion} mensaje={this.state.mensajeFormulario} />
+                        </FormularioModal>
                     </Container >
                 </div>
                 <div id="FormTalleresCo" hidden>
-                
-                <div class="row-full">Talleres de Co Creación </div>
-
-                <Container>
-
-
-                    <Row>
-                        <Col md={4}>
-                            <div className="item1">
-                                <h5 className="heading3"> Secuencia</h5>
-                                <input readonly className="secuencia" name="secuencia_hallazgos" value={this.state.secuenciaHallazgo}>
-
-                                </input>
-
-                            </div>
-                        </Col>
-
-                        <Col md={4}>
-                            <div className="item1">
-
-                                <h6 className="heading3" style={{ "fontFamily": "Roboto,-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,sans-serif", "fontStyle": "normal", "fontWeight": "400", "textRendering": "optimizeLegibility" }}>Tipo Taller</h6>
-
-                                <Select id="tipoTaller" onChange={this.onChangeTipoTaller} isClearable={true} value={tipoTaller} options={this.state.talleres} />
-
-                            </div>
-
-                        </Col>
-
-                        <Col md={4}>
-                            <div className="item1">
-
-                                <h6 className="heading3" style={{ "fontFamily": "Roboto,-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,sans-serif", "fontStyle": "normal", "fontWeight": "400", "textRendering": "optimizeLegibility" }}>Linea Negocio</h6>
-
-                                <Select id="lineaNegocio" placeholder="Seleccione..." onChange={this.onChangeLineaNegocio} isClearable={true} value={lineaNegocio} options={this.state.lineasNegocio} />
-
-                            </div>
-                        </Col>
-                    </Row>
-
-                    <Row>
-                        <Col md={4}>
-                           
-                            <div className="item1">
-
-                                <h6 className="heading3" style={{ "fontFamily": "Roboto,-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,sans-serif", "fontStyle": "normal", "fontWeight": "400", "textRendering": "optimizeLegibility" }}>Servicio</h6>
-
-                                <Select id="servicioAso" placeholder="Seleccione..." onChange={this.onChangeServicioAsoHallazgo} isClearable={true} value={servicio} options={this.state.serviciosFiltrados} />
-                            </div>
-                        </Col>
-
-                        <Col md={4}>
-                               <div className="item1">
-                                <h6 className="heading3" style={{ "fontFamily": "Roboto,-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,sans-serif", "fontStyle": "normal", "fontWeight": "400", "textRendering": "optimizeLegibility"}}>Nro de Oficio del Envio</h6>
-
-                                    <Select id="numOficioEnvio" onChange={this.onChangeMacroNumeroOficioEnvio} isClearable={true} value={orbe } options={this.state.numeroOficioEnvio} />
-
-                            </div>
-                        </Col>
-
-                        <Col md={4}>
-                            <div className="item1">
-                                <h5 className="heading3">Fecha</h5>
-                                <input readonly className="etiqueta" name="fecha_oficio" value={this.state.fechaCreacion}>
-
-                                </input>
-                            </div>
-                        </Col>
-                    </Row>
-
-                    <Row>
-                        <Col md={12}>
-
-                            <div className="item1">
-                                <h6 className="heading3">Descripción General</h6>
-                                <Input
-                                    id="detalleGeneral"
-                                    name="text"
-                                    type="textarea"
-                                    value={detalleGeneral}
-                                    onChange={this.onChangeDetalleGeneral}
-                                />
-
-                            </div>
-                        </Col>
-
-
-                    </Row>
-                    <Row id="filaBotones">
-                        <Col md={3}>
-                                <button id="btnGuardar" type="button" className="btn btn-primary btn-lg" onClick={() => this.onClickAgregarMantenimientoTallerCo()}>Guardar</button>
-                                <button id="btnEditar" type="button" className="btn btn-primary btn-lg" onClick={() => this.onClickEditarMantenimientoTallerCo()}>Editar</button>
-                                <button id="btnCancelar" type="button" className="btn btn-danger btn-lg" onClick={() => this.onClickCancelar()}>Cancelar</button>
-                        </Col>
-                    </Row>
-                  </Container>
+                    <div class="row-full">Talleres de Co Creación </div>
+                    <Container>
+                        <input readonly className="secuencia" name="secuencia_hallazgos" value={this.state.secuenciaHallazgo} hidden />
+                        {Number(procesot) === 1 ?
+                            <><h6 className="heading3">Insertar</h6></>
+                            : <>
+                                {this.state.show ?
+                                    <Alert variant={this.state.alerta === true ? "success" : "danger"} onClose={() => this.setState({ show: false })} dismissible>
+                                        {this.state.mensajeRespuesta.mensaje}
+                                    </Alert>
+                                    : ""}
+                                <br />
+                               
+                                <Formulario labelButton={this.state.labelButton} data={this.state.data} procesot={this.state.procesot} onClickGuardarTallerCoCreacion={this.onClickGuardarTallerCoCreacion} onClickCancelar={this.onClickCancelar1} mensaje={this.state.mensajeFormulario} /></>
+                        }
+                    </Container>
                 </div>
                 <div id="participantes" hidden>
                     <div class="row-full">Equipo de Trabajo</div>
-                <Container>
-                        
+                    <Container>
                         <Button onClick={() => this.onClickAgregarParticipante()} style={{ backgroundColor: "#17A797", borderColor: "#17A797" }}>Insertar Participante</Button>
                         <hr></hr>
                         {this.state.showP ?
@@ -1013,15 +673,11 @@ export class MantenimientoTalleres extends Component {
                                 {this.state.mensajeRespuestaP.mensaje}
                             </Alert>
                             : ""}
-
                         <br />
                         <Table2 tableHeading={this.state.cabeceraEquipoTrabajo} body={this.tablaEquipoTrabajo()} />
                         <FormularioModal show={this.state.modalParticipantes} handleClose={this.onClickCerrarModalParticipante} titulo={this.state.modalTituloP} className="FormularioParticipantes">
                             <FormParticipantesEquipoTrabajo labelButton={this.state.labelButtonP} data={this.state.data} proceso={this.state.proceso} onClickProcesarParticipante={this.onClickProcesarParticipante} mensaje={this.state.mensajeFormularioP} />
                         </FormularioModal>
-
-
-
                         <Row>
                             <Col md={4}>
                                 <div className="item1">
@@ -1039,23 +695,13 @@ export class MantenimientoTalleres extends Component {
                                     <input type="text" placeholder="" name="usuario_modificacion_taller" value={this.state.usuarioModifica} />
                                 </div>
                             </Col>
-
-                            <Col md={4}>
-
-                            </Col>
                         </Row>
-                    
-                    
-
                     </Container >
                 </div>
 
                 <div id="observaciones" hidden>
                     <div class="row-full">Observaciones </div>
-
                     <Container>
-
-
                         <Row>
                             <Col md={4}>
                                 <div className="item1">
@@ -1064,9 +710,9 @@ export class MantenimientoTalleres extends Component {
                                 </div>
                             </Col>
                             <div id="BotonGuardarEtapa" hidden>
-                            <Col md={4}>
-                                <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoDatoEtapa()}>Insertar Nueva Macro Actividad</Button>
-                            </Col>
+                                <Col md={4}>
+                                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoDatoEtapa()}>Insertar Nueva Macro Actividad</Button>
+                                </Col>
                             </div>
                         </Row>
                         <hr></hr>
@@ -1075,7 +721,6 @@ export class MantenimientoTalleres extends Component {
                                 {this.state.mensajeRespuestaE.mensaje}
                             </Alert>
                             : ""}
-
                         <br />
 
                         <Table3 tableHeading={this.state.cabeceraEtapa} body={this.tablaEtapas()} />
@@ -1083,15 +728,13 @@ export class MantenimientoTalleres extends Component {
                         <div id="formAgregarEtapa" hidden>
                             <div class="heading2">Agregar datos a etapa </div>
                             <Row>
-                            <Col md={4}>
-                                <div className="item1">
-                                    <h5 className="heading3"> Secuencia</h5>
+                                <Col md={4}>
+                                    <div className="item1">
+                                        <h5 className="heading3"> Secuencia</h5>
                                         <input readonly className="secuencia" name="secuencia_hallazgos" value={this.state.secuenciaEtapa}>
-
-                                    </input>
-
-                                </div>
-                            </Col>
+                                        </input>
+                                    </div>
+                                </Col>
 
                                 <Col md={4}>
                                     <div className="item1">
@@ -1099,25 +742,23 @@ export class MantenimientoTalleres extends Component {
                                         <Select id="macroActividadAso" placeholder="Seleccione..." onChange={this.onChangeMacroActividad} isClearable={true} value={macroActividad} options={this.state.macroActividades} />
                                     </div>
                                 </Col>
-                            <Col >
-                                <div className="item1">
-                                    <h6 className="heading3">Observaciones</h6>
-                                    <Input
-                                        id="detalleGeneral"
-                                        name="text"
-                                        type="textarea"
-                                        value={observacion}
-                                        onChange={this.onChangeObservacion}
-
-                                    />
-
-                                </div>
-                            </Col>
+                                <Col >
+                                    <div className="item1">
+                                        <h6 className="heading3">Observaciones</h6>
+                                        <Input
+                                            id="detalleGeneral"
+                                            name="text"
+                                            type="textarea"
+                                            value={observacion}
+                                            onChange={this.onChangeObservacion}
+                                        />
+                                    </div>
+                                </Col>
                             </Row>
                             <Row>
                                 <Col>
-                                        <button id="btnGuardarEtapa" type="button" className="btn btn-primary btn-lg" onClick={() => this.onClickAgregarEtapa()}>Guardar</button>
-                                        <button id="btnEditarEtapa" type="button" className="btn btn-primary btn-lg" onClick={() => this.onClickEditarEtapa()}>Editar</button>
+                                    <button id="btnGuardarEtapa" type="button" className="btn btn-primary btn-lg" onClick={() => this.onClickAgregarEtapa()}>Guardar</button>
+                                    <button id="btnEditarEtapa" type="button" className="btn btn-primary btn-lg" onClick={() => this.onClickEditarEtapa()}>Editar</button>
                                 </Col>
                             </Row>
                         </div>
@@ -1128,7 +769,7 @@ export class MantenimientoTalleres extends Component {
                                     <h5 className="heading3"> Adicionado por</h5>
                                     <div id="fechas">
                                         <input type="text" className="etiqueta" name="fecha_adicion" value={this.state.fechaCreacionT} />
-                                        <input type="text" placeholder="" name="usuario_adicion" value={this.state.usuarioCreacionT}/>
+                                        <input type="text" placeholder="" name="usuario_adicion" value={this.state.usuarioCreacionT} />
                                     </div>
 
                                 </div>
@@ -1143,17 +784,9 @@ export class MantenimientoTalleres extends Component {
                                     </div>
                                 </div>
                             </Col>
-
-                            <Col md={4}>
-
-                            </Col>
                         </Row>
-
-
                     </Container >
-
                 </div>
-
             </main>
         );
     }

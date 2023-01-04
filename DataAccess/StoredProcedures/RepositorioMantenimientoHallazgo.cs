@@ -16,8 +16,9 @@ using System.Threading.Tasks;
 namespace DataAccess.StoredProcedures
 {
 
-   
-      public class RepositorioMantenimientoHallazgo :IRepositorioMantenimientoHallazgo{
+
+    public class RepositorioMantenimientoHallazgo : IRepositorioMantenimientoHallazgo
+    {
         private readonly IContextoBD contextoBD;
 
         public RepositorioMantenimientoHallazgo(IContextoBD contextoBD)
@@ -29,21 +30,21 @@ namespace DataAccess.StoredProcedures
             try
             {
                 Dictionary<string, object> data = new Dictionary<string, object>();
- 
-                data.Add("IdSolucionAsociadaHallazgo", entitiMantenimientoHallazgo.idSolucionAsociadaHallazgo );
-                data.Add("IdGradoImpacto", entitiMantenimientoHallazgo.idGradoImpacto );
-                data.Add("IdEstadoHallazgo", entitiMantenimientoHallazgo.idEstadoHallazgo );
-                data.Add("IdPeriodicidadEntregaAvances", entitiMantenimientoHallazgo.idPeriodicidadEntregaAvances );
-                data.Add("IdFaseCJ", entitiMantenimientoHallazgo.idFaseCJ );
-                data.Add("IdServicioAsociadoHallazgo", entitiMantenimientoHallazgo.idServicioAsociadoHallazgo );
-                data.Add("IdGradoEsfuerzo", entitiMantenimientoHallazgo.idGradoEsfuerzo );
-                data.Add("NumOficioEnvio", entitiMantenimientoHallazgo.numOficioEnvio );
+
+                data.Add("IdSolucionAsociadaHallazgo", entitiMantenimientoHallazgo.idSolucionAsociadaHallazgo);
+                data.Add("IdGradoImpacto", entitiMantenimientoHallazgo.idGradoImpacto);
+                data.Add("IdEstadoHallazgo", entitiMantenimientoHallazgo.idEstadoHallazgo);
+                data.Add("IdPeriodicidadEntregaAvances", entitiMantenimientoHallazgo.idPeriodicidadEntregaAvances);
+                data.Add("IdFaseCJ", entitiMantenimientoHallazgo.idFaseCJ);
+                data.Add("IdServicioAsociadoHallazgo", entitiMantenimientoHallazgo.idServicioAsociadoHallazgo);
+                data.Add("IdGradoEsfuerzo", entitiMantenimientoHallazgo.idGradoEsfuerzo);
+                data.Add("NumOficioEnvio", entitiMantenimientoHallazgo.numOficioEnvio);
                 data.Add("IdTallerCoCreacion", entitiMantenimientoHallazgo.idTallerCoCreacion);
-                data.Add("IdMacroActividadAsociadaHallazgo", entitiMantenimientoHallazgo.idMacroActividadAsociadaHallazgo );
-                data.Add("IdEstadoAceptacion", entitiMantenimientoHallazgo.idEstadoAceptacion );
-                data.Add("PorcentajeGeneral", entitiMantenimientoHallazgo.porcentajeGeneral );
-                data.Add("DetalleGeneralHallazgo", entitiMantenimientoHallazgo.detalleGeneralHallazgo );
-                data.Add("DetalleEspecificoHallazgo", entitiMantenimientoHallazgo.detalleEspecificoHallazgo );
+                data.Add("IdMacroActividadAsociadaHallazgo", entitiMantenimientoHallazgo.idMacroActividadAsociadaHallazgo);
+                data.Add("IdEstadoAceptacion", entitiMantenimientoHallazgo.idEstadoAceptacion);
+                data.Add("PorcentajeGeneral", entitiMantenimientoHallazgo.porcentajeGeneral);
+                data.Add("DetalleGeneralHallazgo", entitiMantenimientoHallazgo.detalleGeneralHallazgo);
+                data.Add("DetalleEspecificoHallazgo", entitiMantenimientoHallazgo.detalleEspecificoHallazgo);
                 //data.Add("Anotacion ", entitiMantenimientoHallazgo.anotacion );
                 string query = "SPInsertarGridMantenimientoHallazgo";
 
@@ -76,7 +77,7 @@ namespace DataAccess.StoredProcedures
                 data.Add("IdEstadoAceptacion", entitiMantenimientoHallazgo.idEstadoAceptacion);
                 data.Add("PorcentajeGeneral", entitiMantenimientoHallazgo.porcentajeGeneral);
                 data.Add("DetalleGeneralHallazgo", entitiMantenimientoHallazgo.detalleGeneralHallazgo);
-                data.Add("DetalleEspecificoHallazgo", entitiMantenimientoHallazgo.detalleEspecificoHallazgo );
+                data.Add("DetalleEspecificoHallazgo", entitiMantenimientoHallazgo.detalleEspecificoHallazgo);
                 //data.Add("Anotacion ", entitiMantenimientoHallazgo.anotacion );
                 string query = "SPActualizarGridMantenimientoHallazgo";
 
@@ -106,7 +107,7 @@ namespace DataAccess.StoredProcedures
         }
 
 
-       public async Task<DtoHallazgo> ObtenerMantenimientoHallazgoPorID(int idMantenimientoHallazgo)
+        public async Task<DtoHallazgo> ObtenerMantenimientoHallazgoPorID(int idMantenimientoHallazgo)
         {
             try
             {
@@ -178,7 +179,7 @@ namespace DataAccess.StoredProcedures
                 throw;
             }
         }
-     
+
         public async Task<List<DtoOrbe>> ObtenerDatosOrbe()
         {
             try
@@ -194,6 +195,6 @@ namespace DataAccess.StoredProcedures
             }
         }
     }
-        
+
 
 }

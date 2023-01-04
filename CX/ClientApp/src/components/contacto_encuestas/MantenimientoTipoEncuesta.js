@@ -128,7 +128,7 @@ export class MantenimientoTipoEncuesta extends Component {
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
-                <td style={{ display: "flex", padding: "0.5vw" }}>
+                <td style={{ padding: "0.5vw" }}>
 
                     <Button color="primary" onClick={() => this.onClickActualizarTipoEncuesta(item.idTipoEncuesta)} style={{ marginRight: "1vw" }}>Editar
                     </Button>
@@ -141,12 +141,17 @@ export class MantenimientoTipoEncuesta extends Component {
     }
 
 
+
+
+
+
+
     render() {
         return (
             <main>
                 <div className="row-full">Mantenimiento de Tipos de Encuestas</div>
                 <Container>
-                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoTipoEncuesta()}>Insertar Tipo Encuesta</Button>
+                    <Button className="btn1" onClick={() => this.onClickNuevoTipoEncuesta()}>Insertar Tipo Encuesta</Button>
                     <hr />
                     <br />
 
@@ -166,6 +171,8 @@ export class MantenimientoTipoEncuesta extends Component {
                         <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarTipoEncuesta={this.onClickProcesarTipoEncuesta} mensaje={this.state.mensajeFormulario} />
                     </FormularioModal>
 
+                </Container>
+                <Container className="cont">
                 </Container>
             </main>
         );

@@ -92,11 +92,12 @@ export class MantenimientoInteracciones extends Component {
                     </Row>
 
                 </Container >
+                <Container className="cont">
+                </Container>
 
 
 
-
-                </main>
-            );
+            </main>
+        );
     }
 }

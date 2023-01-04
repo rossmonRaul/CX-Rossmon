@@ -108,7 +108,7 @@ const SeleccionUnica = ({ data, proceso, onClickProcesarPregunta, onClickProcesa
     return (
         <div>
             <div id="formPregunta">
-            <Card style={{ marginTop: 1 }}>
+                <Card style={{ marginTop: 1 }}>
                 <Card.Body>
                     <Form noValidate validated={validated} onSubmit={onClickAceptar} >
 

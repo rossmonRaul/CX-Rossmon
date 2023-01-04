@@ -11,10 +11,11 @@ import { ActualizarRespuestasPreguntaEncuesta, AgregarRespuestaPreguntaEncuesta,
 //COMPONENTE QUE SE ENCARGA DE IR MOSTRANDO CADA UNO DE LOS PASOS DEL FORMULARIO
 import FormularioPasos from '../mantenimientos_forms/formPasos';
 
+
 import { Container, Form, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
 export class MantenimientoPregunta extends Component {
     static displayName = MantenimientoPregunta.name;
-    
+
 
     constructor(props) {
         super(props);
@@ -40,7 +41,7 @@ export class MantenimientoPregunta extends Component {
             labelButton: "Registrar",
             cabeceras: ["ID", "Pregunta", "Tipo Pregunta", "Sigla", "Métrica", "Tipo Encuesta", "Estado", "Acciones"],
             cabeceras2: ["Pregunta"],
-            cabeceras3: ["", "Respuesta"]  //PARA LA TABLA DE EDICIÓN DE RESPUESTAS
+            cabeceras3: ["ID", "Respuesta"]  //PARA LA TABLA DE EDICIÓN DE RESPUESTAS
         };
 
     }
@@ -76,7 +77,7 @@ export class MantenimientoPregunta extends Component {
 
             respuesta = await ActualizarPregunta(data);
         }
-        
+
         if (respuesta.indicador == 0) {
             this.setState({ modal: false });
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
@@ -84,7 +85,7 @@ export class MantenimientoPregunta extends Component {
 
             $('#example').DataTable().destroy();
 
-            
+
         } else {
             this.setState({ mensajeFormulario: respuesta.mensaje });
             this.setState({ alerta: false });
@@ -131,9 +132,10 @@ export class MantenimientoPregunta extends Component {
         this.setState({ modal: !this.state.modal });
         this.setState({ labelButton: "Actualizar" });
         this.setState({ modalTitulo: "Actualizar Pregunta ID: " + id });
+        //console.log(this.state.data);
     }
 
- 
+
     onClickActualizarRespuestasPregunta = async (id, respuesta) => {
         await this.ObtenerRespuestasPreguntaEncuestaID(id);
         this.setState({ proceso: 2 });
@@ -141,6 +143,7 @@ export class MantenimientoPregunta extends Component {
         this.setState({ labelButton: "Actualizar" });
         this.setState({ modalTitulo: "Actualizar Respuesta de: " + respuesta });
     }
+
 
 
     onClickProcesarRespuestasPregunta = async (data) => {
@@ -171,6 +174,7 @@ export class MantenimientoPregunta extends Component {
     }
 
 
+
     onClickGuardarRespuestas = () => {
         this.state.listaRespuestasPregunta.map((item, index) => (
             this.onClickProcesarRespuestasPregunta(item)
@@ -193,7 +197,7 @@ export class MantenimientoPregunta extends Component {
         this.setState({ mensajeFormulario: "" });
     }
 
-    
+
     body = () => {
         return this.state.listaPreguntas.map((item, index) => (
             <tr key={index}>
@@ -204,17 +208,18 @@ export class MantenimientoPregunta extends Component {
                 <td>{item.metrica}</td>
                 <td>{item.tipoEncuesta}</td>
 
+
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === 0 ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === 1 ? "Activo" : "Inactivo"}</td>
-                <td style={{ display: "flex", padding: "0.5vw" }}>
+                <td style={{ padding: "0.5vw", width: "15vw" }}>
 
-                    <Button color="primary" onClick={() => this.onClickActualizarPregunta(item.idPreguntaEncuesta)} style={{ marginRight: "1vw" }}>Editar
+                    <Button color="primary" onClick={() => this.onClickActualizarPregunta(item.idPreguntaEncuesta)} style={{ marginRight: "0.5vw" }}>Editar
                     </Button>
 
-                    <Button disabled={item.idTipoPregunta === 3 ? true : false || item.idTipoPregunta === 5 ? true : false || item.idTipoPregunta === 6 ? true : false} color="secondary" onClick={() => this.onClickActualizarRespuestasPregunta(item.idPreguntaEncuesta, item.pregunta)} style={{ marginRight: "1vw" }}>Respuestas</Button>
+                    <Button color="secondary" onClick={() => this.onClickActualizarRespuestasPregunta(item.idPreguntaEncuesta, item.pregunta)} style={{ marginRight: "0.5vw" }}>Respuestas</Button>
 
-                    <Button color={item.estado === 1 ? "danger" : "success"} onClick={() => this.onClickInactivarPregunta(item.idPreguntaEncuesta)}> {item.estado === 1 ? "Inactivar" : "Activar"}
+                    <Button color={item.estado === 1 ? "danger" : "success"} onClick={() => this.onClickInactivarPregunta(item.idPreguntaEncuesta)} style={{ marginLeft: "0", marginTop: "0vw" }}> {item.estado === 1 ? "Inactivar" : "Activar"}
                     </Button>
                 </td>
             </tr >
@@ -232,7 +237,7 @@ export class MantenimientoPregunta extends Component {
     respuestas = () => {
         return this.state.listaRespuestasPregunta.map((item, index) => (
             <tr key={index}>
-                <td>{index + 1}</td>
+                <td>{item.idRespuesta}</td>
                 <td>
                     <InputTabla onChange={e => this.onChangeClasificacion(e, item, index)} id='txt-descripcion' type='text' placeholder='Descripcion' value={item.respuesta} mensajeValidacion="" />
                 </td>
@@ -242,11 +247,12 @@ export class MantenimientoPregunta extends Component {
 
     render() {
         return (
-            <main>
-       
+            <>
+                <Container className="cont">
+                </Container>
                 <Container>
 
-                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevaPregunta()}>Insertar Nueva Pregunta</Button>
+                    <Button className="btn1" onClick={() => this.onClickNuevaPregunta()}>Insertar Nueva Pregunta</Button>
                     <hr />
 
                     <br />
@@ -271,11 +277,11 @@ export class MantenimientoPregunta extends Component {
 
 
                     <FormularioModal show={this.state.modal} handleClose={this.onClickCerrarModal} titulo={this.state.modalTitulo} className=''>
-                       
-                        <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarPregunta={this.onClickProcesarPregunta} mensaje={this.state.mensajeFormulario} />                   
+
+                        <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarPregunta={this.onClickProcesarPregunta} mensaje={this.state.mensajeFormulario} />
 
                     </FormularioModal>
-                    
+
 
                     {/*PARA FORM DE PASOS*/}
                     <FormularioModal show={this.state.modal2} handleClose={this.onClickCerrarModal2} titulo={this.state.modalTitulo} className=''>
@@ -292,13 +298,13 @@ export class MantenimientoPregunta extends Component {
                             : ""}
 
                         {/*COMPONENTE QUE VA MOSTRANDO LOS PASOS (LOS DEMÁS COMPONENTES O FORMS)*/}
-                        <FormularioPasos data={this.state.data} proceso={this.state.proceso} onClickProcesarPregunta={this.onClickProcesarPregunta} onClickProcesarRespuestasPregunta={this.onClickProcesarRespuestasPregunta } />
-                        
+                        <FormularioPasos data={this.state.data} proceso={this.state.proceso} onClickProcesarPregunta={this.onClickProcesarPregunta} onClickProcesarRespuestasPregunta={this.onClickProcesarRespuestasPregunta} />
+
                     </FormularioModal>
 
 
                     <FormularioModal show={this.state.modal3} handleClose={this.onClickCerrarModal3} titulo={this.state.modalTitulo} className=''>
-                       
+
                         <Table tableHeading={this.state.cabeceras3} body={this.respuestas()} />
                         <Button className="primary btn btn-primary btn-sm" onClick={() => this.onClickGuardarRespuestas()} style={{ marginRight: "1vw" }}>Guardar
                         </Button>
@@ -306,8 +312,9 @@ export class MantenimientoPregunta extends Component {
 
 
                 </Container >
-
-                </main>
-            );
+                <Container className="cont">
+                </Container>
+            </>
+        );
     }
 }

@@ -17,7 +17,7 @@ namespace Dominio.Interfaces.Aplicacion.MantenimientoHallazgo
 
         Task<DtoRespuestaSP> EliminarMantenimientoHallazgo(int entitiMantenimientoHallazgo);
         Task<DtoCantidadDatos> ObtenerCantidadMantenimientoHallazgo();
-        
+
         Task<List<DtoOrbe>> ObtenerDatosOrbe();
 
     }

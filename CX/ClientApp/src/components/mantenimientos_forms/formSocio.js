@@ -77,7 +77,8 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarSocio, mensaje 
         <>
             <Form noValidate validated={validated} onSubmit={onClickAceptar}>
 
-                <InputSelect className="slct_lineas" controlId="slct_lineas" label="Tipo de Persona" data={listaTiposPersona} value={idTipoPersona} onChange={onChangeIdTipoPersona} optionValue="idTipoPersona" optionLabel="tipoPersona"
+                <InputSelect className="slct_lineas" controlId="slct_lineas" label="Tipo de Persona" data={listaTiposPersona} value={idTipoPersona}
+                    onChange={onChangeIdTipoPersona} optionValue="idTipoPersona" optionLabel="tipoPersona"
                     classGroup="form-lineas"></InputSelect>
                 <br />
                 <InputText id='txt-nombre' label='Nombre del socio:' type='text' placeholder='Ingrese el nombre del socio' value={nombre}

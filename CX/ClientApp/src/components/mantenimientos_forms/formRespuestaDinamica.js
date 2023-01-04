@@ -53,7 +53,7 @@ const RespuestaDinamica = ({ listaRespuesta, setListaRespuesta, onClickAceptarR,
                     <h4 className="h4Pregunta" >{pregunta}</h4>
                 </div>
 
-                <h6>Ahora ingrese las opciones:</h6>
+                <h7>Ahora ingrese las opciones:</h7>
 
                 <br></br>
                 <br></br>
@@ -78,14 +78,14 @@ const RespuestaDinamica = ({ listaRespuesta, setListaRespuesta, onClickAceptarR,
 
                         <div style={{ display: "flex", justifyContent: "space-around" }}>
                             {listaRespuesta.length - 1 === index && listaRespuesta.length < numResp &&
-                            (<Button className="btnAgregarRespuesta" type={Button} onClick={handleAgregarRespuesta} >
+                            (<Button variant="primary" type={Button} onClick={handleAgregarRespuesta} >
                                 Agregar una nueva respuesta
                             </Button>)
 
 
                         }
                         {listaRespuesta.length - 1 === index &&
-                            (<Button className="btnAgregarRespuesta" type={Button} disabled={index === 0} onClick={() => handleEliminarRespuesta(index)} >
+                                (<Button variant="danger" type={Button} disabled={index === 0} onClick={() => handleEliminarRespuesta(index)} >
                                 Eliminar respuesta
                             </Button>)
 
@@ -101,7 +101,7 @@ const RespuestaDinamica = ({ listaRespuesta, setListaRespuesta, onClickAceptarR,
                 <div style={{ display: "flex", justifyContent: "space-around" }}>
                     <Button className="primary" variant="primary" type="submit" size="sm">Guardar</Button>
 
-                    <Button className="btnListoVolver" variant="secondary" onClick={volverPasoDos}>
+                    <Button variant="secondary" variant="secondary" onClick={volverPasoDos}>
                         Menú
                     </Button>
                 </div>

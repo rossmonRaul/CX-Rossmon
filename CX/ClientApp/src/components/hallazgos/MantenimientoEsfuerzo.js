@@ -30,7 +30,7 @@ export class MantenimientoEsfuerzo extends Component {
         super(props);
         this.state = {
             gradosEsfuerzo: [],
-            cabeceras: [ "Código", "Grado de esfuerzo", "Estado", "Acciones"],
+            cabeceras: ["Código", "Grado de esfuerzo", "Estado", "Acciones"],
             pendiente: false,
             data: {},
             modal: false,
@@ -137,16 +137,16 @@ export class MantenimientoEsfuerzo extends Component {
         return this.state.gradosEsfuerzo.map((item, index) => (
             <tr key={index}>
                 <td>{item.idGradoEsfuerzo}</td>
-                
+
                 <td>{item.gradoEsfuerzo}</td>
 
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
-                <td style={{ display: "flex", padding: "0.5vw" }}>
+                <td style={{ padding: "0.5vw" }}>
 
                     <Button color="primary" onClick={() => this.onClickActualizarGradoEsfuerzo(item.idGradoEsfuerzo)} style={{ marginRight: "1vw" }}>Editar
-                                            </Button>
+                    </Button>
 
                     <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarGradoEsfuerzo(item.idGradoEsfuerzo)} > {item.estado === true ? "Inactivar" : "Activar"}
                     </Button>
@@ -160,7 +160,7 @@ export class MantenimientoEsfuerzo extends Component {
             <main>
                 <div className="row-full">Mantenimiento del Grado de Esfuerzo </div>
                 <Container>
-                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoGradoEsfuerzo()}>Insertar grado esfuerzo</Button>
+                    <Button className="btn1" onClick={() => this.onClickNuevoGradoEsfuerzo()}>Insertar grado esfuerzo</Button>
                     <hr />
                     <br />
 
@@ -180,6 +180,8 @@ export class MantenimientoEsfuerzo extends Component {
                         <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarGradosEsfuerzo={this.onClickProcesarGradosEsfuerzo} mensaje={this.state.mensajeFormulario} />
                     </FormularioModal>
 
+                </Container>
+                <Container className="cont">
                 </Container>
 
 

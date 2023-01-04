@@ -46,7 +46,7 @@ namespace DataAccess.StoredProcedures
                 }
 
                 sqlCommand.Parameters.Add("@INDICADOR", SqlDbType.Int);
-                sqlCommand.Parameters.Add("@MENSAJE", SqlDbType.VarChar, 50);
+                sqlCommand.Parameters.Add("@MENSAJE", SqlDbType.VarChar, 200);
                 sqlCommand.Parameters["@INDICADOR"].Direction = ParameterDirection.Output;
                 sqlCommand.Parameters["@MENSAJE"].Direction = ParameterDirection.Output;
 

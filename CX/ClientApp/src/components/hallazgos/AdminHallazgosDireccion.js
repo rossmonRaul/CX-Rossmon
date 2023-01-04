@@ -13,23 +13,18 @@ export class AdminHallazgosDireccion extends Component {
                 <Container>
 
                     <Row>
-                        <Col md={4}>
 
-                        </Col>
 
-                        <Col md={4}>
-
-                        </Col>
-
-                        <Col md={4}>
+                        <Col md={3}>
+                            <h5 className="heading3">Estado a visualizar</h5>
                             <div className="item1">
-                                <h5 className="heading3">Estado a visualizar</h5>
+
                                 <select className="etiqueta" name="estado" >
                                 </select>
                             </div>
                         </Col>
                     </Row>
-                   
+
 
                     <table className="table table-bordered table" name="table_observaciones">
                         <thead className="titulo2">
@@ -162,8 +157,8 @@ export class AdminHallazgosDireccion extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        
-                        </Row>
+
+                    </Row>
                     <Row>
                         <Col md={3}>
 
@@ -183,8 +178,9 @@ export class AdminHallazgosDireccion extends Component {
 
                 </Container >
 
-              
-                
+                <Container className="cont">
+                </Container>
+
             </main>
         );
     }

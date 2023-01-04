@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { Container, Form, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
 import { Alert } from 'react-bootstrap'
-import { ObtenerJefaturasDireccion, EliminarJefaturasDireccion, caragcombo, InsertarJefaturasDireccion, ObtenerJefaturasDireccionPorId,ActualizarJefaturasDireccion } from '../../servicios/ServicioJefaturasDireccion.js'
+import { ObtenerJefaturasDireccion, EliminarJefaturasDireccion, caragcombo, InsertarJefaturasDireccion, ObtenerJefaturasDireccionPorId, ActualizarJefaturasDireccion } from '../../servicios/ServicioJefaturasDireccion.js'
 import { FormularioModal } from '../components_forms/ventanaModal';
 import Formulario from '../mantenimientos_forms/formJefaturasDireccion';
 import { Table } from '../Table.js';
@@ -141,7 +141,7 @@ export class MantenimientoJefaturaDireccion extends Component {
                 <td> {item.jefatura}</td>
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
-                <td style={{ display: "flex", padding: "0.5vw" }}>
+                <td style={{ padding: "0.5vw" }}>
 
                     <Button color="primary" onClick={() => this.onClickActualizarJefatura(item.idJefatura)} style={{ marginRight: "1vw" }}>Editar
                     </Button>
@@ -159,7 +159,7 @@ export class MantenimientoJefaturaDireccion extends Component {
             <main>
                 <div className="row-full">Mantenimiento de jefaturas por dirección </div>
                 <Container>
-                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevaJefatura()}>Insertar jefatura</Button>
+                    <Button className="btn1" onClick={() => this.onClickNuevaJefatura()}>Insertar jefatura</Button>
                     <hr />
                     <br />
 
@@ -179,6 +179,8 @@ export class MantenimientoJefaturaDireccion extends Component {
                 </Container>
 
 
+                <Container className="cont">
+                </Container>
 
             </main>
         );

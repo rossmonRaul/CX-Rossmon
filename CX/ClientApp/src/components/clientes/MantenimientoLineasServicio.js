@@ -11,7 +11,7 @@ import "datatables.net-dt/css/jquery.dataTables.min.css"
 import $ from 'jquery';
 //modal
 import { FormularioModal } from '../components_forms/ventanaModal';
-import  Formulario  from '../mantenimientos_forms/formNegocios';
+import Formulario from '../mantenimientos_forms/formNegocios';
 
 
 export class MantenimientoLineasServicio extends Component {
@@ -42,12 +42,12 @@ export class MantenimientoLineasServicio extends Component {
     }
 
     async componentDidMount() {
-         await this.ObtenerListadoLineaNegocio();
+        await this.ObtenerListadoLineaNegocio();
 
         setTimeout(() => {
-            $('#example').DataTable(              
+            $('#example').DataTable(
                 {
-                    "lengthMenu" : [[5,10,15,-1], [5,10,15,"All"]]
+                    "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 });
         }, 100);
     }
@@ -55,13 +55,13 @@ export class MantenimientoLineasServicio extends Component {
 
     async ObtenerListadoLineaNegocio() {
         const respuesta = await ObtenerLineaNegocio();
-        this.setState({ listaNegocios: respuesta });       
+        this.setState({ listaNegocios: respuesta });
     }
 
     onClickNuevaLineaNegocio = async () => {
-        this.setState({ proceso: 1});
+        this.setState({ proceso: 1 });
         this.setState({ modal: !this.state.modal });
-        this.setState({ labelButton : "Registrar"});
+        this.setState({ labelButton: "Registrar" });
         this.setState({ modalTitulo: "Registrar Línea de Negocio" });
     }
 
@@ -75,7 +75,7 @@ export class MantenimientoLineasServicio extends Component {
         }
         this.setState({ mensajeRespuesta: respuesta });
         this.setState({ show: true });
-       
+
     }
 
     onClickActualizarLineaNegocio = async (id) => {
@@ -114,7 +114,7 @@ export class MantenimientoLineasServicio extends Component {
             }, 100);
         } else {
             this.setState({ mensajeFormulario: respuesta.mensaje });
-            this.setState({ alerta: false });            
+            this.setState({ alerta: false });
         }
 
         this.setState({ show: true });
@@ -122,7 +122,7 @@ export class MantenimientoLineasServicio extends Component {
 
     onClickCerrarModal = () => {
         this.setState({ modal: false });
-        this.setState({ mensajeFormulario: ""});
+        this.setState({ mensajeFormulario: "" });
     }
 
 
@@ -135,7 +135,7 @@ export class MantenimientoLineasServicio extends Component {
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
-                <td style={{ display: "flex", padding: "0.5vw" }}>
+                <td style={{ padding: "0.5vw" }}>
 
                     <Button color="primary" onClick={() => this.onClickActualizarLineaNegocio(item.idLinea)} style={{ marginRight: "1vw" }}>Editar
                     </Button>
@@ -153,7 +153,7 @@ export class MantenimientoLineasServicio extends Component {
             <main>
                 <div className="row-full">Mantenimiento de Lineas de Servicio </div>
                 <Container>
-                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevaLineaNegocio()}>Insertar línea de negocio</Button>
+                    <Button className="btn1" onClick={() => this.onClickNuevaLineaNegocio()}>Insertar línea de negocio</Button>
                     <hr />
                     <br />
 
@@ -208,6 +208,8 @@ export class MantenimientoLineasServicio extends Component {
                         <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarLineaNegocio={this.onClickProcesarLineaNegocio} mensaje={this.state.mensajeFormulario} />
                     </FormularioModal>
 
+                </Container>
+                <Container className="cont">
                 </Container>
             </main>
         );

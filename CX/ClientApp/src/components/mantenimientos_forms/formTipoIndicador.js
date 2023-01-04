@@ -10,6 +10,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarTipoIndicador, 
     const [sigla, setSigla] = useState(proceso == 2 ? data.sigla : '');
     const [minimo, setMinimo] = useState(proceso == 2 ? data.minimo : 1);
     const [maximo, setMaximo] = useState(proceso == 2 ? data.maximo : '');
+    const [medio, setMedio] = useState(proceso == 2 ? data.medio : '');
 
     //validación
     const [validated, setValidated] = useState(false);
@@ -25,6 +26,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarTipoIndicador, 
                 sigla: sigla,
                 minimo: parseInt(minimo),
                 maximo: parseInt(maximo),
+                medio: parseInt(medio)
             };
             if (proceso === 2) { datos.idTipoIndicador = parseInt(data.idTipoIndicador)};
 
@@ -39,6 +41,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarTipoIndicador, 
     const onChangeSigla = (e) => { setSigla(e.target.value); }
     const onChangeMinimo = (e) => { setMinimo(e.target.value); }
     const onChangeMaximo = (e) => { setMaximo(e.target.value); } 
+    const onChangeMedio = (e) => { setMedio(e.target.value); } 
 
     return (
         <>
@@ -58,6 +61,11 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarTipoIndicador, 
 
                 <InputText id='txt-minimo' label='Valor mínimo:' type='number' placeholder='Ingrese el valor mínimo para medir el indicador' value={minimo}
                     onChange={onChangeMinimo} mensajeValidacion="El valor mínimo del tipo de Indicador es requerido" />
+
+                {mensaje !== "" ? <p className="text-info text-center">{mensaje}</p> : ""}
+
+                <InputText id='txt-minimo' label='Valor medio:' type='number' placeholder='Ingrese el valor medio para medir el indicador' value={medio}
+                    onChange={onChangeMedio} mensajeValidacion="El valor medio del tipo de Indicador es requerido" />
 
                 {mensaje !== "" ? <p className="text-info text-center">{mensaje}</p> : ""}
 

@@ -21,7 +21,7 @@ export class MantenimientoIndicador extends Component {
         super(props);
         this.state = {
             listaTiposIndicadores: [],
-            listaValoresIndicador:[],
+            listaValoresIndicador: [],
             pendiente: false,
             data: {},
             modal: false,
@@ -31,16 +31,16 @@ export class MantenimientoIndicador extends Component {
             modalTitulo2: "Editar valores de Indicador",
             labelButton: "Registrar",
             mensajeFormulario: "",
-            mensajeError:"",
+            mensajeError: "",
             mensajeRespuesta: {},
             mensajeRespuesta2: {},
             show: false,//mostrar respuesta en editar indicadores
             show2: false,//Mostrar respuesta en editar valores
-            show3:false,//Mostrar el error de validacion de minimos y maximos
+            show3: false,//Mostrar el error de validacion de minimos y maximos
             alerta: true,
             alerta2: true,
-            alerta3:false,
-            cabeceras: ["ID", "Sigla", "Descripción", "Mínimo", "Máximo", "Estado", "Acción"],
+            alerta3: false,
+            cabeceras: ["ID", "Sigla", "Descripción", "Mínimo","Medio", "Máximo", "Estado", "Acción"],
             cabeceras2: ["Valor", "Descripción"],
         };
 
@@ -95,18 +95,18 @@ export class MantenimientoIndicador extends Component {
         this.setState({ modalTitulo: "Actualizar Tipo de Indicador" });
     }
 
-    onClickActualizarValoresIndicador = async (id,indicador) => {
+    onClickActualizarValoresIndicador = async (id, indicador) => {
         await this.ObtenerValoresIndicadorPorID(id);
         this.setState({ proceso: 2 });
         this.setState({ modal2: !this.state.modal2 });
         this.setState({ labelButton: "Actualizar" });
-        this.setState({ modalTitulo2: "Actualizar valores del indicador "+indicador });
+        this.setState({ modalTitulo2: "Actualizar valores del indicador " + indicador });
     }
 
     onClickProcesarTipoIndicador = async (data) => {
         let respuesta = {};
         if (data.minimo > data.maximo) {
-            this.setState({ mensajeError: "El valor mínimo no puede ser mayor al valor máximo "});
+            this.setState({ mensajeError: "El valor mínimo no puede ser mayor al valor máximo " });
             this.setState({ show3: true });
             return
         }
@@ -121,14 +121,20 @@ export class MantenimientoIndicador extends Component {
             return
         }
 
-        if (this.state.proceso === 1) {
-            
-                respuesta = await AgregarTipoIndicador(data);
-                this.setState({ show3: false });
-            
+        if (data.medio > data.maximo || data.medio<data.minimo) {
+            this.setState({ mensajeError: "El valor medio tiene que estar entre el valor máximo y el valor mínimo" });
+            this.setState({ show3: true });
+            return
         }
 
-            
+        if (this.state.proceso === 1) {
+
+            respuesta = await AgregarTipoIndicador(data);
+            this.setState({ show3: false });
+
+        }
+
+
 
         else {
 
@@ -158,7 +164,7 @@ export class MantenimientoIndicador extends Component {
 
         }
 
-        this.setState({ show: true }); 
+        this.setState({ show: true });
 
     }
 
@@ -177,7 +183,7 @@ export class MantenimientoIndicador extends Component {
             this.setState({ mensajeRespuesta2: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta2: true });
 
-            
+
 
         } else {
             this.setState({ mensajeFormulario2: respuesta.mensaje });
@@ -213,6 +219,7 @@ export class MantenimientoIndicador extends Component {
                 <td>{item.sigla}</td>
                 <td>{item.tipoIndicador}</td>
                 <td>{item.minimo}</td>
+                <td>{item.medio}</td>
                 <td>{item.maximo}</td>
 
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
@@ -232,15 +239,15 @@ export class MantenimientoIndicador extends Component {
             </tr>
         ))
     }
-    onChangeClasificacion(e,item,index) {
+    onChangeClasificacion(e, item, index) {
         let items = [...this.state.listaValoresIndicador];
         item.clasificacion = e.target.value;
         items[index] = item;
-        this.setState({ listaValoresIndicador:items });
+        this.setState({ listaValoresIndicador: items });
     }
 
     valores = () => {
-        
+
         return this.state.listaValoresIndicador.map((item, index) => (
             <tr key={index}>
                 <td>{item.valor}</td>
@@ -256,7 +263,7 @@ export class MantenimientoIndicador extends Component {
             <main>
                 <div className="row-full">Mantenimiento de Tipos de Indicadores</div>
                 <Container>
-                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoTipoIndicador()}>Insertar Tipo Indicador</Button>
+                    <Button className="btn1" onClick={() => this.onClickNuevoTipoIndicador()}>Insertar Tipo Indicador</Button>
                     <hr />
                     <br />
 
@@ -292,6 +299,9 @@ export class MantenimientoIndicador extends Component {
                         </Button>
                     </FormularioModal>
                 </Container>
+                <Container className="cont">
+                </Container>
+
             </main>
         );
     }

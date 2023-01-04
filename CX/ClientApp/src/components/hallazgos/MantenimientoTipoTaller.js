@@ -30,7 +30,7 @@ export class MantenimientoTipoTaller extends Component {
             mensajeRespuesta: {},
             show: false,
             alerta: true,
-             cabeceras: [
+            cabeceras: [
                 "Id",
                 "Tipo de Taller",
                 "Estado",
@@ -57,7 +57,7 @@ export class MantenimientoTipoTaller extends Component {
         this.setState({ listaTalleres: respuesta });
     }
 
-    onClickNuevoTipoTaller= async () => {
+    onClickNuevoTipoTaller = async () => {
         this.setState({ proceso: 1 });
         this.setState({ modal: !this.state.modal });
         this.setState({ labelButton: "Registrar" });
@@ -67,7 +67,7 @@ export class MantenimientoTipoTaller extends Component {
     onClickInactivarTipoTaller = async (id) => {
         const respuesta = await InactivarTipoTaller(id)
         if (respuesta.indicador === 0) {
-            this.setState({ listaTalleres   : await ObtenerTipoTaller() });
+            this.setState({ listaTalleres: await ObtenerTipoTaller() });
             this.setState({ alerta: true });
         } else {
             this.setState({ alerta: false });
@@ -77,7 +77,7 @@ export class MantenimientoTipoTaller extends Component {
 
     }
 
-    onClickActualizarTipoTaller= async (id) => {
+    onClickActualizarTipoTaller = async (id) => {
         this.setState({ data: await ObtenerTipoTallerPorId(id) })
         this.setState({ proceso: 2 });
         this.setState({ modal: !this.state.modal });
@@ -85,7 +85,7 @@ export class MantenimientoTipoTaller extends Component {
         this.setState({ modalTitulo: "Actualizar Tipo de Taller" });
     }
 
-    onClickProcesarTipoTaller= async (data) => {
+    onClickProcesarTipoTaller = async (data) => {
         let respuesta = {};
 
         if (this.state.proceso === 1)
@@ -132,7 +132,7 @@ export class MantenimientoTipoTaller extends Component {
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
-                <td style={{ display: "flex", padding: "0.5vw" }}>
+                <td style={{ padding: "0.5vw" }}>
 
                     <Button color="primary" onClick={() => this.onClickActualizarTipoTaller(item.idTipoTaller)} style={{ marginRight: "1vw" }}>Editar
                     </Button>
@@ -149,7 +149,7 @@ export class MantenimientoTipoTaller extends Component {
             <main>
                 <div className="row-full">Mantenimiento de Tipo de Taller</div>
                 <Container>
-                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoTipoTaller()}>Insertar Tipo de Taller</Button>
+                    <Button className="btn1" onClick={() => this.onClickNuevoTipoTaller()}>Insertar Tipo de Taller</Button>
                     <hr />
                     <br />
 
@@ -173,9 +173,9 @@ export class MantenimientoTipoTaller extends Component {
 
                 </Container>
 
-                <br />
-                <br />
-                <br />
+
+                <Container className="cont">
+                </Container>
             </main>
         );
     }

@@ -7,6 +7,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarTipoIdentificac
     //variables
     const [tipoIdentificacion, setTipoIdentificacion] = useState(proceso == 2 ? data.tipoIdentificacion : ''); //si el proceso es 1 es insertar, si es 2 es actualizar
 
+
     //validación
     const [validated, setValidated] = useState(false);
 

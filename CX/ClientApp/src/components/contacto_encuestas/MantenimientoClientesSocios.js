@@ -7,12 +7,12 @@ export class MantenimientoClientesSocios extends Component {
     render() {
         return (
             <main>
-            <div class="row-full">Mantenimiento de Clientes por Socio</div>
+                <div class="row-full">Mantenimiento de Clientes por Socio</div>
 
-            <Container>
-                       <Row>
+                <Container>
+                    <Row>
                         <Col md={3}>
-                      
+
                             <div className="item1">
                                 <h6 className="heading4">Clientes </h6>
                                 <select name="cliente_socio" ></select>
@@ -47,9 +47,9 @@ export class MantenimientoClientesSocios extends Component {
 
                     </Row>
 
-                  
 
-                   
+
+
                     <table className="table table-bordered table" name="table_equipo">
                         <thead className="titulo2">
                             <tr >
@@ -65,8 +65,9 @@ export class MantenimientoClientesSocios extends Component {
                         </tbody>
                     </table>
                 </Container >
-
-                </main>
+                <Container className="cont">
+                </Container>
+            </main>
         )
     }
 }

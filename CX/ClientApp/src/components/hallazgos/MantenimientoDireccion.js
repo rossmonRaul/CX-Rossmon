@@ -31,7 +31,7 @@ export class MantenimientoDireccion extends Component {
         super(props);
         this.state = {
             direcciones: [],
-            cabeceras: [ "Código", "Dirección", "Estado", "Acciones"],
+            cabeceras: ["Código", "Dirección", "Estado", "Acciones"],
             pendiente: false,
             data: {},
             modal: false,
@@ -143,10 +143,10 @@ export class MantenimientoDireccion extends Component {
                 {/* COLUMNAS DE ESTADO Y BOTONES CON ESTILO*/}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
-                <td style={{ display: "flex", padding: "0.5vw" }}>
+                <td style={{ padding: "0.5vw" }}>
 
                     <Button color="primary" onClick={() => this.onClickActualizarDireccion(item.idDireccion)} style={{ marginRight: "1vw" }}>Editar
-                                            </Button>
+                    </Button>
 
                     <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarDireccion(item.idDireccion)}> {item.estado === true ? "Inactivar" : "Activar"}
                     </Button>
@@ -162,7 +162,7 @@ export class MantenimientoDireccion extends Component {
             <main>
                 <div className="row-full">Mantenimiento de Direcciones </div>
                 <Container>
-                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevaDireccion()}>Insertar direccion</Button>
+                    <Button className="btn1" onClick={() => this.onClickNuevaDireccion()}>Insertar direccion</Button>
                     <hr />
                     <br />
 
@@ -217,7 +217,8 @@ export class MantenimientoDireccion extends Component {
                     </FormularioModal>
 
                 </Container>
-
+                <Container className="cont">
+                </Container>
 
             </main>
         );

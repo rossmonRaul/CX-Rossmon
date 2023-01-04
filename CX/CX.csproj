@@ -34,6 +34,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\components\mantenimientos_forms\formCalificacionEstrellas.js~RF9b44747.TMP" />
+    <None Remove="ClientApp\src\components\mantenimientos_forms\formPasoDos.js~RFb5e983e.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BussinesLogic\BussinesLogic.csproj" />
     <ProjectReference Include="..\Dominio\Dominio.csproj" />
   </ItemGroup>

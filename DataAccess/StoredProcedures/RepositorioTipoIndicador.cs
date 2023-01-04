@@ -29,6 +29,7 @@ namespace DataAccess.StoredProcedures
                 data.Add("TipoIndicador", entitiTipoIndicador.TipoIndicador);
                 data.Add("Sigla", entitiTipoIndicador.Sigla);
                 data.Add("Minimo", entitiTipoIndicador.Minimo);
+                data.Add("Medio", entitiTipoIndicador.Medio);
                 data.Add("Maximo", entitiTipoIndicador.Maximo);
 
                 string query = "SPInsertarTipoIndicador";
@@ -52,6 +53,7 @@ namespace DataAccess.StoredProcedures
                 data.Add("TipoIndicador", entitiTipoIndicador.TipoIndicador);
                 data.Add("Sigla", entitiTipoIndicador.Sigla);
                 data.Add("Minimo", entitiTipoIndicador.Minimo);
+                data.Add("Medio", entitiTipoIndicador.Medio);
                 data.Add("Maximo", entitiTipoIndicador.Maximo);
                 string query = "SPActualizarTipoIndicador";
 

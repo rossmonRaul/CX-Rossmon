@@ -8,7 +8,7 @@ import 'jquery/dist/jquery.min.js';
 import "datatables.net-dt/js/dataTables.dataTables"
 import "datatables.net-dt/css/jquery.dataTables.min.css"
 import $, { data } from 'jquery';
-import { ObtenerCategorias, InsertarCategorias,ActualizarCategoria,ObtenerCategoriasPorId,InactivarCategoria } from '../../servicios/ServicioCategorias.js'
+import { ObtenerCategorias, InsertarCategorias, ActualizarCategoria, ObtenerCategoriasPorId, InactivarCategoria } from '../../servicios/ServicioCategorias.js'
 import { Table } from '../Table.js';
 import { FormularioModal } from '../components_forms/ventanaModal';
 import Formulario from '../mantenimientos_forms/formCategorias';
@@ -127,12 +127,12 @@ export class MantenimientoCategoria extends Component {
     body = () => {
         return this.state.listacategorias.map((item, index) => {
             return <tr key={index}>
-                <td>{item.idCategoria }</td>
+                <td>{item.idCategoria}</td>
                 <td> {item.categoria}</td>
                 <td> {item.rango}</td>
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
-                <td style={{ display: "flex", padding: "0.5vw" }}>
+                <td style={{ padding: "0.5vw" }}>
 
                     <Button color="primary" onClick={() => this.onClickActualizarCategoria(item.idCategoria)} style={{ marginRight: "1vw" }}>Editar
                     </Button>
@@ -151,7 +151,7 @@ export class MantenimientoCategoria extends Component {
 
                 <div className="row-full">Mantenimiento de Categorias </div>
                 <Container>
-                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevaCategoría()}>Insertar Categoría</Button>
+                    <Button className="btn1" onClick={() => this.onClickNuevaCategoría()}>Insertar Categoría</Button>
                     <hr />
                     <br />
 
@@ -172,7 +172,8 @@ export class MantenimientoCategoria extends Component {
 
 
                 </Container>
-
+                <Container className="cont">
+                </Container>
             </main>
         );
     }

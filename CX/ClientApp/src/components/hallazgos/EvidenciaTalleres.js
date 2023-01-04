@@ -84,7 +84,7 @@ export class EvidenciaTalleres extends Component {
                         </Col>
                     </Row>
 
-                  
+
                     <div class="heading2">Observaciones </div>
                     <table className="table table-bordered table" name="table_observaciones">
                         <thead className="titulo2">
@@ -101,10 +101,11 @@ export class EvidenciaTalleres extends Component {
                         </tbody>
                     </table>
                 </Container >
+                <Container className="cont">
+                </Container>
 
 
 
-               
             </main>
         );
     }
