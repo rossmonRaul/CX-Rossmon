@@ -55,7 +55,7 @@ export class MantenimientoSectores extends Component {
         await this.ObtenerListaSectores();
         //initialize datatable
         setTimeout(() => {
-            $('#tbl_table').DataTable(
+            $('#example').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 }
@@ -63,8 +63,6 @@ export class MantenimientoSectores extends Component {
         }, 100);
 
     }
-
-
 
     async ObtenerListaSectores() {
         const respuesta = await ObtenerSectores();
@@ -121,12 +119,12 @@ export class MantenimientoSectores extends Component {
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta: true });
 
-            $('#tbl_table').DataTable().destroy();
+            $('#example').DataTable().destroy();
 
             await this.ObtenerListaSectores();
 
             setTimeout(() => {
-                $('#tbl_table').DataTable(
+                $('#example').DataTable(
                     {
                         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                     });

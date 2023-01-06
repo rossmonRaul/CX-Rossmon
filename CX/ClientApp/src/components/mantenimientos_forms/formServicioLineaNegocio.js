@@ -62,11 +62,6 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarServicioLineaNe
         event.preventDefault();
     }
 
-
-    //const onChangeIdSector = (event) => {
-    //    setidSector(event.target.value);
-    //}
-
     const onChangeServicio = (e) => setServicio(e.target.value);
     const onChangeIdLinea = (e) => setidLinea(e.target.value);
 
@@ -82,12 +77,10 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarServicioLineaNe
                 <InputSelect className="slct_lineas" controlId="slct_lineas" label="Linea" data={listaServicioLineaNegocio} value={idLinea} onChange={onChangeIdLinea} optionValue="idLinea" optionLabel="lineaNegocio"
                     classGroup="form-lineas"></InputSelect>
 
-
-                {/*   */}{/*<ComboBox data={listaServicioLineaNegocio} label="Sector" controlId="sel-idSector" onChange={onChangeIdLinea} value={idLinea} optionValue="idLinea" optionLabel="linea" indicacion="Seleccione la linea" />*/}
-
+                <br></br>
                 {mensaje !== "" ? <p className="text-info text-center">{mensaje}</p> : ""}
                 <div className='text-right'>
-                    <Button variant="primary" type="submit" size="sm">{labelButton}</Button>
+                    <Button className="primary" type="submit" size="sm">{labelButton}</Button>
                 </div>
             </Form>
         </>

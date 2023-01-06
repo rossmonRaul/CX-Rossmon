@@ -12,5 +12,7 @@ namespace Dominio.Interfaces.Aplicacion.Categoria
         Task<DtoRespuestaSP> InsertarCategoria(EntitiCategoria entitiCategoria);
         Task<DtoRespuestaSP> ActualizarCategoria(EntitiCategoria entitiCategoria);
         Task<DtoRespuestaSP> InactivarCategoria(int idCategoria);
+        Task<List<DtoCategorias>> ObtenerCategorias();
+        Task<DtoCategorias> ObtenerCategoriasPorId(int idCategoria);
     }
 }

@@ -44,15 +44,12 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarTipoPersona, me
             <Form noValidate validated={validated} onSubmit={onClickAceptar}>
 
                 <InputText id='txt-nombre' label='Tipo de Persona:' type='text' placeholder='Ingrese el tipo de persona' value={tipoPersona}
-                    onChange={onChangeTipoPersona} mensajeValidacion="El tipo de persona es requerido"/>
+                    onChange={onChangeTipoPersona} mensajeValidacion="El tipo de persona es requerido" />
 
                 {mensaje !== "" ? <p className="text-info text-center">{mensaje}</p> : ""}
 
-
-
-
                 <div className='text-right'>
-                    <Button variant="primary" type="submit" size="sm">{labelButton}</Button>
+                    <Button variant="primary" className="primary" type="submit" size="sm">{labelButton}</Button>
                 </div>
             </Form>
         </>

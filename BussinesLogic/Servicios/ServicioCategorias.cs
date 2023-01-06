@@ -19,7 +19,7 @@ namespace BussinesLogic.Servicios
         {
             this.repositorioCategorias = repositorioCategorias;
         }
-        #region Selects
+        
         public async Task<List<DtoCategorias>> ObtenerCategorias()
         {
             return await this.repositorioCategorias.ObtenerCategorias();
@@ -29,9 +29,6 @@ namespace BussinesLogic.Servicios
             return await this.repositorioCategorias.ObtenerCategoriasPorID(idCategoria);
         }
 
-
-
-        #endregion
         public async Task<DtoRespuestaSP> InsertarCategoria(EntitiCategoria entitiCategoria)
         {
             return await this.repositorioCategorias.InsertarCategoria(entitiCategoria);

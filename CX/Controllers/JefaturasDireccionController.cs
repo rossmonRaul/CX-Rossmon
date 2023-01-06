@@ -12,7 +12,7 @@ namespace CX.Controllers
     public class JefaturasDireccionController : Controller
     {
         private readonly IServicioJefaturaDireccion servicioJefaturaDireccion;
-        private readonly IServicioDirecciones servicioDirecciones;
+       
 
         public JefaturasDireccionController(IServicioJefaturaDireccion servicioJefaturaDireccion)
         {
@@ -24,11 +24,7 @@ namespace CX.Controllers
         {
             return Json(await servicioJefaturaDireccion.ObtenerJefaturasDireccion());
         }
-        [HttpGet("[action]")]
-        public async Task<JsonResult> Cargacombo()
-        {
-            return Json(await servicioDirecciones.ObtenerDireccionesActivas());
-        }
+    
         [HttpDelete("[action]")]
         public async Task<JsonResult> EliminarJefaturaDireccion(int idJefatura)
         {

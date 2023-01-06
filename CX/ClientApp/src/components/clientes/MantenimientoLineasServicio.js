@@ -166,41 +166,6 @@ export class MantenimientoLineasServicio extends Component {
                         : ""}
 
                     <br />
-                    {/*
-                     * <table id="example"
-                        class="display"  >
-                        <thead >
-                            <tr style={{ backgroundColor: "#126677", color: "white" }}>
-                                <th>Id Línea</th>
-                                <th>Línea de Negocio</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
-                            </tr >
-                        </thead>
-                        <tbody >
-                            {
-                                this.state.listaNegocios.map((item, index) => (
-                                    <tr key={index}>
-                                        <td>{item.idLinea}</td>
-                                        <td>{item.lineaNegocio}</td>
-
-                    {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
-                    {/* <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
-                        {item.estado === true ? "Activo" : "Inactivo"}</td>
-                    <td style={{ display: "flex", padding: "0.5vw" }}>
-
-                        <Button color="primary" onClick={() => this.onClickActualizarLineaNegocio(item.idLinea)} style={{ marginRight: "1vw" }}>Editar
-                        </Button>
-
-                        <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarLineaNegocio(item.idLinea)}> {item.estado === true ? "Inactivar" : "Activar"}
-                        </Button>
-                    </td>
-                                    </tr>
-                ))
-                            }
-                        </tbody>
-                    </table >*/}
-
 
                     <Table tableHeading={this.state.cabeceras} body={this.body()} />
 

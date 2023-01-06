@@ -52,7 +52,7 @@ export class MantenimientoSegmentos extends Component {
         await this.ObtenerListaSegmentos();
         //initialize datatable
         setTimeout(() => {
-            $('#tbl_table').DataTable(
+            $('#example').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 }
@@ -124,12 +124,12 @@ export class MantenimientoSegmentos extends Component {
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta: true });
 
-            $('#tbl_table').DataTable().destroy();
+            $('#example').DataTable().destroy();
 
             await this.ObtenerListaSegmentos();
 
             setTimeout(() => {
-                $('#tbl_table').DataTable(
+                $('#example').DataTable(
                     {
                         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                     });

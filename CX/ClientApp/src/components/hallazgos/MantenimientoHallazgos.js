@@ -129,7 +129,7 @@ export class MantenimientoHallazgos extends Component {
 
     onClickProcesarAnotacion = async (data) => {
         this.setState({ anotacion: data });
-       
+
     }
 
 
@@ -498,9 +498,9 @@ export class MantenimientoHallazgos extends Component {
         return (
             <main>
                 <div id="tablaHallazgo" hidden>
-                    <div class="row-full">Grid Hallazgo</div>
+                    <div class="row-full">Hallazgos</div>
                     <Container >
-                        <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoHallazgo()}>Insertar Nuevo Mantenimiento</Button>
+                        <Button className="btn1" onClick={() => this.onClickNuevoHallazgo()}>Insertar Nuevo Mantenimiento</Button>
 
                         <hr />
                         <br />
@@ -659,7 +659,8 @@ export class MantenimientoHallazgos extends Component {
                     </Container >
                 </div>
 
-
+                <Container className="cont">
+                </Container>
 
             </main>
         );

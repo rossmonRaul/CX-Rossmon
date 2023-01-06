@@ -41,7 +41,7 @@ export class MantenimientoAceptacion extends Component {
         await this.ObtenerListadoEstadoAceptacion();
 
         setTimeout(() => {
-            $('#tbl_table').DataTable(
+            $('#example').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 });
@@ -99,12 +99,12 @@ export class MantenimientoAceptacion extends Component {
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta: true });
 
-            $('#tbl_table').DataTable().destroy();
+            $('#example').DataTable().destroy();
 
             await this.ObtenerListadoEstadoAceptacion();
 
             setTimeout(() => {
-                $('#tbl_table').DataTable(
+                $('#example').DataTable(
                     {
                         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                     });

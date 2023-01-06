@@ -152,7 +152,7 @@ export class MantenimientoModelo extends Component {
             <main>
                 <div className="row-full">Mantenimiento de Metodología del Modelo de Experiencia Cliente</div>
                 <Container>
-                    <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevaMetodologiaCX()}>Insertar Metodología del Modelo de Experiencia Cliente</Button>
+                    <Button className="btn1" onClick={() => this.onClickNuevaMetodologiaCX()}>Insertar Metodología del Modelo de Experiencia Cliente</Button>
                     <hr />
                     <br />
 

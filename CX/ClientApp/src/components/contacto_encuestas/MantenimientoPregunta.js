@@ -247,9 +247,9 @@ export class MantenimientoPregunta extends Component {
 
     render() {
         return (
-            <>
-                <Container className="cont">
-                </Container>
+            <main>
+                <div class="row-full">Mantenimiento Preguntas</div>
+              
                 <Container>
 
                     <Button className="btn1" onClick={() => this.onClickNuevaPregunta()}>Insertar Nueva Pregunta</Button>
@@ -314,7 +314,7 @@ export class MantenimientoPregunta extends Component {
                 </Container >
                 <Container className="cont">
                 </Container>
-            </>
+            </main>
         );
     }
 }

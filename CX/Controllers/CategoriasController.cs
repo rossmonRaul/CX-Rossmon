@@ -18,7 +18,7 @@ namespace CX.Controllers
             this.servicioCategorias = servicioCategorias;
         }
 
-        /*
+
         [HttpGet("[action]")]
         public async Task<JsonResult> ObtenerCategorias()
         {
@@ -29,7 +29,7 @@ namespace CX.Controllers
         public async Task<JsonResult> ObtenerCategoriasPorId(int idCategoria)
         {
             return Json(await this.servicioCategorias.ObtenerCategoriasPorId(idCategoria));
-        }*/
+        }
 
         [HttpPost("[action]")]
         public async Task<JsonResult> InsertarCategoria(EntitiCategoria entitiCategoria)

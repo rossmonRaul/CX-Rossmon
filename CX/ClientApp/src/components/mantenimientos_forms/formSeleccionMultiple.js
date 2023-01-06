@@ -113,7 +113,7 @@ const SeleccionMultiple = ({ volverPasoDos, data, proceso, onClickProcesarPregun
                             <br></br>
                         <div style={{ display: "flex", justifyContent: "space-around" }}>
 
-                            <Button onClick={mostrarFormOpciones} className="primary" variant="primary" type="submit" size="sm">Siguiente</Button>
+                            <Button onClick={mostrarFormOpciones}  variant="primary" type="submit" size="sm">Siguiente</Button>
                             <Button className="btnListoVolver" variant="secondary" onClick={volverPasoDos}>
                                 Atras
                             </Button>

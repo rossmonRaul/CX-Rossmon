@@ -156,11 +156,8 @@ const Formulario = ({ labelButton, procesot, mensaje, data, onClickGuardarTaller
 
         return (
             <>
-
-                <div className="item1">
-                    <h6 className="heading3"> Secuencia</h6>
-                    <input readonly type="text" name="secuencia_hallazgos" value={secuencia} />
-                </div>
+                <h6 className="heading3"> Secuencia</h6>
+                <input readonly type="text" name="secuencia_hallazgos" value={secuencia} style={{ width: "30.9vw", height: "30px", marginBottom: "5px" }} />
 
                 <h6 className="heading3" >Tipo Taller</h6>
                 <Select id="tipoTaller" placeholder="Seleccione..." onChange={onChangeTipoTaller} value={idTaller} options={listaTalleres} />
@@ -174,10 +171,8 @@ const Formulario = ({ labelButton, procesot, mensaje, data, onClickGuardarTaller
                 <h6 className="heading3" >Nro de Oficio del Envio</h6>
                 <Select id="numOficioEnvio" placeholder="Seleccione..." onChange={onChangeMacroNumeroOficioEnvio} isClearable={true} value={idnumOficioEnvio} options={listanumOficioEnvio} />
 
-                <div className="item1">
-                    <h5 className="heading3">Fecha</h5>
-                    <input readonly type="text" name="fecha_oficio" value={fechaCreacion}></input>
-                </div>
+                <h5 className="heading3">Fecha</h5>
+                <input readonly type="text" name="fecha_oficio" value={fechaCreacion} style={{ width: "30.9vw", height: "30px", marginBottom: "5px" }}></input>
 
 
 
@@ -199,6 +194,7 @@ const Formulario = ({ labelButton, procesot, mensaje, data, onClickGuardarTaller
                                 name="text"
                                 type="text"
                                 value={secuencia}
+                                style={{ width: "26vw", height: "40px" }}
                             />
 
                         </div>
@@ -244,7 +240,7 @@ const Formulario = ({ labelButton, procesot, mensaje, data, onClickGuardarTaller
                     <Col md={4}>
                         <div className="item1">
                             <h5 className="heading3">Fecha</h5>
-                            <input readonly type="text" name="fecha_oficio" value={fechaCreacion}></input>
+                            <input readonly type="text" name="fecha_oficio" value={fechaCreacion} style={{ width: "26vw", height: "40px" }}></input>
 
 
                         </div>
@@ -303,7 +299,7 @@ const Formulario = ({ labelButton, procesot, mensaje, data, onClickGuardarTaller
                 <br />
                 <div className='text-right'>
 
-                    <Button variant="primary" type="submit" >Guardar</Button>
+                    <Button variant="primary" className="btna" type="submit" >Guardar</Button>
                     {Number(procesot) === 2 ?
                         <button id="btnCancelar" type="button" className="btn btn-danger " onClick={() => onClickCancelar()}>Cancelar</button>
                         : <></>}

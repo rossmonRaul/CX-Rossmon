@@ -44,7 +44,7 @@ namespace DataAccess.StoredProcedures
             try
             {
                 Dictionary<string, object> data = new Dictionary<string, object>();
-
+                data.Add("IdCategoria", entitiCategorias.IdCategoria);
                 data.Add("Categoria", entitiCategorias.Categoria);
                 data.Add("Rango", entitiCategorias.Rango);
                 string query = "SPActualizarCategoria";

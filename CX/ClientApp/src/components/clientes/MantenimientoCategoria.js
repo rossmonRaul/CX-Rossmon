@@ -45,7 +45,7 @@ export class MantenimientoCategoria extends Component {
         await this.ObtenerListadoCategorias();
         //initialize datatable
         $(document).ready(function () {
-            $('#tbl_table').DataTable({
+            $('#example').DataTable({
                 "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
             });
         });
@@ -106,11 +106,11 @@ export class MantenimientoCategoria extends Component {
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta: true });
 
-            $('#tbl_table').DataTable().destroy();
+            $('#example').DataTable().destroy();
 
             await this.ObtenerListadoCategorias();
 
-            $('#tbl_table').DataTable(
+            $('#example').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 });

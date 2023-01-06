@@ -1,5 +1,6 @@
 ﻿import { ProcesarDatosApi } from "./ApiFetch";
 const controlador = "jefaturasdireccion";
+const controlador_direccion = "Direcciones";
 
 export const ObtenerJefaturasDireccion = async () => {
     const url = `${controlador}/ObtenerJefaturasDireccion`;
@@ -10,7 +11,7 @@ export const ObtenerJefaturasDireccionPorId = async (id) => {
     return await ProcesarDatosApi('GET', url);
 }
 export const caragcombo = async () => {
-    const url = `${controlador}/Cargacombo`;
+    const url = `${controlador_direccion}/ObtenerDireccionesActivas`;
     return await ProcesarDatosApi('GET', url);
 }
 export const EliminarJefaturasDireccion = async (id) => {

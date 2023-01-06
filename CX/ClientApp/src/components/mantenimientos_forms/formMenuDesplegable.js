@@ -132,7 +132,7 @@ const MenuDesplegable = ({ data, proceso, onClickProcesarPregunta, onClickProces
 
                                <div style={{ display: "flex", justifyContent: "space-around" }}>
 
-                                   <Button onClick={mostrarFormOpciones} type="submit" className="primary" variant="primary"  size="sm">Siguiente</Button>
+                                   <Button onClick={mostrarFormOpciones} type="submit"  variant="primary"  size="sm">Siguiente</Button>
                                 <Button className="btnListoVolver" variant="secondary" onClick={volverPasoDos}>
                                     Atras
                                 </Button>

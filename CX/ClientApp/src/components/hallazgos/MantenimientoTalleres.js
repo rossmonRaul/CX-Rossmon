@@ -629,7 +629,7 @@ export class MantenimientoTalleres extends Component {
                 <div id="tablaTaller" hidden>
                     <div class="row-full">Grid Taller CoCreacion</div>
                     <Container >
-                        <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoTallerCoCreacion()}>Insertar Nuevo Taller Cocreación</Button>
+                        <Button className="btn1" onClick={() => this.onClickNuevoTallerCoCreacion()}>Insertar Nuevo Taller Cocreación</Button>
                         <hr />
                         <br />
                         {/*ALERTA*/}
@@ -658,7 +658,7 @@ export class MantenimientoTalleres extends Component {
                                     </Alert>
                                     : ""}
                                 <br />
-                               
+
                                 <Formulario labelButton={this.state.labelButton} data={this.state.data} procesot={this.state.procesot} onClickGuardarTallerCoCreacion={this.onClickGuardarTallerCoCreacion} onClickCancelar={this.onClickCancelar1} mensaje={this.state.mensajeFormulario} /></>
                         }
                     </Container>
@@ -787,7 +787,11 @@ export class MantenimientoTalleres extends Component {
                         </Row>
                     </Container >
                 </div>
+
+                <Container className="cont">
+                </Container>
             </main>
+
         );
     }
 }
