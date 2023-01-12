@@ -42,7 +42,7 @@ export class MantenimientoFases extends Component {
         await this.ObtenerListadoFaseServicio();
 
         setTimeout(() => {
-            $('#example').DataTable(
+            $('#tbl_table_mantenimiento').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 });
@@ -100,12 +100,12 @@ export class MantenimientoFases extends Component {
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta: true });
 
-            $('#example').DataTable().destroy();
+            $('#tbl_table_mantenimiento').DataTable().destroy();
 
             await this.ObtenerListadoFaseServicio();
 
             setTimeout(() => {
-                $('#example').DataTable(
+                $('#tbl_table_mantenimiento').DataTable(
                     {
                         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                     });
@@ -149,7 +149,7 @@ export class MantenimientoFases extends Component {
             <main>
                 <div className="row-full">Mantenimiento de Fases de Servicio </div>
                 <Container>
-                    <Button className="btn1" onClick={() => this.onClickNuevaFaseServicio()}>Insertar fase de servicio</Button>
+                    <Button className="btn_insert" onClick={() => this.onClickNuevaFaseServicio()}>Insertar fase de servicio</Button>
                     <hr />
                     <br />
 

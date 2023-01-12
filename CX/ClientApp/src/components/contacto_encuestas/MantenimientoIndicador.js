@@ -50,7 +50,7 @@ export class MantenimientoIndicador extends Component {
     async componentDidMount() {
         await this.ObtenerTiposIndicadores();
         setTimeout(() => {
-            $('#example').DataTable(
+            $('#tbl_table_mantenimiento').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 });
@@ -148,12 +148,12 @@ export class MantenimientoIndicador extends Component {
             this.setState({ alerta: true });
             this.setState({ show3: false });
             this.setState({ mensajeFormulario: "" });
-            $('#example').DataTable().destroy();
+            $('#tbl_table_mantenimiento').DataTable().destroy();
 
             await this.ObtenerTiposIndicadores();
 
             setTimeout(() => {
-                $('#example').DataTable(
+                $('#tbl_table_mantenimiento').DataTable(
                     {
                         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                     });
@@ -263,7 +263,7 @@ export class MantenimientoIndicador extends Component {
             <main>
                 <div className="row-full">Mantenimiento de Tipos de Indicadores</div>
                 <Container>
-                    <Button className="btn1" onClick={() => this.onClickNuevoTipoIndicador()}>Insertar Tipo Indicador</Button>
+                    <Button className="btn_insert" onClick={() => this.onClickNuevoTipoIndicador()}>Insertar Tipo Indicador</Button>
                     <hr />
                     <br />
 

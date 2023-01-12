@@ -136,10 +136,10 @@ export class MantenimientoTalleres extends Component {
             this.setState({ mensajeRespuestaP: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alertaP: true });
             this.setState({ modalParticipantes: !this.state.modalParticipantes });
-            $('#example2').DataTable().destroy();
+            $('#tbl_table_mantenimiento2').DataTable().destroy();
             await this.ObtenerEquipoTrabajoPorIdTaller();
             setTimeout(() => {
-                $('#example2').DataTable(
+                $('#tbl_table_mantenimiento2').DataTable(
                     {
                         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                     });
@@ -217,10 +217,10 @@ export class MantenimientoTalleres extends Component {
         this.setState({ procesot: 2 });
 
         if (e != '') {
-            $('#example2').DataTable().destroy();
+            $('#tbl_table_mantenimiento2').DataTable().destroy();
             await this.ObtenerListadoParticipantesEquipoTrabajo();
             setTimeout(() => {
-                $('#example2').DataTable(
+                $('#tbl_table_mantenimiento2').DataTable(
                     {
                         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                     });
@@ -324,11 +324,11 @@ export class MantenimientoTalleres extends Component {
         const botonGuardarEtapa = document.getElementById("BotonGuardarEtapa");
         botonGuardarEtapa.hidden = false;
         this.setState({ tipoTallerEtapa: e });
-        $('#example3').DataTable().destroy();
+        $('#tbl_table_mantenimiento3').DataTable().destroy();
         const respuesta1 = await ObtenerEtapasTallerCo(e.value, this.state.idTallerCo);
         this.setState({ listaEtapas: respuesta1 });
         setTimeout(() => {
-            $('#example3').DataTable(
+            $('#tbl_table_mantenimiento3').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 });
@@ -385,13 +385,13 @@ export class MantenimientoTalleres extends Component {
             this.setState({ mensajeFormularioE: respuesta.mensaje });
             this.setState({ alertaE: false });
         }
-        $('#example3').DataTable().destroy();
+        $('#tbl_table_mantenimiento3').DataTable().destroy();
 
         const respuesta1 = await ObtenerEtapasTallerCo(data.idTipoTaller, this.state.idTallerCo);
         this.setState({ listaEtapas: respuesta1 });
 
         setTimeout(() => {
-            $('#example3').DataTable(
+            $('#tbl_table_mantenimiento3').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 });
@@ -453,13 +453,13 @@ export class MantenimientoTalleres extends Component {
             this.setState({ mensajeFormularioE: respuesta.mensaje });
             this.setState({ alertaE: false });
         }
-        $('#example3').DataTable().destroy();
+        $('#tbl_table_mantenimiento3').DataTable().destroy();
 
         const respuesta1 = await ObtenerEtapasTallerCo(data.idTipoTaller, this.state.idTallerCo);
         this.setState({ listaEtapas: respuesta1 });
 
         setTimeout(() => {
-            $('#example3').DataTable(
+            $('#tbl_table_mantenimiento3').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 });
@@ -484,7 +484,7 @@ export class MantenimientoTalleres extends Component {
 
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta: true });
-            $('#example').DataTable().destroy();
+            $('#tbl_table_mantenimiento').DataTable().destroy();
 
             await this.ObtenerListadoMantenimientoCo();
 
@@ -507,7 +507,7 @@ export class MantenimientoTalleres extends Component {
                 this.setState({ detalleGeneral: '' });
             }
             setTimeout(() => {
-                $('#example').DataTable(
+                $('#tbl_table_mantenimiento').DataTable(
                     {
                         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                     });
@@ -528,21 +528,21 @@ export class MantenimientoTalleres extends Component {
         await this.ObtenerTalleresEtapa();
         await this.ObtenerMacroActividadAsoEtapa();
         setTimeout(() => {
-            $('#example').DataTable(
+            $('#tbl_table_mantenimiento').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 });
         }, 100);
 
         setTimeout(() => {
-            $('#example2').DataTable(
+            $('#tbl_table_mantenimiento2').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 });
         }, 100);
 
         setTimeout(() => {
-            $('#example3').DataTable(
+            $('#tbl_table_mantenimiento3').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 });
@@ -629,7 +629,7 @@ export class MantenimientoTalleres extends Component {
                 <div id="tablaTaller" hidden>
                     <div class="row-full">Grid Taller CoCreacion</div>
                     <Container >
-                        <Button className="btn1" onClick={() => this.onClickNuevoTallerCoCreacion()}>Insertar Nuevo Taller Cocreación</Button>
+                        <Button className="btn_insert" onClick={() => this.onClickNuevoTallerCoCreacion()}>Insertar Nuevo Taller Cocreación</Button>
                         <hr />
                         <br />
                         {/*ALERTA*/}

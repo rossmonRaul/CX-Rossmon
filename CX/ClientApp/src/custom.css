@@ -162,14 +162,14 @@ thead {
         color: white;
     }
 
-.btn1 {
+.btn_insert {
     background-color: #536DFE;
     font-family: 'Nunito', sans-serif;
     font-size: 16px;
     color: white;
 }
 
-    .btn1:hover {
+    .btn_insert:hover {
         background-color: #84A5FE;
         color: white;
         border-color: #536DFE;

@@ -52,7 +52,7 @@ export class MantenimientoEsfuerzo extends Component {
         await this.ObtenerGradosEsfuerzo();
         //initialize datatable
         setTimeout(() => {
-            $('#example').DataTable(
+            $('#tbl_table_mantenimiento').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 }
@@ -95,12 +95,12 @@ export class MantenimientoEsfuerzo extends Component {
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta: true });
 
-            $('#example').DataTable().destroy();
+            $('#tbl_table_mantenimiento').DataTable().destroy();
 
             await this.ObtenerGradosEsfuerzo();
 
             setTimeout(() => {
-                $('#example').DataTable(
+                $('#tbl_table_mantenimiento').DataTable(
                     {
                         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                     });
@@ -160,7 +160,7 @@ export class MantenimientoEsfuerzo extends Component {
             <main>
                 <div className="row-full">Mantenimiento del Grado de Esfuerzo </div>
                 <Container>
-                    <Button className="btn1" onClick={() => this.onClickNuevoGradoEsfuerzo()}>Insertar grado esfuerzo</Button>
+                    <Button className="btn_insert" onClick={() => this.onClickNuevoGradoEsfuerzo()}>Insertar grado esfuerzo</Button>
                     <hr />
                     <br />
 

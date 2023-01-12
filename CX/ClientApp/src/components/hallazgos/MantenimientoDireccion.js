@@ -53,7 +53,7 @@ export class MantenimientoDireccion extends Component {
         await this.ObtenerDirecciones();
         //initialize datatable
         setTimeout(() => {
-            $('#example').DataTable(
+            $('#tbl_table_mantenimiento').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 }
@@ -116,12 +116,12 @@ export class MantenimientoDireccion extends Component {
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta: true });
 
-            $('#example').DataTable().destroy();
+            $('#tbl_table_mantenimiento').DataTable().destroy();
 
             await this.ObtenerDirecciones();
 
             setTimeout(() => {
-                $('#example').DataTable(
+                $('#tbl_table_mantenimiento').DataTable(
                     {
                         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                     });
@@ -162,7 +162,7 @@ export class MantenimientoDireccion extends Component {
             <main>
                 <div className="row-full">Mantenimiento de Direcciones </div>
                 <Container>
-                    <Button className="btn1" onClick={() => this.onClickNuevaDireccion()}>Insertar direccion</Button>
+                    <Button className="btn_insert" onClick={() => this.onClickNuevaDireccion()}>Insertar direccion</Button>
                     <hr />
                     <br />
 

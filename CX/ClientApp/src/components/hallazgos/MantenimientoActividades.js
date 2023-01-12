@@ -46,7 +46,7 @@ export class MantenimientoActividades extends Component {
         await this.ObtenerListadoMacroActividad();
 
         setTimeout(() => {
-            $('#example').DataTable(
+            $('#tbl_table_mantenimiento').DataTable(
                 {
                     "lengthMenu": [[15, 20, 25, -1], [15, 20, 25, "All"]]
                 });
@@ -102,12 +102,12 @@ export class MantenimientoActividades extends Component {
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta: true });
 
-            $('#example').DataTable().destroy();
+            $('#tbl_table_mantenimiento').DataTable().destroy();
 
             await this.ObtenerListadoMacroActividad();
 
             setTimeout(() => {
-                $('#example').DataTable(
+                $('#tbl_table_mantenimiento').DataTable(
                     {
                         "lengthMenu": [[15, 20, 25, -1], [15, 20, 25, "All"]]
                     });
@@ -152,7 +152,7 @@ export class MantenimientoActividades extends Component {
             <main>
                 <div className="row-full">Mantenimiento de Macro Actividades</div>
                 <Container>
-                    <Button className="btn1" onClick={() => this.onClickNuevaMacroActividad()}>Insertar Macro Actividad</Button>
+                    <Button className="btn_insert" onClick={() => this.onClickNuevaMacroActividad()}>Insertar Macro Actividad</Button>
                     <hr />
                     <br />
 

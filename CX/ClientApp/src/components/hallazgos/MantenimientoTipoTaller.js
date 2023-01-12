@@ -44,7 +44,7 @@ export class MantenimientoTipoTaller extends Component {
         await this.ObtenerListadoTipoTaller();
 
         setTimeout(() => {
-            $('#example').DataTable(
+            $('#tbl_table_mantenimiento').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 });
@@ -100,12 +100,12 @@ export class MantenimientoTipoTaller extends Component {
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta: true });
 
-            $('#example').DataTable().destroy();
+            $('#tbl_table_mantenimiento').DataTable().destroy();
 
             await this.ObtenerListadoTipoTaller();
 
             setTimeout(() => {
-                $('#example').DataTable(
+                $('#tbl_table_mantenimiento').DataTable(
                     {
                         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                     });
@@ -149,7 +149,7 @@ export class MantenimientoTipoTaller extends Component {
             <main>
                 <div className="row-full">Mantenimiento de Tipo de Taller</div>
                 <Container>
-                    <Button className="btn1" onClick={() => this.onClickNuevoTipoTaller()}>Insertar Tipo de Taller</Button>
+                    <Button className="btn_insert" onClick={() => this.onClickNuevoTipoTaller()}>Insertar Tipo de Taller</Button>
                     <hr />
                     <br />
 
