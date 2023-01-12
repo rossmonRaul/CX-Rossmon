@@ -7,7 +7,15 @@ a {
     color: #126677;
 }
 
-
+#surveyElement {
+    --primary: #343c9c;
+    --background: #F5F5F5;
+    --background-dim: white;
+    --background-dim-light: white;
+    --primary-foreground: #ffffff;
+    --foreground: #343c9c;
+    --base-unit: 8px;
+}
 
 .sidenav {
     height: 100%;
@@ -43,11 +51,6 @@ a {
         margin-left: 50px;
     }
 
-
-
-
-
-
 a:hover {
     color: #17A797;
 }
@@ -65,6 +68,15 @@ code {
 body {
     background-color: #F5F5F5;
     margin-bottom: 60px;
+}
+
+.h6 {
+    font-size: 10px;
+}
+
+.btna {
+    font-size: 16px;
+    margin-right: 1vw;
 }
 
 html {
@@ -88,6 +100,10 @@ html {
     border-block-color: #449FC7;
 }
 
+.primary {
+    margin-left: 180px;
+    font-size: 16px;
+}
 
 .titulo {
     color: white;
@@ -146,14 +162,14 @@ thead {
         color: white;
     }
 
-.btn1 {
+.btn_insert {
     background-color: #536DFE;
     font-family: 'Nunito', sans-serif;
     font-size: 16px;
     color: white;
 }
 
-    .btn1:hover {
+    .btn_insert:hover {
         background-color: #84A5FE;
         color: white;
         border-color: #536DFE;
@@ -521,6 +537,7 @@ textarea {
 .cont {
     box-shadow: none;
     background-color: #F5F5F5;
+    height: 5px;
 }
 
 

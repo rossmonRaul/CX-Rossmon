@@ -129,7 +129,7 @@ export class MantenimientoHallazgos extends Component {
 
     onClickProcesarAnotacion = async (data) => {
         this.setState({ anotacion: data });
-       
+
     }
 
 
@@ -149,7 +149,7 @@ export class MantenimientoHallazgos extends Component {
             this.setState({ mensajeRespuesta: respuesta}); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta: true });
 
-            $('#example').DataTable().destroy();
+            $('#tbl_table_mantenimiento').DataTable().destroy();
 
             await this.ObtenerListadoGridHallazgo();
             if (this.state.proceso2 === 1) {
@@ -165,7 +165,7 @@ export class MantenimientoHallazgos extends Component {
                 fechasHallazgo.hidden = true;
             }
             setTimeout(() => {
-                $('#example').DataTable(
+                $('#tbl_table_mantenimiento').DataTable(
                     {
                         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                     });
@@ -231,10 +231,10 @@ export class MantenimientoHallazgos extends Component {
         this.setState({ proceso2: 2 });
         if (e != '') {
 
-            $('#example2').DataTable().destroy();
+            $('#tbl_table_mantenimiento2').DataTable().destroy();
             await this.ObtenerListadoResponsablesPorIdHallazgo();
             setTimeout(() => {
-                $('#example2').DataTable(
+                $('#tbl_table_mantenimiento2').DataTable(
                     {
                         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                     });
@@ -300,10 +300,10 @@ export class MantenimientoHallazgos extends Component {
     onClickInactivarResponsable = async (id) => {
         const respuesta = await InactivarResponsable(id)
         if (respuesta.indicador === 0) {
-            $('#example2').DataTable().destroy();
+            $('#tbl_table_mantenimiento2').DataTable().destroy();
             await this.ObtenerListadoResponsablesPorIdHallazgo();
             setTimeout(() => {
-                $('#example2').DataTable(
+                $('#tbl_table_mantenimiento2').DataTable(
                     {
                         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                     });
@@ -352,12 +352,12 @@ export class MantenimientoHallazgos extends Component {
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta: true });
             this.setState({ modalResponsables: !this.state.modalResponsables });
-            $('#example2').DataTable().destroy();
+            $('#tbl_table_mantenimiento2').DataTable().destroy();
 
             await this.ObtenerListadoResponsablesPorIdHallazgo();
 
             setTimeout(() => {
-                $('#example2').DataTable(
+                $('#tbl_table_mantenimiento2').DataTable(
                     {
                         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                     });
@@ -380,14 +380,14 @@ export class MantenimientoHallazgos extends Component {
         await this.ObtenerListadoResponsables();
 
         setTimeout(() => {
-            $('#example').DataTable(
+            $('#tbl_table_mantenimiento').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 });
         }, 100);
 
         setTimeout(() => {
-            $('#example2').DataTable(
+            $('#tbl_table_mantenimiento2').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 });
@@ -498,9 +498,9 @@ export class MantenimientoHallazgos extends Component {
         return (
             <main>
                 <div id="tablaHallazgo" hidden>
-                    <div class="row-full">Grid Hallazgo</div>
+                    <div class="row-full">Hallazgos</div>
                     <Container >
-                        <Button style={{ backgroundColor: "#17A797", borderColor: "#17A797" }} onClick={() => this.onClickNuevoHallazgo()}>Insertar Nuevo Mantenimiento</Button>
+                        <Button className="btn_insert" onClick={() => this.onClickNuevoHallazgo()}>Insertar Nuevo Mantenimiento</Button>
 
                         <hr />
                         <br />
@@ -659,7 +659,8 @@ export class MantenimientoHallazgos extends Component {
                     </Container >
                 </div>
 
-
+                <Container className="cont">
+                </Container>
 
             </main>
         );

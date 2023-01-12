@@ -42,7 +42,7 @@ export class MantenimientoServicioNegocio extends Component {
         await this.ObtenerListaServicioLineaNegocio();
 
         setTimeout(() => {
-            $('#example').DataTable(
+            $('#tbl_table_mantenimiento').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 });
@@ -99,12 +99,12 @@ export class MantenimientoServicioNegocio extends Component {
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta: true });
 
-            $('#example').DataTable().destroy();
+            $('#tbl_table_mantenimiento').DataTable().destroy();
 
             await this.ObtenerListaServicioLineaNegocio();
 
             setTimeout(() => {
-                $('#example').DataTable(
+                $('#tbl_table_mantenimiento').DataTable(
                     {
                         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                     });
@@ -152,7 +152,7 @@ export class MantenimientoServicioNegocio extends Component {
             <main>
                 <div className="row-full">Mantenimiento Servicios </div>
                 <Container>
-                    <Button className="btn1" onClick={() => this.onClickNuevoServicioLineaNegocio()}>Insertar Servicio </Button>
+                    <Button className="btn_insert" onClick={() => this.onClickNuevoServicioLineaNegocio()}>Insertar Servicio </Button>
                     <hr />
                     <br />
 

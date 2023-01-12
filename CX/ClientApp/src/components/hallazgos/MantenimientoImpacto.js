@@ -45,7 +45,7 @@ export class MantenimientoImpacto extends Component {
         await this.ObtenerListadoGradoImpacto();
 
         setTimeout(() => {
-            $('#example').DataTable(
+            $('#tbl_table_mantenimiento').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 });
@@ -101,12 +101,12 @@ export class MantenimientoImpacto extends Component {
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta: true });
 
-            $('#example').DataTable().destroy();
+            $('#tbl_table_mantenimiento').DataTable().destroy();
 
             await this.ObtenerListadoGradoImpacto();
 
             setTimeout(() => {
-                $('#example').DataTable(
+                $('#tbl_table_mantenimiento').DataTable(
                     {
                         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                     });
@@ -151,7 +151,7 @@ export class MantenimientoImpacto extends Component {
             <main>
                 <div className="row-full">Mantenimiento de Grados de Impacto</div>
                 <Container>
-                    <Button className="btn1" onClick={() => this.onClickNuevaGradoImpacto()}>Insertar Grado de Impacto</Button>
+                    <Button className="btn_insert" onClick={() => this.onClickNuevaGradoImpacto()}>Insertar Grado de Impacto</Button>
                     <hr />
                     <br />
 

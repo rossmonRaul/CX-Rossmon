@@ -48,7 +48,7 @@ export class MantenimientoJefaturaDireccion extends Component {
         //initialize datatable
         $(document).ready(function () {
 
-            $('#tbl_table').DataTable({
+            $('#tbl_table_mantenimiento').DataTable({
                 "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
 
             });
@@ -116,11 +116,11 @@ export class MantenimientoJefaturaDireccion extends Component {
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta: true });
 
-            $('#tbl_table').DataTable().destroy();
+            $('#tbl_table_mantenimiento').DataTable().destroy();
 
             await this.ObtenerListadoJefaturasDireccion();
 
-            $('#tbl_table').DataTable(
+            $('#tbl_table_mantenimiento').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 });
@@ -159,7 +159,7 @@ export class MantenimientoJefaturaDireccion extends Component {
             <main>
                 <div className="row-full">Mantenimiento de jefaturas por dirección </div>
                 <Container>
-                    <Button className="btn1" onClick={() => this.onClickNuevaJefatura()}>Insertar jefatura</Button>
+                    <Button className="btn_insert" onClick={() => this.onClickNuevaJefatura()}>Insertar jefatura</Button>
                     <hr />
                     <br />
 

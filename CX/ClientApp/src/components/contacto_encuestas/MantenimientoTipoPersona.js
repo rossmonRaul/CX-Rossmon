@@ -40,7 +40,7 @@ export class MantenimientoTipoPersona extends Component {
         await this.ObtenerListadoTiposPersona();
 
         setTimeout(() => {
-            $('#example').DataTable(
+            $('#tbl_table_mantenimiento').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 });
@@ -95,12 +95,12 @@ export class MantenimientoTipoPersona extends Component {
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta: true });
 
-            $('#example').DataTable().destroy();
+            $('#tbl_table_mantenimiento').DataTable().destroy();
 
             await this.ObtenerListadoTiposPersona();
 
             setTimeout(() => {
-                $('#example').DataTable(
+                $('#tbl_table_mantenimiento').DataTable(
                     {
                         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                     });
@@ -146,7 +146,7 @@ export class MantenimientoTipoPersona extends Component {
             <main>
                 <div className="row-full">Catálogo de TiposPersona </div>
                 <Container>
-                    <Button className="btn1" onClick={() => this.onClickNuevoTipoPersona()}>Insertar TipoPersona</Button>
+                    <Button className="btn_insert" onClick={() => this.onClickNuevoTipoPersona()}>Insertar TipoPersona</Button>
                     <hr />
                     <br />
 

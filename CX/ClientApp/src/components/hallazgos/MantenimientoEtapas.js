@@ -47,7 +47,7 @@ export class MantenimientoEtapas extends Component {
         await this.ObtenerListadoEtapasTaller();
 
         setTimeout(() => {
-            $('#example').DataTable(
+            $('#tbl_table_mantenimiento').DataTable(
                 {
                     "lengthMenu": [[10, 15, 20, -1], [10, 15, 20, "All"]]
                 });
@@ -103,12 +103,12 @@ export class MantenimientoEtapas extends Component {
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta: true });
 
-            $('#example').DataTable().destroy();
+            $('#tbl_table_mantenimiento').DataTable().destroy();
 
             await this.ObtenerListadoEtapasTaller();
 
             setTimeout(() => {
-                $('#example').DataTable(
+                $('#tbl_table_mantenimiento').DataTable(
                     {
                         "lengthMenu": [[10, 15, 20, -1], [10, 15, 20, "All"]]
                     });
@@ -153,7 +153,7 @@ export class MantenimientoEtapas extends Component {
             <main>
                 <div className="row-full">Mantenimiento de Etapas de Tipo de Taller</div>
                 <Container>
-                    <Button className="btn1" onClick={() => this.onClickNuevaEtapaTaller()}>Insertar Etapa de Tipo de Taller</Button>
+                    <Button className="btn_insert" onClick={() => this.onClickNuevaEtapaTaller()}>Insertar Etapa de Tipo de Taller</Button>
                     <hr />
                     <br />
 

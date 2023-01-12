@@ -52,7 +52,7 @@ export class MantenimientoSegmentos extends Component {
         await this.ObtenerListaSegmentos();
         //initialize datatable
         setTimeout(() => {
-            $('#tbl_table').DataTable(
+            $('#tbl_table_mantenimiento').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 }
@@ -124,12 +124,12 @@ export class MantenimientoSegmentos extends Component {
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta: true });
 
-            $('#tbl_table').DataTable().destroy();
+            $('#tbl_table_mantenimiento').DataTable().destroy();
 
             await this.ObtenerListaSegmentos();
 
             setTimeout(() => {
-                $('#tbl_table').DataTable(
+                $('#tbl_table_mantenimiento').DataTable(
                     {
                         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                     });
@@ -174,7 +174,7 @@ export class MantenimientoSegmentos extends Component {
                 <div className="row-full">Mantenimiento de Segmentos </div>
                 <Container>
 
-                    <Button className="btn1" onClick={() => this.onClickNuevoSegmento()}>Insertar segmento</Button>
+                    <Button className="btn_insert" onClick={() => this.onClickNuevoSegmento()}>Insertar segmento</Button>
                     <hr />
                     <br />
                     {/*ALERTA*/}

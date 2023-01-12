@@ -41,7 +41,7 @@ export class MantenimientoEstadoHallazgo extends Component {
         await this.ObtenerListadoEstadoHallazgo();
 
         setTimeout(() => {
-            $('#tbl_table').DataTable(
+            $('#tbl_table_mantenimiento').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 });
@@ -99,12 +99,12 @@ export class MantenimientoEstadoHallazgo extends Component {
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta: true });
 
-            $('#tbl_table').DataTable().destroy();
+            $('#tbl_table_mantenimiento').DataTable().destroy();
 
             await this.ObtenerListadoEstadoHallazgo();
 
             setTimeout(() => {
-                $('#tbl_table').DataTable(
+                $('#tbl_table_mantenimiento').DataTable(
                     {
                         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                     });
@@ -135,7 +135,7 @@ export class MantenimientoEstadoHallazgo extends Component {
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
-                <td style={{  padding: "0.5vw" }}>
+                <td style={{ padding: "0.5vw" }}>
 
 
 
@@ -156,7 +156,7 @@ export class MantenimientoEstadoHallazgo extends Component {
             <main>
                 <div className="row-full">Mantenimiento de Estado de Hallazgo </div>
                 <Container>
-                    <Button className="btn1" onClick={() => this.onClickNuevaEstadoHallazgo()}>Insertar Estado de Hallazgo</Button>
+                    <Button className="btn_insert" onClick={() => this.onClickNuevaEstadoHallazgo()}>Insertar Estado de Hallazgo</Button>
                     <hr />
                     <br />
 

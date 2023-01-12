@@ -13,7 +13,7 @@ export const Table = ({ tableHeading, body }) => {
 
     return (
         <>
-            <table id="example"
+            <table id="tbl_table_mantenimiento"
                 className="table" >
                 <thead >
                     <tr style={{ backgroundColor: "#126677", color: "white" }}>
@@ -38,7 +38,7 @@ export const Table2 = ({ tableHeading, body }) => {
 
     return (
         <>
-            <table id="example2"
+            <table id="tbl_table_mantenimiento2"
                 className="table" >
                 <thead >
                     <tr style={{ backgroundColor: "#126677", color: "white" }}>
@@ -62,7 +62,7 @@ export const Table3 = ({ tableHeading, body }) => {
 
     return (
         <>
-            <table id="example3"
+            <table id="tbl_table_mantenimiento3"
                 className="table" >
                 <thead >
                     <tr style={{ backgroundColor: "#126677", color: "white" }}>

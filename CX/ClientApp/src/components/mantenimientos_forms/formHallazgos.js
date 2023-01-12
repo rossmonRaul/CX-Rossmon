@@ -297,11 +297,11 @@ const Formulario = ({ labelButton, proceso2, mensaje, data, onClickProcesarHalla
                 detalleEspecificoHallazgo: detalleEspecificoH,
             };
 
-            
+
             if (proceso2 === 2) { datos.idMantenimientoHallazgo = data.idMantenimientoHallazgo };
 
             const result = onClickProcesarHallazgo(datos); //se ejecuta la función
-        
+
 
         }
         setValidated(true);
@@ -311,7 +311,7 @@ const Formulario = ({ labelButton, proceso2, mensaje, data, onClickProcesarHalla
 
 
 
-    const onChangeFasesCJ = (e) => { setidFaseCJ(e);  };
+    const onChangeFasesCJ = (e) => { setidFaseCJ(e); };
     const onChangeTallerCoCreacion = (e) => setidTaller(e);
 
     const onChangeLineaNegocio = (e) => {
@@ -538,9 +538,9 @@ const Formulario = ({ labelButton, proceso2, mensaje, data, onClickProcesarHalla
     return (
         <>
             <Form noValidate validated={validated} onSubmit={onClickAgregarMantenimiento}>
-            
 
-                {Number(proceso2) === 1 ?  <InsertarHallazgo /> : <EditarHallazgo />
+
+                {Number(proceso2) === 1 ? <InsertarHallazgo /> : <EditarHallazgo />
 
 
                 }
@@ -628,9 +628,9 @@ const Formulario = ({ labelButton, proceso2, mensaje, data, onClickProcesarHalla
                                 <div className="item1">
                                     <h6 className="heading3">Anexos</h6>
                                     <Form.Group controlId="formFile" className="mb-3">
-                                        <Form.Control style={{ marginBottom: 2 }} type="file" />
+                                        <Form.Control type="file" />
 
-                                        <Button onClick={() => onClickAgregarAnotacion()} color="primary" variant="primary" size="sm">Agregar Anotaciones</Button>
+                                        <Button onClick={() => onClickAgregarAnotacion()} style={{ marginTop: "20px" }} color="primary" variant="primary" size="sm">Agregar Anotaciones</Button>
                                     </Form.Group>
                                     <FormularioModal show={modal} handleClose={onClickCerrarModal} titulo={modalTitulo}>
                                         <FormAnotacion />
@@ -643,18 +643,11 @@ const Formulario = ({ labelButton, proceso2, mensaje, data, onClickProcesarHalla
                 }
 
 
-
-                {/*<Row id="filaBotones">*/}
-                {/*    <Col id="botonesGuardado" md={3}>*/}
-                {/*        <button id="btnGuardar" type="button" className="btn btn-primary btn-lg" >Guardar</button>*/}
-                {/*        <button id="btnEditar" type="button" className="btn btn-primary btn-lg" >Editar</button>*/}
-                {/*        <button id="btnCancelar" type="button" className="btn btn-danger btn-lg" >Cancelar</button>*/}
-                {/*    </Col>*/}
-                {/*</Row>*/}
+        
                 <br />
                 <div className='text-right'>
 
-                    <Button variant="primary" type="submit" >Guadar</Button>
+                    <Button className="primary" type="submit" >Guadar</Button>
                     {Number(proceso2) === 2 ?
                         <button id="btnCancelar" type="button" className="btn btn-danger " onClick={() => onClickCancelar()}>Cancelar</button>
                         : <></>}

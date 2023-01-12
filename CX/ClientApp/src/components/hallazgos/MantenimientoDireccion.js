@@ -53,7 +53,7 @@ export class MantenimientoDireccion extends Component {
         await this.ObtenerDirecciones();
         //initialize datatable
         setTimeout(() => {
-            $('#tbl_table').DataTable(
+            $('#tbl_table_mantenimiento').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 }
@@ -116,12 +116,12 @@ export class MantenimientoDireccion extends Component {
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta: true });
 
-            $('#tbl_table').DataTable().destroy();
+            $('#tbl_table_mantenimiento').DataTable().destroy();
 
             await this.ObtenerDirecciones();
 
             setTimeout(() => {
-                $('#tbl_table').DataTable(
+                $('#tbl_table_mantenimiento').DataTable(
                     {
                         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                     });
@@ -162,7 +162,7 @@ export class MantenimientoDireccion extends Component {
             <main>
                 <div className="row-full">Mantenimiento de Direcciones </div>
                 <Container>
-                    <Button className="btn1" onClick={() => this.onClickNuevaDireccion()}>Insertar direccion</Button>
+                    <Button className="btn_insert" onClick={() => this.onClickNuevaDireccion()}>Insertar direccion</Button>
                     <hr />
                     <br />
 
@@ -176,41 +176,7 @@ export class MantenimientoDireccion extends Component {
 
                     <br />
                     <Table tableHeading={this.state.cabeceras} body={this.body()} />
-                    {/*<table id="example"*/}
-                    {/*    class="display">*/}
-                    {/*    <thead >*/}
-                    {/*        <tr >*/}
-                    {/*            <th>Id Direccion</th>*/}
-                    {/*            <th>Código</th>*/}
-                    {/*            <th>Direccion</th>*/}
-                    {/*            <th>Estado</th>*/}
-                    {/*            <th>Acciones</th>*/}
-                    {/*        </tr >*/}
-                    {/*    </thead>*/}
-                    {/*    <tbody >*/}
-                    {/*        {*/}
-                    {/*            this.state.direcciones.map((item, index) => (*/}
-                    {/*                <tr key={index}>*/}
-                    {/*                    <td>{item.idDireccion}</td>*/}
-                    {/*                    <td>{item.codigo}</td>*/}
-                    {/*                    <td>{item.direccion}</td>*/}
-
-                    {/*                    COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
-                    {/*                    <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>*/}
-                    {/*                        {item.estado === true ? "Activo" : "Inactivo"}</td>*/}
-                    {/*                    <td style={{ display: "flex", padding: "0.5vw" }}>*/}
-
-                    {/*                        <Button color="primary" onClick={() => this.onClickActualizarDireccion(item.idDireccion)} style={{ marginRight: "1vw" }}>Editar*/}
-                    {/*                        </Button>*/}
-
-                    {/*                        <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarDireccion(item.idDireccion)}> {item.estado === true ? "Inactivar" : "Activar"}*/}
-                    {/*                        </Button>*/}
-                    {/*                    </td>*/}
-                    {/*                </tr>*/}
-                    {/*            ))*/}
-                    {/*        }*/}
-                    {/*    </tbody>*/}
-                    {/*</table >*/}
+                   
 
                     <FormularioModal show={this.state.modal} handleClose={this.onClickCerrarModal} titulo={this.state.modalTitulo} className=''>
                         <Formulario labelButton={this.state.labelButton} data={this.state.data} proceso={this.state.proceso} onClickProcesarDirecciones={this.onClickProcesarDirecciones} mensaje={this.state.mensajeFormulario} />

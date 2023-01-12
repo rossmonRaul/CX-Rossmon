@@ -40,7 +40,7 @@ export class MantenimientoFasesCJ extends Component {
         await this.ObtenerListadoFasesCJ();
 
         setTimeout(() => {
-            $('#example').DataTable(
+            $('#tbl_table_mantenimiento').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 });
@@ -96,12 +96,12 @@ export class MantenimientoFasesCJ extends Component {
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta: true });
 
-            $('#example').DataTable().destroy();
+            $('#tbl_table_mantenimiento').DataTable().destroy();
 
             await this.ObtenerListadoFasesCJ();
 
             setTimeout(() => {
-                $('#example').DataTable(
+                $('#tbl_table_mantenimiento').DataTable(
                     {
                         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                     });
@@ -147,7 +147,7 @@ export class MantenimientoFasesCJ extends Component {
             <main>
                 <div className="row-full">Catálogo de Fases de Customer Journey </div>
                 <Container>
-                    <Button className="btn1" onClick={() => this.onClickNuevoFasesCJ()}>Insertar fase de costumer journey</Button>
+                    <Button className="btn_insert" onClick={() => this.onClickNuevoFasesCJ()}>Insertar fase de costumer journey</Button>
                     <hr />
                     <br />
 

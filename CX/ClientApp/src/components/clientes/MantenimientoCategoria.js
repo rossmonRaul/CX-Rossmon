@@ -45,7 +45,7 @@ export class MantenimientoCategoria extends Component {
         await this.ObtenerListadoCategorias();
         //initialize datatable
         $(document).ready(function () {
-            $('#tbl_table').DataTable({
+            $('#tbl_table_mantenimiento').DataTable({
                 "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
             });
         });
@@ -106,11 +106,11 @@ export class MantenimientoCategoria extends Component {
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta: true });
 
-            $('#tbl_table').DataTable().destroy();
+            $('#tbl_table_mantenimiento').DataTable().destroy();
 
             await this.ObtenerListadoCategorias();
 
-            $('#tbl_table').DataTable(
+            $('#tbl_table_mantenimiento').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 });
@@ -151,7 +151,7 @@ export class MantenimientoCategoria extends Component {
 
                 <div className="row-full">Mantenimiento de Categorias </div>
                 <Container>
-                    <Button className="btn1" onClick={() => this.onClickNuevaCategoría()}>Insertar Categoría</Button>
+                    <Button className="btn_insert" onClick={() => this.onClickNuevaCategoría()}>Insertar Categoría</Button>
                     <hr />
                     <br />
 
