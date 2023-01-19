@@ -82,3 +82,28 @@ export const Table3 = ({ tableHeading, body }) => {
         </>
     )
 }
+
+export const Table4 = ({ tableHeading, body }) => {
+
+    return (
+        <>
+            <table id="tbl_table_mantenimiento4"
+                className="table" >
+                <thead >
+                    <tr style={{ backgroundColor: "#126677", color: "white" }}>
+                        {
+                            tableHeading.map(header => {
+                                return <th>{header}</th>
+                            })
+                        }
+                    </tr >
+                </thead>
+                <tbody >
+                    {
+                        body
+                    }
+                </tbody>
+            </table >
+        </>
+    )
+}

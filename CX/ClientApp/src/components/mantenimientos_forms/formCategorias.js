@@ -26,7 +26,6 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarCategoria, mens
             if (proceso === 2) { datos.IdCategoria = data.idCategoria; };
 
             const result = onClickProcesarCategoria(datos); //se ejecuta la función
-            console.log(result);
         }
         setValidated(true);
         event.preventDefault();

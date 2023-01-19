@@ -26,7 +26,6 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarGradosEsfuerzo,
             if (proceso === 2) { datos.idGradoEsfuerzo = data.idGradoEsfuerzo; };
 
             const result = onClickProcesarGradosEsfuerzo(datos); //se ejecuta la función
-            console.log(result);
         }
         setValidated(true);
         event.preventDefault();

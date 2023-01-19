@@ -83,7 +83,6 @@ export class MantenimientoCategoria extends Component {
 
     onClickActualizarCategoria = async (id) => {
         this.setState({ data: await ObtenerCategoriasPorId(id) })
-        console.log(this.state.data)
         this.setState({ proceso: 2 });
         this.setState({ modal: !this.state.modal });
         this.setState({ labelButton: "Actualizar" });

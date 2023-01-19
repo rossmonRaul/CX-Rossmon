@@ -48,7 +48,6 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarSegmento, mensa
             if (proceso === 2) { datos.IdSegmento = data.idSegmento; };
 
             const result = onClickProcesarSegmento(datos); //se ejecuta la función
-            console.log(result);
         }
         setValidated(true);
         event.preventDefault();

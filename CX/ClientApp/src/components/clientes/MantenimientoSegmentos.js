@@ -67,7 +67,6 @@ export class MantenimientoSegmentos extends Component {
         this.setState({ pendiente: true });
         const respuesta = await ObtenerSegmentos();
         this.setState({ segmentos: respuesta });
-        console.log(respuesta);
         this.setState({ pendiente: false });
 
     }
