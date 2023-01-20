@@ -49,9 +49,9 @@ d-sm-inline-flex flex-sm-row collapse navbar-collapse {
     box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
-@media (min-width: 600px) {
-    html {
-        font-size: 80%;
-    }
+.inicio .head1 {
+    padding-top: 10vh !important;
 }
-
+.inicio .head2 {
+   margin-top:10%;
+}
