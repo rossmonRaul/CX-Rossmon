@@ -2,7 +2,8 @@
 import { Container, Form, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
 import { ObtenerTipoIndicadorPorId, ObtenerValoresIndicadorPorID, ActualizarValorIndicador, InactivarTipoIndicador, ActualizarTipoIndicador, AgregarTipoIndicador } from '../../servicios/ServicioTipoIndicador';
 import { ObtenerEncuestas, ObtenerEncuestaPorId, InactivarEncuesta, ActualizarEncuesta, AgregarEncuesta } from '../../servicios/ServicioEncuesta';
-import { AsignarPregunta, ObtenerPreguntasPorIdEncuesta, DesasignarPregunta} from '../../servicios/ServicioPreguntasAsignadas'
+import { AsignarPregunta, ObtenerPreguntasPorIdEncuesta, DesasignarPregunta } from '../../servicios/ServicioPreguntasAsignadas';
+import { ObtenerRespuestasPreguntaEncuestaPorId } from '../../servicios/ServicioRespuestasPreguntaEncuesta';
 import { InputTabla } from '../components_forms/inputs'
 import { BsPlusCircle } from "react-icons/bs";
 import Modal from 'react-bootstrap/Modal';
@@ -24,6 +25,7 @@ export class MantenimientoEncuesta extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            listaRespuestasPregunta:[],
             listaEncuestas: [],
             listaPreguntasEncuesta: [],
             listaPreguntasTipoEncuesta: [],
@@ -34,7 +36,9 @@ export class MantenimientoEncuesta extends Component {
             modal2: false,
             proceso: 1,
             modalTitulo: "Registrar Encuesta",
+            modalTitulo2: "Opciones",
             labelButton: "Registrar",
+            labelButton2:"Salir",
             mensajeFormulario: "",
             mensajeError: "",
             mensajeRespuesta: {},
@@ -53,6 +57,7 @@ export class MantenimientoEncuesta extends Component {
             showComponenteAsignarPreguntas: false,
             encuestaSeleccionada: '',
             encuestaSeleccionadaTitulo: ["ID", "Nombre", "Descripción", "Tipo", "FaseCJ", "Tipo de Contacto", "Estado"],
+            cabeceras3: ["ID", "Opción"],
         };
 
     }
@@ -203,8 +208,10 @@ export class MantenimientoEncuesta extends Component {
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
                     "language": {
-                        "emptyTable": "No hay más preguntas para asignar"
-                    }
+                        "emptyTable": "No hay más preguntas para asignar",
+                         "search": "Buscar por id, pregunta, tipo de pregunta, etc..."
+                    },
+
                 });
         }, 100);
         this.setState({showModal:true})
@@ -352,9 +359,13 @@ export class MantenimientoEncuesta extends Component {
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
 
                 <td style={{ display: "flex", padding: "0.5vw" }}>
+                    
+                    <Button color="secondary" onClick={() => this.onClickMostrarOpcionesPregunta(item.idPreguntaEncuesta, item.pregunta)} style={{ marginRight: "1vw" }}>Opciones</Button>
 
                     <Button color={"danger"} onClick={() => this.onClickDesasignarPregunta(item.idAsignacion)}> {"Desasignar"}
                     </Button>
+
+                    
                 </td>
             </tr>
         ))
@@ -367,7 +378,7 @@ export class MantenimientoEncuesta extends Component {
                 <td>{item.pregunta}</td>
                 <td>{item.tipo}</td>
                 <td>{item.sigla}</td>
-                <td>{item.tipoMetrica}</td>
+                <td>{item.metrica}</td>
                 <td>{item.tipoEncuesta}</td>
 
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
@@ -376,6 +387,7 @@ export class MantenimientoEncuesta extends Component {
 
                     <Button color={"success"} onClick={() => this.ProcesarAsignarPregunta(item.idPreguntaEncuesta)}> {"Asignar"}
                     </Button>
+                    
                 </td>
             </tr>
         ))
@@ -397,8 +409,31 @@ export class MantenimientoEncuesta extends Component {
                 </tr>)
         
     }
+    onClickCerrarModal2 = () => {
+        this.setState({ modal2: false });
+        this.setState({ mensajeFormulario: "" });
+    }
 
+    async ObtenerRespuestasPreguntaEncuestaID(id) {
+        const respuesta = await ObtenerRespuestasPreguntaEncuestaPorId(id);
+        this.setState({ listaRespuestasPregunta: respuesta });
+    }
+    onClickMostrarOpcionesPregunta = async (id, respuesta) => {
+        await this.ObtenerRespuestasPreguntaEncuestaID(id);
+        this.setState({ modal2: !this.state.modal2 });
+        this.setState({ modalTitulo2: "Opciones de: " + respuesta });
+    }
 
+    respuestas = () => {
+        return this.state.listaRespuestasPregunta.map((item, index) => (
+            <tr key={index}>
+                <td>{item.idRespuesta}</td>
+                <td>
+                    <InputTabla id='txt-descripcion' type='text' placeholder='Descripcion' value={item.respuesta} disabled />
+                </td>
+            </tr>
+        ))
+    }
     render() {
         return (
             <main>
@@ -469,7 +504,14 @@ export class MantenimientoEncuesta extends Component {
 
 
 
+                <FormularioModal show={this.state.modal2} handleClose={this.onClickCerrarModal2} titulo={this.state.modalTitulo2} className=''>
 
+                    <Table tableHeading={this.state.cabeceras3} body={this.respuestas()} />
+
+                    <Button id="botonasignarpregunta" className="btnbtn btn-danger" onClick={() => this.onClickCerrarModal2()} style={{ marginRight: "1vw" }}>Cerrar
+                    </Button>
+
+                </FormularioModal>
                 
 
 
