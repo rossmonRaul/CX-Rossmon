@@ -50,6 +50,7 @@ namespace DataAccess
             services.AddScoped<IRepositorioMantenimientoTalleresCoCreacion, RepositorioMantenimientoTalleresCoCreacion>();
             services.AddScoped<IRepositorioEtapaTallerCo, RepositorioEtapasTallerCo>();
             services.AddScoped<IRepositorioParticipantesEquipoTrabajo, RepositorioParticipantesEquipoTrabajo>();
+            services.AddScoped<IRepositorioFormularioPreguntas, RepositorioFormularioPreguntas>();
             return services;
         }
     }
