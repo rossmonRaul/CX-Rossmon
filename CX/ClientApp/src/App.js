@@ -56,8 +56,6 @@ import { MantenimientoPregunta } from './components/contacto_encuestas/Mantenimi
 import { MantenimientoClientesSocios } from './components/contacto_encuestas/MantenimientoClientesSocios';
 import { MantenimientoInteracciones } from './components/contacto_encuestas/MantenimientoInteracciones';
 
-import { FormularioPreguntas } from './components/clientes/FormularioPreguntas';
-
 //RF Eduardo
 import { CatalogoServicioSocio } from './components/clientes/CatalogoServicioSocio';
 import { CatalogoTipoContactoEncuesta } from './components/clientes/CatalogoTipoContactoEncuesta';
@@ -133,7 +131,6 @@ export default class App extends Component {
                     <Route path='/MantenimientoPeriodicidades' component={MantenimientoPeriodicidades} />
 
                     {/*encuesta*/}
-                    <Route path='/FormularioPreguntas' component={FormularioPreguntas} />
                     <Route path='/MantenimientoCampana' component={MantenimientoCampana} />
                     <Route path='/MantenimientoIndicador' component={MantenimientoIndicador} />
                     <Route path='/MantenimientoTipoEncuesta' component={MantenimientoTipoEncuesta} />

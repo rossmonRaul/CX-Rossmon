@@ -14,11 +14,15 @@ export class FormularioPreguntas extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            preguntas: '',
+            preguntas: props.idEncuesta,
+            tituloEncuesta:props.tituloEncuesta,
             arrayDesordenado: [],
             arrayAcomodado: [],
             formularioCargado: false,
         }
+    }
+    componentDidMount() {
+        this.onClickProcesarTextoPregunta();
     }
     onClickProcesarTextoPregunta = async () => {
         var arrayDeCadenas = await ObtenerPreguntasPorIdEncuesta(this.state.preguntas);
@@ -34,8 +38,6 @@ export class FormularioPreguntas extends Component {
         console.log(this.state.arrayDesordenado);
         await this.acomodarPorPregunta();
         this.setState({ formularioCargado: !this.state.formularioCargado });
-
-        
     }
 
     async acomodarPorPregunta() {
@@ -138,7 +140,7 @@ export class FormularioPreguntas extends Component {
 
                 }
             }
-            page.title = "Prueba SurveyJS";
+            page.title = data.titulo;
 
             /* "radiogroup"(seleccion unica), "text"(email, caja de texto),"dropdown(menu desplegable)", seleccion multiple(combo-box-multiple: tagbox) cajas:checkbox, estrellas "rating"
              
@@ -149,44 +151,13 @@ export class FormularioPreguntas extends Component {
         } 
         
         const {
-            preguntas,
             formularioCargado,
-            arrayAcomodado,
         } = this.state;
         return (
-
-            <main>
-
-                <div class="row-full">Form Pregunta </div>
-                <div className="wrapper">
-                    <div>
-                        <h1>Digite los numeros de pregunta</h1>
-                        <Input
-                            
-                            id="exampleText"
-                            name="text"
-                            type="text"
-                            value={preguntas}
-                            onChange={this.onChangePreguntas}
-                        />
-                        <Button onClick={() => this.onClickProcesarTextoPregunta()} style={{ backgroundColor: "#17A797", borderColor: "#17A797" }}>Insertar Preguntas</Button>
-
-                    </div>
-                    <br>
-                    </br>
-                    <div id="prueba">{formularioCargado && <SurveyComponent data={{data: this.state.arrayAcomodado }} />} </div>
-                    <br>
-                    </br>
-                    <br>
-                    </br>
-                    
-
-                </div>
-
-            </main>
-
+            <div id="prueba">{formularioCargado && <SurveyComponent data={{ data: this.state.arrayAcomodado, titulo: this.state.tituloEncuesta }} />} </div>
         );
     }
 
 }
+export default FormularioPreguntas;
 

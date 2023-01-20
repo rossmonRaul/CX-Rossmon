@@ -1,13 +1,11 @@
 ﻿import React, { Component, useEffect, useState } from 'react';
 import { Container, Form, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
-import { ObtenerTipoIndicadorPorId, ObtenerValoresIndicadorPorID, ActualizarValorIndicador, InactivarTipoIndicador, ActualizarTipoIndicador, AgregarTipoIndicador } from '../../servicios/ServicioTipoIndicador';
 import { ObtenerEncuestas, ObtenerEncuestaPorId, InactivarEncuesta, ActualizarEncuesta, AgregarEncuesta } from '../../servicios/ServicioEncuesta';
 import { AsignarPregunta, ObtenerPreguntasPorIdEncuesta, DesasignarPregunta } from '../../servicios/ServicioPreguntasAsignadas';
 import { ObtenerRespuestasPreguntaEncuestaPorId } from '../../servicios/ServicioRespuestasPreguntaEncuesta';
-import { InputTabla } from '../components_forms/inputs'
-import { BsClipboard,BsPlusCircle, BsFillFileEarmarkTextFill, BsFillEyeFill } from "react-icons/bs";
-import { StylesManager, Model } from "survey-core";
-import { Survey, PopupSurvey } from 'survey-react-ui';
+import { InputTabla } from '../components_forms/inputs';
+import FormularioPreguntas from './FormularioPreguntas';
+import {BsPlusCircle, BsFillEyeFill } from "react-icons/bs";
 import "survey-core/defaultV2.min.css";
 import Modal from 'react-bootstrap/Modal';
 import 'jquery/dist/jquery.min.js';
@@ -37,6 +35,7 @@ export class MantenimientoEncuesta extends Component {
             data: {},
             modal: false,
             modal2: false,
+            encuestaMostrada: {},
             proceso: 1,
             modalTitulo: "Registrar Encuesta",
             modalTitulo2: "Opciones",
@@ -336,6 +335,7 @@ export class MantenimientoEncuesta extends Component {
     onClickOjo = (item) => {
         this.setState({ showEncuesta: true });
         console.log(item);
+        this.setState({ encuestaMostrada:item});
     }
 
 
@@ -552,7 +552,7 @@ export class MantenimientoEncuesta extends Component {
                     </Modal.Header>
 
                     <Modal.Body>
-
+                        <FormularioPreguntas tituloEncuesta={this.state.encuestaMostrada.nombre} idEncuesta={this.state.encuestaMostrada.idEncuesta}/>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button color="secondary" onClick={() => this.setState({ showEncuesta: false })}>
