@@ -20,7 +20,9 @@
     "react-scripts": "^3.4.1",
     "react-select": "^5.5.0",
     "reactstrap": "^8.4.1",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "survey-creator-react": "^1.9.68",
+    "survey-react": "^1.9.69"
   },
   "devDependencies": {
     "ajv": "^6.9.1",

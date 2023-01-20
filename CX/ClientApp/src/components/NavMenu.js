@@ -300,6 +300,12 @@ export class NavMenu extends Component {
                                 <DropdownMenu right>
                                     <DropdownItem>
                                         <NavItem>
+                                            <NavLink tag={Link} style={{ color: "#303F9F", }} to="/FormularioPreguntas">FormPregunta</NavLink>
+                                        </NavItem>
+                                    </DropdownItem>
+                                    <DropdownItem divider />
+                                    <DropdownItem>
+                                        <NavItem>
                                             <NavLink tag={Link} style={{ color: "#303F9F", }} to="/MantenimientoCampana">Campañas</NavLink>
                                         </NavItem>
                                     </DropdownItem>
