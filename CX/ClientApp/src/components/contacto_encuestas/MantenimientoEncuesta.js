@@ -5,7 +5,10 @@ import { ObtenerEncuestas, ObtenerEncuestaPorId, InactivarEncuesta, ActualizarEn
 import { AsignarPregunta, ObtenerPreguntasPorIdEncuesta, DesasignarPregunta } from '../../servicios/ServicioPreguntasAsignadas';
 import { ObtenerRespuestasPreguntaEncuestaPorId } from '../../servicios/ServicioRespuestasPreguntaEncuesta';
 import { InputTabla } from '../components_forms/inputs'
-import { BsPlusCircle } from "react-icons/bs";
+import { BsClipboard,BsPlusCircle, BsFillFileEarmarkTextFill, BsFillEyeFill } from "react-icons/bs";
+import { StylesManager, Model } from "survey-core";
+import { Survey, PopupSurvey } from 'survey-react-ui';
+import "survey-core/defaultV2.min.css";
 import Modal from 'react-bootstrap/Modal';
 import 'jquery/dist/jquery.min.js';
 import { Alert } from 'react-bootstrap'
@@ -47,11 +50,12 @@ export class MantenimientoEncuesta extends Component {
             show: false,
             show2: false,
             show3: false,
+            showEncuesta:false,
             showModal:false,
             alerta: true,
             alerta2: true,
             alerta3: false,
-            cabeceras: ["Id Encuesta", "Nombre de la Encuesta", "Descripción", "Tipo", "FaseCJ", "Tipo de Contacto", "Estado", "Acción"],
+            cabeceras: ["", "Id Encuesta", "Nombre de la Encuesta", "Descripción", "Tipo", "FaseCJ", "Tipo de Contacto", "Estado", "Acción"],
             cabecerasPreguntas: ["ID", "Pregunta", "Tipo Pregunta", "Sigla", "Métrica", "Tipo Encuesta", "Acciones"],
             showComponentePreguntas: false,
             showComponenteAsignarPreguntas: false,
@@ -69,7 +73,13 @@ export class MantenimientoEncuesta extends Component {
         setTimeout(() => {
             $('#tbl_table_mantenimiento').DataTable(
                 {
-                    "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
+                    'columnDefs': [{
+                        'targets': 0,
+                        'orderable': false,
+                    }],
+                    "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
+
+
                 });
         }, 100);
     }
@@ -258,7 +268,11 @@ export class MantenimientoEncuesta extends Component {
         setTimeout(() => {
             $('#tbl_table_mantenimiento').DataTable(
                 {
-                    "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
+                    "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
+                                                 'columnDefs': [{
+                        'targets': 0, /* column index */
+                        'orderable': false, /* true or false */
+                    }]
                 });
         }, 100);
     }
@@ -294,7 +308,11 @@ export class MantenimientoEncuesta extends Component {
             setTimeout(() => {
                 $('#tbl_table_mantenimiento').DataTable(
                     {
-                        "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
+                        "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
+                             'columnDefs': [{
+                            'targets': 0, /* column index */
+                            'orderable': false, /* true or false */
+                        }]
                     });
             }, 100);
         } else {
@@ -315,19 +333,23 @@ export class MantenimientoEncuesta extends Component {
         this.setState({ mensajeFormulario: "" });
     }
 
-
+    onClickOjo = (item) => {
+        this.setState({ showEncuesta: true });
+        console.log(item);
+    }
 
 
     body = () => {
         return this.state.listaEncuestas.map((item, index) => (
-            <tr key={index}>
+            <tr  key={index}>
+                <td> <div className="ojo"><BsFillEyeFill onClick={() => this.onClickOjo(item)} size={30} /></div></td>
                 <td>{item.idEncuesta}</td>
                 <td>{item.nombre}</td>
                 <td>{item.descripcion}</td>
                 <td>{item.tipoEncuesta}</td>
                 <td>{item.faseCustomerJourney}</td>
                 <td>{item.tipoContactoEncuesta}</td>
-
+                
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
@@ -514,7 +536,30 @@ export class MantenimientoEncuesta extends Component {
                 </FormularioModal>
                 
 
+                <Modal
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                    show={this.state.showEncuesta}
+                    onHide={() => this.setState({ showEncuesta: false })}
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id="example-custom-modal-styling-title">
+                            Encuesta
+                        </Modal.Title>
+               
 
+                    </Modal.Header>
+
+                    <Modal.Body>
+
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button color="secondary" onClick={() => this.setState({ showEncuesta: false })}>
+                            Cerrar
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
                 <Modal
                     size="lg"
                     aria-labelledby="contained-modal-title-vcenter"

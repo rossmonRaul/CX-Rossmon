@@ -16,6 +16,11 @@ a {
     --foreground: #343c9c;
     --base-unit: 8px;
 }
+.ojo:hover{
+    cursor: pointer;
+    color: rgb(48, 63, 159);
+}
+
 
 .sidenav {
     height: 100%;
