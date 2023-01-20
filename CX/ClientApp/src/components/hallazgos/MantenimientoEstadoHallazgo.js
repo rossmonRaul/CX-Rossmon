@@ -75,8 +75,7 @@ export class MantenimientoEstadoHallazgo extends Component {
     }
 
     onClickActualizarEstadoHallazgo = async (id) => {
-        this.setState({ data: await ObtenerEstadoHallazgoPorID(id) })
-        console.log(this.state.data);
+        this.setState({ data: await ObtenerEstadoHallazgoPorID(id) });
         this.setState({ proceso: 2 });
         this.setState({ modal: !this.state.modal });
         this.setState({ labelButton: "Actualizar" });

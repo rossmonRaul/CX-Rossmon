@@ -1,16 +1,18 @@
 ﻿@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito&family=Roboto:wght@500&display=swap');
-
 a.navbar-brand {
     white-space: normal;
     text-align: center;
-    height: 5vw;
-    width: 160px;
-    background-repeat: no-repeat;
-    background-image: url('../img/039d03be-3b53-45de-aadc-0cca4f7caf9b.jpg');
-    background-size: 120% 120%;
-    margin-left: 8vw;
-    margin-top: -1vw;
+    word-break: break-all;
+}
+.navbar-brand img {
+    max-width: 11vw; /* find suitable value for you */
+    display: block;
+    width: 100%;
+}
+.titulo {
+    color: white;
+    padding-left: 1vw;
 }
 
 d-sm-inline-flex flex-sm-row collapse navbar-collapse {
@@ -46,208 +48,10 @@ d-sm-inline-flex flex-sm-row collapse navbar-collapse {
 .box-shadow {
     box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
-/*---------------------------------------------------------*/
-/* media queries inicio*/
-/*---------------------------------------------------------*/
-@media only screen and (min-width:1360px) and (max-width:1500px) {
-    .navbar-expand-sm .navbar-collapse {
-        margin-left: 55vw;
-        font-size: 16px;
-        font-family: 'Roboto', sans-serif;
-        color: #303F9F;
-    }
 
-    a.navbar-brand {
-        white-space: normal;
-        text-align: center;
-        height: 5vw;
-        width: 160px;
-        background-repeat: no-repeat;
-        background-image: url('../img/039d03be-3b53-45de-aadc-0cca4f7caf9b.jpg');
-        background-size: 120% 120%;
-        margin-left: 8vw;
-        margin-top: -1vw;
-    }
+.inicio .head1 {
+    padding-top: 10vh !important;
 }
-
-@media only screen and (min-width:1205px) and (max-width:1359px) {
-    .navbar-expand-sm .navbar-collapse {
-        margin-left: 50vw;
-        font-size: 16px;
-        font-family: 'Roboto', sans-serif;
-        color: #303F9F;
-    }
-
-    a.navbar-brand {
-        white-space: normal;
-        text-align: center;
-        height: 5.5vw;
-        width: 160px;
-        background-repeat: no-repeat;
-        background-image: url('../img/039d03be-3b53-45de-aadc-0cca4f7caf9b.jpg');
-        background-size: 120% 120%;
-        margin-left: 8vw;
-        margin-top: -1vw;
-    }
-}
-
-@media only screen and (min-width:1095px) and (max-width:1204px) {
-    .navbar-expand-sm .navbar-collapse {
-        margin-left: 45vw;
-        font-size: 16px;
-        font-family: 'Roboto', sans-serif;
-        color: #303F9F;
-    }
-
-    a.navbar-brand {
-        white-space: normal;
-        text-align: center;
-        height: 5.7vw;
-        width: 160px;
-        background-repeat: no-repeat;
-        background-image: url('../img/039d03be-3b53-45de-aadc-0cca4f7caf9b.jpg');
-        background-size: 120% 120%;
-        margin-left: 8vw;
-        margin-top: -1vw;
-    }
-}
-
-@media only screen and (min-width:1005px) and (max-width:1094px) {
-    .navbar-expand-sm .navbar-collapse {
-        margin-left: 39vw;
-        font-size: 16px;
-        font-family: 'Roboto', sans-serif;
-        color: #303F9F;
-    }
-
-    a.navbar-brand {
-        white-space: normal;
-        text-align: center;
-        height: 6vw;
-        width: 160px;
-        background-repeat: no-repeat;
-        background-image: url('../img/039d03be-3b53-45de-aadc-0cca4f7caf9b.jpg');
-        background-size: 120% 120%;
-        margin-left: 8vw;
-        margin-top: -1vw;
-    }
-}
-
-@media only screen and (min-width:861px) and (max-width:1004px) {
-    .navbar-expand-sm .navbar-collapse {
-        margin-left: 32vw;
-        font-size: 15px;
-        font-family: 'Roboto', sans-serif;
-        color: #303F9F;
-    }
-
-    a.navbar-brand {
-        white-space: normal;
-        text-align: center;
-        height: 7vw;
-        width: 160px;
-        background-repeat: no-repeat;
-        background-image: url('../img/039d03be-3b53-45de-aadc-0cca4f7caf9b.jpg');
-        background-size: 120% 120%;
-        margin-left: 8vw;
-        margin-top: -1vw;
-    }
-}
-
-@media only screen and (min-width:759px) and (max-width:860px) {
-    .navbar-expand-sm .navbar-collapse {
-        margin-left: 25vw;
-        font-size: 15px;
-        font-family: 'Roboto', sans-serif;
-        color: #303F9F;
-    }
-
-    a.navbar-brand {
-        white-space: normal;
-        text-align: center;
-        height: 8vw;
-        width: 160px;
-        background-repeat: no-repeat;
-        background-image: url('../img/039d03be-3b53-45de-aadc-0cca4f7caf9b.jpg');
-        background-size: 120% 120%;
-        margin-left: 8vw;
-        margin-top: -1vw;
-    }
-}
-
-@media only screen and (min-width:650px) and (max-width:758px) {
-    .navbar-expand-sm .navbar-collapse {
-        margin-left: 18vw;
-        font-size: 15px;
-        font-family: 'Roboto', sans-serif;
-        color: #303F9F;
-    }
-
-    a.navbar-brand {
-        white-space: normal;
-        text-align: center;
-        height: 8vw;
-        width: 160px;
-        background-repeat: no-repeat;
-        background-image: url('../img/039d03be-3b53-45de-aadc-0cca4f7caf9b.jpg');
-        background-size: 120% 120%;
-        margin-left: 8vw;
-        margin-top: -1vw;
-    }
-}
-
-@media only screen and (min-width:575px) and (max-width:649px) {
-    .navbar-expand-sm .navbar-collapse {
-        margin-left: 5vw;
-        font-size: 14px;
-        font-family: 'Roboto', sans-serif;
-        color: #303F9F;
-    }
-
-    a.navbar-brand {
-        white-space: normal;
-        text-align: center;
-        height: 8.5vw;
-        width: 160px;
-        background-repeat: no-repeat;
-        background-image: url('../img/039d03be-3b53-45de-aadc-0cca4f7caf9b.jpg');
-        background-size: 120% 120%;
-        margin-left: 8vw;
-        margin-top: -1vw;
-    }
-}
-
-@media only screen and (max-width:574px) {
-
-
-    a.navbar-brand {
-        white-space: normal;
-        text-align: center;
-        height: 90px;
-        width: 150px;
-        background-repeat: no-repeat;
-        background-image: url('../img/039d03be-3b53-45de-aadc-0cca4f7caf9b.jpg');
-        background-size: 100% 100%;
-        margin-left: 8vw;
-        margin-top: -2vw;
-    }
-
-    a.navbar-brand {
-        white-space: normal;
-        text-align: center;
-        height: 8.5vw;
-        width: 160px;
-        background-repeat: no-repeat;
-        background-image: url('../img/039d03be-3b53-45de-aadc-0cca4f7caf9b.jpg');
-        background-size: 120% 120%;
-        margin-left: 8vw;
-        margin-top: -1vw;
-    }
-}
-
-
-@media (min-width: 600px) {
-    html {
-        font-size: 80%;
-    }
+.inicio .head2 {
+   margin-top:10%;
 }

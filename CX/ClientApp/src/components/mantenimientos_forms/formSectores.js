@@ -25,7 +25,6 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarSectores, mensa
             if (proceso === 2) { datos.idSector = data.idSector; };
 
             const result = onClickProcesarSectores(datos); //se ejecuta la función
-            console.log(result);
         }
         setValidated(true);
         event.preventDefault();

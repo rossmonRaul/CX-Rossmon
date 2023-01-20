@@ -8,6 +8,7 @@ import {
 import Accordion from 'react-bootstrap/Accordion';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
+import Logo from '../img/rossmoncx.png';
 
 export class NavMenu extends Component {
     static displayName = NavMenu.name;
@@ -32,7 +33,13 @@ export class NavMenu extends Component {
             <header>
 
                 <Navbar className=" navbar-expand-sm navbar-toggleable-sm ng-with border-bottom box-shadow mb-3" >
-                    <NavbarBrand tag={Link} to="/" className="titulo"></NavbarBrand>
+                    <NavbarBrand tag={Link} to="/" className="titulo">
+                        <img
+                            alt="logo"
+                            src={Logo} 
+                            class="img-fluid"
+                        />
+                    </NavbarBrand>
 
                     <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
                     <Collapse className="d-sm-inline-flex flex-sm-row" isOpen={!this.state.collapsed} navbar>

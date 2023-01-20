@@ -56,7 +56,6 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarServicioLineaNe
             if (proceso === 2) { datos.IdServicio = data.idServicio; };
 
             const result = onClickProcesarServicioLineaNegocio(datos); //se ejecuta la función
-            console.log(result);
         }
         setValidated(true);
         event.preventDefault();

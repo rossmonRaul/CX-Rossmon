@@ -77,7 +77,6 @@ export class MantenimientoCanales extends Component {
 
     onClickActualizarCanales = async (id) => {
         this.setState({ data: await ObtenerCanalesPorID(id) })
-        console.log(this.state.data);
         this.setState({ proceso: 2 });
         this.setState({ modal: !this.state.modal });
         this.setState({ labelButton: "Actualizar" });

@@ -64,7 +64,6 @@ export class MantenimientoPregunta extends Component {
     async ObtenerRespuestasPreguntaEncuestaID(id) {
         const respuesta = await ObtenerRespuestasPreguntaEncuestaPorId(id);
         this.setState({ listaRespuestasPregunta: respuesta });
-        console.log(this.state.listaRespuestasPregunta);
     }
 
 
@@ -132,7 +131,6 @@ export class MantenimientoPregunta extends Component {
         this.setState({ modal: !this.state.modal });
         this.setState({ labelButton: "Actualizar" });
         this.setState({ modalTitulo: "Actualizar Pregunta ID: " + id });
-        //console.log(this.state.data);
     }
 
 

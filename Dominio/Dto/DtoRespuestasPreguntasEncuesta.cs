@@ -10,8 +10,11 @@ namespace Dominio.Dto
         public string Respuesta { get; set; }
         public int IdPreguntaEncuesta { get; set; }
 
+       
+        
         public string Pregunta { get; set; }
 
         public int IdTipoPregunta { get; set; }
+        public int IdEncuesta { get; set; }
     }
 }

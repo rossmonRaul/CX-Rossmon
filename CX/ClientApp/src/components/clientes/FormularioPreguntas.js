@@ -1,6 +1,7 @@
 ﻿import React, { Component, useState } from 'react';
 import { Container, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
 import { ObtenerPreguntaRespuestaPorID } from '../../servicios/ServicioFormularioPreguntas';
+import { ObtenerPreguntasPorIdEncuesta } from '../../servicios/ServicioPreguntasAsignadas';
 import * as ReactDOM from 'react-dom';
 
 //Survey
@@ -20,11 +21,10 @@ export class FormularioPreguntas extends Component {
         }
     }
     onClickProcesarTextoPregunta = async () => {
-        var a = this.state.preguntas;
-        var arrayDeCadenas = a.split("-");
+        var arrayDeCadenas = await ObtenerPreguntasPorIdEncuesta(this.state.preguntas);
         this.state.arrayDesordenado = [];
         for (var i = 0; i < arrayDeCadenas.length; i++) {
-            const respuesta = await ObtenerPreguntaRespuestaPorID(arrayDeCadenas[i]);
+            const respuesta = await ObtenerPreguntaRespuestaPorID(arrayDeCadenas[i].idPreguntaEncuesta);
 
             if (respuesta.length !== 0) {
                 this.state.arrayDesordenado.push(respuesta);

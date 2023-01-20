@@ -103,12 +103,10 @@ html {
 .primary {
     margin-left: 180px;
     font-size: 16px;
+    width: auto !important;
 }
 
-.titulo {
-    color: white;
-    padding-left: 1vw;
-}
+
 
 
 nav {
@@ -286,7 +284,9 @@ span .paginate_button:hover {
 
 
 
-
+#botonasignarpregunta{
+    float:right;
+}
 
 
 .wrapper {
@@ -322,15 +322,15 @@ span .paginate_button:hover {
 .row-full {
     width: 105%;
     position: static;
-    height: 150px;
+    height: 85px;
     left: 50%;
     text-align: left;
     background-image: url('img/fondoazul.jpeg');
     background-repeat: no-repeat;
     background-size: 100% 135%;
     color: white;
-    font-size: 210%;
-    padding-top: 3.2%;
+    font-size: 200%;
+    padding-top: 1.2%;
     padding-left: 6%;
     font-weight: bold;
     margin-bottom: 30px;

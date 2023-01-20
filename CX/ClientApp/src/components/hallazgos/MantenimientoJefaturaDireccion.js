@@ -94,7 +94,6 @@ export class MantenimientoJefaturaDireccion extends Component {
     onClickActualizarJefatura = async (id) => {
         await this.CargaCombo();
         this.setState({ data: await ObtenerJefaturasDireccionPorId(id) })
-        console.log(this.state.data)
         this.setState({ proceso: 2 });
         this.setState({ modal: !this.state.modal });
         this.setState({ labelButton: "Actualizar" });
@@ -110,7 +109,6 @@ export class MantenimientoJefaturaDireccion extends Component {
 
             respuesta = await ActualizarJefaturasDireccion(data);
         }
-        console.log(respuesta)
         if (respuesta.indicador == 0) {
             this.setState({ modal: false });
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
