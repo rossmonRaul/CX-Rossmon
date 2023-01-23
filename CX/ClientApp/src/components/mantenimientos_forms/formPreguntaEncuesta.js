@@ -10,12 +10,12 @@ import { ObtenerTiposEncuestas } from '../../servicios/ServicioTipoEncuesta';
 const Formulario = ({ labelButton, data, proceso, onClickProcesarPregunta, mensaje }) => {
 
     //PARA MOSTRAR LA PREGUNTA Y GUARDAR EL CAMBIO
-    const [pregunta, setPregunta] = useState(proceso == 2 ? data.pregunta : ''); //si el proceso es 1 es insertar, si es 2 es actualizar
+    const [pregunta, setPregunta] = useState(proceso === 2 ? data.pregunta : ''); //si el proceso es 1 es insertar, si es 2 es actualizar
 
     //PARA INGRESAR EL ID DE LA OPCIÓN SELECCIONADA
-    const [idTipoIndicador, setIdTipoIndicador] = useState(proceso == 2 ? data.idTipoIndicador : ''); //si el proceso es 1 es insertar, si es 2 es actualizar
-    const [idTipoMetrica, setIdTipoMetrica] = useState(proceso == 2 ? data.idTipoMetrica : '');
-    const [idTipoEncuesta, setIdTipoEncuesta] = useState(proceso == 2 ? data.idTipoEncuesta : '');
+    const [idTipoIndicador, setIdTipoIndicador] = useState(proceso === 2 ? data.idTipoIndicador : ''); //si el proceso es 1 es insertar, si es 2 es actualizar
+    const [idTipoMetrica, setIdTipoMetrica] = useState(proceso === 2 ? data.idTipoMetrica : '');
+    const [idTipoEncuesta, setIdTipoEncuesta] = useState(proceso === 2 ? data.idTipoEncuesta : '');
 
     //PARA MOSTRAR LAS DIFERENTES OPCIONES EN CADA SELECT
     const [listaTiposIndicadores, setListaTiposIndicadores] = useState([]);

@@ -37,7 +37,7 @@ export class NavMenu extends Component {
                         <img
                             alt="logo"
                             src={Logo} 
-                            class="img-fluid"
+                            className="img-fluid"
                         />
                     </NavbarBrand>
 
@@ -171,6 +171,7 @@ export class NavMenu extends Component {
                                         </NavItem>
                                     </DropdownItem>
 
+                                    {console.disableYellowBox = true}
 
                                     <Accordion>
                                         <Accordion.Item eventKey="0">

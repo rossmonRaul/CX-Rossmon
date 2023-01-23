@@ -1,27 +1,13 @@
-﻿import React, { useState, useEffect } from "react";
+﻿import React, { useState} from "react";
 import { Button, Form } from 'react-bootstrap'
-import { ObtenerTipoIndicadorPorId } from '../../servicios/ServicioTipoIndicador';
 
 //COMPONENTE QUE CREA NUEVOS INPUTS PARA ALMACENAR LAS RESPUESTAS DE UNA PREGUNTA
 const RespuestaDinamica = ({ listaRespuesta, setListaRespuesta, onClickAceptarR, varIdTipoIndicador, volverPasoDos, pregunta }) => {
 
-    const [numResp, setNumResp] = useState(0);
+    const numResp = useState(10);
 
-    useEffect(() => {
-        ObtenerNumeroRespuestas();
-    }, []);
 
-    //LIMITACIÓN DE RESPUESTAS MEDIANTE EL INDICADOR
-    const ObtenerNumeroRespuestas = async () => {
 
-        //OBTENER EL REGISTRO CON EL INDICADOR QUE SE SELECCIONÓ EN LA PARAMETRIZACIÓN
-        const soc = await ObtenerTipoIndicadorPorId(varIdTipoIndicador);
-        if (soc !== undefined) {
-            //GUARDAR EL VALOR MÁXIMO QUE TIENE ESE INDICADOR
-            setNumResp(parseInt(soc.maximo));
-         
-        }
-    }
 
     //GUARDAR EL VALOR DE LOS INPUTS
     const handleRespuestaChange = (e, index) => {

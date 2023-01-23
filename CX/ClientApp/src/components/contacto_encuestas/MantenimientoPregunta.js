@@ -12,7 +12,7 @@ import { ActualizarRespuestasPreguntaEncuesta, AgregarRespuestaPreguntaEncuesta,
 import FormularioPasos from '../mantenimientos_forms/formPasos';
 
 
-import { Container, Form, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
+import { Container, Button} from 'reactstrap';
 export class MantenimientoPregunta extends Component {
     static displayName = MantenimientoPregunta.name;
 
@@ -70,14 +70,18 @@ export class MantenimientoPregunta extends Component {
     onClickProcesarPregunta = async (data) => {
         let respuesta = {};
 
-        if (this.state.proceso === 1)
+
+        if (this.state.proceso === 1) {
             respuesta = await InsertarPreguntaEncuesta(data);
+        }
+           
+
         else {
 
             respuesta = await ActualizarPregunta(data);
         }
 
-        if (respuesta.indicador == 0) {
+        if (respuesta.indicador === 0) {
             this.setState({ modal: false });
             this.setState({ mensajeRespuesta: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta: true });
@@ -147,16 +151,17 @@ export class MantenimientoPregunta extends Component {
     onClickProcesarRespuestasPregunta = async (data) => {
 
         let respuesta = {};
-
-        if (this.state.proceso === 1)
+        if (this.state.proceso === 1) {
             respuesta = await AgregarRespuestaPreguntaEncuesta(data);
+        }
+            
         else {
 
             respuesta = await ActualizarRespuestasPreguntaEncuesta(data);
             this.setState({ modal3: false });
         }
 
-        if (respuesta.indicador == 0) {
+        if (respuesta.indicador === 0) {
             this.setState({ mensajeRespuesta2: respuesta }); //Un objeto con el .indicador y el .mensaje
             this.setState({ alerta2: true });
 
@@ -202,7 +207,7 @@ export class MantenimientoPregunta extends Component {
                 <td>{item.idPreguntaEncuesta}</td>
                 <td>{item.pregunta}</td>
                 <td>{item.tipo}</td>
-                <td>{item.sigla}</td>
+                <td>{item.sigla ? item.sigla : "N/A" }</td>
                 <td>{item.metrica}</td>
                 <td>{item.tipoEncuesta}</td>
 
@@ -253,7 +258,6 @@ export class MantenimientoPregunta extends Component {
                     <Button className="btn_insert" onClick={() => this.onClickNuevaPregunta()}>Insertar Nueva Pregunta</Button>
                     <hr />
 
-                    <br />
 
                     {/*ALERTA*/}
 
@@ -268,7 +272,7 @@ export class MantenimientoPregunta extends Component {
                             {this.state.mensajeRespuesta2.mensaje}
                         </Alert>
                         : ""}
-                    <br />
+
 
 
                     <Table tableHeading={this.state.cabeceras} body={this.body()} />

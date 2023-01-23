@@ -28,7 +28,10 @@ namespace DataAccess.StoredProcedures
                 data.Add("IdTipoEncuesta", entitiPreguntasEncuestas.idTipoEncuesta);
                 data.Add("IdTipoMetrica", entitiPreguntasEncuestas.idTipoMetrica);
                 data.Add("IdTipoPerspectiva", entitiPreguntasEncuestas.idTipoPerspectiva);
-                data.Add("IdTipoIndicador", entitiPreguntasEncuestas.idTipoIndicador);
+                if(entitiPreguntasEncuestas.idTipoIndicador != null)
+                {
+                    data.Add("IdTipoIndicador", entitiPreguntasEncuestas.idTipoIndicador);
+                }
                 data.Add("IdTipoPregunta", entitiPreguntasEncuestas.idTipoPregunta);
                 data.Add("IdTipoContactoEncuesta", entitiPreguntasEncuestas.idTipoContactoEncuesta);
                 data.Add("IdTipoIteraccion", entitiPreguntasEncuestas.idTipoInteraccion);

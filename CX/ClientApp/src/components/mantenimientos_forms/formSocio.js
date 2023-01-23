@@ -9,11 +9,11 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarSocio, mensaje 
 
     //variables
 
-    const [cedula, setCedula] = useState(proceso == 2 ? data.cedula : '');
-    const [nombre, setNombre] = useState(proceso == 2 ? data.nombre : '');
-    const [telefono, setTelefono] = useState(proceso == 2 ? data.telefono : '');
-    const [correo, setCorreo] = useState(proceso == 2 ? data.correo : '');
-    const [idTipoPersona, setIdTipoPersona] = useState(proceso == 2 ? parseInt(data.idTipoPersona) : 1);
+    const [cedula, setCedula] = useState(proceso === 2 ? data.cedula : '');
+    const [nombre, setNombre] = useState(proceso === 2 ? data.nombre : '');
+    const [telefono, setTelefono] = useState(proceso === 2 ? data.telefono : '');
+    const [correo, setCorreo] = useState(proceso === 2 ? data.correo : '');
+    const [idTipoPersona, setIdTipoPersona] = useState(proceso === 2 ? parseInt(data.idTipoPersona) : 1);
 
 
     const [listaTiposPersona, setlistaTiposPersona] = useState([]);

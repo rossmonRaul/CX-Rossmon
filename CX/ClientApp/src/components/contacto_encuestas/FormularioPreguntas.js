@@ -35,7 +35,6 @@ export class FormularioPreguntas extends Component {
             } 
             
         }
-        console.log(this.state.arrayDesordenado);
         await this.acomodarPorPregunta();
         this.setState({ formularioCargado: !this.state.formularioCargado });
     }

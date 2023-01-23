@@ -1,13 +1,14 @@
 ﻿import React, { useState, useEffect } from "react";
 import { Form, Card, Button } from "react-bootstrap";
 import "../mantenimientos_forms/css/formPasos.css";
-import { InputText } from '../components_forms/inputs'
+import { InputText, InputSelect } from '../components_forms/inputs'
 import { ObtenerUltimoIdPreguntas } from '../../servicios/ServicioPreguntasEncuestas';
+import { ObtenerTiposIndicadores, ObtenerTipoIndicadorPorId } from '../../servicios/ServicioTipoIndicador';
 import RespuestaDinamica from "./formRespuestaDinamica";
 
 
 // creating functional component ans getting props from app.js and destucturing them
-const SeleccionUnica = ({ data, proceso, onClickProcesarPregunta, onClickProcesarRespuestasPregunta, volverPasoDos, varIdTipoIndicador,
+const SeleccionUnica = ({ data, proceso, onClickProcesarPregunta, onClickProcesarRespuestasPregunta, volverPasoDos,
     varIdTipoEncuesta, varIdTipoMetrica, varIdTipoPerspectiva, varIdTipoContactoEncuesta, varIdTipoInteraccion }) => {
 
     //PARA EL VALOR DE LA PREGUNTA
@@ -19,12 +20,26 @@ const SeleccionUnica = ({ data, proceso, onClickProcesarPregunta, onClickProcesa
     //PARA OBTENER VALOR DEL ÚLTIMO ID DE LA TABLA PREGUNTAS Y ASÍ INGRESARLE LAS RESPUESTAS
     const [listaIdUltimaPregunta, setListaIdUltimaPregunta] = useState([]);
 
+    const [idTipoIndicador, setTipoIndicador] = useState(proceso == 2 ? data.idTipoIndicador : '');
+    const [listaTipoIndicador, setListaTipoIndicador] = useState([]);
 
     useEffect(() => {
-
+        ObtenerListaTipoIndicador();
         ObtenerIdUltimaPregunta()
     }, []);
 
+    const ObtenerListaTipoIndicador = async () => {
+        const soc = await ObtenerTiposIndicadores();
+        if (soc !== undefined) {
+            if (proceso === 2) {
+                setListaTipoIndicador(soc.sort((x, y) => { return parseInt(x.idTipoIndicador) === idTipoIndicador ? -1 : parseInt(y.idTipoIndicador) === idTipoIndicador ? 1 : 0; }));
+            } else {
+                let defecto = { idTipoIndicador: '', tipoIndicador: "-- Seleccione Tipo Indicador --" };
+                soc.push(defecto);
+                setListaTipoIndicador(soc.reverse());
+            }
+        }
+    }
     //FUNCIÓN FLECHA PARA SETEAR EL ÚLTIMO VALOR ID DE LA TABLA PREGUNTAS
     const ObtenerIdUltimaPregunta = async () => {
         const soc = await ObtenerUltimoIdPreguntas();
@@ -48,7 +63,7 @@ const SeleccionUnica = ({ data, proceso, onClickProcesarPregunta, onClickProcesa
                 idTipoEncuesta: parseInt(varIdTipoEncuesta),
                 idTipoMetrica: parseInt(varIdTipoMetrica),
                 idTipoPerspectiva: parseInt(varIdTipoPerspectiva),
-                idTipoIndicador: parseInt(varIdTipoIndicador),
+                idTipoIndicador: parseInt(idTipoIndicador),
                 idTipoPregunta: 1, //LA SELECCIÓN ÚNICA ES TIPO DE PREGUNTA #1
                 idTipoContactoEncuesta: parseInt(varIdTipoContactoEncuesta),
                 idTipoInteraccion: parseInt(varIdTipoInteraccion),
@@ -104,7 +119,7 @@ const SeleccionUnica = ({ data, proceso, onClickProcesarPregunta, onClickProcesa
     }
 
     const onChangePreguntas = (e) => setPregunta(e.target.value);
-
+    const onChangeTipoIndicador = (e) => setTipoIndicador(e.target.value);
     return (
         <div>
             <div id="formPregunta">
@@ -115,7 +130,11 @@ const SeleccionUnica = ({ data, proceso, onClickProcesarPregunta, onClickProcesa
                             <h4>Selección Única</h4>
                             <br></br>
 
-
+                            <InputSelect className="slct_socios" controlId="slct_socios" label="Tipo Indicador" data={listaTipoIndicador} value={idTipoIndicador}
+                                onChange={onChangeTipoIndicador} optionValue="idTipoIndicador" optionLabel="tipoIndicador"
+                                classGroup="form-lineas">
+                            </InputSelect>
+                            <br></br>
                         <InputText id='txt-Pregunta' label='Pregunta:' type='text' placeholder='Ingrese la pregunta' value={pregunta}
                             onChange={onChangePreguntas} mensajeValidacion="Este campo es requerido"
                         />
@@ -123,10 +142,9 @@ const SeleccionUnica = ({ data, proceso, onClickProcesarPregunta, onClickProcesa
 
                         <div style={{ display: "flex", justifyContent: "space-around" }}>
 
-                            <Button onClick={mostrarFormOpciones}  variant="primary" type="submit" size="sm">Siguiente</Button>
-                                <Button className="btnListoVolver" variant="secondary" onClick={volverPasoDos}>
-                                    Atras
-                                </Button>
+                    <Button onClick={mostrarFormOpciones} variant="primary" type="submit">Siguiente</Button>  <Button variant="secondary" onClick={volverPasoDos}>
+                        Atras
+                    </Button> 
                         </div>
 
                     </Form>
@@ -139,7 +157,7 @@ const SeleccionUnica = ({ data, proceso, onClickProcesarPregunta, onClickProcesa
                 <Card style={{ marginTop: 1 }}>
 
                     <RespuestaDinamica listaRespuesta={listaRespuesta} setListaRespuesta={setListaRespuesta} onClickAceptarR={onClickAceptarR}
-                        varIdTipoIndicador={varIdTipoIndicador} volverPasoDos={volverPasoDos} pregunta={pregunta} />
+                        volverPasoDos={volverPasoDos} pregunta={pregunta} />
 
                 </Card>
                 </div>

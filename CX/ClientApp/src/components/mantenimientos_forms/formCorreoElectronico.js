@@ -2,7 +2,7 @@
 import { Card, Button, Form } from "react-bootstrap";
 import { InputText } from '../components_forms/inputs';
 
-const CorreoElectronico = ({ data, proceso, onClickProcesarPregunta, volverPasoDos, varIdTipoIndicador,
+const CorreoElectronico = ({ data, proceso, onClickProcesarPregunta, volverPasoDos,
     varIdTipoEncuesta, varIdTipoMetrica, varIdTipoPerspectiva, varIdTipoContactoEncuesta, varIdTipoInteraccion }) => {
 
     //PARA EL VALOR DE LA PREGUNTA
@@ -26,7 +26,7 @@ const CorreoElectronico = ({ data, proceso, onClickProcesarPregunta, volverPasoD
                 idTipoEncuesta: parseInt(varIdTipoEncuesta),
                 idTipoMetrica: parseInt(varIdTipoMetrica),
                 idTipoPerspectiva: parseInt(varIdTipoPerspectiva),
-                idTipoIndicador: parseInt(varIdTipoIndicador),
+                idTipoIndicador: data.idTipoIndicador,
                 idTipoPregunta: 3,
                 idTipoContactoEncuesta: parseInt(varIdTipoContactoEncuesta),
                 idTipoInteraccion: parseInt(varIdTipoInteraccion),
@@ -69,9 +69,9 @@ const CorreoElectronico = ({ data, proceso, onClickProcesarPregunta, volverPasoD
 
                         <div style={{ display: "flex", justifyContent: "space-around" }}>
 
-                            <Button className="primary" variant="primary" type="submit" size="sm">Guardar</Button>
+                            <Button className="primary" variant="primary" type="submit">Guardar</Button>
 
-                            <Button className="btnVolver" style={{ fontSize: "11px", backgroundColor: "#6c757d" }} variant="secondary" onClick={volverPasoDos}>
+                            <Button style={{backgroundColor: "#6c757d" }} variant="secondary" onClick={volverPasoDos}>
                                 Atrás
                             </Button>
                         </div>

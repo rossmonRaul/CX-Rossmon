@@ -10,10 +10,10 @@ const MenuDesplegable = ({ data, proceso, onClickProcesarPregunta, onClickProces
     varIdTipoEncuesta, varIdTipoMetrica, varIdTipoPerspectiva, varIdTipoContactoEncuesta, varIdTipoInteraccion }) => {
 
     //PARA EL VALOR DE LA PREGUNTA
-    const [pregunta, setPregunta] = useState(proceso == 2 ? data.pregunta : ''); //si el proceso es 1 es insertar, si es 2 es actualizar
+    const [pregunta, setPregunta] = useState(proceso === 2 ? data.pregunta : ''); //si el proceso es 1 es insertar, si es 2 es actualizar
 
     //RESPUESTAS PARA EL DROP-DOWN LIST
-    const [respuestaDdl, setRespuestaDdl] = useState(proceso == 2 ? data.respuesta : ''); //si el proceso es 1 es insertar, si es 2 es actualizar
+    const [respuestaDdl, setRespuestaDdl] = useState(proceso === 2 ? data.respuesta : ''); //si el proceso es 1 es insertar, si es 2 es actualizar
 
     //PARA OBTENER VALOR DEL ÚLTIMO ID DE LA TABLA PREGUNTAS Y ASÍ INGRESARLE LAS RESPUESTAS
     const [listaIdUltimaPregunta, setListaIdUltimaPregunta] = useState([]);

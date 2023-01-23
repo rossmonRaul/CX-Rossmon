@@ -1,15 +1,13 @@
-﻿import React, { useState, useEffect } from 'react'
+﻿import React, { useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
-import { InputText, InputSelect, InputPhone } from '../components_forms/inputs'
-import { ObtenerTiposPersona } from '../../servicios/ServicioTipoPersona';
-import PhoneInput from 'react-phone-input-2'
+import { InputText} from '../components_forms/inputs'
 import 'react-phone-input-2/lib/style.css'
 import './css/tel.css'
 const Formulario = ({ labelButton, data, proceso, onClickProcesarTipoPersona, mensaje }) => {
 
     //variables
 
-    const [tipoPersona, setTipoPersona] = useState(proceso == 2 ? data.tipoPersona : '');
+    const [tipoPersona, setTipoPersona] = useState(proceso === 2 ? data.tipoPersona : '');
 
     //validación
     const [validated, setValidated] = useState(false);

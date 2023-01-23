@@ -9,36 +9,41 @@ const StepTwo = ({ seleccionUnica, seleccionMultiple, menuDesplegable, correoEle
         <>
             <Form className="main-frm">
 
-                <h6>Opciones</h6>
+                <h4>Opciones</h4>
 
                 <div className="cont-button" style={{ display: "flex", justifyContent: "space-around" }}>
-                    
+                    <Button className="button" onClick={calificacionEstrellas}>
+                        Calificación de Estrellas
+                    </Button>
+
                     <Button onClick={seleccionUnica} className="button" >
                         Seleccionar Una Respuesta
+                    </Button>
+
+
+                </div>
+                
+                <div className="cont-button" style={{ display: "flex", justifyContent: "space-around" }}>
+                    <Button className="button" onClick={menuDesplegable}>
+                        Menú Desplegable
                     </Button>
 
                     <Button className="button" onClick={seleccionMultiple}>
                         Seleccionar Varias Respuestas
                     </Button>
-                </div>
-                
-                <div className="cont-button" style={{ display: "flex", justifyContent: "space-around" }}>
-                    <Button className="button" onClick={menuDesplegable}>
-                        Menú Desplegable  
-                    </Button>
+
+
                     
-                    <Button className="button" onClick={correoElectronico} >
-                        Correo Electrónico
-                    </Button>
+
                 </div>
                 
                 <div className="cont-button" style={{ display: "flex", justifyContent: "space-around" }}>
                     <Button className="button" onClick={cajaTextoAbierto} >
                         Caja de Texto Abierto
                     </Button>
-                    
-                    <Button className="button" onClick={calificacionEstrellas}>
-                        Calificación de Estrellas
+
+                    <Button className="button" onClick={correoElectronico} >
+                        Correo Electrónico
                     </Button>
                 </div>
 

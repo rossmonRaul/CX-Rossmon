@@ -4,14 +4,14 @@ import { InputText } from '../components_forms/inputs';
 import { ObtenerUltimoIdPreguntas } from '../../servicios/ServicioPreguntasEncuestas';
 import RespuestaDinamica from "./formRespuestaDinamica";
 
-const SeleccionMultiple = ({ volverPasoDos, data, proceso, onClickProcesarPregunta, onClickProcesarRespuestasPregunta, varIdTipoIndicador,
+const SeleccionMultiple = ({ volverPasoDos, data, proceso, onClickProcesarPregunta, onClickProcesarRespuestasPregunta,
     varIdTipoEncuesta, varIdTipoMetrica, varIdTipoPerspectiva, varIdTipoContactoEncuesta, varIdTipoInteraccion }) => {
 
     //Donde se almacenan las respuestas dinamicas
     const [listaRespuesta, setListaRespuesta] = useState([{ respuesta: "" }]);
 
     //PARA EL VALOR DE LA PREGUNTA
-    const [pregunta, setPregunta] = useState(proceso == 2 ? data.pregunta : '')
+    const [pregunta, setPregunta] = useState(proceso === 2 ? data.pregunta : '')
 
     //PARA OBTENER VALOR DEL ÚLTIMO ID DE LA TABLA PREGUNTAS Y ASÍ INGRESARLE LAS RESPUESTAS
     const [listaIdUltimaPregunta, setListaIdUltimaPregunta] = useState([]);
@@ -44,7 +44,7 @@ const SeleccionMultiple = ({ volverPasoDos, data, proceso, onClickProcesarPregun
                 idTipoEncuesta: parseInt(varIdTipoEncuesta),
                 idTipoMetrica: parseInt(varIdTipoMetrica),
                 idTipoPerspectiva: parseInt(varIdTipoPerspectiva),
-                idTipoIndicador: parseInt(varIdTipoIndicador),
+                idTipoIndicador: data.idTipoIndicador,
                 idTipoPregunta: 2, //LA SELECCIÓN MÚLTIPLE ES TIPO DE PREGUNTA #2
                 idTipoContactoEncuesta: parseInt(varIdTipoContactoEncuesta),
                 idTipoInteraccion: parseInt(varIdTipoInteraccion),
@@ -114,7 +114,7 @@ const SeleccionMultiple = ({ volverPasoDos, data, proceso, onClickProcesarPregun
                         <div style={{ display: "flex", justifyContent: "space-around" }}>
 
                             <Button onClick={mostrarFormOpciones}  variant="primary" type="submit" size="sm">Siguiente</Button>
-                            <Button className="btnListoVolver" variant="secondary" onClick={volverPasoDos}>
+                            <Button  variant="secondary" onClick={volverPasoDos}>
                                 Atras
                             </Button>
                         </div>
@@ -126,7 +126,7 @@ const SeleccionMultiple = ({ volverPasoDos, data, proceso, onClickProcesarPregun
             <div style={{ display: "none" }} id="formOpciones">
             <Card style={{ marginTop: 1 }}>
                     <RespuestaDinamica listaRespuesta={listaRespuesta} setListaRespuesta={setListaRespuesta} onClickAceptarR={onClickAceptarR}
-                        varIdTipoIndicador={varIdTipoIndicador} volverPasoDos={volverPasoDos} pregunta={pregunta} />
+                         volverPasoDos={volverPasoDos} pregunta={pregunta} />
             </Card>
             </div>
         </>

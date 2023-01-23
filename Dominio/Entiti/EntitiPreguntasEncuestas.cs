@@ -21,7 +21,7 @@ namespace Dominio.Entiti
         public int idFase { get; set; }
         public int idTipoMetrica { get; set; }
         public int idTipoPerspectiva { get; set; }
-        public int idTipoIndicador { get; set; }
+        public int ?idTipoIndicador { get; set; }
         public int idTipoContactoEncuesta { get; set; }
         public int idTipoInteraccion { get; set; }
     }

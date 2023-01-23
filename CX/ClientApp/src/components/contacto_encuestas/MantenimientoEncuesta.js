@@ -334,15 +334,14 @@ export class MantenimientoEncuesta extends Component {
 
     onClickOjo = (item) => {
         this.setState({ showEncuesta: true });
-        console.log(item);
         this.setState({ encuestaMostrada:item});
     }
 
 
     body = () => {
         return this.state.listaEncuestas.map((item, index) => (
-            <tr  key={index}>
-                <td> <div className="ojo"><BsFillEyeFill onClick={() => this.onClickOjo(item)} size={30} /></div></td>
+            <tr key={index}>
+                <td><div className="ojo"><BsFillEyeFill onClick={() => this.onClickOjo(item)} size={30} /></div></td>
                 <td>{item.idEncuesta}</td>
                 <td>{item.nombre}</td>
                 <td>{item.descripcion}</td>
@@ -374,7 +373,7 @@ export class MantenimientoEncuesta extends Component {
                 <td>{item.idPreguntaEncuesta}</td>
                 <td>{item.pregunta}</td>
                 <td>{item.tipo}</td>
-                <td>{item.sigla}</td>
+                <td>{item.sigla ? item.sigla : "N/A"}</td>
                 <td>{item.tipoMetrica}</td>
                 <td>{item.tipoEncuesta}</td>
 
@@ -399,7 +398,7 @@ export class MantenimientoEncuesta extends Component {
                 <td>{item.idPreguntaEncuesta}</td>
                 <td>{item.pregunta}</td>
                 <td>{item.tipo}</td>
-                <td>{item.sigla}</td>
+                <td>{item.sigla ? item.sigla : "N/A"}</td>
                 <td>{item.metrica}</td>
                 <td>{item.tipoEncuesta}</td>
 
@@ -418,7 +417,7 @@ export class MantenimientoEncuesta extends Component {
     tituloEncuestaSeleccionada = () => {
         return (
 
-            <tr key={ this.state.encuestaSeleccionada.idEncuesta}>
+            <tr key={this.state.encuestaSeleccionada.idEncuesta}>
                 <td>{this.state.encuestaSeleccionada.idEncuesta}</td>
                 <td>{this.state.encuestaSeleccionada.nombre}</td>
                 <td>{this.state.encuestaSeleccionada.descripcion}</td>
@@ -448,7 +447,7 @@ export class MantenimientoEncuesta extends Component {
 
     respuestas = () => {
         return this.state.listaRespuestasPregunta.map((item, index) => (
-            <tr key={index}>
+            <tr >
                 <td>{item.idRespuesta}</td>
                 <td>
                     <InputTabla id='txt-descripcion' type='text' placeholder='Descripcion' value={item.respuesta} disabled />
@@ -537,6 +536,7 @@ export class MantenimientoEncuesta extends Component {
                 
 
                 <Modal
+                    className="surveyCX"
                     size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
@@ -551,8 +551,8 @@ export class MantenimientoEncuesta extends Component {
 
                     </Modal.Header>
 
-                    <Modal.Body>
-                        <FormularioPreguntas tituloEncuesta={this.state.encuestaMostrada.nombre} idEncuesta={this.state.encuestaMostrada.idEncuesta}/>
+                    <Modal.Body id="surveyCX">
+                        <FormularioPreguntas  tituloEncuesta={this.state.encuestaMostrada.nombre} idEncuesta={this.state.encuestaMostrada.idEncuesta}/>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button color="secondary" onClick={() => this.setState({ showEncuesta: false })}>
