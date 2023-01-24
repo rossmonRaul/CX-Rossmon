@@ -3,8 +3,11 @@ import React, { useState,useEffect } from "react";
 import "../mantenimientos_forms/css/formPasos.css";
 import { InputText, InputSelect } from '../components_forms/inputs'
 import { Form, Button } from "react-bootstrap";
-import { ObtenerTiposIndicadores } from '../../servicios/ServicioTipoIndicador';
-const CalificacionEstrellas = ({ data, proceso, onClickProcesarPregunta, volverPasoDos,
+import { ObtenerTiposIndicadores, ObtenerTipoIndicadorPorId } from '../../servicios/ServicioTipoIndicador';
+import { StylesManager, Model } from "survey-core";
+import { Survey, PopupSurvey } from 'survey-react-ui';
+import "survey-core/defaultV2.min.css";
+const CalificacionEstrellas = ({ data, proceso, onClickProcesarPregunta, volverPasoDos, onClickProcesarRespuestasPregunta,
     varIdTipoEncuesta, varIdTipoMetrica, varIdTipoPerspectiva, varIdTipoContactoEncuesta, varIdTipoInteraccion }) => {
 
     //PARA EL VALOR DE LA PREGUNTA
@@ -12,9 +15,10 @@ const CalificacionEstrellas = ({ data, proceso, onClickProcesarPregunta, volverP
 
     const [idTipoIndicador, setTipoIndicador] = useState(proceso === 2 ? data.idTipoIndicador : '');
     const [listaTipoIndicador, setListaTipoIndicador] = useState([]);
+    const [formularioCargado, setFormularioCargado] = useState(false);
     //validación
     const [validated, setValidated] = useState(false);
-
+    const [indicador, setIndicador] = useState({});
 
     useEffect(() => {
         ObtenerListaTipoIndicador();
@@ -23,14 +27,18 @@ const CalificacionEstrellas = ({ data, proceso, onClickProcesarPregunta, volverP
     const ObtenerListaTipoIndicador = async () => {
         const soc = await ObtenerTiposIndicadores();
         if (soc !== undefined) {
-            if (proceso === 2) {
-                setListaTipoIndicador(soc.sort((x, y) => { return parseInt(x.idTipoIndicador) === idTipoIndicador ? -1 : parseInt(y.idTipoIndicador) === idTipoIndicador ? 1 : 0; }));
-            } else {
                 let defecto = { idTipoIndicador: '', tipoIndicador: "-- Seleccione Tipo Indicador --" };
                 soc.push(defecto);
                 setListaTipoIndicador(soc.reverse());
             }
-        }
+        
+    }
+    const ObtenerTipoIndicador = async(e) => {
+    const respuesta = await ObtenerTipoIndicadorPorId(e);
+        setIndicador(respuesta);
+        console.log(respuesta)
+        
+        
     }
 
     const onClickAceptar = async (event) => {
@@ -62,8 +70,30 @@ const CalificacionEstrellas = ({ data, proceso, onClickProcesarPregunta, volverP
     }
 
     const onChangePreguntas = (e) => setPregunta(e.target.value);
-    const onChangeTipoIndicador = (e) => setTipoIndicador(e.target.value);
+
+    const onChangeTipoIndicador = (e) => {
+        console.log(e.target.value);
+        ObtenerTipoIndicador(e.target.value);
+        setFormularioCargado(true);
+    }
+
+    const SurveyComponent = ({ data }) => {
+
+        const survey = new Model();
+        survey.showNavigationButtons = false;
+        const page = survey.addNewPage("PersonalDetails");
+
+        var preguntaDinamica= page.addNewQuestion("rating","");
+        //rating es la clasificacion de estrellas
+        preguntaDinamica.titleLocation = "hidden";
+        preguntaDinamica.displayMode="buttons"
+        preguntaDinamica.rateMax = indicador.maximo;
+
+        return <Survey model={survey} />;
+    } 
+
     return (
+
             <Form noValidate validated={validated} onSubmit={onClickAceptar}>
             <h4>Calificación de Estrellas</h4>
 
@@ -77,8 +107,8 @@ const CalificacionEstrellas = ({ data, proceso, onClickProcesarPregunta, volverP
                     onChange={onChangeTipoIndicador} optionValue="idTipoIndicador" optionLabel="tipoIndicador"
                     classGroup="form-lineas">
                 </InputSelect>
-
-            <StarRating />
+            <br></br>
+            <div id="estrellas">{formularioCargado && <SurveyComponent />} </div>
 
                 <br></br>
 

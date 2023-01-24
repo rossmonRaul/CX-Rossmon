@@ -6,7 +6,13 @@
 a {
     color: #126677;
 }
-
+#estrellas .sd-root-modern--mobile .sd-page {
+    padding-top: 0 !important;
+}
+#estrellas .sd-page {
+    padding: 0 !important;
+    display: block;
+}
 #surveyElement {
     --primary: #343c9c;
     --background: #F5F5F5;

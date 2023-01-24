@@ -537,7 +537,7 @@ export class MantenimientoEncuesta extends Component {
 
                 <Modal
                     className="surveyCX"
-                    size="xl"
+                    size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
                     show={this.state.showEncuesta}

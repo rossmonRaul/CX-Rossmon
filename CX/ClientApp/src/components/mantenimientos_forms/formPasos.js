@@ -156,7 +156,7 @@ const FormularioPasos = ({ data, proceso, onClickProcesarPregunta, onClickProces
         case 9:
             return (
                 <div >
-                    <Container style={{ width: "450px" }}>
+                    <Container className="contenedorEstrellas" style={{ width: "450px" }}>
                        
                                 <CalificacionEstrellas data={data} proceso={proceso} onClickProcesarPregunta={onClickProcesarPregunta} onClickProcesarRespuestasPregunta={onClickProcesarRespuestasPregunta}
                                     volverPasoDos={volverPasoDos}  varIdTipoEncuesta={varIdTipoEncuesta}
