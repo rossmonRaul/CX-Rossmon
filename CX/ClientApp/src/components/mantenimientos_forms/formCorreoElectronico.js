@@ -26,7 +26,7 @@ const CorreoElectronico = ({ data, proceso, onClickProcesarPregunta, volverPasoD
                 idTipoEncuesta: parseInt(varIdTipoEncuesta),
                 idTipoMetrica: parseInt(varIdTipoMetrica),
                 idTipoPerspectiva: parseInt(varIdTipoPerspectiva),
-                idTipoIndicador: data.idTipoIndicador,
+                idTipoIndicador: null,
                 idTipoPregunta: 3,
                 idTipoContactoEncuesta: parseInt(varIdTipoContactoEncuesta),
                 idTipoInteraccion: parseInt(varIdTipoInteraccion),

@@ -44,7 +44,7 @@ const SeleccionMultiple = ({ volverPasoDos, data, proceso, onClickProcesarPregun
                 idTipoEncuesta: parseInt(varIdTipoEncuesta),
                 idTipoMetrica: parseInt(varIdTipoMetrica),
                 idTipoPerspectiva: parseInt(varIdTipoPerspectiva),
-                idTipoIndicador: data.idTipoIndicador,
+                idTipoIndicador: null,
                 idTipoPregunta: 2, //LA SELECCIÓN MÚLTIPLE ES TIPO DE PREGUNTA #2
                 idTipoContactoEncuesta: parseInt(varIdTipoContactoEncuesta),
                 idTipoInteraccion: parseInt(varIdTipoInteraccion),

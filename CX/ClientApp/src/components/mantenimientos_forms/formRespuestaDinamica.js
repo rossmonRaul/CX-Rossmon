@@ -4,11 +4,7 @@ import { Button, Form } from 'react-bootstrap'
 //COMPONENTE QUE CREA NUEVOS INPUTS PARA ALMACENAR LAS RESPUESTAS DE UNA PREGUNTA
 const RespuestaDinamica = ({ listaRespuesta, setListaRespuesta, onClickAceptarR, varIdTipoIndicador, volverPasoDos, pregunta }) => {
 
-    const numResp = useState(10);
-
-
-
-
+    const [numResp, setNumResp] = useState(10);
     //GUARDAR EL VALOR DE LOS INPUTS
     const handleRespuestaChange = (e, index) => {
         const { name, value } = e.target;

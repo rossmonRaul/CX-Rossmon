@@ -2,6 +2,7 @@
 import { Container, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
 import { ObtenerPreguntaRespuestaPorID } from '../../servicios/ServicioFormularioPreguntas';
 import { ObtenerPreguntasPorIdEncuesta } from '../../servicios/ServicioPreguntasAsignadas';
+
 import * as ReactDOM from 'react-dom';
 
 //Survey
@@ -110,29 +111,38 @@ export class FormularioPreguntas extends Component {
                     j++;
                 }
                 while (j < cantElementos - 2) {
+                    
+
                     if (tipoPregunta == 1) {
                         //radiogroup es para seleccion unica
-                        page.addNewQuestion("radiogroup", tituloPregunta).choices = respuestasArray;
+                        var preguntaDinamica = page.addNewQuestion("radiogroup", tituloPregunta);
+                        /*preguntaDinamica.maxRateDescription = "Excelente";
+                        preguntaDinamica.minRateDescription =  "Malo";
+                        preguntaDinamica.rateMax = 10;*/
+                        preguntaDinamica.choices = respuestasArray;
+
+                        console.log(pregunta);
+
                         tituloPregunta = "";
                         j = 0;
                     } else if (tipoPregunta == 2) {
                         //checkbox se utiliza para seleccion multiple
-                        page.addNewQuestion("checkbox", tituloPregunta).choices = respuestasArray;
+                        var preguntaDinamica2 =page.addNewQuestion("checkbox", tituloPregunta).choices = respuestasArray;
                         tituloPregunta = "";
                         j = 0;
                     } else if (tipoPregunta == 4) {
                         //dropdown es un combobox
-                        page.addNewQuestion("dropdown", tituloPregunta).choices = respuestasArray;
+                        var preguntaDinamica3 =page.addNewQuestion("dropdown", tituloPregunta).choices = respuestasArray;
                         tituloPregunta = "";
                         j = 0;
                     } else if (tipoPregunta == 6) {
                         //rating es la clasificacion de estrellas
-                        page.addNewQuestion("rating", tituloPregunta).choices = respuestasArray;
+                        var preguntaDinamica4 =page.addNewQuestion("rating", tituloPregunta);
                         tituloPregunta = "";
                         j = 0;
                     } else {
                         //text es para cajas de texto, se va utilizar para caja abierta y correo
-                        page.addNewQuestion("text", tituloPregunta).choices = respuestasArray;
+                        var preguntaDinamica5 =page.addNewQuestion("text", tituloPregunta).choices = respuestasArray;
                         tituloPregunta = "";
                         j = 0;
                     }

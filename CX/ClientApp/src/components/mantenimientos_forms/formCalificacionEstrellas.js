@@ -46,7 +46,7 @@ const CalificacionEstrellas = ({ data, proceso, onClickProcesarPregunta, volverP
                 idTipoEncuesta: parseInt(varIdTipoEncuesta),
                 idTipoMetrica: parseInt(varIdTipoMetrica),
                 idTipoPerspectiva: parseInt(varIdTipoPerspectiva),
-                idTipoIndicador: null,
+                idTipoIndicador: parseInt(idTipoIndicador),
                 idTipoPregunta: 6,
                 idTipoContactoEncuesta: parseInt(varIdTipoContactoEncuesta),
                 idTipoInteraccion: parseInt(varIdTipoInteraccion),
@@ -64,7 +64,6 @@ const CalificacionEstrellas = ({ data, proceso, onClickProcesarPregunta, volverP
     const onChangePreguntas = (e) => setPregunta(e.target.value);
     const onChangeTipoIndicador = (e) => setTipoIndicador(e.target.value);
     return (
-        <div className="App">
             <Form noValidate validated={validated} onSubmit={onClickAceptar}>
             <h4>Calificación de Estrellas</h4>
 
@@ -85,13 +84,12 @@ const CalificacionEstrellas = ({ data, proceso, onClickProcesarPregunta, volverP
 
             <div style={{ display: "flex", justifyContent: "space-around" }}>
 
-                <Button className="primary" variant="primary" type="submit" >Guardar</Button>
+                <Button className="primary" type="submit" variant="primary">Guardar</Button>
                 <Button  variant="secondary" onClick={volverPasoDos}>
                     Atrás
                 </Button>
                 </div>
             </Form>
-        </div>
     );
 };
 

@@ -169,10 +169,12 @@ const StepOne = ({ nextStep, data, proceso }) => {
 
 
                         <br></br>
-
-                        <Button variant="primary" type="submit" style={{ marginLeft: "8.5vw", }}>
-                            Siguiente
-                        </Button>
+                <div style={{ alignItems: "center", justifyContent: "Center", display:"flex" }}>
+                    <Button variant="primary" type="submit" >
+                        Siguiente
+                    </Button>
+                </div>
+                        
                     </Form>
         </>
     );

@@ -188,16 +188,19 @@ export class MantenimientoPregunta extends Component {
     onClickCerrarModal = () => {
         this.setState({ modal: false });
         this.setState({ mensajeFormulario: "" });
+        this.setState({ show:false });
     }
 
     onClickCerrarModal2 = () => {
         this.setState({ modal2: false });
         this.setState({ mensajeFormulario: "" });
+        this.setState({ show2: false });
     }
 
     onClickCerrarModal3 = () => {
         this.setState({ modal3: false });
         this.setState({ mensajeFormulario: "" });
+        this.setState({ show3: false });
     }
 
 
@@ -267,11 +270,7 @@ export class MantenimientoPregunta extends Component {
                         </Alert>
                         : ""}
 
-                    {this.state.show2 ?
-                        <Alert variant={this.state.alerta2 === true ? "success" : "danger"} onClose={() => this.setState({ show2: false })} dismissible>
-                            {this.state.mensajeRespuesta2.mensaje}
-                        </Alert>
-                        : ""}
+
 
 
 
@@ -287,11 +286,6 @@ export class MantenimientoPregunta extends Component {
 
                     {/*PARA FORM DE PASOS*/}
                     <FormularioModal show={this.state.modal2} handleClose={this.onClickCerrarModal2} titulo={this.state.modalTitulo} className=''>
-                        {this.state.show ?
-                            <Alert variant={this.state.alerta === true ? "success" : "danger"} onClose={() => this.setState({ show: false })} dismissible>
-                                {this.state.mensajeRespuesta.mensaje}
-                            </Alert>
-                            : ""}
 
                         {this.state.show2 ?
                             <Alert variant={this.state.alerta2 === true ? "success" : "danger"} onClose={() => this.setState({ show2: false })} dismissible>
