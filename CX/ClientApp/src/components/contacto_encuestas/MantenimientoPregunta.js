@@ -6,6 +6,7 @@ import Formulario from '../mantenimientos_forms/formPreguntaEncuesta';
 import { InputTabla } from '../components_forms/inputs'
 import { Alert } from 'react-bootstrap'
 import $ from 'jquery';
+import {  ObtenerValoresIndicadorPorID} from '../../servicios/ServicioTipoIndicador';
 import { ActualizarRespuestasPreguntaEncuesta, AgregarRespuestaPreguntaEncuesta, ObtenerRespuestasPreguntaEncuestaPorId } from '../../servicios/ServicioRespuestasPreguntaEncuesta';
 
 //COMPONENTE QUE SE ENCARGA DE IR MOSTRANDO CADA UNO DE LOS PASOS DEL FORMULARIO
@@ -41,7 +42,10 @@ export class MantenimientoPregunta extends Component {
             labelButton: "Registrar",
             cabeceras: ["ID", "Pregunta", "Tipo Pregunta", "Sigla", "Métrica", "Tipo Encuesta", "Estado", "Acciones"],
             cabeceras2: ["Pregunta"],
-            cabeceras3: ["ID", "Respuesta"]  //PARA LA TABLA DE EDICIÓN DE RESPUESTAS
+            cabeceras3: ["ID", "Respuesta"],  //PARA LA TABLA DE EDICIÓN DE RESPUESTAS
+            cabeceras4: ["Valor", "Descripción"],
+            listaValoresIndicador: [],
+            preguntaIndicador: false,
         };
 
     }
@@ -137,13 +141,26 @@ export class MantenimientoPregunta extends Component {
         this.setState({ modalTitulo: "Actualizar Pregunta ID: " + id });
     }
 
+    async ObtenerValoresIndicador(id) {
+        const respuesta = await ObtenerValoresIndicadorPorID(id);
+        this.setState({ listaValoresIndicador: respuesta });
+    }
 
-    onClickActualizarRespuestasPregunta = async (id, respuesta) => {
+    onClickActualizarRespuestasPregunta = async (id, respuesta, item) => {
+
+        if (item.idTipoIndicador !== 0) {
+            this.setState({ preguntaIndicador: true });
+            this.ObtenerValoresIndicador(item.idTipoIndicador)
+        }
+        
+        console.log(item);
+
         await this.ObtenerRespuestasPreguntaEncuestaID(id);
         this.setState({ proceso: 2 });
         this.setState({ modal3: !this.state.modal3 });
         this.setState({ labelButton: "Actualizar" });
         this.setState({ modalTitulo: "Actualizar Respuesta de: " + respuesta });
+
     }
 
 
@@ -178,10 +195,12 @@ export class MantenimientoPregunta extends Component {
 
 
 
+
     onClickGuardarRespuestas = () => {
         this.state.listaRespuestasPregunta.map((item, index) => (
             this.onClickProcesarRespuestasPregunta(item)
         ))
+        this.onClickCerrarModal3();
     }
 
 
@@ -201,6 +220,7 @@ export class MantenimientoPregunta extends Component {
         this.setState({ modal3: false });
         this.setState({ mensajeFormulario: "" });
         this.setState({ show3: false });
+        this.setState({ preguntaIndicador: false });
     }
 
 
@@ -223,7 +243,7 @@ export class MantenimientoPregunta extends Component {
                     <Button color="primary" onClick={() => this.onClickActualizarPregunta(item.idPreguntaEncuesta)} style={{ marginRight: "0.5vw" }}>Editar
                     </Button>
 
-                    <Button color="secondary" onClick={() => this.onClickActualizarRespuestasPregunta(item.idPreguntaEncuesta, item.pregunta)} style={{ marginRight: "0.5vw" }}>Respuestas</Button>
+                    <Button color="secondary" onClick={() => this.onClickActualizarRespuestasPregunta(item.idPreguntaEncuesta, item.pregunta, item)} style={{ marginRight: "0.5vw" }}>Respuestas</Button>
 
                     <Button color={item.estado === 1 ? "danger" : "success"} onClick={() => this.onClickInactivarPregunta(item.idPreguntaEncuesta)} style={{ marginLeft: "0", marginTop: "0vw" }}> {item.estado === 1 ? "Inactivar" : "Activar"}
                     </Button>
@@ -246,6 +266,18 @@ export class MantenimientoPregunta extends Component {
                 <td>{item.idRespuesta}</td>
                 <td>
                     <InputTabla onChange={e => this.onChangeClasificacion(e, item, index)} id='txt-descripcion' type='text' placeholder='Descripcion' value={item.respuesta} mensajeValidacion="" />
+                </td>
+            </tr>
+        ))
+    }
+
+    valores = () => {
+
+        return this.state.listaValoresIndicador.map((item, index) => (
+            <tr key={index}>
+                <td>{item.valor}</td>
+                <td>
+                    <InputTabla onChange={e => this.onChangeClasificacion(e, item, index)} id='txt-descripcion' type='text' placeholder='Descripcion' value={item.clasificacion} mensajeValidacion="" />
                 </td>
             </tr>
         ))
@@ -300,9 +332,18 @@ export class MantenimientoPregunta extends Component {
 
 
                     <FormularioModal show={this.state.modal3} handleClose={this.onClickCerrarModal3} titulo={this.state.modalTitulo} className=''>
+                        <div style={{overflowY: "auto", height: "498px" }} id="formOpciones">
+                            <h4>Opciones</h4>
+                            
+                        
+                        {
 
-                        <Table tableHeading={this.state.cabeceras3} body={this.respuestas()} />
-                        <Button className="primary btn btn-primary btn-sm" onClick={() => this.onClickGuardarRespuestas()} style={{ marginRight: "1vw" }}>Guardar
+                            this.state.preguntaIndicador === true ? <Table tableHeading={this.state.cabeceras4} body={this.valores()} /> : <Table tableHeading={this.state.cabeceras3} body={this.respuestas()} />
+
+                        }
+                        </div>
+                        
+                        <Button className="primary btn btn-primary btn-sm" onClick={ () => this.onClickGuardarRespuestas()} style={{ marginRight: "1vw" }}>Guardar
                         </Button>
                     </FormularioModal>
 

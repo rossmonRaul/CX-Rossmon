@@ -3,10 +3,9 @@ import { Form, Card, Button } from "react-bootstrap";
 import "../mantenimientos_forms/css/formPasos.css";
 import { InputText, InputSelect } from '../components_forms/inputs'
 import { ObtenerUltimoIdPreguntas } from '../../servicios/ServicioPreguntasEncuestas';
-import { ObtenerTiposIndicadores, ObtenerTipoIndicadorPorId } from '../../servicios/ServicioTipoIndicador';
-import RespuestaDinamica from "./formRespuestaDinamica";
-
-
+import { ObtenerTiposIndicadores, ObtenerTipoIndicadorPorId, ObtenerValoresIndicadorPorID } from '../../servicios/ServicioTipoIndicador';
+import { InputTabla } from '../components_forms/inputs'
+import { Table } from '../Table';
 // creating functional component ans getting props from app.js and destucturing them
 const SeleccionUnica = ({ data, proceso, onClickProcesarPregunta, onClickProcesarRespuestasPregunta, volverPasoDos,
     varIdTipoEncuesta, varIdTipoMetrica, varIdTipoPerspectiva, varIdTipoContactoEncuesta, varIdTipoInteraccion }) => {
@@ -16,13 +15,13 @@ const SeleccionUnica = ({ data, proceso, onClickProcesarPregunta, onClickProcesa
 
     //Donde se almacenan las respuestas dinamicas
     const [listaRespuesta, setListaRespuesta] = useState([{ respuesta: "" }]);
-
+    const cabeceras2 = ["Valor", "Descripción"];
     //PARA OBTENER VALOR DEL ÚLTIMO ID DE LA TABLA PREGUNTAS Y ASÍ INGRESARLE LAS RESPUESTAS
     const [listaIdUltimaPregunta, setListaIdUltimaPregunta] = useState([]);
 
     const [idTipoIndicador, setTipoIndicador] = useState(proceso == 2 ? data.idTipoIndicador : '');
     const [listaTipoIndicador, setListaTipoIndicador] = useState([]);
-
+    const [listaValoresIndicador, setListaValoresIndicador] = useState([]);
     useEffect(() => {
         ObtenerListaTipoIndicador();
         ObtenerIdUltimaPregunta()
@@ -51,7 +50,8 @@ const SeleccionUnica = ({ data, proceso, onClickProcesarPregunta, onClickProcesa
     const [validated, setValidated] = useState(false);
 
     const onClickAceptar = async (event) => {
-
+        ObtenerValoresIndicador();
+        console.log(idTipoIndicador);
         const form = event.currentTarget;
         if (form.checkValidity() === false) { //valida el form
             event.preventDefault();
@@ -79,6 +79,10 @@ const SeleccionUnica = ({ data, proceso, onClickProcesarPregunta, onClickProcesa
 
 
     }
+    const ObtenerValoresIndicador = async () => {
+        const respuesta = await ObtenerValoresIndicadorPorID(idTipoIndicador);
+        setListaValoresIndicador(respuesta);
+     }
 
     const onClickAceptarR = async (event) => {
 
@@ -120,6 +124,18 @@ const SeleccionUnica = ({ data, proceso, onClickProcesarPregunta, onClickProcesa
 
     const onChangePreguntas = (e) => setPregunta(e.target.value);
     const onChangeTipoIndicador = (e) => setTipoIndicador(e.target.value);
+
+    const valores = () => {
+
+        return listaValoresIndicador.map((item, index) => (
+            <tr key={index}>
+                <td>{item.valor}</td>
+                <td>
+                    <InputTabla id='txt-descripcion' type='text' placeholder='Descripcion' value={item.clasificacion} mensajeValidacion="" />
+                </td>
+            </tr>
+        ))
+    }
     return (
         <div>
             <div id="formPregunta">
@@ -153,14 +169,11 @@ const SeleccionUnica = ({ data, proceso, onClickProcesarPregunta, onClickProcesa
             </div>
 
 
-            <div style={{ display: "none" }} id="formOpciones">
-                <Card style={{ marginTop: 1 }}>
+            <div style={{ display: "none", overflowY: "auto", height: "498px" }} id="formOpciones">
+                    <h4>Opciones</h4>
+                    <Table tableHeading={cabeceras2} body={valores()} />
+            </div>
 
-                    <RespuestaDinamica listaRespuesta={listaRespuesta} setListaRespuesta={setListaRespuesta} onClickAceptarR={onClickAceptarR}
-                        volverPasoDos={volverPasoDos} pregunta={pregunta} />
-
-                </Card>
-                </div>
         </div>
     );
 };

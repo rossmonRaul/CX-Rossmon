@@ -11,7 +11,7 @@ namespace Dominio.Dto
         public int IdPreguntaEncuesta { get; set; }
 
        
-        
+        public int IdTipoIndicador { get; set; }
         public string Pregunta { get; set; }
 
         public int IdTipoPregunta { get; set; }

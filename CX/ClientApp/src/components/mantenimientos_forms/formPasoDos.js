@@ -31,10 +31,6 @@ const StepTwo = ({ seleccionUnica, seleccionMultiple, menuDesplegable, correoEle
                     <Button className="button" onClick={seleccionMultiple}>
                         Seleccionar Varias Respuestas
                     </Button>
-
-
-                    
-
                 </div>
                 
                 <div className="cont-button" style={{ display: "flex", justifyContent: "space-around" }}>

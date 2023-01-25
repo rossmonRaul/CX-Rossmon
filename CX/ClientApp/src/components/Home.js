@@ -5,10 +5,14 @@ export class Home extends Component {
 
     render() {
         return (
+
             <div className="inicio">
-                <p className="head1">Costumer Experience for your business</p>
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                <p className="head1">Experiencia de cliente para tu negocio</p>
                 <p className="head2">
-                    Delivering a great customer experience is hugely important for any business. The better experience customers have, the more repeat custom and positive reviews you'll receive, while simultaneously reducing the friction of customer complaints and returns.</p>
+                    Brindar una excelente experiencia al cliente es muy importante para cualquier empresa.
+                    Mientras mejor experiencia reciban los clientes, se tendran rese&ntilde;as mas positivas,
+                    lo cual al mismo tiempo reduce la brecha de las quejas y mantiene a los clientes.</p>
             </div>
         );
     }

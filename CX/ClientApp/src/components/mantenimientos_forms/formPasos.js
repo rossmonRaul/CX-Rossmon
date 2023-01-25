@@ -96,7 +96,6 @@ const FormularioPasos = ({ data, proceso, onClickProcesarPregunta, onClickProces
                                     volverPasoDos={volverPasoDos}  varIdTipoEncuesta={varIdTipoEncuesta}
                                     varIdTipoMetrica={varIdTipoMetrica} varIdTipoPerspectiva={varIdTipoPerspectiva} varIdTipoContactoEncuesta={varIdTipoContactoEncuesta}
                                     varIdTipoInteraccion={varIdTipoInteraccion} />
-                           
                     </Container>
                 </div>
             );

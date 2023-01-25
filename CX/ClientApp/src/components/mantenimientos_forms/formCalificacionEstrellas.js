@@ -3,7 +3,7 @@ import React, { useState,useEffect } from "react";
 import "../mantenimientos_forms/css/formPasos.css";
 import { InputText, InputSelect } from '../components_forms/inputs'
 import { Form, Button } from "react-bootstrap";
-import { ObtenerTiposIndicadores, ObtenerTipoIndicadorPorId } from '../../servicios/ServicioTipoIndicador';
+import { ObtenerTiposIndicadores, ObtenerTipoIndicadorPorId, ObtenerValoresIndicadorPorID } from '../../servicios/ServicioTipoIndicador';
 import { StylesManager, Model } from "survey-core";
 import { Survey, PopupSurvey } from 'survey-react-ui';
 import "survey-core/defaultV2.min.css";
@@ -12,10 +12,11 @@ const CalificacionEstrellas = ({ data, proceso, onClickProcesarPregunta, volverP
 
     //PARA EL VALOR DE LA PREGUNTA
     const [pregunta, setPregunta] = useState(proceso === 2 ? data.pregunta : '')
-
+    const [valoresIndicador, setValoresIndicador] = useState([]);
     const [idTipoIndicador, setTipoIndicador] = useState(proceso === 2 ? data.idTipoIndicador : '');
     const [listaTipoIndicador, setListaTipoIndicador] = useState([]);
     const [formularioCargado, setFormularioCargado] = useState(false);
+    const [listaRespuesta, setListaRespuesta] = useState([{ respuesta: "" }]);
     //validación
     const [validated, setValidated] = useState(false);
     const [indicador, setIndicador] = useState({});
@@ -33,12 +34,13 @@ const CalificacionEstrellas = ({ data, proceso, onClickProcesarPregunta, volverP
             }
         
     }
-    const ObtenerTipoIndicador = async(e) => {
-    const respuesta = await ObtenerTipoIndicadorPorId(e);
+    const ObtenerTipoIndicador = async (e) => {
+        const respuesta = await ObtenerTipoIndicadorPorId(e);
+        const listaValoresIndicador = await ObtenerValoresIndicadorPorID(e);
         setIndicador(respuesta);
-        console.log(respuesta)
-        
-        
+        console.log(idTipoIndicador);
+        setValoresIndicador(listaValoresIndicador);
+        console.log(listaValoresIndicador);
     }
 
     const onClickAceptar = async (event) => {
@@ -73,6 +75,7 @@ const CalificacionEstrellas = ({ data, proceso, onClickProcesarPregunta, volverP
 
     const onChangeTipoIndicador = (e) => {
         console.log(e.target.value);
+        setTipoIndicador(e.target.value);
         ObtenerTipoIndicador(e.target.value);
         setFormularioCargado(true);
     }
