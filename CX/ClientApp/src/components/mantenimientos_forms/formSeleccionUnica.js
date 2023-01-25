@@ -51,7 +51,6 @@ const SeleccionUnica = ({ data, proceso, onClickProcesarPregunta, onClickProcesa
 
     const onClickAceptar = async (event) => {
         ObtenerValoresIndicador();
-        console.log(idTipoIndicador);
         const form = event.currentTarget;
         if (form.checkValidity() === false) { //valida el form
             event.preventDefault();

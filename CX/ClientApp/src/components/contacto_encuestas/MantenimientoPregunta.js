@@ -153,7 +153,6 @@ export class MantenimientoPregunta extends Component {
             this.ObtenerValoresIndicador(item.idTipoIndicador)
         }
         
-        console.log(item);
 
         await this.ObtenerRespuestasPreguntaEncuestaID(id);
         this.setState({ proceso: 2 });
@@ -292,20 +291,6 @@ export class MantenimientoPregunta extends Component {
 
                     <Button className="btn_insert" onClick={() => this.onClickNuevaPregunta()}>Insertar Nueva Pregunta</Button>
                     <hr />
-
-
-                    {/*ALERTA*/}
-
-                    {this.state.show ?
-                        <Alert variant={this.state.alerta === true ? "success" : "danger"} onClose={() => this.setState({ show: false })} dismissible>
-                            {this.state.mensajeRespuesta.mensaje}
-                        </Alert>
-                        : ""}
-
-
-
-
-
                     <Table tableHeading={this.state.cabeceras} body={this.body()} />
 
 

@@ -38,9 +38,7 @@ const CalificacionEstrellas = ({ data, proceso, onClickProcesarPregunta, volverP
         const respuesta = await ObtenerTipoIndicadorPorId(e);
         const listaValoresIndicador = await ObtenerValoresIndicadorPorID(e);
         setIndicador(respuesta);
-        console.log(idTipoIndicador);
         setValoresIndicador(listaValoresIndicador);
-        console.log(listaValoresIndicador);
     }
 
     const onClickAceptar = async (event) => {
@@ -74,7 +72,6 @@ const CalificacionEstrellas = ({ data, proceso, onClickProcesarPregunta, volverP
     const onChangePreguntas = (e) => setPregunta(e.target.value);
 
     const onChangeTipoIndicador = (e) => {
-        console.log(e.target.value);
         setTipoIndicador(e.target.value);
         ObtenerTipoIndicador(e.target.value);
         setFormularioCargado(true);

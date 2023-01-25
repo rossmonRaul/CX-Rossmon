@@ -9,6 +9,7 @@ namespace Dominio.Dto
         public int idPreguntaEncuesta { get; set; }
         public string pregunta { get; set; }
         public string tipo { get; set; }
+        public int estado { get; set; }
         public string sigla { get; set; }
         public string descripcion { get; set; }
         public string metrica { get; set; }

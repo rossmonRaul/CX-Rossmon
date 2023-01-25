@@ -77,15 +77,27 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarPregunta, mensa
             event.preventDefault();
             event.stopPropagation();
         } else { //si está correcto arma la variable datos
-            const datos = {
-                Pregunta: pregunta,
-                IdtipoIndicador: parseInt(idTipoIndicador),
-                IdTipoMetrica: parseInt(idTipoMetrica),
-                IdTipoEncuesta: parseInt(idTipoEncuesta),
-                IdPreguntaEncuesta: data.idPreguntaEncuesta
-            };
-
-            const result = onClickProcesarPregunta(datos); //se ejecuta la función      
+            if (data.idTipoIndicador) {
+                const datos = {
+                    Pregunta: pregunta,
+                    IdtipoIndicador: parseInt(idTipoIndicador),
+                    IdTipoMetrica: parseInt(idTipoMetrica),
+                    IdTipoEncuesta: parseInt(idTipoEncuesta),
+                    IdPreguntaEncuesta: data.idPreguntaEncuesta
+                };
+                const result = onClickProcesarPregunta(datos);
+            } else {
+                const datos = {
+                    Pregunta: pregunta,
+                    IdTipoMetrica: parseInt(idTipoMetrica),
+                    IdTipoEncuesta: parseInt(idTipoEncuesta),
+                    IdPreguntaEncuesta: data.idPreguntaEncuesta
+                };
+                const result = onClickProcesarPregunta(datos);
+            }
+            
+           
+             //se ejecuta la función      
         }
         setValidated(true);
         event.preventDefault();
@@ -101,16 +113,23 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarPregunta, mensa
             <Form noValidate validated={validated} onSubmit={onClickAceptar}>
                 <InputText id='txt-Pregunta' label='Pregunta:' type='text' placeholder='Ingrese la pregunta' value={pregunta}
                     onChange={onChangePreguntas} mensajeValidacion="Este campo es requerido" />
-
+          
                 {mensaje !== "" ? <p className="text-info text-center">{mensaje}</p> : ""}
 
+                {data.idTipoIndicador ?
+                        <>
+                        <InputSelect className="slct_socios" controlId="slct_socios" label="Tipo Indicador" data={listaTiposIndicadores} value={idTipoIndicador}
+                            onChange={onChangeIdTipoIndicador} optionValue="idTipoIndicador" optionLabel="tipoIndicador"
+                            classGroup="form-lineas"> </InputSelect>
+                        <br></br>
+                        </>
+                     : null
 
-                <InputSelect className="slct_socios" controlId="slct_socios" label="Tipo Indicador" data={listaTiposIndicadores} value={idTipoIndicador}
-                    onChange={onChangeIdTipoIndicador} optionValue="idTipoIndicador" optionLabel="tipoIndicador"
-                    classGroup="form-lineas"></InputSelect>
+                }
 
-                <br></br>
 
+                
+                
                 <InputSelect className="slct_socios" controlId="slct_socios" label="Tipo Métrica" data={listaTiposMetricas} value={idTipoMetrica}
                     onChange={onChangeIdTipoMetrica} optionValue="idTipoMetrica" optionLabel="tipo"
                     classGroup="form-lineas"></InputSelect>

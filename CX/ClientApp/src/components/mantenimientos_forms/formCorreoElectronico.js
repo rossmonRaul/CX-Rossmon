@@ -6,7 +6,7 @@ const CorreoElectronico = ({ data, proceso, onClickProcesarPregunta, volverPasoD
     varIdTipoEncuesta, varIdTipoMetrica, varIdTipoPerspectiva, varIdTipoContactoEncuesta, varIdTipoInteraccion }) => {
 
     //PARA EL VALOR DE LA PREGUNTA
-    const [pregunta, setPregunta] = useState(proceso == 2 ? data.pregunta : ''); //si el proceso es 1 es insertar, si es 2 es actualizar
+    const [pregunta, setPregunta] = useState("Ingrese su correo electrónico"); //si el proceso es 1 es insertar, si es 2 es actualizar
     //NO REQUIERE VALOR DE LA RESPUESTA, ES PARA QUE FUNCIONE EL onChange
     const [respuesta, setRespuesta] = useState(proceso == 2 ? data.respuesta : ''); //si el proceso es 1 es insertar, si es 2 es actualizar
 
@@ -41,7 +41,6 @@ const CorreoElectronico = ({ data, proceso, onClickProcesarPregunta, volverPasoD
     }
 
 
-    const onChangePreguntas = (e) => setPregunta(e.target.value);
     //POR PASARLE UN onChange AL INPUT DONDE IRÍA LA RESPUESTA
     const onChangeRespuesta = (e) => setRespuesta(e.target.value);
 
@@ -57,7 +56,7 @@ const CorreoElectronico = ({ data, proceso, onClickProcesarPregunta, volverPasoD
                         <br></br>
                         {/*<label>{MiId }</label>*/}
                         <InputText id='txt-Pregunta' label='Pregunta:' type='text' placeholder='Ingrese la pregunta' value={pregunta}
-                            onChange={onChangePreguntas} mensajeValidacion="Este campo es requerido"
+                             mensajeValidacion="Este campo es requerido" enabled={false}
                         />
 
 

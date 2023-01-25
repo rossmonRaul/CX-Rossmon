@@ -32,7 +32,6 @@ export class FormularioPreguntas extends Component {
     async obtenerTextoIndicadores() {
         var tamano = this.state.vectorIdIndicador.length;
         var arrayI = new Array;
-        console.log(this.state.vectorIdIndicador);
         for (var i = 0; i < tamano; i++) {
             const respuesta = await ObtenerTipoIndicadorPorId(this.state.vectorIdIndicador[i]);
 
@@ -43,7 +42,6 @@ export class FormularioPreguntas extends Component {
             }
         }
         this.setState({ arrayIndicadores: arrayI });
-        console.log(this.state.arrayIndicadores);
 
     }
 
@@ -72,7 +70,6 @@ export class FormularioPreguntas extends Component {
         var vectTotal = new Array;
         var i, j = 0;
         var cantArray = this.state.arrayDesordenado.length;
-        console.log(this.state.arrayDesordenado);
         for (i = 0; i < cantArray; i++) {
             var cantElementos = this.state.arrayDesordenado[i].length;
             do {
@@ -102,7 +99,6 @@ export class FormularioPreguntas extends Component {
   
                 }
                 if (!this.state.arrayDesordenado[i][j]) {
-                    console.log("La respuesta (" + i + "," + j + ") está vacía1");
                     respuestas = 0;
                     vectAcomodado.push(respuestas);
 
@@ -123,7 +119,6 @@ export class FormularioPreguntas extends Component {
                 j = 0;
             }
         }
-        console.log("VectorTotal: "+vectTotal)
         this.setState({ arrayAcomodado: vectTotal });
  
     }
@@ -154,7 +149,6 @@ export class FormularioPreguntas extends Component {
                 respuestasArray = [];
                 do {
                     if (j == 0) {
-                        console.log(data.data[i][j]);
                         pregunta = data.data[i][j];
                         tipoPregunta = data.data[i][j + 1];
                         respuestas = data.data[i][j + 2];
@@ -175,59 +169,70 @@ export class FormularioPreguntas extends Component {
                         var arrayChoices = [];
                         const indicador = data.indicadorM[i];
 
-                        console.log(indicador);
 
                         for (var z = 0; z < indicador.maximo; z++) {
                             arrayChoices.push(z + 1);
                         }
 
-                        console.log("Este es el tiulo de la pregunta: "+ tituloPregunta);
                         //radiogroup es para seleccion unica
                         var preguntaDinamica = page.addNewQuestion("radiogroup", tituloPregunta);
 
-                         
                         preguntaDinamica.colCount = 5;
                         preguntaDinamica.choices = arrayChoices;
 
-                        console.log(pregunta);
+
 
                         tituloPregunta = "";
                         j = 0;
                     } else if (tipoPregunta == 2) {
-                        console.log("Este es el tiulo de la pregunta: " + tituloPregunta);
+
                         //checkbox se utiliza para seleccion multiple
-                        var preguntaDinamica2 =page.addNewQuestion("checkbox", tituloPregunta).choices = respuestasArray;
+                        var preguntaDinamica2 = page.addNewQuestion("checkbox", tituloPregunta).choices = respuestasArray;
                         tituloPregunta = "";
                         j = 0;
                     } else if (tipoPregunta == 4) {
-                        console.log("Este es el tiulo de la pregunta: " + tituloPregunta);
                         //dropdown es un combobox
-                        var preguntaDinamica3 =page.addNewQuestion("dropdown", tituloPregunta).choices = respuestasArray;
+                        var preguntaDinamica3 = page.addNewQuestion("dropdown", tituloPregunta).choices = respuestasArray;
+
                         tituloPregunta = "";
                         j = 0;
                     } else if (tipoPregunta == 6) {
-                        console.log("Este es el tiulo de la pregunta: " + tituloPregunta);
+
                         //varIndicador
                         const indicador = data.indicadorM[i];
-                        console.log(indicador);
                         //rating es la clasificacion de estrellas
                         var preguntaDinamica4 = page.addNewQuestion("rating", tituloPregunta);
                         preguntaDinamica4.maxRateDescription = "Excelente";
                         preguntaDinamica4.minRateDescription = "Malo";
                         preguntaDinamica4.displayMode = "buttons"
+
+
                         preguntaDinamica4.rateMax = indicador.maximo;
                         tituloPregunta = "";
                         j = 0;
-                    } else {
+                    }
+                    else if (tipoPregunta == 3){
+                        var preguntaDinamica6 = page.addNewQuestion("text", "Ingrese su correo electrónico");
+                        preguntaDinamica6.isRequired = true;
+                        preguntaDinamica6.requiredErrorText = "El valor no puede estar vacío";
+                        j = 0;
+                    }
+                    else {
                         //text es para cajas de texto, se va utilizar para caja abierta y correo
-                        var preguntaDinamica5 =page.addNewQuestion("text", tituloPregunta).choices = respuestasArray;
+                        var preguntaDinamica5 = page.addNewQuestion("text", tituloPregunta);
+                        preguntaDinamica5.isRequired = true;
+                        preguntaDinamica5.requiredErrorText = "El valor no puede estar vacío";
                         tituloPregunta = "";
                         j = 0;
                     }
 
                 }
             }
-            page.title = data.titulo;
+             page.title = data.titulo;
+
+             survey.onComplete.add((sender, options) => {
+                 console.log(JSON.stringify(sender.data, null, 3));
+             });
 
             /* "radiogroup"(seleccion unica), "text"(email, caja de texto),"dropdown(menu desplegable)", seleccion multiple(combo-box-multiple: tagbox) cajas:checkbox, estrellas "rating"
              
