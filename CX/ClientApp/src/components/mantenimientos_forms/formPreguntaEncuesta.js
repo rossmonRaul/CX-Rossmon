@@ -129,8 +129,6 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarPregunta, mensa
                 <InputText id='txt-Pregunta' label='Pregunta:' type='text' placeholder='Ingrese la pregunta' value={pregunta}
                     onChange={onChangePreguntas} mensajeValidacion="Este campo es requerido" />
           
-                {mensaje !== "" ? <p className="text-info text-center">{mensaje}</p> : ""}
-
                 {data.idTipoIndicador ?
                         <>
                         <InputSelect className="slct_socios" controlId="slct_socios" label="Tipo Indicador" data={listaTiposIndicadores} value={idTipoIndicador}
@@ -143,8 +141,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarPregunta, mensa
                 }
 
 
-                
-                
+            
                 <InputSelect className="slct_socios" controlId="slct_socios" label="Tipo Métrica" data={listaTiposMetricas} value={idTipoMetrica}
                     onChange={onChangeIdTipoMetrica} optionValue="idTipoMetrica" optionLabel="tipo"
                     classGroup="form-lineas"></InputSelect>
@@ -153,7 +150,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarPregunta, mensa
                 <br></br>
 
                 <InputSelect className="slct_socios" controlId="slct_socios" label="Fase de Customer Journey" data={listaFasesCJ} value={idFaseCJ}
-                    onChange={onChangeIdFaseCJ} optionValue="idTipoMetrica" optionLabel="faseCustomerJourney"
+                    onChange={onChangeIdFaseCJ} optionValue="idFaseCJ" optionLabel="faseCustomerJourney"
                     classGroup="form-lineas"></InputSelect>
 
 
