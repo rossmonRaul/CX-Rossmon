@@ -31,6 +31,9 @@ namespace BussinesLogic.Servicios
         {
             return await this.repositorioPreguntasAsignadas.ObtenerPreguntasPorIdEncuesta(idEncuesta);
         }
-
+        public async Task<List<DtoPreguntasEncuestas>> ObtenerPreguntasNoAsignadasPorIdEncuesta(int idEncuesta)
+        {
+            return await this.repositorioPreguntasAsignadas.ObtenerPreguntasNoAsignadasPorIdEncuesta(idEncuesta);
+        }
     }
 }

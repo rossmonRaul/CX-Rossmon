@@ -5,13 +5,14 @@ import { ObtenerTiposEncuestas } from '../../servicios/ServicioTipoEncuesta';
 import { ObtenerTiposMetricas } from '../../servicios/ServicioTipoMetrica';
 import { ObtenerTipoInteraccion } from '../../servicios/ServicioTipoInteraccion';
 import { ObtenerTipoPerspectivas } from '../../servicios/ServicioTipoPerspectivas';
+import { ObtenerFasesCJ } from '../../servicios/ServicioFasesCJ';
 import { InputSelect } from '../components_forms/inputs'
 import "../mantenimientos_forms/css/formPasos.css";
 
 //VARIABLES QUE SE UTILIZAN EN EL COMPONENTE FORM PASOS PARA SER TRASLADADAS COMO PROPIEDADES A LOS COMPONENTES QUE LAS REQUIERAN
 export var varIdTipoEncuesta = 1; export var varIdTipoMetrica = 1; export var varIdTipoPerspectiva = 1;
 export var varIdTipoPregunta = 1; export var varIdTipoContactoEncuesta = 1; export var varIdTipoInteraccion = 1;
-
+export var varIdFaseCJ = 1;
 //PASO UNO, AQUÍ SE GUARDAN TODOS LOS VALORES DE PARAMETRIZACIÓN
 const StepOne = ({ nextStep, data, proceso }) => {
 
@@ -19,7 +20,8 @@ const StepOne = ({ nextStep, data, proceso }) => {
     const [idTipoContactoEncuesta, setTipoContactoEncuesta] = useState(proceso == 2 ? data.idTipoContactoEncuesta : '');
     const [listaTipoContactoEncuesta, setListaTipoContactoEncuesta] = useState([]);
 
-
+    const [idFaseCJ, setIdFaseCJ] = useState(proceso === 2 ? data.idFaseCJ : '');
+    const [listaFasesCJ, setListaFasesCJ] = useState([]);
 
     const [idTipoEncuesta, setTipoEncuesta] = useState(proceso == 2 ? data.idTipoEncuesta : '');
     const [listaTipoEncuesta, setListaTipoEncuesta] = useState([]);
@@ -41,7 +43,7 @@ const StepOne = ({ nextStep, data, proceso }) => {
 
 
     useEffect(() => {
-
+        ObtenerListaFasesCJ(); 
         ObtenerListaTipoContactoEncuesta();
         ObtenerListaTipoEncuesta();
         ObtenerListaTipoMetrica();
@@ -118,12 +120,26 @@ const StepOne = ({ nextStep, data, proceso }) => {
         }
     }
 
+    const ObtenerListaFasesCJ = async () => {
+        const soc = await ObtenerFasesCJ();
+        if (soc !== undefined) {
+            if (proceso === 2) {
+                setListaFasesCJ(soc.sort((x, y) => { return parseInt(x.idFaseCJ) === idFaseCJ ? -1 : parseInt(y.idFaseCJ) === idFaseCJ ? 1 : 0; }));
+            } else {
+                let defecto = { idFaseCJ: '', faseCustomerJourney: "-- Seleccione la Fase CJ --" };
+                soc.reverse();
+                soc.push(defecto);
+                setListaFasesCJ(soc.reverse());
+            }
+
+        }
+    }
     const onChangeTipoPerspectiva = (e) => setTipoPerspectiva(e.target.value);
     const onChangeTipoInteraccion = (e) => setTipoInteraccion(e.target.value);
     const onChangeTipoMetrica = (e) => setTipoMetrica(e.target.value);
     const onChangeTipoEncuesta = (e) => setTipoEncuesta(e.target.value);
     const onChangeTipoContactoEncuesta = (e) => setTipoContactoEncuesta(e.target.value);
-    
+    const onChangeIdFaseCJ = (e) => setIdFaseCJ(e.target.value);
 
     //GUARDAR TODOS LOS VALORES DE PARAMETRIZACIÓN PARA ENVIARLOS COMO PROPIEDADES DESDE EL formPasos
     varIdTipoEncuesta = idTipoEncuesta;
@@ -131,12 +147,17 @@ const StepOne = ({ nextStep, data, proceso }) => {
     varIdTipoPerspectiva = idTipoPerspectiva;
     varIdTipoContactoEncuesta = idTipoContactoEncuesta;
     varIdTipoInteraccion = idTipoInteraccion;
+    varIdFaseCJ = idFaseCJ;
 
     return (
         <>
                     <Form onSubmit={submitFormData}>
 
-                        
+                        <InputSelect className="slct_socios" controlId="slct_socios" label="Tipo Encuesta" data={listaTipoEncuesta} value={idTipoEncuesta}
+                            onChange={onChangeTipoEncuesta} optionValue="idTipoEncuesta" optionLabel="tipoEncuesta"
+                            classGroup="form-lineas"></InputSelect>
+                <br></br>
+
                             <InputSelect className="slct_socios" controlId="slct_socios" label="Tipo Contacto Encuesta" data={listaTipoContactoEncuesta} value={idTipoContactoEncuesta}
                                 onChange={onChangeTipoContactoEncuesta} optionValue="idTipoContactoEncuesta" optionLabel="tipoContactoEncuesta"
                                 classGroup="form-lineas"
@@ -144,21 +165,14 @@ const StepOne = ({ nextStep, data, proceso }) => {
 
                       
 
-                        <br></br>
-
-
-                            <InputSelect className="slct_socios" controlId="slct_socios" label="Tipo Encuesta" data={listaTipoEncuesta} value={idTipoEncuesta}
-                                onChange={onChangeTipoEncuesta} optionValue="idTipoEncuesta" optionLabel="tipoEncuesta"
-                                classGroup="form-lineas"></InputSelect>
-                        <br></br>
-                            <InputSelect className="slct_socios" controlId="slct_socios" label="Tipo Métrica" data={listaTipoMetrica} value={idTipoMetrica}
-                                onChange={onChangeTipoMetrica} optionValue="idTipoMetrica" optionLabel="tipo"
-                                classGroup="form-lineas"></InputSelect>
                             <br></br>
 
+                <InputSelect className="slct_socios" controlId="slct_socios" label="Fase de Customer Journey" data={listaFasesCJ} value={idFaseCJ}
+                    onChange={onChangeIdFaseCJ} optionValue="idFaseCJ" optionLabel="faseCustomerJourney"
+                    classGroup="form-lineas"></InputSelect>
 
 
-
+                <br></br>
                             <InputSelect className="slct_socios" controlId="slct_socios" label="Tipo Interacción" data={listaTipoInteraccion} value={idTipoInteraccion}
                                 onChange={onChangeTipoInteraccion} optionValue="idTipoInteraccion" optionLabel="tipoInteraccion"
                                 classGroup="form-lineas"></InputSelect>
@@ -169,6 +183,11 @@ const StepOne = ({ nextStep, data, proceso }) => {
 
 
                         <br></br>
+                        <InputSelect className="slct_socios" controlId="slct_socios" label="Tipo Métrica" data={listaTipoMetrica} value={idTipoMetrica}
+                            onChange={onChangeTipoMetrica} optionValue="idTipoMetrica" optionLabel="tipo"
+                            classGroup="form-lineas"></InputSelect>
+                        <br></br>
+
                 <div style={{ alignItems: "center", justifyContent: "Center", display:"flex" }}>
                     <Button variant="primary" type="submit" >
                         Siguiente

@@ -12,5 +12,6 @@ namespace Dominio.Interfaces.Infraestructura.BaseDatos
         Task<DtoRespuestaSP> AsignarPregunta(EntitiPreguntaAsignada entitiPreguntaAsignada);
         Task<DtoRespuestaSP> DesasignarPregunta(int idPreguntaEncuesta);
         Task<List<DtoPreguntaAsignada>> ObtenerPreguntasPorIdEncuesta(int idEncuesta);
+        Task<List<DtoPreguntasEncuestas>> ObtenerPreguntasNoAsignadasPorIdEncuesta(int idEncuesta);
     }
 }

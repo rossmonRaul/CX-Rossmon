@@ -3,7 +3,7 @@ import { Card, Button, Form } from "react-bootstrap";
 import { InputText } from '../components_forms/inputs';
 
 const CorreoElectronico = ({ data, proceso, onClickProcesarPregunta, volverPasoDos,
-    varIdTipoEncuesta, varIdTipoMetrica, varIdTipoPerspectiva, varIdTipoContactoEncuesta, varIdTipoInteraccion }) => {
+    varIdTipoEncuesta, varIdTipoMetrica, varIdTipoPerspectiva, varIdTipoContactoEncuesta, varIdTipoInteraccion, varIdFaseCJ }) => {
 
     //PARA EL VALOR DE LA PREGUNTA
     const [pregunta, setPregunta] = useState("Ingrese su correo electrónico"); //si el proceso es 1 es insertar, si es 2 es actualizar
@@ -30,7 +30,7 @@ const CorreoElectronico = ({ data, proceso, onClickProcesarPregunta, volverPasoD
                 idTipoPregunta: 3,
                 idTipoContactoEncuesta: parseInt(varIdTipoContactoEncuesta),
                 idTipoInteraccion: parseInt(varIdTipoInteraccion),
-                estado: 1,
+                idFaseCJ: parseInt(varIdFaseCJ),
             };
             if (proceso === 2) { datos.idPreguntaEncuesta = data.idPreguntaEncuesta; };
 

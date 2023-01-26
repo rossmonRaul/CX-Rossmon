@@ -13,7 +13,7 @@ namespace Dominio.Dto
         public string Sigla { get; set; }
         public string TipoMetrica { get; set; }
         public string TipoEncuesta { get; set; }
-
+        public string FaseCustomerJourney  { get; set; }
 
 
     }

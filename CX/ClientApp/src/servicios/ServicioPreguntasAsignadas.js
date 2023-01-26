@@ -16,3 +16,9 @@ export const ObtenerPreguntasPorIdEncuesta = async (idEncuesta) => {
     return await ProcesarDatosApi('GET', url);
 }
 
+
+export const ObtenerPreguntasNoAsignadasPorIdEncuesta = async (idEncuesta) => {
+    const url = `${controlador}/obtenerpreguntasnoasignadasporidencuesta/${idEncuesta}`;
+    return await ProcesarDatosApi('GET', url);
+}
+

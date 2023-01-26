@@ -5,7 +5,7 @@ import { ObtenerUltimoIdPreguntas } from '../../servicios/ServicioPreguntasEncue
 import RespuestaDinamica from "./formRespuestaDinamica";
 
 const SeleccionMultiple = ({ volverPasoDos, data, proceso, onClickProcesarPregunta, onClickProcesarRespuestasPregunta,
-    varIdTipoEncuesta, varIdTipoMetrica, varIdTipoPerspectiva, varIdTipoContactoEncuesta, varIdTipoInteraccion }) => {
+    varIdTipoEncuesta, varIdTipoMetrica, varIdTipoPerspectiva, varIdTipoContactoEncuesta, varIdTipoInteraccion, varIdFaseCJ }) => {
 
     //Donde se almacenan las respuestas dinamicas
     const [listaRespuesta, setListaRespuesta] = useState([{ respuesta: "" }]);
@@ -24,8 +24,12 @@ const SeleccionMultiple = ({ volverPasoDos, data, proceso, onClickProcesarPregun
     //FUNCIÓN FLECHA PARA SETEAR EL ÚLTIMO VALOR ID DE LA TABLA PREGUNTAS
     const ObtenerIdUltimaPregunta = async () => {
         const soc = await ObtenerUltimoIdPreguntas();
-
-        setListaIdUltimaPregunta(soc.idPreguntaEncuesta);
+        if (soc == null) {
+            setListaIdUltimaPregunta(0);
+        } else {
+            setListaIdUltimaPregunta(soc.idPreguntaEncuesta);
+        }
+        
     }
 
     //validación
@@ -48,7 +52,7 @@ const SeleccionMultiple = ({ volverPasoDos, data, proceso, onClickProcesarPregun
                 idTipoPregunta: 2, //LA SELECCIÓN MÚLTIPLE ES TIPO DE PREGUNTA #2
                 idTipoContactoEncuesta: parseInt(varIdTipoContactoEncuesta),
                 idTipoInteraccion: parseInt(varIdTipoInteraccion),
-                estado: 1,
+                idFaseCJ: parseInt(varIdFaseCJ),
             };
             if (proceso === 2) { datos.idPreguntaEncuesta = data.idPreguntaEncuesta; };
 

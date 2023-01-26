@@ -5,7 +5,7 @@ import { InputText } from '../components_forms/inputs'
 import { TextArea } from '../components_forms/textarea'
 
 const CajaTextoAbierto = ({ data, proceso, onClickProcesarPregunta, volverPasoDos,
-    varIdTipoEncuesta, varIdTipoMetrica, varIdTipoPerspectiva, varIdTipoContactoEncuesta, varIdTipoInteraccion }) => {
+    varIdTipoEncuesta, varIdTipoMetrica, varIdTipoPerspectiva, varIdTipoContactoEncuesta, varIdTipoInteraccion, varIdFaseCJ }) => {
 
     //PARA LA PREGUNTA A INGRESAR
     const [pregunta, setPregunta] = useState(proceso === 2 ? data.pregunta : '')
@@ -30,7 +30,7 @@ const CajaTextoAbierto = ({ data, proceso, onClickProcesarPregunta, volverPasoDo
                 idTipoPregunta: 5,
                 idTipoContactoEncuesta: parseInt(varIdTipoContactoEncuesta),
                 idTipoInteraccion: parseInt(varIdTipoInteraccion),
-                estado: 1,
+                idFaseCJ: parseInt(varIdFaseCJ),
             };
             if (proceso === 2) { datos.idPreguntaEncuesta = data.idPreguntaEncuesta; };
 

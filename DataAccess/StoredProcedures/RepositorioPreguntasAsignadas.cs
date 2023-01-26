@@ -72,12 +72,26 @@ namespace DataAccess.StoredProcedures
             }
         }
 
+        public async Task<List<DtoPreguntasEncuestas>> ObtenerPreguntasNoAsignadasPorIdEncuesta(int idEncuesta)
+        {
+            try
+            {
+                Dictionary<string, object> data = new Dictionary<string, object>();
+                data.Add("IdEncuesta", idEncuesta);
+                string query = "SPObtenerPreguntasNoAsignadas";
+
+                return await this.contextoBD.ObtenerListaDeDatos<DtoPreguntasEncuestas>(query, data);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
 
 
 
 
 
-      
     }
 }

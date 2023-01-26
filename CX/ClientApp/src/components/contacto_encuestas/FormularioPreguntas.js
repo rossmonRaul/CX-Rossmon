@@ -177,7 +177,7 @@ export class FormularioPreguntas extends Component {
                         //radiogroup es para seleccion unica
                         var preguntaDinamica = page.addNewQuestion("radiogroup", tituloPregunta);
 
-                        preguntaDinamica.colCount = 5;
+        
                         preguntaDinamica.choices = arrayChoices;
 
 

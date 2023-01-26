@@ -5,7 +5,7 @@ import { InputSelect } from '../components_forms/inputs'
 import { ObtenerTiposIndicadores } from '../../servicios/ServicioTipoIndicador';
 import { ObtenerTiposMetricas } from '../../servicios/ServicioTipoMetrica';
 import { ObtenerTiposEncuestas } from '../../servicios/ServicioTipoEncuesta';
-
+import { ObtenerFasesCJ } from '../../servicios/ServicioFasesCJ';
 //FORMULARIO PARA REALIZAR LA EDICIÓN DE LOS VALORES Y LA PREGUNTA
 const Formulario = ({ labelButton, data, proceso, onClickProcesarPregunta, mensaje }) => {
 
@@ -16,21 +16,34 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarPregunta, mensa
     const [idTipoIndicador, setIdTipoIndicador] = useState(proceso === 2 ? data.idTipoIndicador : ''); //si el proceso es 1 es insertar, si es 2 es actualizar
     const [idTipoMetrica, setIdTipoMetrica] = useState(proceso === 2 ? data.idTipoMetrica : '');
     const [idTipoEncuesta, setIdTipoEncuesta] = useState(proceso === 2 ? data.idTipoEncuesta : '');
-
+    const [idFaseCJ, setIdFaseCJ] = useState(proceso === 2 ? data.idFaseCJ : '');
     //PARA MOSTRAR LAS DIFERENTES OPCIONES EN CADA SELECT
     const [listaTiposIndicadores, setListaTiposIndicadores] = useState([]);
     const [listaTiposMetricas, setListaTiposMetricas] = useState([]);
     const [listaTiposEncuestas, setListaTiposEncuestas] = useState([]);
-
+    const [listaFasesCJ, setListaFasesCJ] = useState([]);
     //validación
     const [validated, setValidated] = useState(false);
 
     useEffect(() => {
-                
+        ObtenerListaFasesCJ();        
         ObtenerListaTiposIndicadores();
         ObtenerListaTiposMetricas();
         ObtenerListaTiposEncuestas();
     }, []);
+
+    const ObtenerListaFasesCJ = async () => {
+        const soc = await ObtenerFasesCJ();
+        if (soc !== undefined) {
+            if (proceso === 2) {
+                setListaFasesCJ(soc.sort((x, y) => { return parseInt(x.idFaseCJ) === idFaseCJ ? -1 : parseInt(y.idFaseCJ) === idFaseCJ ? 1 : 0; }));
+            } else {
+                let defecto = { idFaseCJ: '', faseCustomerJourney: "-- Seleccione Tipo Indicador --" };
+                soc.push(defecto);
+                setListaFasesCJ(soc.reverse());
+            }
+        }
+    }
 
     const ObtenerListaTiposIndicadores = async () => {
         const soc = await ObtenerTiposIndicadores();
@@ -83,7 +96,8 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarPregunta, mensa
                     IdtipoIndicador: parseInt(idTipoIndicador),
                     IdTipoMetrica: parseInt(idTipoMetrica),
                     IdTipoEncuesta: parseInt(idTipoEncuesta),
-                    IdPreguntaEncuesta: data.idPreguntaEncuesta
+                    IdPreguntaEncuesta: data.idPreguntaEncuesta,
+                    IdFaseCJ: parseInt(idFaseCJ),
                 };
                 const result = onClickProcesarPregunta(datos);
             } else {
@@ -91,7 +105,8 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarPregunta, mensa
                     Pregunta: pregunta,
                     IdTipoMetrica: parseInt(idTipoMetrica),
                     IdTipoEncuesta: parseInt(idTipoEncuesta),
-                    IdPreguntaEncuesta: data.idPreguntaEncuesta
+                    IdPreguntaEncuesta: data.idPreguntaEncuesta,
+                    IdFaseCJ: parseInt(idFaseCJ),
                 };
                 const result = onClickProcesarPregunta(datos);
             }
@@ -107,7 +122,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarPregunta, mensa
     const onChangeIdTipoIndicador = (e) => setIdTipoIndicador(e.target.value);
     const onChangeIdTipoMetrica = (e) => setIdTipoMetrica(e.target.value);
     const onChangeIdTipoEncuesta = (e) => setIdTipoEncuesta(e.target.value);
-
+    const onChangeIdFaseCJ = (e) => setIdFaseCJ(e.target.value);
     return (
         <>
             <Form noValidate validated={validated} onSubmit={onClickAceptar}>
@@ -137,6 +152,12 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarPregunta, mensa
                 
                 <br></br>
 
+                <InputSelect className="slct_socios" controlId="slct_socios" label="Fase de Customer Journey" data={listaFasesCJ} value={idFaseCJ}
+                    onChange={onChangeIdFaseCJ} optionValue="idTipoMetrica" optionLabel="faseCustomerJourney"
+                    classGroup="form-lineas"></InputSelect>
+
+
+                <br></br>
                 <InputSelect className="slct_socios" controlId="slct_socios" label="Tipo Encuesta" data={listaTiposEncuestas} value={idTipoEncuesta}
                     onChange={onChangeIdTipoEncuesta} optionValue="idTipoEncuesta" optionLabel="tipoEncuesta"
                     classGroup="form-lineas"></InputSelect>

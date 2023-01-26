@@ -8,7 +8,7 @@ import { StylesManager, Model } from "survey-core";
 import { Survey, PopupSurvey } from 'survey-react-ui';
 import "survey-core/defaultV2.min.css";
 const CalificacionEstrellas = ({ data, proceso, onClickProcesarPregunta, volverPasoDos, onClickProcesarRespuestasPregunta,
-    varIdTipoEncuesta, varIdTipoMetrica, varIdTipoPerspectiva, varIdTipoContactoEncuesta, varIdTipoInteraccion }) => {
+    varIdTipoEncuesta, varIdTipoMetrica, varIdTipoPerspectiva, varIdTipoContactoEncuesta, varIdTipoInteraccion, varIdFaseCJ }) => {
 
     //PARA EL VALOR DE LA PREGUNTA
     const [pregunta, setPregunta] = useState(proceso === 2 ? data.pregunta : '')
@@ -58,7 +58,7 @@ const CalificacionEstrellas = ({ data, proceso, onClickProcesarPregunta, volverP
                 idTipoPregunta: 6,
                 idTipoContactoEncuesta: parseInt(varIdTipoContactoEncuesta),
                 idTipoInteraccion: parseInt(varIdTipoInteraccion),
-                estado: 1,
+                idFaseCJ: parseInt(varIdFaseCJ),
             };
             if (proceso === 2) { datos.idPreguntaEncuesta = data.idPreguntaEncuesta; };
 

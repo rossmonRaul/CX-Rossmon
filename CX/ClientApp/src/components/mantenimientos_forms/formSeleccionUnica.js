@@ -8,7 +8,7 @@ import { InputTabla } from '../components_forms/inputs'
 import { Table } from '../Table';
 // creating functional component ans getting props from app.js and destucturing them
 const SeleccionUnica = ({ data, proceso, onClickProcesarPregunta, onClickProcesarRespuestasPregunta, volverPasoDos,
-    varIdTipoEncuesta, varIdTipoMetrica, varIdTipoPerspectiva, varIdTipoContactoEncuesta, varIdTipoInteraccion }) => {
+    varIdTipoEncuesta, varIdTipoMetrica, varIdTipoPerspectiva, varIdTipoContactoEncuesta, varIdTipoInteraccion, }) => {
 
     //PARA EL VALOR DE LA PREGUNTA
     const [pregunta, setPregunta] = useState(proceso == 2 ? data.pregunta : '')
@@ -66,7 +66,7 @@ const SeleccionUnica = ({ data, proceso, onClickProcesarPregunta, onClickProcesa
                 idTipoPregunta: 1, //LA SELECCIÓN ÚNICA ES TIPO DE PREGUNTA #1
                 idTipoContactoEncuesta: parseInt(varIdTipoContactoEncuesta),
                 idTipoInteraccion: parseInt(varIdTipoInteraccion),
-                estado: 1,
+                idFaseCJ: parseInt(varIdTipoInteraccion),
             };
             if (proceso === 2) { datos.idPreguntaEncuesta = data.idPreguntaEncuesta; };
 

@@ -33,6 +33,11 @@ namespace CX.Controllers
             return Json(await this.servicioPreguntasAsignadas.ObtenerPreguntasPorIdEncuesta(idEncuesta));
         }
 
+        [HttpGet("[action]/{idEncuesta}")]
+        public async Task<JsonResult> ObtenerPreguntasNoAsignadasPorIdEncuesta(int idEncuesta)
+        {
+            return Json(await this.servicioPreguntasAsignadas.ObtenerPreguntasNoAsignadasPorIdEncuesta(idEncuesta));
+        }
 
         [HttpDelete("[action]")]
         public async Task<JsonResult> DesasignarPregunta(int idAsignacion)

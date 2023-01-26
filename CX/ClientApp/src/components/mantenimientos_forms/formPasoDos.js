@@ -9,7 +9,7 @@ const StepTwo = ({ seleccionUnica, seleccionMultiple, menuDesplegable, correoEle
         <>
             <Form className="main-frm">
 
-                <h4>Opciones</h4>
+                <h4>Tipo de Pregunta</h4>
 
                 <div className="cont-button" style={{ display: "flex", justifyContent: "space-around" }}>
                     <Button className="button" onClick={calificacionEstrellas}>
@@ -17,7 +17,7 @@ const StepTwo = ({ seleccionUnica, seleccionMultiple, menuDesplegable, correoEle
                     </Button>
 
                     <Button onClick={seleccionUnica} className="button" >
-                        Seleccionar Una Respuesta
+                        Seleccion Única
                     </Button>
 
 
@@ -29,7 +29,7 @@ const StepTwo = ({ seleccionUnica, seleccionMultiple, menuDesplegable, correoEle
                     </Button>
 
                     <Button className="button" onClick={seleccionMultiple}>
-                        Seleccionar Varias Respuestas
+                        Selección Multiple
                     </Button>
                 </div>
                 

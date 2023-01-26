@@ -7,7 +7,7 @@ import { EliminarRespuestas } from '../../servicios/ServicioRespuestasPreguntaEn
 
                                                                                                     //MENÚ DE OPCIONES
 const MenuDesplegable = ({ data, proceso, onClickProcesarPregunta, onClickProcesarRespuestasPregunta, volverPasoDos, varIdTipoIndicador,
-    varIdTipoEncuesta, varIdTipoMetrica, varIdTipoPerspectiva, varIdTipoContactoEncuesta, varIdTipoInteraccion }) => {
+    varIdTipoEncuesta, varIdTipoMetrica, varIdTipoPerspectiva, varIdTipoContactoEncuesta, varIdTipoInteraccion,varIdFaseCJ }) => {
 
     //PARA EL VALOR DE LA PREGUNTA
     const [pregunta, setPregunta] = useState(proceso === 2 ? data.pregunta : ''); //si el proceso es 1 es insertar, si es 2 es actualizar
@@ -26,7 +26,13 @@ const MenuDesplegable = ({ data, proceso, onClickProcesarPregunta, onClickProces
     //FUNCIÓN FLECHA PARA SETEAR EL ÚLTIMO VALOR ID DE LA TABLA PREGUNTAS
     const ObtenerIdUltimaPregunta = async () => {
         const valorId = await ObtenerUltimoIdPreguntas();
-        setListaIdUltimaPregunta(valorId.idPreguntaEncuesta);
+        
+        if (valorId !== null) {
+            setListaIdUltimaPregunta(valorId.idPreguntaEncuesta);
+        } else {
+            setListaIdUltimaPregunta(0);
+        }
+        
     }
 
     //validación
@@ -40,7 +46,6 @@ const MenuDesplegable = ({ data, proceso, onClickProcesarPregunta, onClickProces
             event.stopPropagation();
         } else { //si está correcto arma la variable datos
             const datos = {
-                idPreguntaEncuesta: data.idPreguntaEncuesta,
                 Pregunta: pregunta,
                 idTipoEncuesta: parseInt(varIdTipoEncuesta),
                 idTipoMetrica: parseInt(varIdTipoMetrica),
@@ -49,7 +54,7 @@ const MenuDesplegable = ({ data, proceso, onClickProcesarPregunta, onClickProces
                 idTipoPregunta: 4,
                 idTipoContactoEncuesta: parseInt(varIdTipoContactoEncuesta),
                 idTipoInteraccion: parseInt(varIdTipoInteraccion),
-                estado: 1,
+                idFaseCJ: parseInt(varIdFaseCJ),
             };
             if (proceso === 2) { datos.idPreguntaEncuesta = data.idPreguntaEncuesta; };
 
@@ -144,9 +149,9 @@ const MenuDesplegable = ({ data, proceso, onClickProcesarPregunta, onClickProces
                 </Card>
             </div>
 
-            <Card style={{ marginTop: 1 }}>
+            <Card id="formOpciones" style={{ marginTop: 1 , display: "none" }}>
                 <Card.Body>
-                    <div style={{display:"none"}} id="formOpciones">
+                    <div >
                     <Form onSubmit={onClickAceptarRespuestas} >
 
                             <div className="dvPregunta">

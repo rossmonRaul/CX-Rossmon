@@ -1,7 +1,7 @@
 ﻿import React, { Component, useEffect, useState } from 'react';
 import { Container, Form, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
 import { ObtenerEncuestas, ObtenerEncuestaPorId, InactivarEncuesta, ActualizarEncuesta, AgregarEncuesta } from '../../servicios/ServicioEncuesta';
-import { AsignarPregunta, ObtenerPreguntasPorIdEncuesta, DesasignarPregunta } from '../../servicios/ServicioPreguntasAsignadas';
+import { AsignarPregunta, ObtenerPreguntasPorIdEncuesta, DesasignarPregunta, ObtenerPreguntasNoAsignadasPorIdEncuesta } from '../../servicios/ServicioPreguntasAsignadas';
 import { ObtenerRespuestasPreguntaEncuestaPorId } from '../../servicios/ServicioRespuestasPreguntaEncuesta';
 import { InputTabla } from '../components_forms/inputs';
 import FormularioPreguntas from './FormularioPreguntas';
@@ -55,7 +55,7 @@ export class MantenimientoEncuesta extends Component {
             alerta2: true,
             alerta3: false,
             cabeceras: ["", "Id Encuesta", "Nombre de la Encuesta", "Descripción", "Tipo", "FaseCJ", "Tipo de Contacto", "Estado", "Acción"],
-            cabecerasPreguntas: ["ID", "Pregunta", "Tipo Pregunta", "Sigla", "Métrica", "Tipo Encuesta", "Acciones"],
+            cabecerasPreguntas: ["ID", "Pregunta", "Tipo Pregunta", "Sigla", "Métrica", "Tipo Encuesta","Fase CJ", "Acciones"],
             showComponentePreguntas: false,
             showComponenteAsignarPreguntas: false,
             encuestaSeleccionada: '',
@@ -84,16 +84,8 @@ export class MantenimientoEncuesta extends Component {
     }
 
     async ObtenerTodasLasPreguntas() {
-        const respuesta = await ObtenerPreguntas();
-        
-        let preguntasFiltradas = respuesta.filter(pregunta => pregunta.tipoEncuesta === this.state.encuestaSeleccionada.tipoEncuesta);
-        this.state.listaPreguntasEncuesta.forEach(function (e) {
-            
-            preguntasFiltradas = preguntasFiltradas.filter(pregunta => pregunta.idPreguntaEncuesta !== e.idPreguntaEncuesta);
-            
-        });
-        this.setState({ listaTodasPreguntas: preguntasFiltradas });
-
+        const respuesta = await ObtenerPreguntasNoAsignadasPorIdEncuesta(parseInt(this.state.encuestaSeleccionada.idEncuesta));
+        this.setState({ listaTodasPreguntas: respuesta });
     }
 
     async ObtenerListaEncuestas() {
@@ -376,7 +368,7 @@ export class MantenimientoEncuesta extends Component {
                 <td>{item.sigla ? item.sigla : "N/A"}</td>
                 <td>{item.tipoMetrica}</td>
                 <td>{item.tipoEncuesta}</td>
-
+                <td>{item.faseCustomerJourney}</td>
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
 
                 <td style={{ display: "flex", padding: "0.5vw" }}>
@@ -401,7 +393,7 @@ export class MantenimientoEncuesta extends Component {
                 <td>{item.sigla ? item.sigla : "N/A"}</td>
                 <td>{item.metrica}</td>
                 <td>{item.tipoEncuesta}</td>
-
+                <td>{item.faseCustomerJourney}</td>
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
 
                 <td style={{ display: "flex", padding: "0.5vw" }}>

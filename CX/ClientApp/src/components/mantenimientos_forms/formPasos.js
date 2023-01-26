@@ -11,7 +11,7 @@ import CorreoElectronico from "./formCorreoElectronico";
 import CajaTextoAbierto from "./formCajaTextoAbierto";
 import CalificacionEstrellas from "./formCalificacionEstrellas";
 //VARIABLES CON LA PARAMETRIZACIÓN PARA PASARLAS COMO PROPIEDADES A LOS DIFERENTES COMPONENTES
-import {varIdTipoEncuesta, varIdTipoMetrica, varIdTipoPerspectiva, varIdTipoContactoEncuesta, varIdTipoInteraccion } from './formPasoUno';
+import {varIdTipoEncuesta, varIdTipoMetrica, varIdTipoPerspectiva, varIdTipoContactoEncuesta, varIdTipoInteraccion, varIdFaseCJ } from './formPasoUno';
 
 
 const FormularioPasos = ({ data, proceso, onClickProcesarPregunta, onClickProcesarRespuestasPregunta }) => {
@@ -82,7 +82,7 @@ const FormularioPasos = ({ data, proceso, onClickProcesarPregunta, onClickProces
                 <div >
                     <Container style={{ width: "450px" }}>
                                 <StepTwo seleccionUnica={seleccionUnica} seleccionMultiple={seleccionMultiple}
-                                    menuDesplegable={menuDesplegable} correoElectronico={correoElectronico} cajaTextoAbierto={cajaTextoAbierto} prevStep={prevStep} calificacionEstrellas={calificacionEstrellas} />
+                            menuDesplegable={menuDesplegable} correoElectronico={correoElectronico} cajaTextoAbierto={cajaTextoAbierto} prevStep={prevStep} calificacionEstrellas={calificacionEstrellas} varIdFaseCJ={varIdFaseCJ} />
                           
                     </Container>
                 </div>
@@ -95,7 +95,7 @@ const FormularioPasos = ({ data, proceso, onClickProcesarPregunta, onClickProces
                                 <SeleccionUnica data={data} proceso={proceso} onClickProcesarPregunta={onClickProcesarPregunta} onClickProcesarRespuestasPregunta={onClickProcesarRespuestasPregunta}
                                     volverPasoDos={volverPasoDos}  varIdTipoEncuesta={varIdTipoEncuesta}
                                     varIdTipoMetrica={varIdTipoMetrica} varIdTipoPerspectiva={varIdTipoPerspectiva} varIdTipoContactoEncuesta={varIdTipoContactoEncuesta}
-                                    varIdTipoInteraccion={varIdTipoInteraccion} />
+                            varIdTipoInteraccion={varIdTipoInteraccion} varIdFaseCJ={varIdFaseCJ} />
                     </Container>
                 </div>
             );
@@ -107,7 +107,7 @@ const FormularioPasos = ({ data, proceso, onClickProcesarPregunta, onClickProces
                                 <SeleccionMultiple volverPasoDos={volverPasoDos} data={data} proceso={proceso} onClickProcesarPregunta={onClickProcesarPregunta} onClickProcesarRespuestasPregunta={onClickProcesarRespuestasPregunta}
                                     volverPasoDos={volverPasoDos}  varIdTipoEncuesta={varIdTipoEncuesta}
                                     varIdTipoMetrica={varIdTipoMetrica} varIdTipoPerspectiva={varIdTipoPerspectiva} varIdTipoContactoEncuesta={varIdTipoContactoEncuesta}
-                                    varIdTipoInteraccion={varIdTipoInteraccion} />
+                            varIdTipoInteraccion={varIdTipoInteraccion} varIdFaseCJ={varIdFaseCJ} />
                            
                     </Container>
                 </div>
@@ -120,7 +120,7 @@ const FormularioPasos = ({ data, proceso, onClickProcesarPregunta, onClickProces
                                 <MenuDesplegable data={data} proceso={proceso} onClickProcesarPregunta={onClickProcesarPregunta} onClickProcesarRespuestasPregunta={onClickProcesarRespuestasPregunta}
                                     volverPasoDos={volverPasoDos} varIdTipoEncuesta={varIdTipoEncuesta}
                                     varIdTipoMetrica={varIdTipoMetrica} varIdTipoPerspectiva={varIdTipoPerspectiva} varIdTipoContactoEncuesta={varIdTipoContactoEncuesta}
-                                    varIdTipoInteraccion={varIdTipoInteraccion} />
+                                    varIdTipoInteraccion={varIdTipoInteraccion} varIdFaseCJ={varIdFaseCJ}/>
                             
                     </Container>
                 </div>
@@ -133,7 +133,7 @@ const FormularioPasos = ({ data, proceso, onClickProcesarPregunta, onClickProces
                                 <CorreoElectronico data={data} proceso={proceso} onClickProcesarPregunta={onClickProcesarPregunta} onClickProcesarRespuestasPregunta={onClickProcesarRespuestasPregunta}
                                     volverPasoDos={volverPasoDos}  varIdTipoEncuesta={varIdTipoEncuesta}
                                     varIdTipoMetrica={varIdTipoMetrica} varIdTipoPerspectiva={varIdTipoPerspectiva} varIdTipoContactoEncuesta={varIdTipoContactoEncuesta}
-                                    varIdTipoInteraccion={varIdTipoInteraccion}
+                                varIdTipoInteraccion={varIdTipoInteraccion} varIdFaseCJ={varIdFaseCJ}
                                 />
                            
                     </Container>
@@ -147,7 +147,7 @@ const FormularioPasos = ({ data, proceso, onClickProcesarPregunta, onClickProces
                                 <CajaTextoAbierto data={data} proceso={proceso} onClickProcesarPregunta={onClickProcesarPregunta} onClickProcesarRespuestasPregunta={onClickProcesarRespuestasPregunta}
                                     volverPasoDos={volverPasoDos}  varIdTipoEncuesta={varIdTipoEncuesta}
                                     varIdTipoMetrica={varIdTipoMetrica} varIdTipoPerspectiva={varIdTipoPerspectiva} varIdTipoContactoEncuesta={varIdTipoContactoEncuesta}
-                                    varIdTipoInteraccion={varIdTipoInteraccion} />
+                                    varIdTipoInteraccion={varIdTipoInteraccion} varIdFaseCJ={varIdFaseCJ} />
                           
                     </Container>
                 </div>
@@ -160,7 +160,7 @@ const FormularioPasos = ({ data, proceso, onClickProcesarPregunta, onClickProces
                                 <CalificacionEstrellas data={data} proceso={proceso} onClickProcesarPregunta={onClickProcesarPregunta} onClickProcesarRespuestasPregunta={onClickProcesarRespuestasPregunta}
                                     volverPasoDos={volverPasoDos}  varIdTipoEncuesta={varIdTipoEncuesta}
                                     varIdTipoMetrica={varIdTipoMetrica} varIdTipoPerspectiva={varIdTipoPerspectiva} varIdTipoContactoEncuesta={varIdTipoContactoEncuesta}
-                                    varIdTipoInteraccion={varIdTipoInteraccion} />
+                            varIdTipoInteraccion={varIdTipoInteraccion} varIdFaseCJ={varIdFaseCJ} />
                            
                     </Container>
                 </div>

@@ -2,7 +2,7 @@
 import { Button, Form } from 'react-bootstrap'
 
 //COMPONENTE QUE CREA NUEVOS INPUTS PARA ALMACENAR LAS RESPUESTAS DE UNA PREGUNTA
-const RespuestaDinamica = ({ listaRespuesta, setListaRespuesta, onClickAceptarR, varIdTipoIndicador, volverPasoDos, pregunta }) => {
+const RespuestaDinamica = ({ listaRespuesta, setListaRespuesta, onClickAceptarR, volverPasoDos, pregunta }) => {
 
     const [numResp, setNumResp] = useState(10);
     //GUARDAR EL VALOR DE LOS INPUTS
@@ -32,10 +32,10 @@ const RespuestaDinamica = ({ listaRespuesta, setListaRespuesta, onClickAceptarR,
             <Form  onSubmit={onClickAceptarR}>
 
                 <div className="dvPregunta">
-                    <h4 className="h4Pregunta" >{pregunta}</h4>
+                    <h2>{pregunta}</h2>
                 </div>
 
-                <h7>Ahora ingrese las opciones:</h7>
+                <a>Ahora ingrese las opciones:</a>
 
                 <br></br>
                 <br></br>
@@ -58,17 +58,17 @@ const RespuestaDinamica = ({ listaRespuesta, setListaRespuesta, onClickAceptarR,
                         </div>
                         <br></br>
 
-                        <div style={{ display: "flex", justifyContent: "space-around" }}>
+                        <div style={{ display: "flex", justifyContent: "center" }}>
                             {listaRespuesta.length - 1 === index && listaRespuesta.length < numResp &&
-                            (<Button variant="primary" type={Button} onClick={handleAgregarRespuesta} >
-                                Agregar una nueva respuesta
+                                (<Button variant="primary" type={Button} onClick={handleAgregarRespuesta} style={{ marginRight:"0.5vw" }} >
+                                Nueva
                             </Button>)
 
 
                         }
                         {listaRespuesta.length - 1 === index &&
                                 (<Button variant="danger" type={Button} disabled={index === 0} onClick={() => handleEliminarRespuesta(index)} >
-                                Eliminar respuesta
+                                Eliminar
                             </Button>)
 
                         }
