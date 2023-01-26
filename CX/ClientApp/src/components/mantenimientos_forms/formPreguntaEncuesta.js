@@ -7,7 +7,7 @@ import { ObtenerTiposMetricas } from '../../servicios/ServicioTipoMetrica';
 import { ObtenerTiposEncuestas } from '../../servicios/ServicioTipoEncuesta';
 import { ObtenerFasesCJ } from '../../servicios/ServicioFasesCJ';
 //FORMULARIO PARA REALIZAR LA EDICIÓN DE LOS VALORES Y LA PREGUNTA
-const Formulario = ({ labelButton, data, proceso, onClickProcesarPregunta, mensaje }) => {
+const Formulario = ({ labelButton, data, proceso, onClickProcesarPregunta}) => {
 
     //PARA MOSTRAR LA PREGUNTA Y GUARDAR EL CAMBIO
     const [pregunta, setPregunta] = useState(proceso === 2 ? data.pregunta : ''); //si el proceso es 1 es insertar, si es 2 es actualizar
@@ -38,7 +38,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarPregunta, mensa
             if (proceso === 2) {
                 setListaFasesCJ(soc.sort((x, y) => { return parseInt(x.idFaseCJ) === idFaseCJ ? -1 : parseInt(y.idFaseCJ) === idFaseCJ ? 1 : 0; }));
             } else {
-                let defecto = { idFaseCJ: '', faseCustomerJourney: "-- Seleccione Tipo Indicador --" };
+                let defecto = { idFaseCJ: '', faseCustomerJourney: "-- Seleccione una Fase de Customer Journey --" };
                 soc.push(defecto);
                 setListaFasesCJ(soc.reverse());
             }
@@ -122,7 +122,10 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarPregunta, mensa
     const onChangeIdTipoIndicador = (e) => setIdTipoIndicador(e.target.value);
     const onChangeIdTipoMetrica = (e) => setIdTipoMetrica(e.target.value);
     const onChangeIdTipoEncuesta = (e) => setIdTipoEncuesta(e.target.value);
-    const onChangeIdFaseCJ = (e) => setIdFaseCJ(e.target.value);
+    const onChangeIdFaseCJ = (e) => {
+        setIdFaseCJ(e.target.value);
+        console.log(e.target.value);
+    }
     return (
         <>
             <Form noValidate validated={validated} onSubmit={onClickAceptar}>
