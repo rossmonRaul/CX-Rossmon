@@ -48,6 +48,7 @@ using Dominio.Interfaces.Aplicacion.EtapaTallerCo;
 using Dominio.Interfaces.Aplicacion.MantenimientoTalleresCoCreacion;
 using Dominio.Interfaces.Infraestructura.BaseDatos;
 using Dominio.Interfaces.Aplicacion.FormularioPreguntas;
+using Dominio.Interfaces.Aplicacion.AplicacionEncuesta;
 
 namespace BussinesLogic
 {
@@ -95,6 +96,7 @@ namespace BussinesLogic
             services.AddScoped<IServicioFormularioPreguntas, ServicioFormularioPreguntas>();
             services.AddScoped<IServicioEncuestas, ServicioEncuestas>();
             services.AddScoped<IServicioPreguntasAsignadas, ServicioPreguntasAsignadas>();
+            services.AddScoped<IServicioAplicacionEncuestas, ServicioAplicacionEncuestas>();
             return services;
         }
     }

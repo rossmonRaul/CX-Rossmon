@@ -53,6 +53,7 @@ namespace DataAccess
             services.AddScoped<IRepositorioEncuestas, RepositorioEncuestas>();
             services.AddScoped<IRepositorioPreguntasAsignadas, RepositorioPreguntasAsignadas>();
             services.AddScoped<IRepositorioFormularioPreguntas, RepositorioFormularioPreguntas>();
+            services.AddScoped<IRepositorioAplicacionEncuestas, RepositorioAplicacionEncuestas>();
             return services;
         }
     }
