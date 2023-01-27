@@ -124,7 +124,6 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarPregunta}) => {
     const onChangeIdTipoEncuesta = (e) => setIdTipoEncuesta(e.target.value);
     const onChangeIdFaseCJ = (e) => {
         setIdFaseCJ(e.target.value);
-        console.log(e.target.value);
     }
     return (
         <>

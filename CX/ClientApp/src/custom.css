@@ -164,6 +164,24 @@ thead {
     margin-bottom: 60px;
 }
 
+.botonesr {
+    width: 110px;
+    height: 50px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    color: white;
+    margin-bottom: 60px;
+    background-color: #dc3545;
+}
+    .botonesr:hover {
+        background-color: #b02a37;
+        width: 130px;
+        height: 50px;
+        color: white;
+        border-color: #536DFE;
+        font-size: 18px;
+        color: white;
+    }
     .botones:hover {
         background-color: #84A5FE;
         width: 130px;
@@ -552,8 +570,14 @@ textarea {
     box-shadow: none;
     background-color: #F5F5F5;
     height: 5px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
 }
 
+.cont #btnSalir{
+    margin-left:5px;
+}
 
 /*---------------------------------------------------------*/
 /* media queries inicio*/
@@ -686,6 +710,10 @@ textarea {
     .cont {
         box-shadow: none;
         background-color: #F5F5F5;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        
     }
 }
 
@@ -763,6 +791,9 @@ textarea {
     .cont {
         box-shadow: none;
         background-color: #F5F5F5;
+        align-items: center;
+        justify-content: center;
+        display: flex;
     }
 }
 
@@ -857,6 +888,9 @@ textarea {
     .cont {
         box-shadow: none;
         background-color: #F5F5F5;
+        align-items: center;
+        justify-content: center;
+        display: flex;
     }
 }
 
@@ -949,6 +983,9 @@ textarea {
     .cont {
         box-shadow: none;
         background-color: #F5F5F5;
+        align-items: center;
+        justify-content: center;
+        display: flex;
     }
 }
 
@@ -1034,6 +1071,9 @@ textarea {
     .cont {
         box-shadow: none;
         background-color: #F5F5F5;
+        align-items: center;
+        justify-content: center;
+        display: flex;
     }
 }
 
@@ -1119,6 +1159,9 @@ textarea {
     .cont {
         box-shadow: none;
         background-color: #F5F5F5;
+        align-items: center;
+        justify-content: center;
+        display: flex;
     }
 }
 
@@ -1204,6 +1247,9 @@ textarea {
     .cont {
         box-shadow: none;
         background-color: #F5F5F5;
+        align-items: center;
+        justify-content: center;
+        display: flex;
     }
 }
 
@@ -1290,5 +1336,8 @@ textarea {
     .cont {
         box-shadow: none;
         background-color: #F5F5F5;
+        align-items: center;
+        justify-content: center;
+        display: flex;
     }
 }

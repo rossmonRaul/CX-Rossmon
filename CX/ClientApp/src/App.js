@@ -56,7 +56,6 @@ import { MantenimientoPregunta } from './components/contacto_encuestas/Mantenimi
 import { MantenimientoClientesSocios } from './components/contacto_encuestas/MantenimientoClientesSocios';
 import { MantenimientoInteracciones } from './components/contacto_encuestas/MantenimientoInteracciones';
 
-//RF Eduardo
 import { CatalogoServicioSocio } from './components/clientes/CatalogoServicioSocio';
 import { CatalogoTipoContactoEncuesta } from './components/clientes/CatalogoTipoContactoEncuesta';
 import { CatalogoTipoInteraccion } from './components/clientes/CatalogoTipoInteraccion';

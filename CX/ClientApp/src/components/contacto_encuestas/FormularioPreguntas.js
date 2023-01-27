@@ -32,7 +32,6 @@ export class FormularioPreguntas extends Component {
         this.obtenerEncuesta();
     }
     async obtenerEncuesta() {
-        console.log(this.state.token);
         const respuesta = await ObtenerEncuestaPorId(this.state.preguntas);
         this.setState({ encuesta: respuesta });
 
