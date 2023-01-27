@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router';
 import { Layout } from './components/Layout';
 import { Home } from './components/Home';
-
+import FormularioPreguntas from './components/contacto_encuestas/FormularioPreguntas';
 import Footer from './components/Footer';
 
 
@@ -64,13 +64,13 @@ import { CatalogoTipoPerspectivas } from './components/clientes/CatalogoTipoPers
 import { CatalogoTipoIdentificacion } from './components/clientes/CatalogoTipoIdentificacion';
 
 
-//import axios from 'axios';
-
+//import axios from 'axios'
 import './custom.css'
 
 
 export default class App extends Component {
     static displayName = App.name;
+    User = ({ match }) => <FormularioPreguntas token={match.params.token} tituloEncuesta={1} idEncuesta={match.params.idEncuesta} />
 
     render() {
         return (
@@ -104,7 +104,8 @@ export default class App extends Component {
                     <Route path='/CatalogoTipoPerspectivas' component={CatalogoTipoPerspectivas} />
                     <Route path='/CatalogoTipoIdentificacion' component={CatalogoTipoIdentificacion} />
                     
-
+                    <Route path="/encuesta/:idEncuesta/token/:token" component={this.User} />
+                    
 
                     {/*Hallazgos*/}
                     <Route path='/MantenimientoHallazgos' component={MantenimientoHallazgos} />

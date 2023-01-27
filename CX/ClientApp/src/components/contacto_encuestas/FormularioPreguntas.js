@@ -2,7 +2,8 @@
 import { Container, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
 import { ObtenerPreguntaRespuestaPorID } from '../../servicios/ServicioFormularioPreguntas';
 import { ObtenerPreguntasPorIdEncuesta } from '../../servicios/ServicioPreguntasAsignadas';
-import { ObtenerTipoIndicadorPorId} from '../../servicios/ServicioTipoIndicador';
+import { ObtenerTipoIndicadorPorId } from '../../servicios/ServicioTipoIndicador';
+import {ObtenerEncuestaPorId } from '../../servicios/ServicioEncuesta'
 import * as ReactDOM from 'react-dom';
 
 //Survey
@@ -16,39 +17,49 @@ export class FormularioPreguntas extends Component {
         super(props);
         this.state = {
             preguntas: props.idEncuesta,
-            tituloEncuesta: props.tituloEncuesta,
+            encuesta: {},
             arrayDesordenado: [],
             arrayAcomodado: [],
             formularioCargado: false,
             arrayIndicadores: [],
-            vectorIdIndicador:[],
+            vectorIdIndicador: [],
+            token: props.token,
+            
         }
     }
     componentDidMount() {
         this.onClickProcesarTextoPregunta();
+        this.obtenerEncuesta();
     }
+    async obtenerEncuesta() {
+        console.log(this.state.token);
+        const respuesta = await ObtenerEncuestaPorId(this.state.preguntas);
+        this.setState({ encuesta: respuesta });
 
+    }
 
     async obtenerTextoIndicadores() {
         var tamano = this.state.vectorIdIndicador.length;
-        var arrayI = new Array;
+        var arrayIndicadorProvisional = new Array;
         for (var i = 0; i < tamano; i++) {
             const respuesta = await ObtenerTipoIndicadorPorId(this.state.vectorIdIndicador[i]);
 
             if (respuesta) {
-                arrayI.push(respuesta);
+                arrayIndicadorProvisional.push(respuesta);
             } else {
-                arrayI.push(0);
+                arrayIndicadorProvisional.push(0);
             }
         }
-        this.setState({ arrayIndicadores: arrayI });
+        this.setState({ arrayIndicadores: arrayIndicadorProvisional });
 
     }
 
     onClickProcesarTextoPregunta = async () => {
+        //arrayDeCadenas trae todos los datos de cada pregunta por medio del id
         var arrayDeCadenas = await ObtenerPreguntasPorIdEncuesta(this.state.preguntas);
         this.state.arrayDesordenado = [];
         for (var i = 0; i < arrayDeCadenas.length; i++) {
+            //Respuesta es una variable que guarda la pregunta y respuesta, se busca por medio de la id de la pregunta
             const respuesta = await ObtenerPreguntaRespuestaPorID(arrayDeCadenas[i].idPreguntaEncuesta);
             this.state.vectorIdIndicador.push(arrayDeCadenas[i].idPreguntaEncuesta);
 
@@ -65,18 +76,16 @@ export class FormularioPreguntas extends Component {
 
 
     async acomodarPorPregunta() {
-        var pregunta, respuestas,tipoPregunta;//variable para pregunta y respuesta
+        var pregunta, respuestas,tipoPregunta;//variable para pregunta,respuesta y tipo de pregunta
         var vectAcomodado = new Array;//array necesario para poder crear una matriz en js
-        var vectTotal = new Array;
-        var i, j = 0;
-        var cantArray = this.state.arrayDesordenado.length;
+        var vectTotal = new Array;//este es el array que se envia al render para poder crear los formularios con survey js
+        var i, j = 0;//variables ed interacion
+        var cantArray = this.state.arrayDesordenado.length;//conocer la cantidad de filas que posee la matriz
         for (i = 0; i < cantArray; i++) {
-            var cantElementos = this.state.arrayDesordenado[i].length;
+            var cantElementos = this.state.arrayDesordenado[i].length;//conocer cantidad de elementos en una fila de la matriz
             do {
                 if (j == 0) {
-
-                    
-
+                    //si viene un espacio vacio se guarda como 0, ya que survey no soporta espacios vacios
                     if (!this.state.arrayDesordenado[i][j]) {
                         pregunta = this.state.arrayDesordenado[i][j].pregunta;
                         respuestas = 0;
@@ -85,8 +94,9 @@ export class FormularioPreguntas extends Component {
                         vectAcomodado.push(respuestas);
                         vectAcomodado.push(respuestas);
 
-                        j++;
+                        j++;   
                     } else {
+                        //se crea un vector mas acomodado con la el orden: pregunta, tipo pregunta y el resto de respuestas
                         respuestas = this.state.arrayDesordenado[i][j].respuesta;
                         tipoPregunta = this.state.arrayDesordenado[i][j].idTipoPregunta;
                         pregunta = this.state.arrayDesordenado[i][j].pregunta;
@@ -109,7 +119,6 @@ export class FormularioPreguntas extends Component {
 
                     j++;
                 }
-                //respuestas = this.state.arrayDesordenado[i][j].respuesta;
                
             }
             while (j < cantElementos) {
@@ -138,7 +147,7 @@ export class FormularioPreguntas extends Component {
             const survey = new Model();
            
             const page = survey.addNewPage("PersonalDetails");
-
+            //ya que como antes se guardo como una matriz acomodada lo unico que se hace es poner la pregunta en una variables, el tipo de pregunta en otra y las respuestas en otra variable para que survey las utilice
             var respuestasArray = new Array;
             var tituloPregunta = "";
             var i, j=0;
@@ -230,6 +239,10 @@ export class FormularioPreguntas extends Component {
             }
              page.title = data.titulo;
 
+             if (data.token) {
+                 page.description = "Token: " + data.token;
+             }
+             
              survey.onComplete.add((sender, options) => {
                  console.log(JSON.stringify(sender.data, null, 3));
              });
@@ -246,7 +259,8 @@ export class FormularioPreguntas extends Component {
             formularioCargado,
         } = this.state;
         return (
-            <div id="prueba">{formularioCargado && <SurveyComponent data={{ data: this.state.arrayAcomodado, indicadorM: this.state.arrayIndicadores,titulo: this.state.tituloEncuesta }} />} </div>
+
+            <div id="prueba">{formularioCargado && <SurveyComponent data={{ data: this.state.arrayAcomodado, indicadorM: this.state.arrayIndicadores, titulo: this.state.encuesta.nombre, token:this.state.token }} />} <br></br><br></br></div>
         );
     }
 
