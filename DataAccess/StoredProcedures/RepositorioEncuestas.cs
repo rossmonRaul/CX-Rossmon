@@ -129,3 +129,71 @@ namespace DataAccess.StoredProcedures
     }
 
 }
+
+/* Método para crear tokens, encriptarlo, y desencriptarlo
+ //crear token
+                byte[] time = BitConverter.GetBytes(DateTime.UtcNow.ToBinary());
+                byte[] key = Guid.NewGuid().ToByteArray();
+                string token = Convert.ToBase64String(time.Concat(key).ToArray());
+                System.Diagnostics.Debug.WriteLine(token);
+
+                
+
+
+                //encrypt
+                string EncryptionKey = "proyectocxitrossmon2023";
+                byte[] clearBytes = Encoding.Unicode.GetBytes(token);
+                using (Aes encryptor = Aes.Create())
+                {
+                    Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                    encryptor.Key = pdb.GetBytes(32);
+                    encryptor.IV = pdb.GetBytes(16);
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
+                        {
+                            cs.Write(clearBytes, 0, clearBytes.Length);
+                            cs.Close();
+                        }
+                        token = Convert.ToBase64String(ms.ToArray());
+                    }
+                }
+                token=token.Replace('+', '!');
+                System.Diagnostics.Debug.WriteLine(token);
+
+                //decrypt
+                token = token.Replace('!', '+');
+                byte[] cipherBytes = Convert.FromBase64String(token);
+                using (Aes encryptor = Aes.Create())
+                {
+                    Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                    encryptor.Key = pdb.GetBytes(32);
+                    encryptor.IV = pdb.GetBytes(16);
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
+                        {
+                            cs.Write(cipherBytes, 0, cipherBytes.Length);
+                            cs.Close();
+                        }
+                        token = Encoding.Unicode.GetString(ms.ToArray());
+                    }
+                }
+                
+                System.Diagnostics.Debug.WriteLine(token);
+                //convertir token a datos
+                byte[] data = Convert.FromBase64String(token);
+
+                DateTime when = DateTime.FromBinary(BitConverter.ToInt64(data, 0));
+                if (when < DateTime.UtcNow.AddHours(-24))
+                {
+                    System.Diagnostics.Debug.WriteLine("Too Old");
+                    System.Diagnostics.Debug.WriteLine(when);
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine("Okay");
+                    System.Diagnostics.Debug.WriteLine(when);
+                }
+
+ */
