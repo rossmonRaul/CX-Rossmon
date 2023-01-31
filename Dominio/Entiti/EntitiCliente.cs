@@ -8,7 +8,7 @@ namespace Dominio.Entiti
     {
         public int IdCliente { get; set; }
         public string Nombre { get; set; }
-        public int Telefono { get; set; }
+        public string Telefono { get; set; }
         public string CorreoElectronico { get; set; }
         public int IdCanal { get; set; }
         public int IdSector { get; set; }

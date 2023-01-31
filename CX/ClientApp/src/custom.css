@@ -421,7 +421,15 @@ span .paginate_button:hover {
     padding-left: 5vw;
     font-weight: 100;
 }
-
+.centerButtons {
+    display:flex;
+    text-align:center;
+    justify-content: center;
+    padding:7px;
+}
+    .centerButtons #btnGuardar {
+        margin-right: 5px;
+    }
 .wrapper .form_container .form_item {
     margin-bottom: 25px;
 }

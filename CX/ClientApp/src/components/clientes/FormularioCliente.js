@@ -1,5 +1,5 @@
 ﻿import React, { Component, useState } from 'react';
-import { Container, Form, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
+import { Container,  Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
 import { ObtenerLineaNegocio, ObtenerLineaNegocioPorId } from '../../servicios/ServicioLineaNegocio';
 import { ObtenerSectores, ObtenerSectorPorId} from '../../servicios/ServicioSectores';
 import { ObtenerSegmentos, ObtenerSegmentoPorId } from '../../servicios/ServicioSegmentos';
@@ -8,13 +8,18 @@ import { ObtenerServicioLineaNegocio, ObtenerServicioLineaNegocioPorId } from '.
 import { ObtenerCanales} from '../../servicios/ServicioCanales';
 import { ObtenerCategorias } from '../../servicios/ServicioCategorias';
 import { ObtenerSocios, ObtenerSocioPorId } from '../../servicios/ServicioSocio';
-import { AgregarCliente } from '../../servicios/ServicioCliente';
+import { AgregarCliente, ObtenerClientes } from '../../servicios/ServicioCliente';
+import { InputPhone } from '../components_forms/inputs'
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+import Form from 'react-bootstrap/Form';
+import Swal from 'sweetalert2'
 export class Formulario extends Component {
     static displayName = Formulario.name;
     constructor(props) {
         super(props);
         this.state = {
-            usuario: '',
+            usuario: 'SISTEMA',
             consecutivo: '',
             listaFasesCJ: [],
             faseCJ:'',
@@ -51,9 +56,7 @@ export class Formulario extends Component {
     }
     async componentDidMount() {
 
-        var today = new Date();
-        this.setState({ fecha: today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() })  ;
-        console.log(this.state.fecha);
+        this.setState({ fecha: new Date().toISOString().substring(0, 10) })  ;
         await this.ObtenerListadoSocios();
         await this.ObtenerListaServicios();
         await this.ObtenerListadoLineaNegocio();
@@ -62,8 +65,13 @@ export class Formulario extends Component {
         await this.ObtenerListaSectores();
         await this.ObtenerListadoCategorias();
         await this.ObtenerListadoCanales();
+        await this.ObtenerListadoClientes();
     }
 
+    async ObtenerListadoClientes() {
+        const respuesta = await ObtenerClientes();
+        this.setState({ codigoCliente: respuesta.length+1 });
+    }
 
     async ObtenerListadoSocios() {
         const respuesta = await ObtenerSocios();
@@ -99,23 +107,49 @@ export class Formulario extends Component {
         this.setState({ canales: respuesta });
     }
 
-
-    onClickAgregarCliente = async () => {
-
+   
+    AgregarCliente = async (e) => {
+        e.preventDefault();
         var datos = {
             Nombre: this.state.nombreCliente,
             Telefono: this.state.telefonoContacto,
             CorreoElectronico: this.state.correoContacto,
             IdCanal: parseInt(this.state.canal),
-            IdSegemento: parseInt(this.state.segmento),
+            IdSegmento: parseInt(this.state.segmento),
             IdCategoria: parseInt(this.state.categoria),
             IdServicio: parseInt(this.state.servicio),
             IdFaseCJ: parseInt(this.state.faseCJ),
             IdSocio: parseInt(this.state.codigoSocio),
-
         };
-        const result =await this.AgregarCliente(datos);
+        console.log(datos.Telefono);
+        if (datos.Telefono === '') {
+            document.getElementById("labelTelefono").focus();
 
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Número de teléfono inválido',
+            });
+        }
+            else {
+                const result = await AgregarCliente(datos);
+                if (result.indicador !== 0) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: result.mensaje,
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: result.mensaje,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            }
+        
+        
     }
     //onchange inputs
     onChangeUsuario = (e) => {
@@ -134,10 +168,10 @@ export class Formulario extends Component {
         this.setState({ nombreContacto: e.target.value });
     }
     onChangeTelefonoContacto = (e) => {
-        this.setState({ telefonoContacto: e.target.value });
+        this.setState({ telefonoContacto: e });
     }
     onChangeCelularContacto = (e) => {
-        this.setState({ celularContacto: e.target.value });
+        this.setState({ celularContacto: e });
     }
     onChangeCorreoContacto = (e) => {
         this.setState({ correoContacto: e.target.value });
@@ -165,7 +199,6 @@ export class Formulario extends Component {
     onChangeSocio = (e) => {
         this.setState({ socio: e.target.value });
         var socio = this.state.socios.filter(soc => soc.idSocio == e.target.value);
-        this.setState({ socio: '' });
         this.setState({ telefonoSocio: socio[0].telefono });
         this.setState({ correoSocio: socio[0].correo });
         this.setState({ codigoSocio: socio[0].idSocio });
@@ -201,36 +234,14 @@ export class Formulario extends Component {
 
 
     render() {
-        const { 
-            usuario,
-            consecutivo,
-            faseServicio,
-            codigoCliente,
-            nombreCliente,
-            sectorEconomico,
-            segmento,
-            categoria,
-            lineaNegocio,
-            servicioProductos,
-            nombreContacto,
-            canalEncuesta,
-            telefonoContacto,
-            celularContacto,
-            correoContacto,
-            codigoSocio,
-            nombreSocio,
-            telefonoSocio,
-            celularSocio,
-        } = this.state;
         return (
 
             <main>
 
                 <div class="row-full">Clientes </div>
-
-
+                <Form onSubmit={this.AgregarCliente} >
                 <div className="wrapper">
-
+                    
                     <div className="form_container">
                         <div className="form_wrap fullname2">
                             <h1 className="heading2">Recopilación de datos de clientes a encuestar</h1>
@@ -240,36 +251,25 @@ export class Formulario extends Component {
 
                                 <label className="etiquetas">Nombre de usuario</label>
                                 {/*    <input type="text" name="nom_usuario" onChange={(e) => setNomUsuario(e.target.value)} />*/}
-                                <input type="text" name="nom_usuario" value={usuario} onChange={this.onChangeUsuario} />
+                                <input type="text" name="nom_usuario" value={this.state.usuario} onChange={this.onChangeUsuario} />
                             </div>
 
                             <div className="form_item">
 
                                 <label className="etiquetas">Consecutivo #</label>
-                                <input type="text" name="Consecutivo"  />
+                                <input readOnly type="text" name="Consecutivo"  />
 
                             </div>
 
                         </div>
 
                         <div className="form_wrap fullname">
-                            <div className="form_item">
 
-                                <label className="etiquetas">Fase de servicio</label>
-
-                                <select onChange={this.onChangeFaseServicio} id="" class=" " name="face_servicio" >
-                                    <option disabled selected value> -- Seleccione una Fase de Servicio -- </option>
-                                    {this.state.listaFasesCJ.map(index => <option key={index.id} value={index.idFaseCJ}>{index.faseCustomerJourney}</option>
-                                )};
-                                </select>
-
-                            </div>
 
                             <div class="form_item">
 
                                 <label className="etiquetas">Fecha</label>
-                                <input type="date" value={this.state.fecha} name="fecha" />
-
+                                    <Form.Control readOnly value={this.state.fecha} type="date"/>
                             </div>
 
                         </div>
@@ -286,15 +286,13 @@ export class Formulario extends Component {
                             <div className="form_item">
 
                                 <label class="etiquetas">Código cliente</label>
-                                <input readOnly type="text" name="cod_cliente" value={codigoCliente} onChange={this.onChangeCodigoCliente} />
-
+                                    <Form.Control readOnly value={this.state.codigoCliente} type="text" />
                             </div>
 
                             <div className="form_item">
 
                                 <label className="etiquetas">Nombre cliente</label>
-                                <input type="text" name="nom_cliente" value={nombreCliente} onChange={this.onChangeNombreCliente} />
-
+                                    <Form.Control required value={this.state.nombreCliente} onChange={this.onChangeNombreCliente} type="text" placeholder="Ingrese el nombre del cliente" />
                             </div>
 
                         </div>
@@ -304,24 +302,23 @@ export class Formulario extends Component {
 
                                 <label className="etiquetas">Sector económico</label>
 
-                                <select onChange={this.onChangeSector} id="" class=" " name="sector" >
-                                    <option disabled selected value> -- Seleccione un Sector -- </option>
+                                <Form.Select required value={this.state.sector} onChange={this.onChangeSector}>
+                                    <option disabled value=''> -- Seleccione un Sector -- </option>
                                     {
-                                        this.state.sectores.map(index => <option key={index.idSector} value={index.sector}>{index.sector}</option>
+                                        this.state.sectores.map(index => <option value={index.sector}>{index.sector}</option>
                                         )};
-                                </select>
-
+                                </Form.Select>
                             </div>
 
                             <div className="form_item">
 
                                 <label className="etiquetas">Segmento</label>
-                                <select defaultValue='' value={this.state.segmento} onChange={this.onChangeSegmento} id="" class=" " name="segmento">
+                                    <Form.Select required value={this.state.segmento} onChange={this.onChangeSegmento} id="" class=" " name="segmento">
                                     <option disabled value=''> -- Seleccione un Segmento -- </option>
                                     {
                                         this.state.segmentosFiltrados.map(index => <option key={index.idSegmento} value={index.idSegmento}>{index.segmento}</option>
                                         )};
-                                </select>
+                                </Form.Select>
                                 
                             </div>
 
@@ -331,24 +328,24 @@ export class Formulario extends Component {
 
                                 <label className="etiquetas">Categoría</label>
 
-                                <select value={this.state.categoria} onChange={this.onChangeCategoria} id="slAeropuerto" class=" " name="categoria" >
+                                    <Form.Select required value={this.state.categoria} onChange={this.onChangeCategoria} id="slAeropuerto" class=" " name="categoria" >
                                     <option disabled value=''> -- Seleccione una Categoría -- </option>
                                     {
                                         this.state.categorias.map(index => <option key={index.idCategoria} value={index.idCategoria}>{index.categoria}</option>
                                         )};
-                                </select>
+                                </Form.Select>
 
                             </div>
 
                             <div className="form_item">
 
                                 <label className="etiquetas">Línea de negocio</label>
-                                <select value={ this.state.lineaNegocio} onChange={this.onChangeLineaNegocio} id="" class=" " name="linea_negocio" >
+                                    <Form.Select required value={this.state.lineaNegocio} onChange={this.onChangeLineaNegocio} id="" class=" " name="linea_negocio" >
                                     <option disabled value=''> -- Seleccione una Línea de Negocio -- </option>
                                     {
                                         this.state.lineasNegocio.map(index => <option key={index.idLinea} value={index.idLinea}>{index.lineaNegocio}</option>
                                         )};
-                                </select>
+                                </Form.Select>
 
                             </div>
 
@@ -357,15 +354,23 @@ export class Formulario extends Component {
                             <div className="form_item">
 
                                 <label className="etiquetas">Servicios y productos</label>
-                                <select defaultValue='' value={ this.state.servicio} required onChange={this.onChangeServicio} id="" class=" " name="servicio">
+                                    <Form.Select required value={ this.state.servicio} required onChange={this.onChangeServicio} id="" class=" " name="servicio">
                                     <option disabled value=''>-- Seleccione un Servicio--</option>
                                     {
                                         this.state.serviciosFiltrados.map(index => <option key={index.idServicio} value={index.idServicio}>{index.servicio}</option>
                                         )};
-                                </select>
+                                </Form.Select>
 
                             </div>
                             <div className="form_item">
+
+                                <label className="etiquetas">Fase de servicio</label>
+
+                                    <Form.Select required value={this.state.faseCJ} onChange={this.onChangeFaseServicio} id="" class=" " name="face_servicio" >
+                                    <option disabled value=''> -- Seleccione una Fase de Servicio -- </option>
+                                    {this.state.listaFasesCJ.map(index => <option key={index.id} value={index.idFaseCJ}>{index.faseCustomerJourney}</option>
+                                    )};
+                                </Form.Select>
 
                             </div>
 
@@ -384,20 +389,19 @@ export class Formulario extends Component {
                             <div className="form_item">
 
                                 <label class="etiquetas">Nombre del contacto</label>
-                                <input required type="text" placeholder="" name="nom_contacto" value={nombreContacto} onChange={this.onChangeNombreContacto} />
-
+                                    <Form.Control value={this.state.nombreContacto} onChange={this.onChangeNombreContacto} type="text" placeholder="Ingrese el nombre de contacto" />
                             </div>
 
                             <div className="form_item">
 
                                 <label className="etiquetas">Canal encuesta</label>
                                 
-                                <select required onChange={this.onChangeCanal} id="" class=" " name="canal">
-                                    <option disabled selected value> -- Seleccione un Canal -- </option>
+                                    <Form.Select required value={ this.state.canal} onChange={this.onChangeCanal} id="" class=" " name="canal">
+                                    <option disabled value=''> -- Seleccione un Canal -- </option>
                                     {
                                     this.state.canales.map(index => <option key={index.idCanal} value={index.idCanal}>{index.canal}</option>
                                     )};
-                                </select>
+                                </Form.Select>
 
                             </div>
 
@@ -406,17 +410,44 @@ export class Formulario extends Component {
                         <div className="form_wrap fullname">
                             <div className="form_item">
 
-                                <label className="etiquetas">Teléfono</label>
+                                    <label id="labelTelefono" className="etiquetas">Teléfono</label>
+                                    <Form.Control hidden type='text' size="sm" value={this.state.telefonoContacto} required readOnly disabled />
+                                    <Form.Control.Feedback type="invalid">ES NECESARIO</Form.Control.Feedback>
+                                <PhoneInput
+                                    country={'cr'}
+                                    value={this.state.telefonoContacto}
+                                        onChange={phone => this.setState({telefonoContacto: phone})
+                                    }
+                                        required={true}
 
-                                <input required type="text" name="telefono_contacto" value={telefonoContacto} onChange={this.onChangeTelefonoContacto} />
-
+                                        isValid={(value, country) => {
+                                            if (value.length<8) {
+                                                return 'Teléfono Inválido: ';
+                                            } else {
+                                                return true;
+                                            }
+                                        }}
+                                    inputProps={{
+                                        name: 'phone',
+                                        required: true,
+                                    }} />
                             </div>
 
                             <div className="form_item">
 
-                                <label className="etiquetas">Celular</label>
-                                <input required type="text" placeholder="" name="celular_contacto" value={this.statecelularContacto} onChange={this.onChangeCelularContacto} />
-
+                                    <label className="etiquetas">Celular</label>
+                                   
+ 
+                                <PhoneInput
+                                    country={'cr'}
+                                    value={this.state.celularContacto}
+                                    onChange={phone => this.onChangeCelularContacto(phone)
+                                    }
+                                    required={true}
+                                    inputProps={{
+                                        name: 'phone',
+                                        required: true,
+                                    }} />
                             </div>
 
                         </div>
@@ -424,8 +455,10 @@ export class Formulario extends Component {
                             <div className="form_item">
 
                                 <label className="etiquetas">Correo</label>
-                                <input required type="text" placeholder="" name="correo_contacto" value={this.statecorreoContacto} onChange={this.onChangeCorreoContacto} />
-
+                                    <Form.Control required value={this.statecorreoContacto} onChange={this.onChangeCorreoContacto} type="email" placeholder="Enter email" />
+                                <Form.Text  className="text-muted">
+                                    No compartiremos el correo electrónico con nadie más.
+                                </Form.Text>
                             </div>
 
                             <div className="form_item">
@@ -449,19 +482,18 @@ export class Formulario extends Component {
                             <div className="form_item">
 
                                 <label className="etiquetas">Nombre del socio</label>
-                                <select required onChange={this.onChangeSocio} id="" class=" " name="socio">
-                                    <option disabled selected value> -- Seleccione un Socio -- </option>
+                                <Form.Select required value={this.state.codigoSocio} onChange={this.onChangeSocio} id="" class=" " name="socio">
+                                    <option required disabled value=''> -- Seleccione un Socio -- </option>
                                     {
                                     this.state.socios.map(index => <option key={index.idSocio} value={index.idSocio}>{index.idSocio+" "+index.nombre }</option>
                                     )};
-                                </select>
+                                </Form.Select>
 
                             </div>
                             <div className="form_item">
 
                                 <label class="etiquetas">Código del socio</label>
-                                <input readOnly type="text" placeholder="" name="cod_socio" value={this.state.codigoSocio}  />
-
+                                    <Form.Control readOnly value={this.state.codigoSocio} type="text" placeholder="Seleccione un Socio"  />
                             </div>
 
                         </div>
@@ -471,27 +503,32 @@ export class Formulario extends Component {
 
                                 <label className="etiquetas">Teléfono</label>
 
-                                <input readOnly type="text" placeholder="" name="telefono_socio" value={this.state.telefonoSocio}/>
-
+                                   
+                                    <PhoneInput
+                                        country={'cr'}
+                                        value={this.state.telefonoSocio}
+                                        disabled={true}
+                                        
+                                        inputProps={{
+                                            name: 'phone',
+                                        }} />
                             </div>
                             <div className="form_item">
 
                                 <label className="etiquetas">Correo</label>
-                                <input readOnly type="text" placeholder="" name="correo_socio" value={this.state.correoSocio} />
-
+                                    <Form.Control readOnly value={this.state.correoSocio} placeholder="Seleccione un Socio" type="email" />
                             </div>
                         </div>
 
                     </div>
 
                 </div>
-                <div className="wrapper">
-                    
-                    <button id="btnGuardar" type="submit" className="btn btn-block botones" onClick={() => this.onClickAgregarCliente() } >Guardar</button>
-                    <button id="btnSalir" type="button" className="btn btn-block botonesr">Salir</button>
-                   
+                    <div className="centerButtons">
+                        <button id="btnGuardar" type="submit" className="btn btn-block botones mr-1"  >Guardar</button>
+                        <button id="btnSalir" type="button" className="btn btn-block botonesr ">Salir</button>
+                    </div>
 
-                </div>
+                </Form>
                 <br></br>
                 <br></br>
                 <br></br>
