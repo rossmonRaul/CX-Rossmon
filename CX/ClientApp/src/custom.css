@@ -6,7 +6,13 @@
 a {
     color: #126677;
 }
-
+#estrellas .sd-root-modern--mobile .sd-page {
+    padding-top: 0 !important;
+}
+#estrellas .sd-page {
+    padding: 0 !important;
+    display: block;
+}
 #surveyElement {
     --primary: #343c9c;
     --background: #F5F5F5;
@@ -15,6 +21,14 @@ a {
     --primary-foreground: #ffffff;
     --foreground: #343c9c;
     --base-unit: 8px;
+}
+.ojo:hover{
+    cursor: pointer;
+    color: rgb(48, 63, 159);
+}
+
+#surveyCX .sd-body__navigation .sd-btn {
+    display: none;
 }
 
 .sidenav {
@@ -103,12 +117,10 @@ html {
 .primary {
     margin-left: 180px;
     font-size: 16px;
+    width: auto !important;
 }
 
-.titulo {
-    color: white;
-    padding-left: 1vw;
-}
+
 
 
 nav {
@@ -152,6 +164,24 @@ thead {
     margin-bottom: 60px;
 }
 
+.botonesr {
+    width: 110px;
+    height: 50px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    color: white;
+    margin-bottom: 60px;
+    background-color: #dc3545;
+}
+    .botonesr:hover {
+        background-color: #b02a37;
+        width: 130px;
+        height: 50px;
+        color: white;
+        border-color: #536DFE;
+        font-size: 18px;
+        color: white;
+    }
     .botones:hover {
         background-color: #84A5FE;
         width: 130px;
@@ -286,7 +316,9 @@ span .paginate_button:hover {
 
 
 
-
+#botonasignarpregunta{
+    float:right;
+}
 
 
 .wrapper {
@@ -322,15 +354,15 @@ span .paginate_button:hover {
 .row-full {
     width: 105%;
     position: static;
-    height: 150px;
+    height: 85px;
     left: 50%;
     text-align: left;
     background-image: url('img/fondoazul.jpeg');
     background-repeat: no-repeat;
     background-size: 100% 135%;
     color: white;
-    font-size: 210%;
-    padding-top: 3.2%;
+    font-size: 200%;
+    padding-top: 1.2%;
     padding-left: 6%;
     font-weight: bold;
     margin-bottom: 30px;
@@ -538,8 +570,14 @@ textarea {
     box-shadow: none;
     background-color: #F5F5F5;
     height: 5px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
 }
 
+.cont #btnSalir{
+    margin-left:5px;
+}
 
 /*---------------------------------------------------------*/
 /* media queries inicio*/
@@ -672,6 +710,10 @@ textarea {
     .cont {
         box-shadow: none;
         background-color: #F5F5F5;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        
     }
 }
 
@@ -749,6 +791,9 @@ textarea {
     .cont {
         box-shadow: none;
         background-color: #F5F5F5;
+        align-items: center;
+        justify-content: center;
+        display: flex;
     }
 }
 
@@ -843,6 +888,9 @@ textarea {
     .cont {
         box-shadow: none;
         background-color: #F5F5F5;
+        align-items: center;
+        justify-content: center;
+        display: flex;
     }
 }
 
@@ -935,6 +983,9 @@ textarea {
     .cont {
         box-shadow: none;
         background-color: #F5F5F5;
+        align-items: center;
+        justify-content: center;
+        display: flex;
     }
 }
 
@@ -1020,6 +1071,9 @@ textarea {
     .cont {
         box-shadow: none;
         background-color: #F5F5F5;
+        align-items: center;
+        justify-content: center;
+        display: flex;
     }
 }
 
@@ -1105,6 +1159,9 @@ textarea {
     .cont {
         box-shadow: none;
         background-color: #F5F5F5;
+        align-items: center;
+        justify-content: center;
+        display: flex;
     }
 }
 
@@ -1190,6 +1247,9 @@ textarea {
     .cont {
         box-shadow: none;
         background-color: #F5F5F5;
+        align-items: center;
+        justify-content: center;
+        display: flex;
     }
 }
 
@@ -1276,5 +1336,8 @@ textarea {
     .cont {
         box-shadow: none;
         background-color: #F5F5F5;
+        align-items: center;
+        justify-content: center;
+        display: flex;
     }
 }

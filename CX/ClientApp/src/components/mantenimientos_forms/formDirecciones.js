@@ -26,7 +26,6 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarDirecciones, me
             if (proceso === 2) { datos.idDireccion = data.idDireccion; };
 
             const result = onClickProcesarDirecciones(datos); //se ejecuta la función
-            console.log(result);
         }
         setValidated(true);
         event.preventDefault();

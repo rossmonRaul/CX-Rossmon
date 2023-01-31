@@ -4,11 +4,11 @@ import "../mantenimientos_forms/css/formPasos.css";
 import { InputText } from '../components_forms/inputs'
 import { TextArea } from '../components_forms/textarea'
 
-const CajaTextoAbierto = ({ data, proceso, onClickProcesarPregunta, volverPasoDos, varIdTipoIndicador,
-    varIdTipoEncuesta, varIdTipoMetrica, varIdTipoPerspectiva, varIdTipoContactoEncuesta, varIdTipoInteraccion }) => {
+const CajaTextoAbierto = ({ data, proceso, onClickProcesarPregunta, volverPasoDos,
+    varIdTipoEncuesta, varIdTipoMetrica, varIdTipoPerspectiva, varIdTipoContactoEncuesta, varIdTipoInteraccion, varIdFaseCJ }) => {
 
     //PARA LA PREGUNTA A INGRESAR
-    const [pregunta, setPregunta] = useState(proceso == 2 ? data.pregunta : '')
+    const [pregunta, setPregunta] = useState(proceso === 2 ? data.pregunta : '')
 
     //validación
     const [validated, setValidated] = useState(false);
@@ -26,11 +26,11 @@ const CajaTextoAbierto = ({ data, proceso, onClickProcesarPregunta, volverPasoDo
                 idTipoEncuesta: parseInt(varIdTipoEncuesta),
                 idTipoMetrica: parseInt(varIdTipoMetrica),
                 idTipoPerspectiva: parseInt(varIdTipoPerspectiva),
-                idTipoIndicador: parseInt(varIdTipoIndicador),
+                idTipoIndicador: data.idTipoIndicador,
                 idTipoPregunta: 5,
                 idTipoContactoEncuesta: parseInt(varIdTipoContactoEncuesta),
                 idTipoInteraccion: parseInt(varIdTipoInteraccion),
-                estado: 1,
+                idFaseCJ: parseInt(varIdFaseCJ),
             };
             if (proceso === 2) { datos.idPreguntaEncuesta = data.idPreguntaEncuesta; };
 
@@ -64,7 +64,7 @@ const CajaTextoAbierto = ({ data, proceso, onClickProcesarPregunta, volverPasoDo
 
                         <div style={{ display: "flex", justifyContent: "space-around" }}>
 
-                            <Button className="primary" variant="primary" type="submit" size="sm">Guardar</Button>
+                            <Button className="primary" variant="primary" type="submit">Guardar</Button>
                             <Button  variant="secondary" onClick={volverPasoDos}>
                                 Atrás
                             </Button>

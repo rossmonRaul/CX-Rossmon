@@ -1,5 +1,5 @@
-﻿import React, { Component, useEffect, useState } from 'react';
-import { Container, Form, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
+﻿import React, { Component} from 'react';
+import { Container, Button } from 'reactstrap';
 import { ObtenerMacroActividad, ActualizarMacroActividad, AgregarMacroActividad, ObtenerMacroActividadPorId, InactivarMacroActividad } from '../../servicios/ServicioMacroActividad';
 import 'jquery/dist/jquery.min.js';
 import { Alert } from 'react-bootstrap'

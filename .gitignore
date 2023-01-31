@@ -361,3 +361,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# evitar subir appsettings y package-lock
+appsettings.json
+package-lock.json
+/CX/appsettings.json
+/CX/ClientApp/package-lock.json

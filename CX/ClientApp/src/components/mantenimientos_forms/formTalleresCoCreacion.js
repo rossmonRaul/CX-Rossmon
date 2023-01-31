@@ -144,10 +144,8 @@ const Formulario = ({ labelButton, procesot, mensaje, data, onClickGuardarTaller
                 FechaNumOficio: fechaCreacion,
                 DescripcionGeneral: detalleGeneral,
             };
-            console.log(datos);
             if (procesot === 2) { datos.IdMantenimientoTalleresCoCreacion = data.idMantenimientoTalleresCoCreacion };
             const result = onClickGuardarTallerCoCreacion(datos); //se ejecuta la función
-            console.log(result);
         }
         setValidated(true);
         event.preventDefault();

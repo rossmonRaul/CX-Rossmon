@@ -13,9 +13,6 @@ namespace Dominio.Dto
         public string descripcion { get; set; }
         public string metrica { get; set; }
         public string tipoEncuesta { get; set; }
-        public int estado { get; set; }
-
-
         public int idTipoEncuesta { get; set; }
         public int idTipoPregunta { get; set; }
         public int idFase { get; set; }
@@ -24,8 +21,8 @@ namespace Dominio.Dto
         public int idTipoIndicador { get; set; }
         public int idTipoContactoEncuesta { get; set; }
         public int idTipoInteraccion { get; set; }
-
-
+        public int idFaseCJ { get; set; }
+        public string faseCustomerJourney { get; set; }
 
 
     }

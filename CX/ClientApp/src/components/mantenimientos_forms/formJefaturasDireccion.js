@@ -25,11 +25,9 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarJefatura, mensa
                 Codigo: codigo,
                 Jefatura:jefatura
             };
-            console.log(datos)
             if (proceso === 2) { datos.IdJefatura = data.idJefatura; };
 
             const result = onClickProcesarJefatura(datos); //se ejecuta la función
-            console.log(result);
         }
         setValidated(true);
         event.preventDefault();

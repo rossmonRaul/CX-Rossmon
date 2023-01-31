@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { Route } from 'react-router';
 import { Layout } from './components/Layout';
 import { Home } from './components/Home';
-
+import FormularioPreguntas from './components/contacto_encuestas/FormularioPreguntas';
 import Footer from './components/Footer';
 
 
 
 //Cliente
-import { Formulario } from './components/clientes/Formulario';
+import { Formulario } from './components/clientes/FormularioCliente';
 import { MantenimientoCanales } from './components/clientes/MantenimientoCanales'
 import { MantenimientoCategoria } from './components/clientes/MantenimientoCategoria'
 import { MantenimientoFases } from './components/clientes/MantenimientoFases'
@@ -18,7 +18,7 @@ import { MantenimientoSegmentos } from './components/clientes/MantenimientoSegme
 import { MantenimientoServicioNegocio } from './components/clientes/MantenimientoServicioNegocio'
 import { MantenimientoServicioSocio } from './components/clientes/MantenimientoServicioSocio'
 import { MantenimientoSocio } from './components/clientes/MantenimientoSocio'
-import { Reporte } from './components/clientes/Reporte';
+import { Reporte } from './components/clientes/ReporteClientes';
 
 
 
@@ -56,7 +56,6 @@ import { MantenimientoPregunta } from './components/contacto_encuestas/Mantenimi
 import { MantenimientoClientesSocios } from './components/contacto_encuestas/MantenimientoClientesSocios';
 import { MantenimientoInteracciones } from './components/contacto_encuestas/MantenimientoInteracciones';
 
-//RF Eduardo
 import { CatalogoServicioSocio } from './components/clientes/CatalogoServicioSocio';
 import { CatalogoTipoContactoEncuesta } from './components/clientes/CatalogoTipoContactoEncuesta';
 import { CatalogoTipoInteraccion } from './components/clientes/CatalogoTipoInteraccion';
@@ -64,13 +63,13 @@ import { CatalogoTipoPerspectivas } from './components/clientes/CatalogoTipoPers
 import { CatalogoTipoIdentificacion } from './components/clientes/CatalogoTipoIdentificacion';
 
 
-//import axios from 'axios';
-
+//import axios from 'axios'
 import './custom.css'
 
 
 export default class App extends Component {
     static displayName = App.name;
+    User = ({ match }) => <FormularioPreguntas token={match.params.token} tituloEncuesta={1} idEncuesta={match.params.idEncuesta} />
 
     render() {
         return (
@@ -104,7 +103,8 @@ export default class App extends Component {
                     <Route path='/CatalogoTipoPerspectivas' component={CatalogoTipoPerspectivas} />
                     <Route path='/CatalogoTipoIdentificacion' component={CatalogoTipoIdentificacion} />
                     
-
+                    <Route path="/encuesta/:idEncuesta/token/:token" component={this.User} />
+                    
 
                     {/*Hallazgos*/}
                     <Route path='/MantenimientoHallazgos' component={MantenimientoHallazgos} />

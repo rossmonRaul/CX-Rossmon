@@ -25,7 +25,6 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarLineaNegocio, m
             if (proceso === 2) { datos.idLinea = data.idLinea; };
 
             const result = onClickProcesarLineaNegocio(datos); //se ejecuta la función
-            console.log(result);
         }
         setValidated(true);
         event.preventDefault();

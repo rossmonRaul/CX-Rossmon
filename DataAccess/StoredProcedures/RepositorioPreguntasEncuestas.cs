@@ -28,13 +28,14 @@ namespace DataAccess.StoredProcedures
                 data.Add("IdTipoEncuesta", entitiPreguntasEncuestas.idTipoEncuesta);
                 data.Add("IdTipoMetrica", entitiPreguntasEncuestas.idTipoMetrica);
                 data.Add("IdTipoPerspectiva", entitiPreguntasEncuestas.idTipoPerspectiva);
-                data.Add("IdTipoIndicador", entitiPreguntasEncuestas.idTipoIndicador);
+                if(entitiPreguntasEncuestas.idTipoIndicador != null)
+                {
+                    data.Add("IdTipoIndicador", entitiPreguntasEncuestas.idTipoIndicador);
+                }
                 data.Add("IdTipoPregunta", entitiPreguntasEncuestas.idTipoPregunta);
                 data.Add("IdTipoContactoEncuesta", entitiPreguntasEncuestas.idTipoContactoEncuesta);
                 data.Add("IdTipoIteraccion", entitiPreguntasEncuestas.idTipoInteraccion);
-                data.Add("Estado", entitiPreguntasEncuestas.estado);
-
-
+                data.Add("IdFaseCJ", entitiPreguntasEncuestas.idFaseCJ);
                 string query = "SPInsertarPreguntaEncuesta";
 
                 return await this.contextoBD.EjecutarSP(query, data);
@@ -107,6 +108,7 @@ namespace DataAccess.StoredProcedures
                 data.Add("IdTipoIndicador", entitiPreguntasEncuestas.idTipoIndicador);
                 data.Add("IdTipoMetrica", entitiPreguntasEncuestas.idTipoMetrica);
                 data.Add("IdTipoEncuesta", entitiPreguntasEncuestas.idTipoEncuesta);
+                data.Add("IdFaseCJ", entitiPreguntasEncuestas.idFaseCJ);
                 string query = "SPActualizarPreguntaEncuestas";
 
                 return await this.contextoBD.EjecutarSP(query, data);

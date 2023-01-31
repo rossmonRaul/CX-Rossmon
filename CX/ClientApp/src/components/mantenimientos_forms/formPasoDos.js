@@ -9,26 +9,27 @@ const StepTwo = ({ seleccionUnica, seleccionMultiple, menuDesplegable, correoEle
         <>
             <Form className="main-frm">
 
-                <h6>Opciones</h6>
+                <h4>Tipo de Pregunta</h4>
 
                 <div className="cont-button" style={{ display: "flex", justifyContent: "space-around" }}>
-                    
-                    <Button onClick={seleccionUnica} className="button" >
-                        Seleccionar Una Respuesta
+                    <Button className="button" onClick={calificacionEstrellas}>
+                        Calificación de Estrellas
                     </Button>
 
-                    <Button className="button" onClick={seleccionMultiple}>
-                        Seleccionar Varias Respuestas
+                    <Button onClick={seleccionUnica} className="button" >
+                        Seleccion Única
                     </Button>
+
+
                 </div>
                 
                 <div className="cont-button" style={{ display: "flex", justifyContent: "space-around" }}>
                     <Button className="button" onClick={menuDesplegable}>
-                        Menú Desplegable  
+                        Menú Desplegable
                     </Button>
-                    
-                    <Button className="button" onClick={correoElectronico} >
-                        Correo Electrónico
+
+                    <Button className="button" onClick={seleccionMultiple}>
+                        Selección Multiple
                     </Button>
                 </div>
                 
@@ -36,9 +37,9 @@ const StepTwo = ({ seleccionUnica, seleccionMultiple, menuDesplegable, correoEle
                     <Button className="button" onClick={cajaTextoAbierto} >
                         Caja de Texto Abierto
                     </Button>
-                    
-                    <Button className="button" onClick={calificacionEstrellas}>
-                        Calificación de Estrellas
+
+                    <Button className="button" onClick={correoElectronico} >
+                        Correo Electrónico
                     </Button>
                 </div>
 

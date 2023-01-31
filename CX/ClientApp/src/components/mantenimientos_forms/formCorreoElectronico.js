@@ -2,11 +2,11 @@
 import { Card, Button, Form } from "react-bootstrap";
 import { InputText } from '../components_forms/inputs';
 
-const CorreoElectronico = ({ data, proceso, onClickProcesarPregunta, volverPasoDos, varIdTipoIndicador,
-    varIdTipoEncuesta, varIdTipoMetrica, varIdTipoPerspectiva, varIdTipoContactoEncuesta, varIdTipoInteraccion }) => {
+const CorreoElectronico = ({ data, proceso, onClickProcesarPregunta, volverPasoDos,
+    varIdTipoEncuesta, varIdTipoMetrica, varIdTipoPerspectiva, varIdTipoContactoEncuesta, varIdTipoInteraccion, varIdFaseCJ }) => {
 
     //PARA EL VALOR DE LA PREGUNTA
-    const [pregunta, setPregunta] = useState(proceso == 2 ? data.pregunta : ''); //si el proceso es 1 es insertar, si es 2 es actualizar
+    const [pregunta, setPregunta] = useState("Ingrese su correo electrónico"); //si el proceso es 1 es insertar, si es 2 es actualizar
     //NO REQUIERE VALOR DE LA RESPUESTA, ES PARA QUE FUNCIONE EL onChange
     const [respuesta, setRespuesta] = useState(proceso == 2 ? data.respuesta : ''); //si el proceso es 1 es insertar, si es 2 es actualizar
 
@@ -26,11 +26,11 @@ const CorreoElectronico = ({ data, proceso, onClickProcesarPregunta, volverPasoD
                 idTipoEncuesta: parseInt(varIdTipoEncuesta),
                 idTipoMetrica: parseInt(varIdTipoMetrica),
                 idTipoPerspectiva: parseInt(varIdTipoPerspectiva),
-                idTipoIndicador: parseInt(varIdTipoIndicador),
+                idTipoIndicador: null,
                 idTipoPregunta: 3,
                 idTipoContactoEncuesta: parseInt(varIdTipoContactoEncuesta),
                 idTipoInteraccion: parseInt(varIdTipoInteraccion),
-                estado: 1,
+                idFaseCJ: parseInt(varIdFaseCJ),
             };
             if (proceso === 2) { datos.idPreguntaEncuesta = data.idPreguntaEncuesta; };
 
@@ -41,7 +41,6 @@ const CorreoElectronico = ({ data, proceso, onClickProcesarPregunta, volverPasoD
     }
 
 
-    const onChangePreguntas = (e) => setPregunta(e.target.value);
     //POR PASARLE UN onChange AL INPUT DONDE IRÍA LA RESPUESTA
     const onChangeRespuesta = (e) => setRespuesta(e.target.value);
 
@@ -57,7 +56,7 @@ const CorreoElectronico = ({ data, proceso, onClickProcesarPregunta, volverPasoD
                         <br></br>
                         {/*<label>{MiId }</label>*/}
                         <InputText id='txt-Pregunta' label='Pregunta:' type='text' placeholder='Ingrese la pregunta' value={pregunta}
-                            onChange={onChangePreguntas} mensajeValidacion="Este campo es requerido"
+                             mensajeValidacion="Este campo es requerido" enabled={false}
                         />
 
 
@@ -69,9 +68,9 @@ const CorreoElectronico = ({ data, proceso, onClickProcesarPregunta, volverPasoD
 
                         <div style={{ display: "flex", justifyContent: "space-around" }}>
 
-                            <Button className="primary" variant="primary" type="submit" size="sm">Guardar</Button>
+                            <Button className="primary" variant="primary" type="submit">Guardar</Button>
 
-                            <Button className="btnVolver" style={{ fontSize: "11px", backgroundColor: "#6c757d" }} variant="secondary" onClick={volverPasoDos}>
+                            <Button style={{backgroundColor: "#6c757d" }} variant="secondary" onClick={volverPasoDos}>
                                 Atrás
                             </Button>
                         </div>

@@ -20,6 +20,7 @@ using Dominio.Interfaces.Aplicacion.Segmentos;
 using Dominio.Interfaces.Aplicacion.ServicioLineaNegocio;
 using Dominio.Interfaces.Aplicacion.ServicioSocio;
 using Dominio.Interfaces.Aplicacion.Socio;
+using Dominio.Interfaces.Aplicacion.Encuesta;
 using Dominio.Interfaces.Aplicacion.TipoContactoEncuesta;
 using Dominio.Interfaces.Aplicacion.TipoEncuesta;
 using Dominio.Interfaces.Aplicacion.TipoIdentificacion;
@@ -33,10 +34,9 @@ using Dominio.Interfaces.Aplicacion.TalleresCoCreacion;
 using Dominio.Interfaces.Aplicacion.Responsables;
 using Dominio.Interfaces.Aplicacion.ParticipantesEquipoTrabajo;
 using Microsoft.Extensions.Configuration;
-
 using Dominio.Interfaces.Aplicacion.PreguntasEncuesta;
+using Dominio.Interfaces.Aplicacion.PreguntasAsignadas;
 using Dominio.Interfaces.Aplicacion.RespuestasPreguntaEncuesta;
-
 using Microsoft.Extensions.DependencyInjection;
 //using Dominio.Interfaces.
 using System;
@@ -45,6 +45,9 @@ using System.Text;
 using Dominio.Interfaces.Aplicacion.EtapaTallerCo;
 using Dominio.Interfaces.Aplicacion.MantenimientoTalleresCoCreacion;
 using Dominio.Interfaces.Infraestructura.BaseDatos;
+using Dominio.Interfaces.Aplicacion.FormularioPreguntas;
+using Dominio.Interfaces.Aplicacion.AplicacionEncuesta;
+using Dominio.Interfaces.Aplicacion.Cliente;
 
 namespace BussinesLogic
 {
@@ -89,6 +92,11 @@ namespace BussinesLogic
             services.AddScoped<IServicioMantenimientoTalleresCoCreacion, ServicioMantenimientoTalleresCoCreacion>();
             services.AddScoped<IServicioEtapaTallerCo, ServicioEtapasTallerCo>();
             services.AddScoped<IServicioParticipantesEquipoTrabajo, ServicioParticipantesEquipoTrabajo>();
+            services.AddScoped<IServicioFormularioPreguntas, ServicioFormularioPreguntas>();
+            services.AddScoped<IServicioEncuestas, ServicioEncuestas>();
+            services.AddScoped<IServicioPreguntasAsignadas, ServicioPreguntasAsignadas>();
+            services.AddScoped<IServicioAplicacionEncuestas, ServicioAplicacionEncuestas>();
+            services.AddScoped<IServicioClientes, ServicioClientes>();
             return services;
         }
     }
