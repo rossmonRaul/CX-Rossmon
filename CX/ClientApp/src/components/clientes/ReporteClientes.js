@@ -40,7 +40,7 @@ export class Reporte extends Component {
         await this.ObtenerListadoClientes();
 
         setTimeout(() => {
-            $('#tbl_table').DataTable(
+            $('#tbl_table_mantenimiento').DataTable(
                 {
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 });
@@ -58,7 +58,6 @@ export class Reporte extends Component {
     onClickObtenerInformacion = async (id) => {
         
         this.setState({ info: await ObtenerClientePorId(id) })
-        console.log(this.state.info);
         this.setState({ proceso: 2 });
         this.setState({ modal: !this.state.modal });
         this.setState({ labelButton: "Actualizar" });
@@ -114,8 +113,8 @@ export class Reporte extends Component {
                 <td>{item.faseCustomerJourney}</td>
                 <td>{item.servicio}</td>
                 <td>{item.categoria}</td>
-                <td>  <Button color="primary" onClick={() => this.onClickObtenerInformacionContacto(item.idClienteEncuesta)}  style={{ marginRight: "1vw" }}>Informacion Contacto </Button></td>
-                <td>  <Button color="primary" onClick={() => this.onClickObtenerInformacion(item.idClienteEncuesta)}  style={{ marginRight: "1vw" }}>Informacion Socio </Button></td>
+                <td>  <Button color="primary" onClick={() => this.onClickObtenerInformacionContacto(item.idClienteEncuesta)}  style={{ marginRight: "1vw" }}>Contacto </Button></td>
+                <td>  <Button color="primary" onClick={() => this.onClickObtenerInformacion(item.idClienteEncuesta)}  style={{ marginRight: "1vw" }}>Socio </Button></td>
 
                 {/*COLUMNAS DE ESTADO Y BOTONES CON ESTILO */}
                 <td style={item.estado === false ? { color: "#dc3545", fontWeight: 700 } : { color: "#198754", fontWeight: 700 }}>

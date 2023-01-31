@@ -39,7 +39,6 @@ export class Formulario extends Component {
             serviciosFiltrados:[],
             socios: [],
             socio:'',
-            nombreContacto: '',
             canales: [],
             canal: '',
             telefonoContacto: '',
@@ -121,10 +120,7 @@ export class Formulario extends Component {
             IdFaseCJ: parseInt(this.state.faseCJ),
             IdSocio: parseInt(this.state.codigoSocio),
         };
-        console.log(datos.Telefono);
         if (datos.Telefono === '') {
-            document.getElementById("labelTelefono").focus();
-
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -146,6 +142,26 @@ export class Formulario extends Component {
                         showConfirmButton: false,
                         timer: 1500
                     });
+                    document.getElementById("nombreCliente").focus();
+                    this.setState({
+                        faseCJ: '',
+                        codigoCliente: this.state.codigoCliente+1,
+                        nombreCliente: '',
+                        sector: '',
+                        segmento: '',
+                        categoria: '',
+                        lineaNegocio: '',
+                        servicio: '',
+                        socio: '',
+                        canal: '',
+                        telefonoContacto: '',
+                        correoContacto: '',
+                        codigoSocio: '',
+                        nombreSocio: '',
+                        telefonoSocio: '',
+                        celularSocio: '',
+                        correoSocio: '',
+                    })
                 }
             }
         
@@ -163,9 +179,6 @@ export class Formulario extends Component {
     }
     onChangeNombreCliente = (e) => {
         this.setState({ nombreCliente: e.target.value });
-    }
-    onChangeNombreContacto = (e) => {
-        this.setState({ nombreContacto: e.target.value });
     }
     onChangeTelefonoContacto = (e) => {
         this.setState({ telefonoContacto: e });
@@ -292,7 +305,7 @@ export class Formulario extends Component {
                             <div className="form_item">
 
                                 <label className="etiquetas">Nombre cliente</label>
-                                    <Form.Control required value={this.state.nombreCliente} onChange={this.onChangeNombreCliente} type="text" placeholder="Ingrese el nombre del cliente" />
+                                    <Form.Control id="nombreCliente" required value={this.state.nombreCliente} onChange={this.onChangeNombreCliente} type="text" placeholder="Ingrese el nombre del cliente" />
                             </div>
 
                         </div>
@@ -389,7 +402,7 @@ export class Formulario extends Component {
                             <div className="form_item">
 
                                 <label class="etiquetas">Nombre del contacto</label>
-                                    <Form.Control value={this.state.nombreContacto} onChange={this.onChangeNombreContacto} type="text" placeholder="Ingrese el nombre de contacto" />
+                                    <Form.Control value={this.state.nombreCliente} onChange={this.onChangeNombreCliente} type="text" placeholder="Ingrese el nombre de contacto" />
                             </div>
 
                             <div className="form_item">
@@ -432,40 +445,16 @@ export class Formulario extends Component {
                                         required: true,
                                     }} />
                             </div>
+                                <div className="form_item">
 
-                            <div className="form_item">
-
-                                    <label className="etiquetas">Celular</label>
-                                   
- 
-                                <PhoneInput
-                                    country={'cr'}
-                                    value={this.state.celularContacto}
-                                    onChange={phone => this.onChangeCelularContacto(phone)
-                                    }
-                                    required={true}
-                                    inputProps={{
-                                        name: 'phone',
-                                        required: true,
-                                    }} />
-                            </div>
-
+                                    <label className="etiquetas">Correo</label>
+                                    <Form.Control required value={this.state.correoContacto} onChange={this.onChangeCorreoContacto} type="email" placeholder="Enter email" />
+                                    <Form.Text className="text-muted">
+                                        No compartiremos el correo electrónico con nadie más.
+                                    </Form.Text>
+                                </div>
                         </div>
-                        <div className="form_wrap fullname">
-                            <div className="form_item">
 
-                                <label className="etiquetas">Correo</label>
-                                    <Form.Control required value={this.statecorreoContacto} onChange={this.onChangeCorreoContacto} type="email" placeholder="Enter email" />
-                                <Form.Text  className="text-muted">
-                                    No compartiremos el correo electrónico con nadie más.
-                                </Form.Text>
-                            </div>
-
-                            <div className="form_item">
-
-                            </div>
-
-                        </div>
 
                     </div>
                 </div>
