@@ -18,20 +18,15 @@ export class Reporte extends Component {
                         <thead>
                             <tr
                             >
-                                <th>Fecha</th>
-                                <th>Consecutivo #</th>
+                                <th>Id Cliente</th>
+                                <th>Fecha de ingreso</th>
+                                <th>Nombre cliente</th>
                                 <th>Sector</th>
                                 <th>Fase servicio</th>
                                 <th>Servicio solicitado</th>
                                 <th>Categoria cliente</th>
-                                <th>Nombre cliente</th>
-                                <th>Canal</th>
-                                <th>Teléfono</th>
-                                <th>Celular</th>
-                                <th>Correo</th>
-                                <th>Nombre socio</th>
-                                <th>Teléfono socio</th>
-                                <th>Correo socio</th>
+                                <th>Información de Contacto</th>
+                                <th>Información del socio</th>
                             </tr>
                         </thead>
                         <tbody>

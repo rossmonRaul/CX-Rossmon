@@ -8,7 +8,7 @@ import Footer from './components/Footer';
 
 
 //Cliente
-import { Formulario } from './components/clientes/Formulario';
+import { Formulario } from './components/clientes/FormularioCliente';
 import { MantenimientoCanales } from './components/clientes/MantenimientoCanales'
 import { MantenimientoCategoria } from './components/clientes/MantenimientoCategoria'
 import { MantenimientoFases } from './components/clientes/MantenimientoFases'
@@ -18,7 +18,7 @@ import { MantenimientoSegmentos } from './components/clientes/MantenimientoSegme
 import { MantenimientoServicioNegocio } from './components/clientes/MantenimientoServicioNegocio'
 import { MantenimientoServicioSocio } from './components/clientes/MantenimientoServicioSocio'
 import { MantenimientoSocio } from './components/clientes/MantenimientoSocio'
-import { Reporte } from './components/clientes/Reporte';
+import { Reporte } from './components/clientes/ReporteClientes';
 
 
 

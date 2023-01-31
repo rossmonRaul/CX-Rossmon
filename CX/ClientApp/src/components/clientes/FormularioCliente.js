@@ -7,7 +7,8 @@ import { ObtenerFasesCJ, ObtenerFasesCJPorId } from '../../servicios/ServicioFas
 import { ObtenerServicioLineaNegocio, ObtenerServicioLineaNegocioPorId } from '../../servicios/ServicioServicioLineaNegocio';
 import { ObtenerCanales} from '../../servicios/ServicioCanales';
 import { ObtenerCategorias } from '../../servicios/ServicioCategorias';
-import { ObtenerSocios, ObtenerSocioPorId} from '../../servicios/ServicioSocio';
+import { ObtenerSocios, ObtenerSocioPorId } from '../../servicios/ServicioSocio';
+import { AgregarCliente } from '../../servicios/ServicioCliente';
 export class Formulario extends Component {
     static displayName = Formulario.name;
     constructor(props) {
@@ -16,12 +17,13 @@ export class Formulario extends Component {
             usuario: '',
             consecutivo: '',
             listaFasesCJ: [],
+            faseCJ:'',
             codigoCliente: '',
             nombreCliente: '',
             sectores: [],
             sector:'',
             segmentos: [],
-            segemento:'',
+            segmento:'',
             segmentosFiltrados: [],
             categorias: [],
             categoria: '',
@@ -42,10 +44,16 @@ export class Formulario extends Component {
             nombreSocio: '',
             telefonoSocio: '',
             celularSocio: '',
-            correoSocio:'',
+            correoSocio: '',
+            fecha:'',
+
         }
     }
     async componentDidMount() {
+
+        var today = new Date();
+        this.setState({ fecha: today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() })  ;
+        console.log(this.state.fecha);
         await this.ObtenerListadoSocios();
         await this.ObtenerListaServicios();
         await this.ObtenerListadoLineaNegocio();
@@ -91,7 +99,24 @@ export class Formulario extends Component {
         this.setState({ canales: respuesta });
     }
 
-    ObtenerListadoCanales
+
+    onClickAgregarCliente = async () => {
+
+        var datos = {
+            Nombre: this.state.nombreCliente,
+            Telefono: this.state.telefonoContacto,
+            CorreoElectronico: this.state.correoContacto,
+            IdCanal: parseInt(this.state.canal),
+            IdSegemento: parseInt(this.state.segmento),
+            IdCategoria: parseInt(this.state.categoria),
+            IdServicio: parseInt(this.state.servicio),
+            IdFaseCJ: parseInt(this.state.faseCJ),
+            IdSocio: parseInt(this.state.codigoSocio),
+
+        };
+        const result =await this.AgregarCliente(datos);
+
+    }
     //onchange inputs
     onChangeUsuario = (e) => {
         this.setState({ usuario: e.target.value });
@@ -126,7 +151,7 @@ export class Formulario extends Component {
     onChangeCodigoSocio = (e) => {
         this.setState({ codigoSocio: e.target.value });
     }
-
+   
     onChangeSector = (e) => {
         if (e.target.value != '') {
             this.setState({ sector: e.target.value });
@@ -136,6 +161,7 @@ export class Formulario extends Component {
             this.setState({ segmento: '' });
         }
     }
+
     onChangeSocio = (e) => {
         this.setState({ socio: e.target.value });
         var socio = this.state.socios.filter(soc => soc.idSocio == e.target.value);
@@ -155,6 +181,25 @@ export class Formulario extends Component {
             this.setState({ servicio: '' });
         }
     } 
+
+    onChangeCanal = (e) => {
+        this.setState({ canal: e.target.value });
+    }
+    onChangeServicio = (e) => {
+        this.setState({ servicio: e.target.value });
+    }
+    onChangeSegmento = (e) => {
+        this.setState({ segmento: e.target.value });
+    }
+    onChangeFaseServicio = (e) => {
+        this.setState({ faseCJ: e.target.value })
+    }
+    onChangeCategoria = (e) => {
+        this.setState({ categoria: e.target.value });
+        
+    }
+
+
     render() {
         const { 
             usuario,
@@ -212,7 +257,9 @@ export class Formulario extends Component {
 
                                 <label className="etiquetas">Fase de servicio</label>
 
-                                <select id="" class=" " name="face_servicio" >{this.state.listaFasesCJ.map(index => <option key={index.id} value={index.idFaseCJ}>{index.faseCustomerJourney}</option>
+                                <select onChange={this.onChangeFaseServicio} id="" class=" " name="face_servicio" >
+                                    <option disabled selected value> -- Seleccione una Fase de Servicio -- </option>
+                                    {this.state.listaFasesCJ.map(index => <option key={index.id} value={index.idFaseCJ}>{index.faseCustomerJourney}</option>
                                 )};
                                 </select>
 
@@ -221,7 +268,7 @@ export class Formulario extends Component {
                             <div class="form_item">
 
                                 <label className="etiquetas">Fecha</label>
-                                <input type="date" name="fecha" />
+                                <input type="date" value={this.state.fecha} name="fecha" />
 
                             </div>
 
@@ -269,10 +316,10 @@ export class Formulario extends Component {
                             <div className="form_item">
 
                                 <label className="etiquetas">Segmento</label>
-                                <select id="" class=" " name="segmento">
-                                    <option disabled selected value> -- Seleccione un Segmento -- </option>
+                                <select defaultValue='' value={this.state.segmento} onChange={this.onChangeSegmento} id="" class=" " name="segmento">
+                                    <option disabled value=''> -- Seleccione un Segmento -- </option>
                                     {
-                                        this.state.segmentosFiltrados.map(index => <option key={index.idSegmento} value={index}>{index.segmento}</option>
+                                        this.state.segmentosFiltrados.map(index => <option key={index.idSegmento} value={index.idSegmento}>{index.segmento}</option>
                                         )};
                                 </select>
                                 
@@ -284,8 +331,8 @@ export class Formulario extends Component {
 
                                 <label className="etiquetas">Categoría</label>
 
-                                <select id="slAeropuerto" class=" " name="categoria" >
-                                    <option disabled selected value> -- Seleccione una Categoría -- </option>
+                                <select value={this.state.categoria} onChange={this.onChangeCategoria} id="slAeropuerto" class=" " name="categoria" >
+                                    <option disabled value=''> -- Seleccione una Categoría -- </option>
                                     {
                                         this.state.categorias.map(index => <option key={index.idCategoria} value={index.idCategoria}>{index.categoria}</option>
                                         )};
@@ -296,8 +343,8 @@ export class Formulario extends Component {
                             <div className="form_item">
 
                                 <label className="etiquetas">Línea de negocio</label>
-                                <select onChange={this.onChangeLineaNegocio} id="" class=" " name="linea_negocio" >
-                                    <option disabled selected value> -- Seleccione una Línea de Negocio -- </option>
+                                <select value={ this.state.lineaNegocio} onChange={this.onChangeLineaNegocio} id="" class=" " name="linea_negocio" >
+                                    <option disabled value=''> -- Seleccione una Línea de Negocio -- </option>
                                     {
                                         this.state.lineasNegocio.map(index => <option key={index.idLinea} value={index.idLinea}>{index.lineaNegocio}</option>
                                         )};
@@ -310,9 +357,8 @@ export class Formulario extends Component {
                             <div className="form_item">
 
                                 <label className="etiquetas">Servicios y productos</label>
-
-                                <select id="" class=" " name="servicio">
-                                    <option disabled selected value> -- Seleccione un Servicio-- </option>
+                                <select defaultValue='' value={ this.state.servicio} required onChange={this.onChangeServicio} id="" class=" " name="servicio">
+                                    <option disabled value=''>-- Seleccione un Servicio--</option>
                                     {
                                         this.state.serviciosFiltrados.map(index => <option key={index.idServicio} value={index.idServicio}>{index.servicio}</option>
                                         )};
@@ -338,7 +384,7 @@ export class Formulario extends Component {
                             <div className="form_item">
 
                                 <label class="etiquetas">Nombre del contacto</label>
-                                <input type="text" placeholder="" name="nom_contacto" value={nombreContacto} onChange={this.onChangeNombreContacto} />
+                                <input required type="text" placeholder="" name="nom_contacto" value={nombreContacto} onChange={this.onChangeNombreContacto} />
 
                             </div>
 
@@ -346,7 +392,7 @@ export class Formulario extends Component {
 
                                 <label className="etiquetas">Canal encuesta</label>
                                 
-                                <select id="" class=" " name="canal">
+                                <select required onChange={this.onChangeCanal} id="" class=" " name="canal">
                                     <option disabled selected value> -- Seleccione un Canal -- </option>
                                     {
                                     this.state.canales.map(index => <option key={index.idCanal} value={index.idCanal}>{index.canal}</option>
@@ -362,14 +408,14 @@ export class Formulario extends Component {
 
                                 <label className="etiquetas">Teléfono</label>
 
-                                <input type="text" name="telefono_contacto" value={telefonoContacto} onChange={this.onChangeTelefonoContacto} />
+                                <input required type="text" name="telefono_contacto" value={telefonoContacto} onChange={this.onChangeTelefonoContacto} />
 
                             </div>
 
                             <div className="form_item">
 
                                 <label className="etiquetas">Celular</label>
-                                <input type="text" placeholder="" name="celular_contacto" value={this.statecelularContacto} onChange={this.onChangeCelularContacto} />
+                                <input required type="text" placeholder="" name="celular_contacto" value={this.statecelularContacto} onChange={this.onChangeCelularContacto} />
 
                             </div>
 
@@ -378,7 +424,7 @@ export class Formulario extends Component {
                             <div className="form_item">
 
                                 <label className="etiquetas">Correo</label>
-                                <input type="text" placeholder="" name="correo_contacto" value={this.statecorreoContacto} onChange={this.onChangeCorreoContacto} />
+                                <input required type="text" placeholder="" name="correo_contacto" value={this.statecorreoContacto} onChange={this.onChangeCorreoContacto} />
 
                             </div>
 
@@ -403,7 +449,7 @@ export class Formulario extends Component {
                             <div className="form_item">
 
                                 <label className="etiquetas">Nombre del socio</label>
-                                <select onChange={this.onChangeSocio} id="" class=" " name="socio">
+                                <select required onChange={this.onChangeSocio} id="" class=" " name="socio">
                                     <option disabled selected value> -- Seleccione un Socio -- </option>
                                     {
                                     this.state.socios.map(index => <option key={index.idSocio} value={index.idSocio}>{index.idSocio+" "+index.nombre }</option>
@@ -441,7 +487,7 @@ export class Formulario extends Component {
                 </div>
                 <div className="wrapper">
                     
-                    <button id="btnGuardar" type="button" className="btn btn-block botones" >Guardar</button>
+                    <button id="btnGuardar" type="submit" className="btn btn-block botones" onClick={() => this.onClickAgregarCliente() } >Guardar</button>
                     <button id="btnSalir" type="button" className="btn btn-block botonesr">Salir</button>
                    
 
