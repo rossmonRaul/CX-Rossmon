@@ -32,7 +32,7 @@ namespace DataAccess.StoredProcedures
                 data.Add("CorreoElectronico", entitiCliente.CorreoElectronico);
                 data.Add("IdCanal", entitiCliente.IdCanal);
                 data.Add("IdSegmento", entitiCliente.IdSegmento);
-                data.Add("IdCanategoria", entitiCliente.IdCategoria);
+                data.Add("IdCategoria", entitiCliente.IdCategoria);
                 data.Add("IdServicio", entitiCliente.IdServicio);
                 data.Add("IdFaseCJ", entitiCliente.IdFaseCJ);
                 data.Add("IdSocio", entitiCliente.IdSocio);
