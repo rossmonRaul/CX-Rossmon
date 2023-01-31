@@ -1,6 +1,10 @@
 {
   "dependencies": {
+    "react-icons": "^4.7.1",
     "react-rating-stars-component": "^2.2.0",
-    "survey-react": "^1.9.69"
+    "survey-creator-react": "^1.9.71",
+    "survey-react": "^1.9.69",
+    "surveyjs": "^4.0.2",
+    "sweetalert2": "^11.7.1"
   }
 }
