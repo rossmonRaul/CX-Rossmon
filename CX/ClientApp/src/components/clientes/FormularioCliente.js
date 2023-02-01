@@ -205,6 +205,7 @@ export class Formulario extends Component {
                 }
             }
         }
+    }
         //onchange inputs
         onChangeUsuario = (e) => {
             this.setState({ usuario: e.target.value });
@@ -289,7 +290,7 @@ export class Formulario extends Component {
         }
 
 
-        render() {
+        render() { 
             return (
 
 
@@ -597,9 +598,8 @@ export class Formulario extends Component {
 
 
                 </Form>
-
+                
             );
         }
     }
-}
 export default Formulario
