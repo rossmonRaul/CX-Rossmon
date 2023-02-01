@@ -207,13 +207,6 @@ export class Reporte extends Component {
                             onHide={() => { this.onHideEditar() }
                             }
                         >
-                            <Modal.Header closeButton>
-                                <Modal.Title id="example-custom-modal-styling-title">
-                                    Información de Contacto
-                                </Modal.Title>
-                                {/*ALERTA*/}
-
-                            </Modal.Header>
 
                             <Modal.Body>
                                 <Formulario cliente={this.state.clienteSeleccionado} proceso={2}></Formulario>

@@ -9,7 +9,10 @@ import { ObtenerCanales} from '../../servicios/ServicioCanales';
 import { ObtenerCategorias } from '../../servicios/ServicioCategorias';
 import { ObtenerSocios, ObtenerSocioPorId } from '../../servicios/ServicioSocio';
 import { AgregarCliente, ObtenerClientes, ActualizarCliente } from '../../servicios/ServicioCliente';
-import { InputPhone } from '../components_forms/inputs'
+import { InputPhone } from '../components_forms/inputs';
+import { ReactComponent as Paso1 } from '../../img/Paso1.svg';
+import { ReactComponent as Paso2 } from '../../img/Paso2.svg';
+import { ReactComponent as Paso3 } from '../../img/Paso3.svg';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import Form from 'react-bootstrap/Form';
@@ -43,7 +46,7 @@ export class Formulario extends Component {
             socio: props.proceso === 2 ? props.cliente.idSocio : '',
             canales: [],
             canal: props.proceso === 2 ? props.cliente.idCanal : '',
-            telefonoContacto: props.proceso === 2 ? "506"+props.cliente.telefono: '',
+            telefonoContacto: props.proceso === 2 ? props.cliente.telefono: '',
             celularContacto: '',
             correoContacto: props.proceso === 2 ? props.cliente.correoElectronico : '',
             codigoSocio: props.proceso === 2 ? props.cliente.idSocio: '',
@@ -54,14 +57,11 @@ export class Formulario extends Component {
             fecha: '',
             paso1: true,
             paso2: false,
-            paso3:false,
+            paso3: false,
 
         }
     }
     async componentDidMount() {
-
-        console.log(this.state.proceso)
-        console.log(this.state.cliente)
         this.setState({ fecha: new Date().toISOString().substring(0, 10) })  ;
         await this.ObtenerListadoSocios();
         await this.ObtenerListaServicios();
@@ -128,9 +128,12 @@ export class Formulario extends Component {
             return;
         }
         if (this.state.paso2) {
-            this.setState({ paso2: false, paso3: true })
-            return;
-        }
+            if (this.state.telefonoContacto == '' || this.state.telefonoContacto.length<8) {
+                return;
+            } else {
+                this.setState({ paso2: false, paso3: true })
+                return;
+            }
         if (this.state.paso3) {
             var datos = {
                 IdClienteEncuesta: parseInt(this.state.codigoCliente),
@@ -327,6 +330,17 @@ export class Formulario extends Component {
                     </div>
                 </div>
                 */}
+                <div className="wrapper">
+                <div className="centerButtons">
+
+                        
+                        {this.state.paso1 ? <Paso1></Paso1> : this.state.paso2 ? <Paso2></Paso2> : this.state.paso3 ? <Paso3></Paso3> :null}
+                        
+
+
+                    </div>
+                    </div>
+                    
 
                 {this.state.paso1 ?
                     <div className="wrapper">
