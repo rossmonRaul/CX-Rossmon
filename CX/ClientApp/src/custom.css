@@ -425,9 +425,8 @@ span .paginate_button:hover {
     display:flex;
     text-align:center;
     justify-content: center;
-    padding:7px;
 }
-    .centerButtons #btnGuardar {
+    .centerButtons #btnSalir {
         margin-right: 5px;
     }
 .wrapper .form_container .form_item {

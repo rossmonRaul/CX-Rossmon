@@ -1,16 +1,12 @@
 ﻿import React, { Component } from 'react';
 import { ObtenerClientes, ObtenerClientePorId, InactivarCliente } from '../../servicios/ServicioCliente';
-
-
-
+import Formulario from './FormularioCliente'
 import "datatables.net-dt/js/dataTables.dataTables"
 import "datatables.net-dt/css/jquery.dataTables.min.css"
 import $ from 'jquery';
 import Modal from 'react-bootstrap/Modal';
-import { Container, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
-import { FormularioModal } from '../components_forms/ventanaModal';
-import { Table, Table5 } from '../Table';
-import { Alert } from 'react-bootstrap';
+import { Container, Button, } from 'reactstrap';
+import { Table} from '../Table';
 import Form from 'react-bootstrap/Form';
 export class Reporte extends Component {
     static displayName = Reporte.name;
@@ -32,6 +28,8 @@ export class Reporte extends Component {
             alerta: true,
             showModalContacto: false,
             showModalSocio: false,
+            showModalEditar: false,
+            clienteSeleccionado: {},
         }
     };
 
@@ -42,7 +40,10 @@ export class Reporte extends Component {
         setTimeout(() => {
             $('#tbl_table_mantenimiento').DataTable(
                 {
-                    "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
+                    "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
+                    "language": {
+                        "emptyTable": "No existen clientes aún"
+                    }
                 });
         }, 100);
     }
@@ -101,6 +102,27 @@ export class Reporte extends Component {
         this.setState({ listaClientes: respuesta });
     }
 
+    onClickEditarCliente = async (item) => {
+        this.setState({ clienteSeleccionado: item });
+        this.setState({ showModalEditar: true });
+    }
+
+    onHideEditar = async () => {
+        $('#tbl_table_mantenimiento').DataTable().destroy();
+        await this.ObtenerListadoClientes();
+        setTimeout(() => {
+            $('#tbl_table_mantenimiento').DataTable(
+                {
+                    "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
+                    "language": {
+                        "emptyTable": "No existen clientes aún"
+                    }
+                });
+        }, 100);
+        this.setState({ showModalEditar: false });
+    }
+   
+
 
     body = () => {
         return this.state.listaClientes.map((item, index) => (
@@ -121,7 +143,7 @@ export class Reporte extends Component {
                     {item.estado === true ? "Activo" : "Inactivo"}</td>
                 <td style={{ display: "flex", padding: "0.5vw" }}>
 
-                    <Button color="primary" /*onClick={() => this.onClickActualizarFaseServicio(item.idFase)} */ style={{ marginRight: "1vw" }}>Editar
+                    <Button color="primary" /*onClick={() => this.onClickActualizarFaseServicio(item.idFase)} */ onClick={() => this.onClickEditarCliente(item)}  style={{ marginRight: "1vw" }}>Editar
                     </Button>
 
                     <Button color={item.estado === true ? "danger" : "success"} onClick={() => this.onClickInactivarCliente(item.idClienteEncuesta)}> {item.estado === true ? "Inactivar" : "Activar"}
@@ -177,7 +199,31 @@ export class Reporte extends Component {
                                 </Modal.Footer>
                         </Modal>
 
+                        <Modal
+                            size="xl"
+                            aria-labelledby="contained-modal-title-vcenter"
+                            centered
+                            show={this.state.showModalEditar}
+                            onHide={() => { this.onHideEditar() }
+                            }
+                        >
+                            <Modal.Header closeButton>
+                                <Modal.Title id="example-custom-modal-styling-title">
+                                    Información de Contacto
+                                </Modal.Title>
+                                {/*ALERTA*/}
 
+                            </Modal.Header>
+
+                            <Modal.Body>
+                                <Formulario cliente={this.state.clienteSeleccionado} proceso={2}></Formulario>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button color="secondary" onClick={() => this.onHideEditar()}>
+                                    Cerrar
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
                         <Modal
                             size="lg"
                             aria-labelledby="contained-modal-title-vcenter"

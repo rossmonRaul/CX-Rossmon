@@ -8,7 +8,7 @@ import { ObtenerServicioLineaNegocio, ObtenerServicioLineaNegocioPorId } from '.
 import { ObtenerCanales} from '../../servicios/ServicioCanales';
 import { ObtenerCategorias } from '../../servicios/ServicioCategorias';
 import { ObtenerSocios, ObtenerSocioPorId } from '../../servicios/ServicioSocio';
-import { AgregarCliente, ObtenerClientes } from '../../servicios/ServicioCliente';
+import { AgregarCliente, ObtenerClientes, ActualizarCliente } from '../../servicios/ServicioCliente';
 import { InputPhone } from '../components_forms/inputs'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
@@ -19,42 +19,49 @@ export class Formulario extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            proceso: props.proceso === 2 ? 2 : 1,
+            cliente: props.cliente ? props.cliente :null,
             usuario: 'SISTEMA',
             consecutivo: '',
             listaFasesCJ: [],
-            faseCJ:'',
-            codigoCliente: '',
-            nombreCliente: '',
+            faseCJ:props.proceso===2?props.cliente.idFaseCJ:'',
+            codigoCliente: props.proceso === 2 ? props.cliente.idClienteEncuesta : '',
+            nombreCliente: props.proceso === 2 ? props.cliente.nombre : '',
             sectores: [],
-            sector:'',
+            sector: props.proceso === 2 ? props.cliente.sector : '',
             segmentos: [],
-            segmento:'',
+            segmento: props.proceso === 2 ? props.cliente.idSegmento : '',
             segmentosFiltrados: [],
             categorias: [],
-            categoria: '',
+            categoria: props.proceso === 2 ? props.cliente.idCategoria : '',
             lineasNegocio: [],
-            lineaNegocio: '',
+            lineaNegocio: props.proceso === 2 ? props.cliente.idLinea : '',
             servicios: [],
-            servicio:'',
+            servicio: props.proceso === 2 ? props.cliente.idServicio : '',
             serviciosFiltrados:[],
             socios: [],
-            socio:'',
+            socio: props.proceso === 2 ? props.cliente.idSocio : '',
             canales: [],
-            canal: '',
-            telefonoContacto: '',
+            canal: props.proceso === 2 ? props.cliente.idCanal : '',
+            telefonoContacto: props.proceso === 2 ? "506"+props.cliente.telefono: '',
             celularContacto: '',
-            correoContacto: '',
-            codigoSocio: '',
-            nombreSocio: '',
-            telefonoSocio: '',
+            correoContacto: props.proceso === 2 ? props.cliente.correoElectronico : '',
+            codigoSocio: props.proceso === 2 ? props.cliente.idSocio: '',
+            nombreSocio: props.proceso === 2 ? props.cliente.socio: '',
+            telefonoSocio: props.proceso === 2 ? props.cliente.telefonoSocio : '',
             celularSocio: '',
-            correoSocio: '',
-            fecha:'',
+            correoSocio: props.proceso === 2 ? props.cliente.correoSocio: '',
+            fecha: '',
+            paso1: true,
+            paso2: false,
+            paso3:false,
 
         }
     }
     async componentDidMount() {
 
+        console.log(this.state.proceso)
+        console.log(this.state.cliente)
         this.setState({ fecha: new Date().toISOString().substring(0, 10) })  ;
         await this.ObtenerListadoSocios();
         await this.ObtenerListaServicios();
@@ -64,7 +71,14 @@ export class Formulario extends Component {
         await this.ObtenerListaSectores();
         await this.ObtenerListadoCategorias();
         await this.ObtenerListadoCanales();
-        await this.ObtenerListadoClientes();
+
+        if (this.state.proceso === 1) {
+            await this.ObtenerListadoClientes();
+        } else {
+            this.setState({ segmentosFiltrados: this.state.segmentos.filter(segmento => segmento.sector == this.state.sector) });
+            this.setState({ serviciosFiltrados: this.state.servicios.filter(servicio => servicio.idLinea == this.state.lineaNegocio) }); 
+        }
+        
     }
 
     async ObtenerListadoClientes() {
@@ -109,26 +123,45 @@ export class Formulario extends Component {
    
     AgregarCliente = async (e) => {
         e.preventDefault();
-        var datos = {
-            Nombre: this.state.nombreCliente,
-            Telefono: this.state.telefonoContacto,
-            CorreoElectronico: this.state.correoContacto,
-            IdCanal: parseInt(this.state.canal),
-            IdSegmento: parseInt(this.state.segmento),
-            IdCategoria: parseInt(this.state.categoria),
-            IdServicio: parseInt(this.state.servicio),
-            IdFaseCJ: parseInt(this.state.faseCJ),
-            IdSocio: parseInt(this.state.codigoSocio),
-        };
-        if (datos.Telefono === '') {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Número de teléfono inválido',
-            });
+        if (this.state.paso1) {
+            this.setState({ paso1: false, paso2: true })
+            return;
         }
+        if (this.state.paso2) {
+            this.setState({ paso2: false, paso3: true })
+            return;
+        }
+        if (this.state.paso3) {
+            var datos = {
+                IdClienteEncuesta: parseInt(this.state.codigoCliente),
+                Nombre: this.state.nombreCliente,
+                Telefono: this.state.telefonoContacto,
+                CorreoElectronico: this.state.correoContacto,
+                IdCanal: parseInt(this.state.canal),
+                IdSegmento: parseInt(this.state.segmento),
+                IdCategoria: parseInt(this.state.categoria),
+                IdServicio: parseInt(this.state.servicio),
+                IdFaseCJ: parseInt(this.state.faseCJ),
+                IdSocio: parseInt(this.state.codigoSocio),
+            };
+            if (datos.Telefono === '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Número de teléfono inválido',
+                });
+            }
             else {
-                const result = await AgregarCliente(datos);
+
+                var result;
+
+                if (this.state.proceso === 1) {
+                    result = await AgregarCliente(datos);
+                } else {
+                    result = await ActualizarCliente(datos);
+                }
+                
+
                 if (result.indicador !== 0) {
                     Swal.fire({
                         icon: 'error',
@@ -142,30 +175,32 @@ export class Formulario extends Component {
                         showConfirmButton: false,
                         timer: 1500
                     });
-                    document.getElementById("nombreCliente").focus();
-                    this.setState({
-                        faseCJ: '',
-                        codigoCliente: this.state.codigoCliente+1,
-                        nombreCliente: '',
-                        sector: '',
-                        segmento: '',
-                        categoria: '',
-                        lineaNegocio: '',
-                        servicio: '',
-                        socio: '',
-                        canal: '',
-                        telefonoContacto: '',
-                        correoContacto: '',
-                        codigoSocio: '',
-                        nombreSocio: '',
-                        telefonoSocio: '',
-                        celularSocio: '',
-                        correoSocio: '',
-                    })
+                    if (this.state.proceso === 1) {
+                        this.setState({
+                            faseCJ: '',
+                            codigoCliente: this.state.codigoCliente + 1,
+                            nombreCliente: '',
+                            sector: '',
+                            segmento: '',
+                            categoria: '',
+                            lineaNegocio: '',
+                            servicio: '',
+                            socio: '',
+                            canal: '',
+                            telefonoContacto: '',
+                            correoContacto: '',
+                            codigoSocio: '',
+                            nombreSocio: '',
+                            telefonoSocio: '',
+                            celularSocio: '',
+                            correoSocio: '',
+                        });
+
+                    }
+                    this.setState({ paso3: false, paso1: true })
                 }
             }
-        
-        
+        }
     }
     //onchange inputs
     onChangeUsuario = (e) => {
@@ -198,6 +233,11 @@ export class Formulario extends Component {
     onChangeCodigoSocio = (e) => {
         this.setState({ codigoSocio: e.target.value });
     }
+
+    onChangePaso = (e) => {
+        this.setState({ paso: e.target.value });
+    }
+
    
     onChangeSector = (e) => {
         if (e.target.value != '') {
@@ -249,12 +289,11 @@ export class Formulario extends Component {
     render() {
         return (
 
-            <main>
 
-                <div class="row-full">Clientes </div>
-                <Form onSubmit={this.AgregarCliente} >
-                <div className="wrapper">
-                    
+            <Form onSubmit={this.AgregarCliente} >
+
+                {/* }<div className="wrapper">
+
                     <div className="form_container">
                         <div className="form_wrap fullname2">
                             <h1 className="heading2">Recopilación de datos de clientes a encuestar</h1>
@@ -263,14 +302,13 @@ export class Formulario extends Component {
                             <div className="form_item">
 
                                 <label className="etiquetas">Nombre de usuario</label>
-                                {/*    <input type="text" name="nom_usuario" onChange={(e) => setNomUsuario(e.target.value)} />*/}
-                                <input type="text" name="nom_usuario" value={this.state.usuario} onChange={this.onChangeUsuario} />
+                                <Form.Control readOnly value={this.state.usuario} type="text" />
                             </div>
 
                             <div className="form_item">
 
                                 <label className="etiquetas">Consecutivo #</label>
-                                <input readOnly type="text" name="Consecutivo"  />
+                                <input readOnly type="text" name="Consecutivo" />
 
                             </div>
 
@@ -282,169 +320,179 @@ export class Formulario extends Component {
                             <div class="form_item">
 
                                 <label className="etiquetas">Fecha</label>
-                                    <Form.Control readOnly value={this.state.fecha} type="date"/>
+                                <Form.Control readOnly value={this.state.fecha} type="date" />
                             </div>
 
                         </div>
                     </div>
                 </div>
+                */}
 
-                <div className="wrapper">
+                {this.state.paso1 ?
+                    <div className="wrapper">
 
-                    <div className="form_container">
-                        <div className="form_wrap fullname2">
-                            <h1 className="heading2">Datos del cliente</h1>
-                        </div>
-                        <div className="form_wrap fullname">
-                            <div className="form_item">
+                        <div className="form_container">
+                            <div className="form_wrap fullname2">
+                                <h1 className="heading2">Datos del cliente</h1>
+                            </div>
+                            <div className="form_wrap fullname">
+                                <div className="form_item">
 
-                                <label class="etiquetas">Código cliente</label>
+                                    <label class="etiquetas">Código cliente</label>
                                     <Form.Control readOnly value={this.state.codigoCliente} type="text" />
-                            </div>
+                                </div>
 
-                            <div className="form_item">
+                                <div className="form_item">
 
-                                <label className="etiquetas">Nombre cliente</label>
+                                    <label className="etiquetas">Nombre cliente</label>
                                     <Form.Control id="nombreCliente" required value={this.state.nombreCliente} onChange={this.onChangeNombreCliente} type="text" placeholder="Ingrese el nombre del cliente" />
+                                </div>
+
                             </div>
 
-                        </div>
+                            <div className="form_wrap fullname">
+                                <div className="form_item">
 
-                        <div className="form_wrap fullname">
-                            <div className="form_item">
+                                    <label className="etiquetas">Sector económico</label>
 
-                                <label className="etiquetas">Sector económico</label>
+                                    <Form.Select required value={this.state.sector} onChange={this.onChangeSector}>
+                                        <option disabled value=''> -- Seleccione un Sector -- </option>
+                                        {
+                                            this.state.sectores.map(index => <option value={index.sector}>{index.sector}</option>
+                                            )};
+                                    </Form.Select>
+                                </div>
 
-                                <Form.Select required value={this.state.sector} onChange={this.onChangeSector}>
-                                    <option disabled value=''> -- Seleccione un Sector -- </option>
-                                    {
-                                        this.state.sectores.map(index => <option value={index.sector}>{index.sector}</option>
-                                        )};
-                                </Form.Select>
-                            </div>
+                                <div className="form_item">
 
-                            <div className="form_item">
-
-                                <label className="etiquetas">Segmento</label>
+                                    <label className="etiquetas">Segmento</label>
                                     <Form.Select required value={this.state.segmento} onChange={this.onChangeSegmento} id="" class=" " name="segmento">
-                                    <option disabled value=''> -- Seleccione un Segmento -- </option>
-                                    {
-                                        this.state.segmentosFiltrados.map(index => <option key={index.idSegmento} value={index.idSegmento}>{index.segmento}</option>
-                                        )};
-                                </Form.Select>
-                                
+                                        <option disabled value=''> -- Seleccione un Segmento -- </option>
+                                        {
+                                            this.state.segmentosFiltrados.map(index => <option key={index.idSegmento} value={index.idSegmento}>{index.segmento}</option>
+                                            )};
+                                    </Form.Select>
+
+                                </div>
+
                             </div>
+                            <div className="form_wrap fullname">
+                                <div className="form_item">
 
-                        </div>
-                        <div className="form_wrap fullname">
-                            <div className="form_item">
-
-                                <label className="etiquetas">Categoría</label>
+                                    <label className="etiquetas">Categoría</label>
 
                                     <Form.Select required value={this.state.categoria} onChange={this.onChangeCategoria} id="slAeropuerto" class=" " name="categoria" >
-                                    <option disabled value=''> -- Seleccione una Categoría -- </option>
-                                    {
-                                        this.state.categorias.map(index => <option key={index.idCategoria} value={index.idCategoria}>{index.categoria}</option>
-                                        )};
-                                </Form.Select>
+                                        <option disabled value=''> -- Seleccione una Categoría -- </option>
+                                        {
+                                            this.state.categorias.map(index => <option key={index.idCategoria} value={index.idCategoria}>{index.categoria}</option>
+                                            )};
+                                    </Form.Select>
 
-                            </div>
+                                </div>
 
-                            <div className="form_item">
+                                <div className="form_item">
 
-                                <label className="etiquetas">Línea de negocio</label>
+                                    <label className="etiquetas">Línea de negocio</label>
                                     <Form.Select required value={this.state.lineaNegocio} onChange={this.onChangeLineaNegocio} id="" class=" " name="linea_negocio" >
-                                    <option disabled value=''> -- Seleccione una Línea de Negocio -- </option>
-                                    {
-                                        this.state.lineasNegocio.map(index => <option key={index.idLinea} value={index.idLinea}>{index.lineaNegocio}</option>
-                                        )};
-                                </Form.Select>
+                                        <option disabled value=''> -- Seleccione una Línea de Negocio -- </option>
+                                        {
+                                            this.state.lineasNegocio.map(index => <option key={index.idLinea} value={index.idLinea}>{index.lineaNegocio}</option>
+                                            )};
+                                    </Form.Select>
+
+                                </div>
 
                             </div>
+                            <div className="form_wrap fullname">
+                                <div className="form_item">
 
-                        </div>
-                        <div className="form_wrap fullname">
-                            <div className="form_item">
+                                    <label className="etiquetas">Servicios y productos</label>
+                                    <Form.Select required value={this.state.servicio} required onChange={this.onChangeServicio} id="" class=" " name="servicio">
+                                        <option disabled value=''>-- Seleccione un Servicio--</option>
+                                        {
+                                            this.state.serviciosFiltrados.map(index => <option key={index.idServicio} value={index.idServicio}>{index.servicio}</option>
+                                            )};
+                                    </Form.Select>
 
-                                <label className="etiquetas">Servicios y productos</label>
-                                    <Form.Select required value={ this.state.servicio} required onChange={this.onChangeServicio} id="" class=" " name="servicio">
-                                    <option disabled value=''>-- Seleccione un Servicio--</option>
-                                    {
-                                        this.state.serviciosFiltrados.map(index => <option key={index.idServicio} value={index.idServicio}>{index.servicio}</option>
-                                        )};
-                                </Form.Select>
+                                </div>
+                                <div className="form_item">
 
-                            </div>
-                            <div className="form_item">
-
-                                <label className="etiquetas">Fase de servicio</label>
+                                    <label className="etiquetas">Fase de servicio</label>
 
                                     <Form.Select required value={this.state.faseCJ} onChange={this.onChangeFaseServicio} id="" class=" " name="face_servicio" >
-                                    <option disabled value=''> -- Seleccione una Fase de Servicio -- </option>
-                                    {this.state.listaFasesCJ.map(index => <option key={index.id} value={index.idFaseCJ}>{index.faseCustomerJourney}</option>
-                                    )};
-                                </Form.Select>
+                                        <option disabled value=''> -- Seleccione una Fase de Servicio -- </option>
+                                        {this.state.listaFasesCJ.map(index => <option key={index.id} value={index.idFaseCJ}>{index.faseCustomerJourney}</option>
+                                        )};
+                                    </Form.Select>
+
+                                </div>
+
 
                             </div>
+                            <div className="centerButtons">
+                                <button id="btnGuardar" type="submit" className="btn btn-block botones mr-1">Siguiente</button>
 
-
+                            </div>
                         </div>
+
                     </div>
-                </div>
+                    :
+                    null
+                }
+                {
+                    this.state.paso2 ? <div className="wrapper">
 
-                <div className="wrapper">
+                        <div className="form_container">
+                            <div className="form_wrap fullname2">
+                                <h1 className="heading2">Datos de contacto</h1>
+                            </div>
+                            <div className="form_wrap fullname">
+                                <div className="form_item">
 
-                    <div className="form_container">
-                        <div className="form_wrap fullname2">
-                            <h1 className="heading2">Datos de contacto</h1>
-                        </div>
-                        <div className="form_wrap fullname">
-                            <div className="form_item">
-
-                                <label class="etiquetas">Nombre del contacto</label>
+                                    <label class="etiquetas">Nombre del contacto</label>
                                     <Form.Control value={this.state.nombreCliente} onChange={this.onChangeNombreCliente} type="text" placeholder="Ingrese el nombre de contacto" />
+                                </div>
+
+                                <div className="form_item">
+
+                                    <label className="etiquetas">Canal encuesta</label>
+
+                                    <Form.Select required value={this.state.canal} onChange={this.onChangeCanal} id="" class=" " name="canal">
+                                        <option disabled value=''> -- Seleccione un Canal -- </option>
+                                        {
+                                            this.state.canales.map(index => <option key={index.idCanal} value={index.idCanal}>{index.canal}</option>
+                                            )};
+                                    </Form.Select>
+
+                                </div>
+
                             </div>
 
-                            <div className="form_item">
-
-                                <label className="etiquetas">Canal encuesta</label>
-                                
-                                    <Form.Select required value={ this.state.canal} onChange={this.onChangeCanal} id="" class=" " name="canal">
-                                    <option disabled value=''> -- Seleccione un Canal -- </option>
-                                    {
-                                    this.state.canales.map(index => <option key={index.idCanal} value={index.idCanal}>{index.canal}</option>
-                                    )};
-                                </Form.Select>
-
-                            </div>
-
-                        </div>
-
-                        <div className="form_wrap fullname">
-                            <div className="form_item">
+                            <div className="form_wrap fullname">
+                                <div className="form_item">
 
                                     <label id="labelTelefono" className="etiquetas">Teléfono</label>
                                     <Form.Control hidden type='text' size="sm" value={this.state.telefonoContacto} required readOnly disabled />
                                     <Form.Control.Feedback type="invalid">ES NECESARIO</Form.Control.Feedback>
-                                <PhoneInput
-                                    country={'cr'}
-                                    value={this.state.telefonoContacto}
-                                        onChange={phone => this.setState({telefonoContacto: phone})
-                                    }
+                                    <PhoneInput
+                                        country={'cr'}
+                                        value={this.state.telefonoContacto}
+                                        onChange={phone => this.setState({ telefonoContacto: phone })
+                                        }
                                         required={true}
 
                                         isValid={(value, country) => {
-                                            if (value.length<8) {
+                                            if (value.length < 8) {
                                                 return 'Teléfono Inválido: ';
                                             } else {
                                                 return true;
                                             }
                                         }}
-                                    inputProps={{
-                                        name: 'phone',
-                                        required: true,
-                                    }} />
-                            </div>
+                                        inputProps={{
+                                            name: 'phone',
+                                            required: true,
+                                        }} />
+                                </div>
                                 <div className="form_item">
 
                                     <label className="etiquetas">Correo</label>
@@ -453,80 +501,90 @@ export class Formulario extends Component {
                                         No compartiremos el correo electrónico con nadie más.
                                     </Form.Text>
                                 </div>
-                        </div>
+                            </div>
 
+                            <div className="centerButtons">
+                                <button id="btnSalir" type="button" className="btn btn-block botonesr  " onClick={() => { this.setState({ paso2: false }); this.setState({ paso1: true }) }}>Atrás</button>
+                                <button id="btnGuardar" type="submit" className="btn btn-block botones mr-1">Siguiente</button>
+
+                            </div>
+                        </div>
 
                     </div>
-                </div>
-
-                <div className="wrapper">
-
-                    <div className="form_container">
-                        <div className="form_wrap fullname2">
-                            <h1 className="heading2">Datos del socio</h1>
-                        </div>
-                        <div className="form_wrap fullname">
+                        :
+                        null
+                }
+                
 
 
-                            <div className="form_item">
 
-                                <label className="etiquetas">Nombre del socio</label>
-                                <Form.Select required value={this.state.codigoSocio} onChange={this.onChangeSocio} id="" class=" " name="socio">
-                                    <option required disabled value=''> -- Seleccione un Socio -- </option>
-                                    {
-                                    this.state.socios.map(index => <option key={index.idSocio} value={index.idSocio}>{index.idSocio+" "+index.nombre }</option>
-                                    )};
-                                </Form.Select>
+                
+                {
+                    this.state.paso3? <div className="wrapper">
 
+                        <div className="form_container">
+                            <div className="form_wrap fullname2">
+                                <h1 className="heading2">Datos del socio</h1>
                             </div>
-                            <div className="form_item">
+                            <div className="form_wrap fullname">
 
-                                <label class="etiquetas">Código del socio</label>
-                                    <Form.Control readOnly value={this.state.codigoSocio} type="text" placeholder="Seleccione un Socio"  />
+
+                                <div className="form_item">
+
+                                    <label className="etiquetas">Nombre del socio</label>
+                                    <Form.Select required value={this.state.codigoSocio} onChange={this.onChangeSocio} id="" class=" " name="socio">
+                                        <option required disabled value=''> -- Seleccione un Socio -- </option>
+                                        {
+                                            this.state.socios.map(index => <option key={index.idSocio} value={index.idSocio}>{index.idSocio + " " + index.nombre}</option>
+                                            )};
+                                    </Form.Select>
+
+                                </div>
+                                <div className="form_item">
+
+                                    <label class="etiquetas">Código del socio</label>
+                                    <Form.Control readOnly value={this.state.codigoSocio} type="text" placeholder="Seleccione un Socio" />
+                                </div>
                             </div>
 
-                        </div>
+                            <div className="form_wrap fullname">
+                                <div className="form_item">
 
-                        <div className="form_wrap fullname">
-                            <div className="form_item">
+                                    <label className="etiquetas">Teléfono</label>
 
-                                <label className="etiquetas">Teléfono</label>
 
-                                   
                                     <PhoneInput
                                         country={'cr'}
                                         value={this.state.telefonoSocio}
                                         disabled={true}
-                                        
+
                                         inputProps={{
                                             name: 'phone',
                                         }} />
-                            </div>
-                            <div className="form_item">
+                                </div>
+                                <div className="form_item">
 
-                                <label className="etiquetas">Correo</label>
+                                    <label className="etiquetas">Correo</label>
                                     <Form.Control readOnly value={this.state.correoSocio} placeholder="Seleccione un Socio" type="email" />
+                                </div>
+
+                            </div>
+                            <div className="centerButtons">
+                                <button id="btnSalir" type="button" className="btn btn-block botonesr " onClick={() => { this.setState({ paso3: false }); this.setState({ paso2: true }) }}>Atrás</button>
+                                <button id="btnGuardar" type="submit" className="btn btn-block botones mr-1"  >Guardar</button>
+
                             </div>
                         </div>
 
                     </div>
-
-                </div>
-                    <div className="centerButtons">
-                        <button id="btnGuardar" type="submit" className="btn btn-block botones mr-1"  >Guardar</button>
-                        <button id="btnSalir" type="button" className="btn btn-block botonesr ">Salir</button>
-                    </div>
+                        :
+                        null
+                }
+                
 
                 </Form>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-            </main>
 
         );
     }
 }
-
+export default Formulario

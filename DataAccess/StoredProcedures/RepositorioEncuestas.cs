@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dominio.Interfaces.Infraestructura.BaseDatos;
+using System.IO;
+using System.Security.Cryptography;
 
 namespace DataAccess.StoredProcedures
 {
@@ -84,6 +86,7 @@ namespace DataAccess.StoredProcedures
 
         public async Task<DtoEncuesta> ObtenerEncuestaPorId(int idEncuesta)
         {
+
             try
             {
                 Dictionary<string, object> data = new Dictionary<string, object>();
@@ -97,9 +100,83 @@ namespace DataAccess.StoredProcedures
                 throw;
             }
         }
+        public async Task<bool> ValidarToken(string token)
+        {
+            try
+            {
+                Dictionary<string, object> data = new Dictionary<string, object>();
+                data.Add("Token", token);
+                string query = "SPObtenerToken";
 
+
+                var token_= await this.contextoBD.ObtenerDato<DtoToken>(query, data);
+               if (token_== null) { 
+
+                    System.Diagnostics.Debug.WriteLine("El token no existe"); 
+                    return false; 
+                
+                } else
+                
+                {
+                    System.Diagnostics.Debug.WriteLine("El token existe");
+                    System.Diagnostics.Debug.WriteLine(token_.Token);
+
+                    string desEncryptionKey = "proyectocxitrossmon2023";
+                    token = token.Replace('-', '/');
+                    token = token.Replace('!', '+');
+                    byte[] cipherBytes = Convert.FromBase64String(token);
+                    using (Aes encryptor = Aes.Create())
+                    {
+                        Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(desEncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                        encryptor.Key = pdb.GetBytes(32);
+                        encryptor.IV = pdb.GetBytes(16);
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
+                            {
+                                cs.Write(cipherBytes, 0, cipherBytes.Length);
+                                cs.Close();
+                            }
+                            token = Encoding.Unicode.GetString(ms.ToArray());
+                        }
+                    }
+
+
+                    byte[] data_ = Convert.FromBase64String(token);
+                    System.Diagnostics.Debug.WriteLine(token);
+                    DateTime when = DateTime.FromBinary(BitConverter.ToInt64(data_, 0));
+                    if (when < DateTime.UtcNow.AddHours(-24))
+                    {
+                        System.Diagnostics.Debug.WriteLine("Too Old");
+                        System.Diagnostics.Debug.WriteLine(when);
+                        return false;
+                    }
+                    else
+                    {
+
+                        System.Diagnostics.Debug.WriteLine("Okay");
+                        System.Diagnostics.Debug.WriteLine(when);
+                        return true;
+                    }
+                }
+
+                
+
+               
+               
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         public async Task<List<DtoEncuesta>> ObtenerEncuestas()
         {
+
+
+            await this.ValidarToken("m7asfoRHArnTgz1LdUcqC2D6vhHPs-XM6jISdDIU15A1Q4gV4rIXxiIxtSJg8Suvbo-T5IzXpvEtI-8g9AEGQ0e-0XgxelLl4OixXgoYavZY=");
+
             try
             {
                 string query = "SPObtenerEncuestas";
@@ -158,10 +235,12 @@ namespace DataAccess.StoredProcedures
                         token = Convert.ToBase64String(ms.ToArray());
                     }
                 }
+                token = token.Replace('/', '-');
                 token=token.Replace('+', '!');
                 System.Diagnostics.Debug.WriteLine(token);
 
                 //decrypt
+                token = token.Replace('-', '/');
                 token = token.Replace('!', '+');
                 byte[] cipherBytes = Convert.FromBase64String(token);
                 using (Aes encryptor = Aes.Create())

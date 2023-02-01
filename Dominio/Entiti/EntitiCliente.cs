@@ -6,7 +6,7 @@ namespace Dominio.Entiti
 {
     public class EntitiCliente
     {
-        public int IdCliente { get; set; }
+        public int IdClienteEncuesta { get; set; }
         public string Nombre { get; set; }
         public string Telefono { get; set; }
         public string CorreoElectronico { get; set; }
