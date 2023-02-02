@@ -29,3 +29,8 @@ export const ObtenerEncuestaPorId = async (id) => {
     const url = `${controlador}/ObtenerEncuestaPorID/${id}`;
     return await ProcesarDatosApi('GET', url);
 }
+
+export const ValidarToken = async (token) => {
+    const url = `${controlador}/ValidarToken/${token}`;
+    return await ProcesarDatosApi('GET', url);
+}

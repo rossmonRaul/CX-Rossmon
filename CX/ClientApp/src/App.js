@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Route } from 'react-router';
+import React, { Component, useEffect, useState } from 'react';
+import { Route, Redirect } from 'react-router';
 import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import FormularioPreguntas from './components/contacto_encuestas/FormularioPreguntas';
@@ -61,7 +61,7 @@ import { CatalogoTipoContactoEncuesta } from './components/clientes/CatalogoTipo
 import { CatalogoTipoInteraccion } from './components/clientes/CatalogoTipoInteraccion';
 import { CatalogoTipoPerspectivas } from './components/clientes/CatalogoTipoPerspectivas';
 import { CatalogoTipoIdentificacion } from './components/clientes/CatalogoTipoIdentificacion';
-
+import {ValidarToken } from './servicios/ServicioEncuesta'
 
 //import axios from 'axios'
 import './custom.css'
@@ -69,7 +69,24 @@ import './custom.css'
 
 export default class App extends Component {
     static displayName = App.name;
-    User = ({ match }) => <FormularioPreguntas token={match.params.token} tituloEncuesta={1} idEncuesta={match.params.idEncuesta} />
+
+
+    Encuesta = ({ match }) => { 
+
+        const [validated, setValidated] = useState(false);
+
+        useEffect(() => {
+            async function VerificarToken() {
+                const token = await ValidarToken(match.params.token);
+                setValidated(token);
+            }
+            VerificarToken();
+        }, [])
+
+
+        return validated ? <FormularioPreguntas token={match.params.token} tituloEncuesta={1} idEncuesta={match.params.idEncuesta} /> : <Home />
+
+    } 
 
     render() {
         return (
@@ -103,7 +120,7 @@ export default class App extends Component {
                     <Route path='/CatalogoTipoPerspectivas' component={CatalogoTipoPerspectivas} />
                     <Route path='/CatalogoTipoIdentificacion' component={CatalogoTipoIdentificacion} />
                     
-                    <Route path="/encuesta/:idEncuesta/token/:token" component={this.User} />
+                    <Route path="/encuesta/:idEncuesta/token/:token" component={this.Encuesta} />
                     
 
                     {/*Hallazgos*/}
