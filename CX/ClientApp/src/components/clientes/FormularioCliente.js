@@ -46,7 +46,7 @@ export class Formulario extends Component {
             socio: props.proceso === 2 ? props.cliente.idSocio : '',
             canales: [],
             canal: props.proceso === 2 ? props.cliente.idCanal : '',
-            telefonoContacto: props.proceso === 2 ? "506" + props.cliente.telefono : '',
+            telefonoContacto: props.proceso === 2 ? props.cliente.telefono : '',
             celularContacto: '',
             correoContacto: props.proceso === 2 ? props.cliente.correoElectronico : '',
             codigoSocio: props.proceso === 2 ? props.cliente.idSocio : '',
@@ -148,14 +148,7 @@ export class Formulario extends Component {
                 IdFaseCJ: parseInt(this.state.faseCJ),
                 IdSocio: parseInt(this.state.codigoSocio),
             };
-            if (datos.Telefono === '') {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Número de teléfono inválido',
-                });
-            }
-            else {
+
 
                 var result;
 
@@ -166,12 +159,17 @@ export class Formulario extends Component {
                 }
 
 
-                if (result.indicador !== 0) {
+            if (result.indicador !== 0) {
+
+                if (result.indicador == 355) {
+                    this.setState({paso2:true,paso3:false});
+                }
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
                         text: result.mensaje,
                     });
+
                 } else {
                     Swal.fire({
                         icon: 'success',
@@ -202,8 +200,7 @@ export class Formulario extends Component {
 
                     }
                     this.setState({ paso3: false, paso1: true })
-                }
-            }
+                }     
         }
     }
     //onchange inputs
@@ -474,26 +471,46 @@ export class Formulario extends Component {
                                 <div className="form_item">
 
                                     <label id="labelTelefono" className="etiquetas">Teléfono</label>
-                                    <Form.Control hidden type='text' size="sm" value={this.state.telefonoContacto} required readOnly disabled />
-                                    <Form.Control.Feedback type="invalid">ES NECESARIO</Form.Control.Feedback>
-                                    <PhoneInput
-                                        country={'cr'}
-                                        value={this.state.telefonoContacto}
-                                        onChange={phone => this.setState({ telefonoContacto: phone })
-                                        }
-                                        required={true}
+                                    {
+                                        this.state.proceso == 1 ?
+                                            <PhoneInput
+                                                country={'cr'}
+                                                value={this.state.telefonoContacto}
+                                                onChange={phone => this.setState({ telefonoContacto: phone })
+                                                }
+                                                required={true}
 
-                                        isValid={(value, country) => {
-                                            if (value.length < 8) {
-                                                return 'Teléfono Inválido: ';
-                                            } else {
-                                                return true;
-                                            }
-                                        }}
-                                        inputProps={{
-                                            name: 'phone',
-                                            required: true,
-                                        }} />
+                                                isValid={(value, country) => {
+                                                    if (value.length < 8) {
+                                                        return 'Teléfono Inválido: ';
+                                                    } else {
+                                                        return true;
+                                                    }
+                                                }}
+                                                inputProps={{
+                                                    name: 'phone',
+                                                    required: true,
+                                                }} />
+                                            :
+                                            <PhoneInput
+                                                value={this.state.telefonoContacto}
+                                                onChange={phone => this.setState({ telefonoContacto: phone })
+                                                }
+                                                required={true}
+
+                                                isValid={(value, country) => {
+                                                    if (value.length < 8) {
+                                                        return 'Teléfono Inválido: ';
+                                                    } else {
+                                                        return true;
+                                                    }
+                                                }}
+                                                inputProps={{
+                                                    name: 'phone',
+                                                    required: true,
+                                                }} />
+                                    }
+                                    
                                 </div>
                                 <div className="form_item">
 
