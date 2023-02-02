@@ -139,7 +139,7 @@ export class FormularioPreguntas extends Component {
 
     render() { 
 
-        
+
          function SurveyComponent   ({ data })  {
 
 
@@ -241,11 +241,33 @@ export class FormularioPreguntas extends Component {
              if (data.token) {
                  page.description = "Token: " + data.token;
              }
-             
+   
              survey.onComplete.add((sender, options) => {
-                 console.log(JSON.stringify(sender.data, null, 3));
-             });
+                 var prueba = new Array;
+                 var respuestas = "";
+                 for (var key in sender.data) {
+                     if (typeof sender.data[key] === 'string') {
+                         prueba.push(key);
+                         prueba.push(sender.data[key]);
+                     }
+                     else if (sender.data[key].length >= 1) {
+                         for (var key1 in sender.data[key]) {
+                             respuestas += sender.data[key][key1] + ',';
+                         }
+                         prueba.push(key);
+                         prueba.push(respuestas.slice(0, -1));
+                         respuestas = "";
+                     } else {
+                         prueba.push(key);
+                         prueba.push(sender.data[key]);
+                     }
 
+                 }
+                 console.log("Vector");
+                 console.log(prueba);
+                 //console.log(ObtenerEncuestaPorId(1));
+             });
+            
             /* "radiogroup"(seleccion unica), "text"(email, caja de texto),"dropdown(menu desplegable)", seleccion multiple(combo-box-multiple: tagbox) cajas:checkbox, estrellas "rating"
              
              */
