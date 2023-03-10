@@ -224,7 +224,7 @@ FakesAssemblies/
 **/*.Server/GeneratedArtifacts
 **/*.Server/ModelManifest.xml
 _Pvt_Extensions
-CX/appsettings.json
+TC/appsettings.json
 # Paket dependency manager
 .paket/paket.exe
 

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dominio.Interfaces.Aplicacion.TipoContactoEncuesta;
 
-namespace CX.Controllers
+namespace TC.Controllers
 {
     [Route("{controller}")]
     [ApiController]

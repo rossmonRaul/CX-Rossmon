@@ -7,7 +7,7 @@ using Dominio.Entiti;
 using Dominio.Interfaces.Aplicacion.ServicioSocio;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CX.Controllers
+namespace TC.Controllers
 {
     [Route("{controller}")]
     [ApiController]

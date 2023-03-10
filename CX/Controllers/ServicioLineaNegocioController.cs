@@ -6,7 +6,7 @@ using Dominio.Entiti;
 using Dominio.Interfaces.Aplicacion.ServicioLineaNegocio;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CX.Controllers
+namespace TC.Controllers
 {
     [Route("{controller}")]
     [ApiController]

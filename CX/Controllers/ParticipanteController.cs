@@ -4,7 +4,7 @@ using Dominio.Interfaces.Aplicacion.ParticipantesEquipoTrabajo;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace CX.Controllers
+namespace TC.Controllers
 {
     [Route("{controller}")]
     [ApiController]

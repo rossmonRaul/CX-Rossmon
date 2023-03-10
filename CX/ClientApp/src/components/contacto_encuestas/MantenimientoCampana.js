@@ -117,7 +117,7 @@ export class MantenimientoCampana extends Component {
                                 <th>Fecha de aplicación</th>
                                 <th>Descripción</th>
                                 <th>Dirección</th>
-                                <th>Fase CX</th>
+                                <th>Fase TC</th>
                                 <th>Contacto</th>
                                 <th>Encuesta</th>
                                 <th>Estado</th>
