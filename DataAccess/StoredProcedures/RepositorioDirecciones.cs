@@ -46,6 +46,7 @@ namespace DataAccess.StoredProcedures
             {
                 Dictionary<string, object> data = new Dictionary<string, object>();
 
+                data.Add("IdDireccion", entitiDirecciones.IdDireccion);
                 data.Add("Codigo", entitiDirecciones.Codigo);
                 data.Add("Direccion", entitiDirecciones.Direccion);
                 string query = "SPActualizarDireccion";

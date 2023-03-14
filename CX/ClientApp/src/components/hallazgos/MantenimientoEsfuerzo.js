@@ -133,6 +133,7 @@ export class MantenimientoEsfuerzo extends Component {
         this.setState({ modalTitulo: "Actualizar grado esfuerzo" });
     }
 
+
     body = () => {
         return this.state.gradosEsfuerzo.map((item, index) => (
             <tr key={index}>
@@ -152,6 +153,7 @@ export class MantenimientoEsfuerzo extends Component {
                     </Button>
                 </td>
             </tr>
+
         ))
     }
 

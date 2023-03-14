@@ -22,7 +22,7 @@ export class MantenimientoEstadoHallazgo extends Component {
         super(props);
         this.state = {
             listaEstadoHallazgo: [],
-            cabeceras: ["Id Estado ", "Codigo", "Estado de Hallazgo", "Estado", "Acciones"],
+            cabeceras: ["Id Estado ", "Estado de Hallazgo", "Estado", "Acciones"],
             pendiente: false,
             data: {},
             modal: false,
@@ -126,7 +126,7 @@ export class MantenimientoEstadoHallazgo extends Component {
         return this.state.listaEstadoHallazgo.map((item, index) => (
             <tr key={index}>
                 <td>{item.idEstadoHallazgo}</td>
-                <td>{item.codigo}</td>
+               {/* <td>{item.codigo}</td>*/}
                 <td>{item.estadoHallazgo}</td>
 
 

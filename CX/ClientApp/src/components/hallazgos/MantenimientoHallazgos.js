@@ -578,44 +578,44 @@ export class MantenimientoHallazgos extends Component {
 
 
 
-                        <Row>
-                            <Col md={12}>
+                        {/*<Row>*/}
+                        {/*    <Col md={12}>*/}
 
-                                <h6 className="heading3">Detalle por Dirección y Responsable</h6>
-                                <Input
-                                    value={this.state.descripcionGeneralResponsable}
-                                    id="exampleText"
-                                    name="text"
-                                    type="text"
-                                />
-                            </Col>
-
-
-                        </Row>
-                        <br></br>
-                        <Row>
-                            <Col md={4}>
-                                <div className="item1">
-                                    <h6 className="heading3"> Adicionado por</h6>
-                                    <input type="text" className="etiqueta" name="usuario_modificacion" value={this.state.usuarioAgrego} />
-                                    <input type="text" placeholder="" name="fecha_modificacion" value={this.state.fechaAgregado} />
+                        {/*        <h6 className="heading3">Detalle por Dirección y Responsable</h6>*/}
+                        {/*        <Input*/}
+                        {/*            value={this.state.descripcionGeneralResponsable}*/}
+                        {/*            id="exampleText"*/}
+                        {/*            name="text"*/}
+                        {/*            type="text"*/}
+                        {/*        />*/}
+                        {/*    </Col>*/}
 
 
-                                </div>
-                            </Col>
+                        {/*</Row>*/}
+                        {/*<br></br>*/}
+                        {/*<Row>*/}
+                        {/*    <Col md={4}>*/}
+                        {/*        <div className="item1">*/}
+                        {/*            <h6 className="heading3"> Adicionado por</h6>*/}
+                        {/*            <input type="text" className="etiqueta" name="usuario_modificacion" value={this.state.usuarioAgrego} />*/}
+                        {/*            <input type="text" placeholder="" name="fecha_modificacion" value={this.state.fechaAgregado} />*/}
 
-                            <Col md={4}>
-                                <div className="item1">
-                                    <h6 className="heading3">Modificado por</h6>
-                                    <input type="text" className="etiqueta" name="fecha_modificacion" value={this.state.usuarioModifica} />
-                                    <input type="text" placeholder="" name="usuario_modificacion" value={this.state.fechaModificado} />
-                                </div>
-                            </Col>
 
-                            <Col md={4}>
+                        {/*        </div>*/}
+                        {/*    </Col>*/}
 
-                            </Col>
-                        </Row>
+                        {/*    <Col md={4}>*/}
+                        {/*        <div className="item1">*/}
+                        {/*            <h6 className="heading3">Modificado por</h6>*/}
+                        {/*            <input type="text" className="etiqueta" name="fecha_modificacion" value={this.state.usuarioModifica} />*/}
+                        {/*            <input type="text" placeholder="" name="usuario_modificacion" value={this.state.fechaModificado} />*/}
+                        {/*        </div>*/}
+                        {/*    </Col>*/}
+
+                        {/*    <Col md={4}>*/}
+
+                        {/*    </Col>*/}
+                        {/*</Row>*/}
 
                     </Container >
                 </div>

@@ -28,7 +28,7 @@ namespace DataAccess.StoredProcedures
             try
             {
                 Dictionary<string, object> data = new Dictionary<string, object>();
-                data.Add("Codigo", entitiEstadoHallazgo.codigo);
+                //data.Add("Codigo", entitiEstadoHallazgo.codigo);
                 data.Add("EstadoHallazgo", entitiEstadoHallazgo.estadoHallazgo);
 
                 string query = "SPInsertarEstadoHallazgo";

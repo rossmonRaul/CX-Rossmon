@@ -27,3 +27,8 @@ export const ObtenerSegmentoPorId = async (id) => {
     return await ProcesarDatosApi('GET', url);
 }
 
+export const ObtenerSectores = async () => {
+    const url = `${controlador}/ObtenerSectores`;
+    return await ProcesarDatosApi('GET', url);
+}
+

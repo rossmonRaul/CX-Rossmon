@@ -16,7 +16,7 @@ export const Table = ({ tableHeading, body }) => {
             <table id="tbl_table_mantenimiento"
                 className="table" >
                 <thead >
-                    <tr style={{ backgroundColor: "#126677", color: "white" }}>
+                    <tr style={{ backgroundColor: "#126677", color: "white",paddingRight:"30px" }}>
                         {
                             tableHeading.map(header => {
                                 return <th>{header}</th>

@@ -142,8 +142,9 @@ main {
     border-radius: 3px;
     box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.15);
     padding: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 110px;
     font-family: 'Nunito', sans-serif;
+    overflow-x: scroll;
 }
 
 thead {

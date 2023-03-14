@@ -31,6 +31,7 @@ export class MantenimientoSegmentos extends Component {
     constructor(props) {
         super(props);
         this.state = {
+          
             segmentos: [],
             cabeceras: ["Id segmento", "Segmento", "Sector", "Estado", "Acciones"],
             pendiente: false,
@@ -140,7 +141,7 @@ export class MantenimientoSegmentos extends Component {
 
         this.setState({ show: true });
     }
-
+    
     body = () => {
 
         return this.state.segmentos.map((item, index) => (

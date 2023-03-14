@@ -1,5 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { Container, Form, Row, Col, Label, Input, Button, FormGroup } from 'reactstrap';
+
 export class MantenimientoInteracciones extends Component {
     static displayName = MantenimientoInteracciones.name;
 

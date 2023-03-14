@@ -8,6 +8,7 @@ import Modal from 'react-bootstrap/Modal';
 import { Container, Button, } from 'reactstrap';
 import { Table} from '../Table';
 import Form from 'react-bootstrap/Form';
+import  './ReporteCLiente.css';
 export class Reporte extends Component {
     static displayName = Reporte.name;
     constructor(props) {
@@ -159,7 +160,8 @@ export class Reporte extends Component {
 
                     <div class="row-full"  >Contactos</div>
 
-                    <Container>
+                    <div class="containerTable" >
+                    <Container >
 
                         <Table tableHeading={this.state.cabeceras} body={this.body()} />
 
@@ -254,7 +256,8 @@ export class Reporte extends Component {
 
 
                        
-                    </Container>
+                        </Container>
+                    </div>
                 </main>
             );
         }

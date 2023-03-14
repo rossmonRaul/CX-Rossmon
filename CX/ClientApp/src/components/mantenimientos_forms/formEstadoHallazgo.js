@@ -37,8 +37,7 @@ const Formulario = ({ labelButton, data, proceso, onClickProcesarEstadoHallazgo,
     return(
         <>
             <Form noValidate validated={validated} onSubmit={onClickAceptar}>                
-                <InputText id='txt-nombre' label='Codigo:' type='text' placeholder='Ingrese el código  del estado de Hallazgo' value={codigo}
-                    onChange={onChangeEstadoHallazgoCodigo} mensajeValidacion="El código es requerido"/>
+
                 <InputText id='txt-nombre' label='Estado Hallazgo' type='text' placeholder='Ingrese el nombre del estado de Hallazgo' value={estadoHallazgo}
                     onChange={onChangeEstadoHallazgo} mensajeValidacion="El nombre del  estado de Hallazgo es requerido" />
                 {mensaje !== "" ? <p className="text-info text-center">{mensaje}</p> : ""}
