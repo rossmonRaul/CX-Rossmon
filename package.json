@@ -1,6 +1,18 @@
 {
   "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-rating-stars-component": "^2.2.0",
+    "react-scripts": "^5.0.1",
     "survey-react": "^1.9.69"
-  }
+  },
+  "name": "cx",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

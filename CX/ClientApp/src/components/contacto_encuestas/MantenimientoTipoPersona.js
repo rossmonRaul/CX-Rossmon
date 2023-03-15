@@ -63,7 +63,7 @@ export class MantenimientoTipoPersona extends Component {
     onClickInactivarTipoPersona = async (id) => {
         const respuesta = await InactivarTipoPersona(id)
         if (respuesta.indicador === 0) {
-            await this.ObtenerListadoTiposPersona();
+            this.setState({ persona: await this.ObtenerListadoTiposPersona() });           
             this.setState({ alerta: true });
         } else {
             this.setState({ alerta: false });

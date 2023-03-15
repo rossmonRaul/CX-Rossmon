@@ -14,6 +14,7 @@ namespace Dominio.Interfaces.Infraestructura.BaseDatos
         Task<DtoEncuesta> ObtenerEncuestaPorId(int idEncuesta);
         Task<DtoRespuestaSP> EliminarEncuesta(int idEncuesta);
         Task<DtoRespuestaSP> ActualizarEncuesta(EntitiEncuesta entitiEncuesta);
+        Task<bool> ValidarToken(string token);
         Task<List<DtoEncuesta>> ObtenerEncuestasActivas();
     }
 }

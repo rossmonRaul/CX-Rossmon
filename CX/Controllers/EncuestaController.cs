@@ -39,6 +39,12 @@ namespace CX.Controllers
 
         }
 
+        [HttpGet("[action]/{token}")]
+        public async Task<bool> ValidarToken(string token)
+        {
+            return await this.servicioEncuestas.ValidarToken(token);
+        }
+
         [HttpPut("[action]")]
         public async Task<JsonResult> ActualizarEncuesta(EntitiEncuesta entitiEncuesta)
         {

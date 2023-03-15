@@ -135,9 +135,10 @@ export class MantenimientoDireccion extends Component {
     }
 
     body = () => {
-        return this.state.direcciones.map((item, index) => {
-            return <tr key={index}>
+        return this.state.direcciones.map((item, index) => (
+            <tr key={index}>
                 <td>{item.idDireccion}</td>
+
                 <td>{item.direccion}</td>
 
                 {/* COLUMNAS DE ESTADO Y BOTONES CON ESTILO*/}
@@ -153,7 +154,7 @@ export class MantenimientoDireccion extends Component {
                 </td>
             </tr>
 
-        })
+        ))
     }
 
 

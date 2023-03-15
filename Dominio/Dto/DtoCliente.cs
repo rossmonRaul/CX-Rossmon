@@ -8,7 +8,7 @@ namespace Dominio.Dto
     {
         public int IdClienteEncuesta { get; set; }
         public string Nombre { get; set; }
-        public int Telefono { get; set; }
+        public string Telefono { get; set; }
         public string CorreoElectronico { get; set; }
         public int IdCanal { get; set; }
         public string Canal { get; set; }
@@ -26,5 +26,8 @@ namespace Dominio.Dto
         public string Servicio { get; set; }
         public int IdSocio { get; set; }
         public string Socio { get; set; }
+        public string TelefonoSocio { get; set; }
+        public string CorreoSocio { get; set; }
+
     }
 }

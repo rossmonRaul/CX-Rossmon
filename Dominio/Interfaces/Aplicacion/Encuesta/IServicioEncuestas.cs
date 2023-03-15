@@ -16,9 +16,11 @@ namespace Dominio.Interfaces.Aplicacion.Encuesta
          Task<DtoRespuestaSP> ActualizarEncuesta(EntitiEncuesta entitiEncuesta);
 
          Task<DtoEncuesta> ObtenerEncuestaPorID(int idEncuesta);
-
+         Task<bool> ValidarToken(string token);
+         //Task<DtoRespuestaSP> InsertarEstatus();
          Task<DtoRespuestaSP> EliminarEncuesta(int idEncuestas);
 
          Task<List<DtoEncuesta>> ObtenerEncuestasActivas();
+
     }
 }

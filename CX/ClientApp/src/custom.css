@@ -142,8 +142,9 @@ main {
     border-radius: 3px;
     box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.15);
     padding: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 110px;
     font-family: 'Nunito', sans-serif;
+    overflow-x: scroll;
 }
 
 thead {
@@ -335,11 +336,7 @@ span .paginate_button:hover {
         background: #fff;
         padding: 30px;
         box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.15);
-        border-radius: 3px;
-        border-top: 3px solid #BDBDBD;
-        border-right: 3px solid #BDBDBD;
-        border-bottom: 3px solid #BDBDBD;
-        border-left: 3px solid #BDBDBD;
+        border-radius: 10px;
     }
 
 .wrapper2 {
@@ -421,7 +418,17 @@ span .paginate_button:hover {
     padding-left: 5vw;
     font-weight: 100;
 }
-
+.centerButtons {
+    display:flex;
+    text-align:center;
+    justify-content: center;
+}
+    .centerButtons #btnSalir {
+        margin-right: 5px;
+    }
+    .centerButtons svg {
+        width: 60%;
+    }
 .wrapper .form_container .form_item {
     margin-bottom: 25px;
 }

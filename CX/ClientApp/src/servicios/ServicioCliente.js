@@ -20,7 +20,7 @@ export const ActualizarCliente = async (data) => {
 }
 
 export const InactivarCliente = async (id) => {
-    const url = `${controlador}/eliminarsocio?idCliente=${id}`;
+    const url = `${controlador}/eliminarcliente?idCliente=${id}`;
     return await ProcesarDatosApi('DELETE', url);
 }
 

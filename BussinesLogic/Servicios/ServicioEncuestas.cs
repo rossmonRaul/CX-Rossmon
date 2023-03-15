@@ -35,7 +35,11 @@ namespace BussinesLogic.Servicios
         {
             return await this.repositorioEncuestas.ActualizarEncuesta(entitiEncuesta);
         }
-
+        public async Task<bool> ValidarToken(string token)
+        {
+            return await this.repositorioEncuestas.ValidarToken(token);
+        }
+       
         public async Task<DtoEncuesta> ObtenerEncuestaPorID(int idEncuesta)
         {
             return await this.repositorioEncuestas.ObtenerEncuestaPorId(idEncuesta);
