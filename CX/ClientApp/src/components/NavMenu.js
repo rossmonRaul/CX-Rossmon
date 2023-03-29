@@ -103,11 +103,6 @@ export class NavMenu extends Component {
                                                         <NavLink tag={Link} style={{ color: "#303F9F", }} to="/MantenimientoSegmentos">Segmentos</NavLink>
                                                     </NavItem>
                                                 </DropdownItem>
-                                                {/*<DropdownItem>*/}
-                                                {/*    <NavItem>*/}
-                                                {/*        <NavLink tag={Link} style={{ color: "#303F9F", }} to="/MantenimientoCanales">Canales</NavLink>*/}
-                                                {/*    </NavItem>*/}
-                                                {/*</DropdownItem>*/}
                                                 <DropdownItem>
                                                     <NavItem>
                                                         <NavLink tag={Link} style={{ color: "#303F9F", }} to="/MantenimientoServicioNegocio">Servicio Negocio</NavLink>
@@ -314,7 +309,7 @@ export class NavMenu extends Component {
                                         </NavItem>
                                     </DropdownItem>
                                     <DropdownItem divider />
-                                    <DropdownItem>
+                                    <DropdownItem>  
                                         <NavItem>
                                             <NavLink tag={Link} style={{ color: "#303F9F", }} to="/MantenimientoIndicador">Indicadores</NavLink>
                                         </NavItem>
@@ -326,11 +321,6 @@ export class NavMenu extends Component {
                                         </NavItem>
                                     </DropdownItem>
                                     <DropdownItem divider />
-                                    {/*<DropdownItem>*/}
-                                    {/*    <NavItem>*/}
-                                    {/*        <NavLink tag={Link} style={{ color: "#303F9F", }} to="/MantenimientoPerspectiva">Perspectivas</NavLink>*/}
-                                    {/*    </NavItem>*/}
-                                    {/*</DropdownItem>*/}
                                     <DropdownItem divider />
                                     <DropdownItem>
                                         <NavItem>
@@ -350,17 +340,6 @@ export class NavMenu extends Component {
                                         </NavItem>
                                     </DropdownItem>
                                     <DropdownItem divider />
-                                    {/*<DropdownItem>*/}
-                                    {/*    <NavItem>*/}
-                                    {/*        <NavLink tag={Link} style={{ color: "#303F9F", }} to="/MantenimientoClientesSocios">Clientes Por Socios</NavLink>*/}
-                                    {/*    </NavItem>*/}
-                                    {/*</DropdownItem>*/}
-                                    {/*<DropdownItem divider />*/}
-                                    {/*<DropdownItem>*/}
-                                    {/*    <NavItem>*/}
-                                    {/*        <NavLink tag={Link} style={{ color: "#303F9F", }} to="/MantenimientoInteracciones">Interacciones</NavLink>*/}
-                                    {/*    </NavItem>*/}
-                                    {/*</DropdownItem>*/}
                                 </DropdownMenu>
                             </UncontrolledDropdown>
 
